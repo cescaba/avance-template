@@ -36,7 +36,7 @@ get_header();
 
 	<!-- Características Section -->
 	<section class="features-section">
-		<h2 class="section-title">Nuestras Características</h2>
+		<h2 class="section-title">Nuestrasddd Características</h2>
 		<div class="features-grid">
 			<?php
 			$features = get_theme_mod( 'homepage_features', array(

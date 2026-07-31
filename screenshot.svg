@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <style>
+      .header-bg { fill: #ffffff; }
+      .footer-bg { fill: #1f2937; }
+      .nav-bg { fill: #f3f4f6; }
+      .text-dark { fill: #111827; font-family: Arial, sans-serif; }
+      .text-light { fill: #ffffff; font-family: Arial, sans-serif; }
+      .text-gray { fill: #6b7280; font-family: Arial, sans-serif; }
+      .border { stroke: #e5e7eb; stroke-width: 2; fill: none; }
+      .button-primary { fill: #2563eb; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#f9fafb"/>
+
+  <!-- Header -->
+  <rect class="header-bg" width="1200" height="80" y="0"/>
+  <line class="border" x1="0" y1="80" x2="1200" y2="80"/>
+
+  <!-- Logo placeholder -->
+  <circle cx="80" cy="40" r="20" class="button-primary"/>
+
+  <!-- Site title -->
+  <text x="130" y="50" font-size="24" font-weight="bold" class="text-dark">Avance Nativo</text>
+
+  <!-- Navigation -->
+  <text x="500" y="50" font-size="16" class="text-gray">Inicio</text>
+  <text x="650" y="50" font-size="16" class="text-gray">Servicios</text>
+  <text x="820" y="50" font-size="16" class="text-gray">Contacto</text>
+  <text x="980" y="50" font-size="16" class="text-gray">Blog</text>
+
+  <!-- Hero section -->
+  <text x="60" y="180" font-size="42" font-weight="bold" class="text-dark">Bienvenido a Avance Nativo</text>
+  <text x="60" y="230" font-size="20" class="text-gray">Un tema WordPress 100% nativo, seguro y responsivo</text>
+
+  <!-- Primary button -->
+  <rect class="button-primary" x="60" y="260" width="200" height="50" rx="8"/>
+  <text x="160" y="295" font-size="16" class="text-light" text-anchor="middle" font-weight="bold">Comenzar Ahora</text>
+
+  <!-- Features section -->
+  <text x="60" y="410" font-size="28" font-weight="bold" class="text-dark">Características</text>
+
+  <!-- Feature 1 -->
+  <rect x="60" y="450" width="320" height="180" fill="#ffffff" rx="8"/>
+  <rect class="border" x="60" y="450" width="320" height="180" rx="8"/>
+  <circle cx="100" cy="490" r="12" class="button-primary"/>
+  <text x="130" y="500" font-size="18" font-weight="bold" class="text-dark">100% Nativo</text>
+  <text x="70" y="530" font-size="14" class="text-gray" fill="#999">Sin plugins, sin frameworks,</text>
+  <text x="70" y="550" font-size="14" class="text-gray" fill="#999">sin dependencias externas.</text>
+
+  <!-- Feature 2 -->
+  <rect x="440" y="450" width="320" height="180" fill="#ffffff" rx="8"/>
+  <rect class="border" x="440" y="450" width="320" height="180" rx="8"/>
+  <circle cx="480" cy="490" r="12" class="button-primary"/>
+  <text x="510" y="500" font-size="18" font-weight="bold" class="text-dark">Responsivo</text>
+  <text x="450" y="530" font-size="14" class="text-gray" fill="#999">Mobile-first responsive</text>
+  <text x="450" y="550" font-size="14" class="text-gray" fill="#999">en todos los dispositivos.</text>
+
+  <!-- Feature 3 -->
+  <rect x="820" y="450" width="320" height="180" fill="#ffffff" rx="8"/>
+  <rect class="border" x="820" y="450" width="320" height="180" rx="8"/>
+  <circle cx="860" cy="490" r="12" class="button-primary"/>
+  <text x="890" y="500" font-size="18" font-weight="bold" class="text-dark">Seguro</text>
+  <text x="830" y="530" font-size="14" class="text-gray" fill="#999">Nonces, sanitización,</text>
+  <text x="830" y="550" font-size="14" class="text-gray" fill="#999">escapado en outputs.</text>
+
+  <!-- Blog section -->
+  <text x="60" y="730" font-size="28" font-weight="bold" class="text-dark">Últimos Artículos</text>
+
+  <!-- Blog post 1 -->
+  <rect x="60" y="770" width="380" height="100" fill="#ffffff" rx="8"/>
+  <rect class="border" x="60" y="770" width="380" height="100" rx="8"/>
+  <text x="80" y="800" font-size="16" font-weight="bold" class="text-dark">Introducción al Tema</text>
+  <text x="80" y="830" font-size="13" class="text-gray">Conoce todas las características de Avance Nativo...</text>
+
+  <!-- Blog post 2 -->
+  <rect x="520" y="770" width="380" height="100" fill="#ffffff" rx="8"/>
+  <rect class="border" x="520" y="770" width="380" height="100" rx="8"/>
+  <text x="540" y="800" font-size="16" font-weight="bold" class="text-dark">Guía de Seguridad</text>
+  <text x="540" y="830" font-size="13" class="text-gray">Mejores prácticas de seguridad en WordPress...</text>
+
+  <!-- Footer -->
+  <rect class="footer-bg" x="0" y="850" width="1200" height="50"/>
+  <text x="60" y="880" font-size="14" class="text-light">&copy; 2026 Avance Empresarial. Todos los derechos reservados.</text>
+</svg>

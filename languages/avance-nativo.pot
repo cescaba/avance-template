@@ -1,0 +1,202 @@
+# Translation template for Avance Nativo theme.
+# This file is distributed under the same license as the Avance Nativo package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Avance Nativo 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-31 00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: functions.php:14
+msgid "Menú Principal"
+msgstr ""
+
+#: functions.php:15
+msgid "Menú del Footer"
+msgstr ""
+
+#: functions.php:82
+msgid "Crea un menú"
+msgstr ""
+
+#: functions.php:156
+msgid "Colores de Avance Nativo"
+msgstr ""
+
+#: functions.php:163
+msgid "Color Primario"
+msgstr ""
+
+#: functions.php:212
+msgid "Footer - Columna 1"
+msgstr ""
+
+#: functions.php:213
+msgid "Widget area en el footer"
+msgstr ""
+
+#: functions.php:220
+msgid "Footer - Columna 2"
+msgstr ""
+
+#: functions.php:227
+msgid "Footer - Columna 3"
+msgstr ""
+
+#: header.php:47
+msgid "Menú del footer"
+msgstr ""
+
+#: footer.php:36
+msgid "Todos los derechos reservados."
+msgstr ""
+
+#: index.php:35
+msgid "Resultados de búsqueda para: %s"
+msgstr ""
+
+#: index.php:57
+msgid "Por: "
+msgstr ""
+
+#: index.php:72
+msgid "Categorías: "
+msgstr ""
+
+#: index.php:78
+msgid "Sin comentarios"
+msgstr ""
+
+#: index.php:79
+msgid "1 comentario"
+msgstr ""
+
+#: index.php:80
+msgid "% comentarios"
+msgstr ""
+
+#: index.php:96
+msgid "Leer más"
+msgstr ""
+
+#: index.php:105
+msgid "Etiquetas: "
+msgstr ""
+
+#: index.php:117
+msgid "Paginación"
+msgstr ""
+
+#: index.php:121
+msgid "Anterior"
+msgstr ""
+
+#: index.php:122
+msgid "Siguiente"
+msgstr ""
+
+#: index.php:123
+msgid "Navegación de paginación"
+msgstr ""
+
+#: index.php:131
+msgid "No se encontró nada"
+msgstr ""
+
+#: index.php:137
+msgid "Lo sentimos, pero no encontramos ningún resultado para tu búsqueda. Intenta con otros términos."
+msgstr ""
+
+#: index.php:139
+msgid "No hay contenido disponible en este momento."
+msgstr ""
+
+#: index.php:142
+msgid "Volver a inicio"
+msgstr ""
+
+#: page.php:26
+msgid "Páginas:"
+msgstr ""
+
+#: single.php:29
+msgid "Páginas:"
+msgstr ""
+
+#: single.php:59
+msgid "Anterior:"
+msgstr ""
+
+#: single.php:60
+msgid "Siguiente:"
+msgstr ""
+
+#: comments.php:28
+msgid "%1$s comentario en \"%2$s\""
+msgid_plural "%1$s comentarios en \"%2$s\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:36
+msgctxt "comments title"
+msgid "comments title"
+msgstr ""
+
+#: comments.php:47
+msgid "Comentarios más antiguos"
+msgstr ""
+
+#: comments.php:48
+msgid "Comentarios más nuevos"
+msgstr ""
+
+#: comments.php:64
+msgid "Conectado como %s. %s"
+msgstr ""
+
+#: comments.php:66
+msgid "Desconectar"
+msgstr ""
+
+#: comments.php:69
+msgid "Deja un comentario"
+msgstr ""
+
+#: comments.php:70
+msgid "Enviar comentario"
+msgstr ""
+
+#: comments.php:71
+msgid "Comentario"
+msgstr ""
+
+#: comments.php:74
+msgid "Nombre"
+msgstr ""
+
+#: comments.php:75
+msgid "Email"
+msgstr ""
+
+#: comments.php:76
+msgid "Sitio web"
+msgstr ""
+
+#: comments.php:83
+msgid "Los comentarios están cerrados."
+msgstr ""
+
+#: comments.php:123
+msgid "el %s a las %s"
+msgstr ""
+
+#: comments.php:138
+msgid "Tu comentario está esperando aprobación."
+msgstr ""

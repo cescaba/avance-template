@@ -1,0 +1,71 @@
+/**
+ * Base Styles - Reset y estilos fundamentales
+ *
+ * Contiene:
+ * - Reset CSS
+ * - Tipografía base (Inter)
+ * - Colores globales
+ * - Variables CSS
+ * - Utilidades básicas
+ */
+
+/* =====================================================
+   0. VARIABLES CSS
+   ===================================================== */
+
+:root {
+	/* Spacing */
+	--lateral-spacing: 280px;
+	--lateral-spacing-mobile: 1rem;
+
+	/* Colors - Text */
+	--text-white: #FFFFFF;
+	--text-primary: #364153;
+	--text-secondary: #99A1AF;
+
+	/* Colors - Background */
+	--bg-white: #FFFFFF;
+	--bg-light: #F9FAFB;
+
+	/* Typography */
+	--font-size-sm: 12px;
+	--font-size-base: 14px;
+	--font-size-md: 16px;
+
+	/* Spacing - Gap */
+	--gap-sm: 10px;
+	--gap-md: 16px;
+
+	/* Utilities */
+	--transition: all 0.3s ease;
+	--radius: 8px;
+}
+
+/* =====================================================
+   1. TIPOGRAFÍA BASE - INTER
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* =====================================================
+   2. CSS RESET
+   ===================================================== */
+
+
+
+body {
+	font-family: 'Inter', sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #333;
+	background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6,
+p {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}

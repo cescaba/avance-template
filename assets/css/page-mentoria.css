@@ -1,0 +1,352 @@
+/**
+ * Page Mentorías Styles
+ *
+ * Estilos específicos para la plantilla de mentorías
+ *
+ * @package Avance_Template
+ */
+/* =====================================================
+   MAIN WRAPPER
+   ===================================================== */
+.mentoria-main {
+	width: 100%;
+}
+/* =====================================================
+   SECTION 1: MENTORÍA 1:1
+   ===================================================== */
+.mentoria-intro {
+	height: 524px;
+	background-color: var(--bg-white);
+	display: flex;
+}
+.mentoria-intro__container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+.mentoria-intro__features {
+	display: grid;
+	grid-template-columns: 9fr 11fr;
+	gap: 61px;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+.mentoria-intro__mentoria {
+	padding: 0px 0 0px var(--lateral-spacing);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	justify-content: center;
+	height: 100%;
+}
+.mentoria-intro__title {
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 16px;
+	letter-spacing: 1.1px;
+	text-transform: uppercase;
+	color: #2C2629;
+	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+.mentoria-intro__subtitle {
+	font-weight: 300;
+	font-size: 36px;
+	line-height: 36px;
+	color: #2C2629;
+	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+.mentoria-intro__description {
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 23px;
+	color: #99A1AF;
+	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+}
+.mentoria-intro__list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.mentoria-intro__list-item {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	color: #034732;
+	padding-left: 28px;
+	position: relative;
+	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+}
+.mentoria-intro__list-item::before {
+	content: '✓';
+	position: absolute;
+	left: 0;
+	color: #00C950;
+	font-weight: bold;
+	font-size: 14px;
+}
+.mentoria-intro__img {
+	width: 100%;
+	height: 100%;
+	background-image: url('../images/Rectangle\ 4.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+/* =====================================================
+   SECTION 2: ¿PARA QUIÉN ES?
+   ===================================================== */
+.mentoria-target {
+	padding: 60px var(--lateral-spacing);
+	background: linear-gradient(180deg, var(--bg-light) 0%, rgba(242, 245, 244, 0.7) 100%);
+	display: flex;
+	justify-content: center;
+}
+.mentoria-target__container {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.mentoria-target__title {
+	font-weight: 300;
+	font-size: 36px;
+	line-height: 36px;
+	color: #2C2629;
+	text-transform: none;
+}
+.mentoria-target__list {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+}
+.mentoria-target__item {
+	padding: 20px 16px;
+	background-color: var(--bg-white);
+	border-radius: var(--radius);
+	height: 123px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+	            box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mentoria-target__item:hover,
+.mentoria-target__item:focus-within {
+	transform: translateY(-12px);
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15),
+	            0 0 20px rgba(70, 96, 96, 0.08);
+}
+.mentoria-target__item-title {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 28px;
+	color: #466060;
+}
+.mentoria-target__item-text {
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 23px;
+	color: #99A1AF;
+}
+/* =====================================================
+   SECTION 3: ¿QUÉ HACEMOS JUNTOS?
+   ===================================================== */
+.mentoria-together {
+	height: 524px;
+	background-color: var(--bg-white);
+	display: flex;
+}
+.mentoria-together__container {
+	width: 100%;
+	display: flex;
+	height: 444px;
+	align-items: center;
+}
+.mentoria-together__features {
+	display: grid;
+	grid-template-columns: 4fr 6fr;
+	gap: 61px;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+.mentoria-together__img {
+	width: 100%;
+	height: 100%;
+	background-image: url('../images/Rectangle\ 6.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	order: -1;
+}
+.mentoria-together__content {
+	padding: 0px var(--lateral-spacing) 0px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	justify-content: center;
+	height: 100%;
+}
+.mentoria-together__title {
+	font-weight: 300;
+	font-size: 36px;
+	line-height: 36px;
+	color: #2C2629;
+	text-transform: none;
+}
+.mentoria-together__list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px 48px;
+	counter-reset: item;
+}
+.mentoria-together__list-item {
+	font-family: Outfit;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 2opx;
+	color: #4A5565;
+	counter-increment: item;
+	padding-left: 20px;
+	position: relative;
+}
+
+.mentoria-together__list-item:nth-child(1) {
+	animation-delay: 0.0s;
+}
+
+.mentoria-together__list-item:nth-child(2) {
+	animation-delay: 0.1s;
+}
+
+.mentoria-together__list-item:nth-child(3) {
+	animation-delay: 0.2s;
+}
+
+.mentoria-together__list-item:nth-child(4) {
+	animation-delay: 0.3s;
+}
+
+.mentoria-together__list-item:nth-child(5) {
+	animation-delay: 0.4s;
+}
+
+.mentoria-together__list-item:nth-child(6) {
+	animation-delay: 0.5s;
+}
+
+.mentoria-together__list-item:nth-child(7) {
+	animation-delay: 0.6s;
+}
+.mentoria-together__list-item::before {
+	content: counter(item);
+	position: absolute;
+	left: 0;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 15px;
+	color: #98BFBF;
+}
+/* =====================================================
+   SECTION 4: PREGUNTAS FRECUENTES
+   ===================================================== */
+.mentoria-faq {
+	padding: 50px var(--lateral-spacing) 120px var(--lateral-spacing);
+	display: flex;
+}
+.mentoria-faq__container {
+	max-width: 800px;
+	display: grid;
+	width: 100%;
+	gap: 44px;
+}
+.mentoria-faq__title {
+	font-weight: 300;
+	font-size: 36px;
+	line-height: 36px;
+	color: #2C2629;
+	text-transform: none;
+}
+.mentoria-faq__list {
+	display: grid;
+	gap: 0;
+}
+.mentoria-faq__item {
+	border-bottom: 1px solid #E5E7EB;
+}
+
+.mentoria-faq__item:nth-child(1) {
+	animation-delay: 0.0s;
+}
+
+.mentoria-faq__item:nth-child(2) {
+	animation-delay: 0.1s;
+}
+
+.mentoria-faq__item:nth-child(3) {
+	animation-delay: 0.2s;
+}
+
+.mentoria-faq__item:nth-child(4) {
+	animation-delay: 0.3s;
+}
+.mentoria-faq__item:last-child {
+	border-bottom: none;
+}
+.mentoria-faq__question {
+	width: 100%;
+	padding: 24px;
+	border: none;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	background: #fff;
+	color: #466060;
+	text-align: left;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mentoria-faq__question:hover {
+	background-color: #F9FAFB;
+}
+.mentoria-faq__text {
+	flex: 1;
+	text-align: left;
+}
+.mentoria-faq__toggle {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+	color: #98BFBF;
+	stroke: #98BFBF;
+	transition: transform 0.3s ease;
+}
+.mentoria-faq__answer {
+	max-height: 0;
+	overflow: hidden;
+	font-weight: 400;
+	font-size: 16px;
+	color: #466060;
+	line-height: 1.5;
+	transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.mentoria-faq__item.is-active .mentoria-faq__answer {
+	max-height: 500px;
+	padding: 20px 24px 24px 24px;
+}
+.mentoria-faq__item.is-active .mentoria-faq__toggle {
+	transform: rotate(-90deg);
+}

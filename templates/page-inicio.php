@@ -1,0 +1,308 @@
+<?php
+
+/**
+ * Template: Página de Inicio
+ *
+ * @package Avance_Template
+ */
+
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+get_header();
+?>
+
+<main class="site-main">
+
+	<!-- Hero Section -->
+	<section class="home-hero" aria-label="<?php esc_attr_e('Sección Hero', 'avance-template'); ?>">
+		<div class="home-hero__bg" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/Rectangle 3.png'); ?>')">
+			<div class="home-hero__container">
+				<p class="home-hero__label"><?php esc_html_e('Consultoría · Capacitación · Mentoría', 'avance-template'); ?></p>
+				<h1 class="home-hero__title"><?php esc_html_e('Transforma tu empresa con estrategia y acción real', 'avance-template'); ?></h1>
+				<p class="home-hero__description"><?php esc_html_e('Capacitación ejecutiva, consultoría comercial y mentoría para líderes que quieren resultados concretos en Lima y el Perú.', 'avance-template'); ?></p>
+				<div class="home-hero__content">
+					<a href="#" class="home-hero__btn-diag"><?php esc_html_e('Diagnóstico gratuito', 'avance-template'); ?></a>
+					<a href="#" class="home-hero__btn-consul"><?php esc_html_e('Agendar consulta', 'avance-template'); ?></a>
+					<a href="#" class="home-hero__btn-link">
+						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon" aria-hidden="true">
+						<?php esc_html_e('Escribir ahora', 'avance-template'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features Section -->
+	<section class="home-features" aria-label="<?php esc_attr_e('Características', 'avance-template'); ?>">
+		<div class="home-features__container animate-on-scroll" data-animate>
+			<div class="home-features__item">
+				<span class="home-features__stat counter" data-animate data-value="50" data-suffix="+">0</span>
+				<p class="home-features__text"><?php esc_html_e('Empresas asesoradas', 'avance-template'); ?></p>
+			</div>
+			<div class="home-features__item">
+				<span class="home-features__stat counter" data-animate data-value="35" data-suffix="+">0</span>
+				<p class="home-features__text"><?php esc_html_e('Años de experiencia', 'avance-template'); ?></p>
+			</div>
+			<div class="home-features__item">
+				<span class="home-features__stat counter" data-animate data-value="100" data-suffix="%">0</span>
+				<p class="home-features__text"><?php esc_html_e('Clientes satisfechos', 'avance-template'); ?></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Services Section -->
+	<section class="home-services" id="home-services" aria-label="<?php esc_attr_e('Servicios', 'avance-template'); ?>">
+		<div class="home-services__container">
+			<header class="home-services__header animate-on-scroll" data-animate>
+				<h2 class="home-services__title"><?php esc_html_e('Servicios', 'avance-template'); ?></h2>
+				<p class="home-services__subtitle"><?php esc_html_e('¿En qué te puedo ayudar?', 'avance-template'); ?></p>
+			</header>
+
+			<div class="home-services__list">
+				<div class="home-services__item animate-on-scroll" data-animate>
+					<div class="home-services__badge"><?php esc_html_e('01', 'avance-template'); ?></div>
+					<h3 class="home-services__item-title"><?php esc_html_e('Capacitación', 'avance-template'); ?></h3>
+					<p class="home-services__item-text"><?php esc_html_e('Programas ejecutivos y seminarios de alto impacto. In-company o formato abierto. Metodología experiencial.', 'avance-template'); ?></p>
+					<div class="home-services__actions">
+						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="#" class="home-services__link"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon">
+							<?php esc_html_e('Preguntar por WhatsApp', 'avance-template'); ?>
+						</a>
+					</div>
+				</div>
+
+				<div class="home-services__item animate-on-scroll" data-animate>
+					<div class="home-services__badge"><?php esc_html_e('02', 'avance-template'); ?></div>
+					<h3 class="home-services__item-title"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></h3>
+					<p class="home-services__item-text"><?php esc_html_e('Diagnóstico y estrategia orientada a resultados. Acompañamiento en la implementación del proceso comercial.', 'avance-template'); ?></p>
+					<div class="home-services__actions">
+						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="#" class="home-services__link"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon">
+							<?php esc_html_e('Preguntar por WhatsApp', 'avance-template'); ?>
+						</a>
+					</div>
+				</div>
+
+				<div class="home-services__item animate-on-scroll" data-animate>
+					<div class="home-services__badge"><?php esc_html_e('03', 'avance-template'); ?></div>
+					<h3 class="home-services__item-title"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></h3>
+					<p class="home-services__item-text"><?php esc_html_e('Mentoría personalizada para ejecutivos y emprendedores en búsqueda de crecimiento.', 'avance-template'); ?></p>
+					<div class="home-services__actions">
+						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="#" class="home-services__link"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon">
+							<?php esc_html_e('Preguntar por WhatsApp', 'avance-template'); ?>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Process Section -->
+	<section class="home-process" aria-label="<?php esc_attr_e('Proceso', 'avance-template'); ?>">
+		<div class="home-process__container">
+			<header class="home-process__header animate-on-scroll" data-animate>
+				<h2 class="home-process__title"><?php esc_html_e('Nuestro Proceso', 'avance-template'); ?></h2>
+				<p class="home-process__subtitle"><?php esc_html_e('Cómo trabajamos juntos', 'avance-template'); ?></p>
+			</header>
+
+			<div class="home-process__list">
+				<div class="home-process__item animate-on-scroll" data-animate>
+					<div class="home-process__badge"><?php esc_html_e('01', 'avance-template'); ?></div>
+					<div class="home-process__line">
+						<div class="home-process__dots"></div>
+						<div class="home-process__arrow">
+							<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9 6l6 6-6 6" stroke="#6fa593" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</div>
+					</div>
+					<div class="home-process__content">
+						<h3 class="home-process__item-title"><?php esc_html_e('Diagnóstico', 'avance-template'); ?></h3>
+						<p class="home-process__item-text"><?php esc_html_e('Evaluamos tu situación actual: proceso comercial, equipo y resultados.', 'avance-template'); ?></p>
+					</div>
+				</div>
+
+				<div class="home-process__item animate-on-scroll" data-animate>
+					<div class="home-process__badge"><?php esc_html_e('02', 'avance-template'); ?></div>
+					<div class="home-process__line">
+						<div class="home-process__dots"></div>
+						<div class="home-process__arrow">
+							<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9 6l6 6-6 6" stroke="#6fa593" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</div>
+					</div>
+					<div class="home-process__content">
+						<h3 class="home-process__item-title"><?php esc_html_e('Plan a medida', 'avance-template'); ?></h3>
+						<p class="home-process__item-text"><?php esc_html_e('Diseñamos un programa específico: capacitación, consultoría o mentoría según tu necesidad.', 'avance-template'); ?></p>
+					</div>
+				</div>
+
+				<div class="home-process__item animate-on-scroll" data-animate>
+					<div class="home-process__badge"><?php esc_html_e('03', 'avance-template'); ?></div>
+					<div class="home-process__content">
+						<h3 class="home-process__item-title"><?php esc_html_e('Implementación', 'avance-template'); ?></h3>
+						<p class="home-process__item-text"><?php esc_html_e('Acompañamiento continuo para garantizar resultados', 'avance-template'); ?></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="home-process__cta animate-on-scroll" data-animate>
+				<div class="home-process__cta-left">
+					<h3 class="home-process__cta-title"><?php esc_html_e('¿Listo para empezar el proceso?', 'avance-template'); ?></h3>
+					<p class="home-process__cta-texto"><?php esc_html_e('Primera sesión sin costo · Sin compromiso', 'avance-template'); ?></p>
+				</div>
+				<div class="home-process__cta-right">
+					<a href="#" class="home-process__cta-grat"><?php esc_html_e('Agendar sesión gratuita', 'avance-template'); ?></a>
+					<a href="#" class="home-process__cta-what"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon">
+						<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials Section -->
+	<section class="home-testimonials" id="home-testimonials" aria-label="<?php esc_attr_e('Testimonios', 'avance-template'); ?>">
+		<div class="home-testimonials__container">
+			<header class="home-testimonials__header animate-on-scroll" data-animate>
+				<h2 class="home-testimonials__title"><?php esc_html_e('Testimonios', 'avance-template'); ?></h2>
+				<p class="home-testimonials__subtitle"><?php esc_html_e('Lo que dicen nuestros clientes', 'avance-template'); ?></p>
+			</header>
+
+			<div class="home-testimonials__grid">
+				<article class="home-testimonials__item animate-on-scroll" data-animate>
+					<p class="home-testimonials__text"><?php esc_html_e('"El diagnóstico comercial nos permitió identificar puntos ciegos que frenaban nuestras ventas. En 3 meses duplicamos el ticket promedio."', 'avance-template'); ?></p>
+					<div class="home-testimonials__author">
+						<div class="home-testimonials__author-icon">
+							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/quote-icon.png'); ?>" alt="" class="home-testimonials__icon" aria-hidden="true">
+						</div>
+						<div class="home-testimonials__author-content">
+							<h4 class="home-testimonials__name"><?php esc_html_e('Alfred M.', 'avance-template'); ?></h4>
+							<p class="home-testimonials__role"><?php esc_html_e('Gerente Comercial — Retail, Lima', 'avance-template'); ?></p>
+						</div>
+					</div>
+				</article>
+
+				<article class="home-testimonials__item animate-on-scroll" data-animate>
+					<p class="home-testimonials__text"><?php esc_html_e('"El diagnóstico comercial nos permitió identificar puntos ciegos que frenaban nuestras ventas. En 3 meses duplicamos el ticket promedio."', 'avance-template'); ?></p>
+					<div class="home-testimonials__author">
+						<div class="home-testimonials__author-icon">
+							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/quote-icon.png'); ?>" alt="" class="home-testimonials__icon" aria-hidden="true">
+						</div>
+						<div class="home-testimonials__author-content">
+							<h4 class="home-testimonials__name"><?php esc_html_e('Jerico M.', 'avance-template'); ?></h4>
+							<p class="home-testimonials__role"><?php esc_html_e('Gerente Comercial — Retail, Lima', 'avance-template'); ?></p>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="home-cta" id="home-cta" aria-label="<?php esc_attr_e('Llamada a la Acción', 'avance-template'); ?>">
+		<div class="home-cta__container animate-on-scroll" data-animate>
+			<p class="home-cta__text"><?php esc_html_e('¿Quieres resultados similares para tu empresa?', 'avance-template'); ?></p>
+			<div class="home-cta__buttons">
+				<a href="#" class="home-cta__btn-diag"><?php esc_html_e('Empezar con diagnóstico gratuito', 'avance-template'); ?></a>
+				<a href="#" class="home-cta__btn-consul">
+					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon">
+					<?php esc_html_e('Escribir al WhatsApp', 'avance-template'); ?>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Clients Logos Section -->
+	<section class="home-clients" id="home-clients" aria-label="<?php esc_attr_e('Nuestros Clientes', 'avance-template'); ?>">
+		<div class="home-clients__container animate-on-scroll" data-animate>
+			<p class="home-clients__title"><?php esc_html_e('Nuestros clientes', 'avance-template'); ?></p>
+			<div class="home-clients__grid">
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+				<div class="home-clients__logo"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Dark Band Section -->
+	<section class="home-dark-band" id="home-dark-band" aria-label="<?php esc_attr_e('Sección Destacada', 'avance-template'); ?>">
+		<div class="home-dark-band__bg" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/Rectangle 5.png'); ?>')">
+			<div class="home-dark-band__container animate-on-scroll" data-animate>
+				<h2 class="home-dark-band__title"><?php esc_html_e('¿Sabes cuánto puede estar perdiendo tu empresa por no tener estrategia comercial?', 'avance-template'); ?></h2>
+				<div class="home-dark-band__actions">
+					<a href="#" class="home-dark-band__btn-primary"><?php esc_html_e('Hacer el diagnóstico ahora es gratis', 'avance-template'); ?></a>
+					<a href="#" class="home-dark-band__btn-secondary">
+						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-dark-band__icon" aria-hidden="true">
+						<?php esc_html_e('Hablar por WhatsApp ahora', 'avance-template'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Form Section -->
+	<section class="home-form" id="home-form" aria-label="<?php esc_attr_e('Formulario de Contacto', 'avance-template'); ?>">
+		<div class="home-form__container">
+			<header class="home-form__header animate-on-scroll" data-animate>
+				<p class="home-form__label"><?php esc_html_e('FORMULARIO MULTISERVICIO', 'avance-template'); ?></p>
+				<h2 class="home-form__title"><?php esc_html_e('¿Listo para dar el siguiente paso?', 'avance-template'); ?></h2>
+				<p class="home-form__description"><?php esc_html_e('Completa el formulario y me pongo en contacto en menos de 24h.', 'avance-template'); ?></p>
+			</header>
+
+			<form class="home-form__form">
+				<div class="home-form__row animate-on-scroll" data-animate>
+					<div class="home-form__field">
+						<label for="form-nombre" class="home-form__label-field"><?php esc_html_e('Nombre completo', 'avance-template'); ?> <span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span></label>
+						<input type="text" id="form-nombre" class="home-form__input" placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>" required>
+					</div>
+					<div class="home-form__field">
+						<label for="form-email" class="home-form__label-field"><?php esc_html_e('Email', 'avance-template'); ?> <span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span></label>
+						<input type="email" id="form-email" class="home-form__input" placeholder="<?php esc_attr_e('juan@empresa.com', 'avance-template'); ?>" required>
+					</div>
+				</div>
+
+				<div class="home-form__row animate-on-scroll" data-animate>
+					<div class="home-form__field">
+						<label for="form-whatsapp" class="home-form__label-field"><?php esc_html_e('WhatsApp', 'avance-template'); ?></label>
+						<input type="tel" id="form-whatsapp" class="home-form__input" placeholder="<?php esc_attr_e('+51 999 000 000', 'avance-template'); ?>">
+					</div>
+					<div class="home-form__field">
+						<label for="form-service" class="home-form__label-field"><?php esc_html_e('Servicio de interés', 'avance-template'); ?></label>
+						<input type="text" id="form-service" class="home-form__input" placeholder="<?php esc_attr_e('', 'avance-template'); ?>">
+					</div>
+				</div>
+
+				<div class="home-form__field home-form__field--full animate-on-scroll" data-animate>
+					<label for="form-message" class="home-form__label-field"><?php esc_html_e('Mensaje', 'avance-template'); ?></label>
+					<textarea id="form-message" class="home-form__textarea" rows="4" placeholder="<?php esc_attr_e('Cuéntame brevemente tu situación...', 'avance-template'); ?>"></textarea>
+				</div>
+
+				<div class="home-form__buttons">
+					<button type="submit" class="home-form__button"><?php esc_html_e('Enviar mensaje', 'avance-template'); ?></button>
+					<a href="#" class="home-form__button--secondary">
+						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-form__button-icon" aria-hidden="true">
+						<?php esc_html_e('Escribir al WhatsApp', 'avance-template'); ?>
+					</a>
+				</div>
+
+			</form>
+		</div>
+	</section>
+
+</main>
+
+<?php get_footer();

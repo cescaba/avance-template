@@ -74,6 +74,7 @@ class Avance_Contact_Form_Handler {
 				array(
 					'message' => 'Mensaje enviado correctamente. Te contactaremos pronto.',
 					'contact_id' => $contact_id,
+					'url' => $whatsapp_result['url'],
 				)
 			);
 		} else {
@@ -107,6 +108,14 @@ class Avance_Contact_Form_Handler {
 	 * Enviar mensaje a WhatsApp
 	 */
 	private function send_to_whatsapp($data, $contact_id) {
+		if (!defined('AVANCE_WHATSAPP_OWNER') || empty(AVANCE_WHATSAPP_OWNER)) {
+			error_log('Error: AVANCE_WHATSAPP_OWNER no está definido en config/theme-config.php');
+			return array(
+				'success' => false,
+				'reason' => 'whatsapp_config_missing',
+			);
+		}
+
 		$owner_phone = AVANCE_WHATSAPP_OWNER;
 
 		// Construir mensaje

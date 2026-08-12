@@ -18,12 +18,13 @@ require_once get_template_directory() . '/includes/class-contact-db.php';
 require_once get_template_directory() . '/includes/class-contact-form-handler.php';
 
 /**
- * Crear tabla de contactos al activar el tema
+ * Crear tabla de contactos al cargar WordPress
  */
-function avance_template_activate() {
-	Avance_Contact_DB::create_table();
-}
-add_action('after_setup_theme', 'avance_template_activate');
+add_action('wp_loaded', function() {
+	if (class_exists('Avance_Contact_DB')) {
+		Avance_Contact_DB::create_table();
+	}
+});
 
 /**
  * Enqueue styles and scripts
@@ -130,23 +131,21 @@ function avance_template_enqueue_assets() {
 		);
 	}
 
-	// Page-specific scripts - Home (Contact Form)
-	if (is_page_template('templates/page-inicio.php')) {
-		wp_enqueue_script(
-			'avance-contact-whatsapp',
-			$theme_uri . '/assets/js/contact-whatsapp.js',
-			array(),
-			wp_get_theme()->get('Version'),
-			true
-		);
+	// Contact Form Script (Enqueue en todas las páginas - el script verifica si el formulario existe)
+	wp_enqueue_script(
+		'avance-contact-whatsapp',
+		$theme_uri . '/assets/js/contact-whatsapp.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
 
-		// Pasar ajaxurl al script
-		wp_localize_script(
-			'avance-contact-whatsapp',
-			'ajaxurl',
-			admin_url('admin-ajax.php')
-		);
-	}
+	// Pasar ajaxurl al script
+	wp_localize_script(
+		'avance-contact-whatsapp',
+		'ajaxurl',
+		admin_url('admin-ajax.php')
+	);
 
 	// WordPress styles
 	wp_enqueue_style('wp-block-library');

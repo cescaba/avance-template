@@ -101,13 +101,19 @@ class Avance_Contact_DB {
 			$update_data['validation_reason'] = $reason;
 		}
 
-		$wpdb->update(
+		$result = $wpdb->update(
 			$table_name,
 			$update_data,
 			array('id' => $contact_id),
 			array('%s', '%s'),
 			array('%d')
 		);
+
+		if ($result === false) {
+			error_log('Error updating contact status: ' . $wpdb->last_error);
+		}
+
+		return $result;
 	}
 
 	/**

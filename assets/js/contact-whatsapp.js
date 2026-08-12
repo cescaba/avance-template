@@ -84,31 +84,9 @@
 		return emailRegex.test(email);
 	}
 
-	function buildWhatsAppMessage(data) {
-		const lines = [
-			'Nuevo contacto web:',
-			`Nombre: ${data.nombre}`,
-			`Email: ${data.email}`,
-			`WhatsApp: ${data.numero}`,
-			`Asunto: ${data.asunto}`,
-		];
-
-		if (data.mensaje) {
-			lines.push(`Mensaje: ${data.mensaje}`);
-		}
-
-		return lines.join('\n');
-	}
-
-	function buildWhatsAppUrl(message) {
-		const encoded = encodeURIComponent(message);
-		return `https://wa.me/${config.ownerPhone}?text=${encoded}`;
-	}
-
 	function submitFormViaAjax(formData) {
 		const ajaxData = new FormData();
 
-		// Agregar datos del formulario
 		ajaxData.append('action', 'avance_submit_contact');
 		ajaxData.append('nonce', getFormNonce());
 		ajaxData.append('nombre', formData.nombre);
@@ -125,15 +103,13 @@
 			.then(response => {
 				config.isSubmitting = false;
 
-				if (response.success) {
-					// Si pasa validación, abrir WhatsApp
-					if (response.data && response.data.url) {
-						openWhatsApp(response.data.url);
-						showSuccess(response.data.message);
-						resetForm();
-					}
+				if (response.success && response.data && response.data.url) {
+					// Validación pasada - abrir WhatsApp
+					openWhatsApp(response.data.url);
+					showSuccess(response.data.message || 'Mensaje enviado correctamente.');
+					resetForm();
 				} else {
-					showError(response.data.message || 'Ocurrió un error. Intenta de nuevo.');
+					showError(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
 				}
 			})
 			.catch(error => {

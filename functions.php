@@ -16,6 +16,7 @@ require_once get_template_directory() . '/config/theme-config.php';
 require_once get_template_directory() . '/includes/class-contact-validator.php';
 require_once get_template_directory() . '/includes/class-contact-db.php';
 require_once get_template_directory() . '/includes/class-contact-form-handler.php';
+require_once get_template_directory() . '/includes/class-contact-admin.php';
 
 /**
  * Crear tabla de contactos al cargar WordPress

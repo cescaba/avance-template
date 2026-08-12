@@ -1,0 +1,543 @@
+/* ===================================
+   AVANCE ADMIN PANEL - PREMIUM DESIGN
+   =================================== */
+
+/* VARIABLES */
+:root {
+	--primary-color: #0073aa;
+	--primary-light: #1a1a1a;
+	--success-color: #28a745;
+	--success-light: #1a1a1a;
+	--danger-color: #dc3545;
+	--danger-light: #1a1a1a;
+	--warning-color: #ffc107;
+	--warning-light: #1a1a1a;
+	--dark: #000000;
+	--gray: #333333;
+	--light: #1a1a1a;
+	--border: #2a2a2a;
+	--shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+	--radius: 8px;
+}
+
+/* CONTAINER */
+.avance-admin-container {
+	max-width: 1400px;
+	background: #fff;
+	padding: 30px;
+	margin: 20px 0;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+}
+
+/* HEADER */
+.avance-admin-header {
+	margin-bottom: 40px;
+	border-bottom: 2px solid #2a2a2a;
+	padding-bottom: 20px;
+}
+
+.avance-admin-title-section h1 {
+	margin: 0;
+	font-size: 32px;
+	color: var(--dark);
+	font-weight: 700;
+}
+
+.avance-admin-subtitle {
+	margin: 8px 0 0 0;
+	color: var(--gray);
+	font-size: 14px;
+}
+
+/* ESTADÍSTICAS */
+.avance-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 20px;
+	margin-bottom: 40px;
+}
+
+.avance-stat-card {
+	padding: 24px;
+	background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+	border-radius: var(--radius);
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	transition: all 0.3s ease;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.avance-stat-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-lg);
+}
+
+.avance-stat-total {
+	background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+}
+
+.avance-stat-success {
+	background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+}
+
+.avance-stat-warning {
+	background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+}
+
+.avance-stat-icon {
+	font-size: 42px;
+	min-width: 70px;
+	text-align: center;
+	opacity: 0.8;
+}
+
+.avance-stat-content {
+	flex: 1;
+}
+
+.avance-stat-number {
+	font-size: 36px;
+	font-weight: 700;
+	color: #fff;
+	line-height: 1;
+}
+
+.avance-stat-label {
+	margin-top: 8px;
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+/* FILTROS */
+.avance-filter-section {
+	background: #f0f0f0;
+	padding: 24px;
+	border-radius: var(--radius);
+	margin-bottom: 30px;
+	border: 1px solid #2a2a2a;
+}
+
+.avance-filter-form {
+	display: flex;
+	gap: 12px;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+.avance-filter-group {
+	flex: 1;
+	min-width: 200px;
+	display: flex;
+	flex-direction: column;
+}
+
+.avance-search-input,
+.avance-select-input {
+	padding: 11px 14px;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	font-size: 14px;
+	font-family: inherit;
+	transition: all 0.3s ease;
+	background: #fff;
+}
+
+.avance-search-input:focus,
+.avance-select-input:focus {
+	outline: none;
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.avance-search-input {
+	flex: 2;
+	min-width: 250px;
+}
+
+/* BOTONES */
+.avance-btn-primary {
+	padding: 11px 24px;
+	background: var(--primary-color);
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	white-space: nowrap;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.avance-btn-primary:hover {
+	background: #0059b3;
+	box-shadow: var(--shadow);
+	transform: translateY(-2px);
+}
+
+.avance-btn-view {
+	padding: 6px 14px;
+	background: var(--primary-color);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.avance-btn-view:hover {
+	background: #0059b3;
+	box-shadow: var(--shadow);
+}
+
+/* TABLA */
+.avance-table-wrapper {
+	background: #fff;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	overflow: hidden;
+	margin-bottom: 30px;
+	box-shadow: var(--shadow);
+}
+
+.avance-contacts-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.avance-contacts-table thead {
+	background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+	color: #fff;
+}
+
+.avance-contacts-table th {
+	padding: 16px 12px;
+	text-align: left;
+	font-weight: 600;
+	white-space: nowrap;
+	border: none;
+}
+
+.avance-contacts-table tbody tr {
+	border-bottom: 1px solid var(--border);
+	transition: background-color 0.2s ease;
+}
+
+.avance-contacts-table tbody tr:hover {
+	background-color: #f9fafb;
+}
+
+.avance-contacts-table td {
+	padding: 14px 12px;
+	vertical-align: middle;
+}
+
+.avance-id-badge {
+	background: #1a1a1a;
+	padding: 4px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+	color: #999;
+	font-size: 12px;
+}
+
+.avance-service-badge {
+	background: #1a1a1a;
+	color: #0073aa;
+	padding: 4px 12px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 500;
+	display: inline-block;
+}
+
+/* BADGES DE ESTADO */
+.avance-badge {
+	padding: 6px 12px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.avance-badge-success {
+	background: #1a1a1a;
+	color: var(--success-color);
+}
+
+.avance-badge-danger {
+	background: #1a1a1a;
+	color: var(--danger-color);
+}
+
+.avance-badge-warning {
+	background: #1a1a1a;
+	color: #ffb340;
+}
+
+.avance-badge-error {
+	background: #1a1a1a;
+	color: #ff6b6b;
+}
+
+.avance-badge-secondary {
+	background: #e2e3e5;
+	color: #383d41;
+}
+
+/* LINKS */
+.avance-link {
+	color: var(--primary-color);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.avance-link:hover {
+	color: #0059b3;
+	text-decoration: underline;
+}
+
+.avance-whatsapp-link {
+	color: #25d366;
+}
+
+.avance-whatsapp-link:hover {
+	color: #128c7e;
+}
+
+/* EMPTY STATE */
+.avance-empty-row td {
+	padding: 60px 20px !important;
+}
+
+.avance-empty-state {
+	text-align: center;
+	color: var(--gray);
+}
+
+/* PAGINACIÓN */
+.avance-pagination {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 30px;
+}
+
+.avance-pagination a,
+.avance-pagination span {
+	padding: 8px 12px;
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	text-decoration: none;
+	color: var(--primary-color);
+	transition: all 0.2s ease;
+}
+
+.avance-pagination a:hover {
+	background: var(--primary-light);
+	border-color: var(--primary-color);
+}
+
+.avance-pagination .current {
+	background: var(--primary-color);
+	color: #fff;
+	border-color: var(--primary-color);
+}
+
+/* MODAL */
+.avance-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.avance-modal-content {
+	background: #fff;
+	border-radius: var(--radius);
+	max-width: 600px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+	position: relative;
+	box-shadow: var(--shadow-lg);
+	animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.avance-modal-close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: none;
+	border: none;
+	font-size: 28px;
+	cursor: pointer;
+	color: var(--gray);
+	transition: color 0.2s ease;
+	z-index: 10;
+}
+
+.avance-modal-close:hover {
+	color: var(--dark);
+}
+
+.avance-modal-header {
+	padding: 24px;
+	border-bottom: 1px solid #2a2a2a;
+	background: #f0f0f0;
+}
+
+.avance-modal-header h2 {
+	margin: 0;
+	font-size: 20px;
+	color: var(--dark);
+}
+
+.avance-modal-body {
+	padding: 24px;
+}
+
+/* DETAIL GRID */
+.avance-detail-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 24px;
+}
+
+.avance-detail-field {
+	display: flex;
+	flex-direction: column;
+}
+
+.avance-detail-field.full-width {
+	grid-column: 1 / -1;
+}
+
+.avance-detail-field label {
+	font-weight: 600;
+	color: var(--gray);
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 8px;
+}
+
+.avance-detail-value {
+	margin: 0;
+	color: var(--dark);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.avance-detail-value code {
+	background: #1a1a1a;
+	color: #999;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-family: 'Courier New', monospace;
+	font-size: 12px;
+}
+
+.avance-message-box {
+	background: #1a1a1a;
+	padding: 12px;
+	border-radius: 4px;
+	border-left: 3px solid var(--primary-color);
+	color: #999;
+	line-height: 1.6;
+	font-size: 13px;
+}
+
+.avance-danger {
+	color: var(--danger-color);
+	font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+	.avance-admin-container {
+		padding: 20px;
+	}
+
+	.avance-stats-grid {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
+
+	.avance-stat-card {
+		padding: 16px;
+	}
+
+	.avance-stat-number {
+		font-size: 28px;
+	}
+
+	.avance-filter-form {
+		flex-direction: column;
+	}
+
+	.avance-filter-group {
+		width: 100%;
+		min-width: unset;
+	}
+
+	.avance-btn-primary {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.avance-contacts-table {
+		font-size: 12px;
+	}
+
+	.avance-contacts-table th,
+	.avance-contacts-table td {
+		padding: 10px 8px;
+	}
+
+	.col-id,
+	.col-servicio,
+	.col-fecha {
+		display: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.avance-admin-title-section h1 {
+		font-size: 24px;
+	}
+
+	.avance-modal-content {
+		border-radius: 0;
+		max-height: 100vh;
+	}
+}

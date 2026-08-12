@@ -1,0 +1,533 @@
+/* Reservations Widget - Premium Design */
+
+.avance-reservations-widget {
+	background: #f6f6f8;
+	padding: 48px 24px;
+	font-family: 'Inter', system-ui, sans-serif;
+	color: #1c1c28;
+}
+
+.reservations-container {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.reservations-grid {
+	display: grid;
+	grid-template-columns: 1fr 340px;
+	gap: 24px;
+	align-items: start;
+}
+
+/* HEADER */
+.reservations-kicker {
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: .08em;
+	color: #9a9aa5;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.reservations-title {
+	font-size: 28px;
+	font-weight: 700;
+	margin: 0 0 28px 0;
+	color: #151520;
+}
+
+/* PLANS LIST */
+.plans-list {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 28px;
+}
+
+.plan-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+	background: #fff;
+	border: 1px solid #eaeaef;
+	border-radius: 10px;
+	padding: 18px 20px;
+	cursor: pointer;
+	transition: border-color .15s ease, box-shadow .15s ease;
+	position: relative;
+}
+
+.plan-card.is-selected {
+	border-color: #1c1c28;
+	box-shadow: 0 0 0 1px #1c1c28;
+}
+
+.plan-card__radio {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.plan-card__dot {
+	margin-top: 3px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 2px solid #d0d0d6;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+.plan-card.is-selected .plan-card__dot {
+	border-color: #1c1c28;
+}
+
+.plan-card.is-selected .plan-card__dot::after {
+	content: '';
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #1c1c28;
+}
+
+.plan-card__main {
+	flex: 1;
+	min-width: 0;
+}
+
+.plan-card__top {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 4px;
+}
+
+.plan-card__name {
+	font-size: 15px;
+	font-weight: 700;
+	color: #151520;
+}
+
+.plan-card__badge {
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+	color: #fff;
+	background: #1c1c28;
+	padding: 3px 8px;
+	border-radius: 4px;
+}
+
+.plan-card__meta {
+	font-size: 12px;
+	color: #9a9aa5;
+	margin-bottom: 10px;
+}
+
+.plan-card__features {
+	display: none;
+	grid-template-columns: 1fr 1fr;
+	gap: 4px 16px;
+}
+
+.plan-card.is-selected .plan-card__features {
+	display: grid;
+}
+
+.plan-card__feature {
+	font-size: 12px;
+	color: #4a4a55;
+}
+
+.plan-card__price {
+	font-size: 18px;
+	font-weight: 700;
+	color: #151520;
+	white-space: nowrap;
+	text-align: right;
+}
+
+.plan-card__price span {
+	font-size: 11px;
+	font-weight: 400;
+	color: #9a9aa5;
+}
+
+/* TESTIMONIAL */
+.reservations-testimonial {
+	background: #fff;
+	border: 1px solid #eaeaef;
+	border-radius: 10px;
+	padding: 20px 22px;
+}
+
+.reservations-testimonial__quote {
+	font-size: 14px;
+	font-style: italic;
+	color: #4a4a55;
+	line-height: 1.6;
+	margin: 0 0 16px 0;
+}
+
+.reservations-testimonial__author {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.reservations-testimonial__avatar {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: #eaeaef;
+	flex-shrink: 0;
+}
+
+.reservations-testimonial__name {
+	font-size: 13px;
+	font-weight: 600;
+	color: #151520;
+}
+
+.reservations-testimonial__role {
+	font-size: 11px;
+	color: #9a9aa5;
+}
+
+/* RIGHT COLUMN */
+.reservations-right {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.agenda-card,
+.reservation-form-card {
+	background: #fff;
+	border: 1px solid #eaeaef;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.agenda-card__kicker {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: #9a9aa5;
+	margin-bottom: 4px;
+}
+
+.agenda-card__selected {
+	font-size: 13px;
+	font-weight: 600;
+	color: #151520;
+	margin-bottom: 16px;
+}
+
+/* CALENDAR HOST */
+.calendar-host {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.calendar-avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: #1c1c28;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.calendar-host-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.calendar-host-name {
+	font-size: 13px;
+	font-weight: 600;
+	color: #151520;
+}
+
+.calendar-host-meta {
+	font-size: 11px;
+	color: #9a9aa5;
+}
+
+.calendar-free-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #3a9a5c;
+	flex-shrink: 0;
+}
+
+/* CALENDAR NAVIGATION */
+.calendar-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.calendar-nav-btn {
+	border: none;
+	background: none;
+	color: #c0c0c8;
+	font-size: 15px;
+	cursor: pointer;
+	padding: 4px 8px;
+	transition: color .15s ease;
+}
+
+.calendar-nav-btn:hover {
+	color: #1c1c28;
+}
+
+.calendar-month-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #151520;
+}
+
+/* CALENDAR GRID */
+.calendar-weekdays {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	text-align: center;
+	margin-bottom: 4px;
+}
+
+.calendar-weekdays div {
+	font-size: 9px;
+	font-weight: 600;
+	color: #b0b0b8;
+	padding: 4px 0;
+}
+
+.calendar-days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 2px;
+	margin-bottom: 14px;
+}
+
+.calendar-day {
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	color: #1c1c28;
+	background: transparent;
+	transition: background .15s ease, color .15s ease;
+}
+
+.calendar-day:hover {
+	background: #eef0f3;
+}
+
+.calendar-day.is-empty {
+	cursor: default;
+}
+
+.calendar-day.is-empty:hover {
+	background: transparent;
+}
+
+.calendar-day.is-selected {
+	background: #1c1c28;
+	color: #fff;
+	font-weight: 600;
+}
+
+.calendar-day.is-selected:hover {
+	background: #1c1c28;
+}
+
+/* CALENDAR INFO */
+.calendar-tz {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding-top: 12px;
+	border-top: 1px solid #f0f0f4;
+	font-size: 11px;
+	color: #9a9aa5;
+}
+
+.calendar-integrations {
+	display: flex;
+	gap: 14px;
+	margin-top: 8px;
+	font-size: 10px;
+	color: #b0b0b8;
+}
+
+/* FORM */
+.reservation-form-kicker {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	color: #9a9aa5;
+	margin-bottom: 14px;
+}
+
+.reservation-form-group {
+	margin-bottom: 14px;
+}
+
+.reservation-row-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.reservation-label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #1c1c28;
+}
+
+.required {
+	color: #e0555f;
+}
+
+.reservation-input,
+.reservation-textarea {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #e2e2e8;
+	border-radius: 7px;
+	font-size: 13px;
+	font-family: inherit;
+	color: #1c1c28;
+	background: #fff;
+	transition: border-color .2s ease, box-shadow .2s ease;
+	box-sizing: border-box;
+}
+
+.reservation-input:focus,
+.reservation-textarea:focus {
+	outline: none;
+	border-color: #1c1c28;
+	box-shadow: 0 0 0 3px #ececef;
+}
+
+.reservation-textarea {
+	resize: vertical;
+}
+
+/* BUTTON */
+.reservation-button {
+	width: 100%;
+	padding: 13px;
+	margin-top: 6px;
+	border: none;
+	border-radius: 8px;
+	background: #1c1c28;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background .2s ease;
+}
+
+.reservation-button:hover {
+	background: #2c2c3a;
+}
+
+/* PAYMENT METHODS */
+.reservation-payment-methods {
+	display: flex;
+	gap: 16px;
+	margin-top: 14px;
+	font-size: 11px;
+	color: #c0c0c8;
+}
+
+.reservation-payment-methods label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.reservation-payment-methods input {
+	accent-color: #c0c0c8;
+}
+
+.reservation-payment-note {
+	font-size: 10px;
+	color: #c0c0c8;
+	text-align: center;
+	margin-top: 10px;
+}
+
+/* WHATSAPP BUTTON */
+.reservation-whatsapp-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: 100%;
+	padding: 13px;
+	border: 1px solid #eaeaef;
+	border-radius: 10px;
+	background: #fff;
+	color: #1c1c28;
+	font-size: 13px;
+	font-weight: 600;
+	font-family: inherit;
+	cursor: pointer;
+	transition: background .15s ease;
+}
+
+.reservation-whatsapp-btn:hover {
+	background: #f6f6f8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+	.reservations-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.plan-card__features {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 600px) {
+	.avance-reservations-widget {
+		padding: 30px 15px;
+	}
+
+	.reservations-title {
+		font-size: 22px;
+	}
+
+	.reservation-row-2 {
+		grid-template-columns: 1fr;
+	}
+}

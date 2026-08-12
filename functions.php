@@ -21,6 +21,68 @@ require_once get_template_directory() . '/includes/class-contact-admin.php';
 // Incluir orquestador de AGENDAMIENTO
 require_once get_template_directory() . '/includes/appointments/class-appointments-manager.php';
 
+// Incluir orquestador de RESERVAS (WooCommerce)
+require_once get_template_directory() . '/includes/reservations/class-reservations-manager.php';
+
+// Incluir auditoría de WooCommerce (solo en admin)
+if (is_admin()) {
+	require_once get_template_directory() . '/includes/reservations/audit-woocommerce.php';
+}
+
+/**
+ * CREAR PRODUCTOS DE MENTORÍA AUTOMÁTICAMENTE
+ */
+add_action('init', function() {
+	if (!class_exists('WooCommerce')) {
+		return;
+	}
+
+	if (get_option('avance_mentoria_products_created')) {
+		return;
+	}
+
+	$mentoria_products = array(
+		array(
+			'name' => 'Mentoría Básica',
+			'price' => '99',
+			'description' => 'Sesiones focalizadas en tu desafío principal.',
+			'short_description' => 'Sesiones 1:1 enfocadas en tu desafío',
+		),
+		array(
+			'name' => 'Mentoría Premium',
+			'price' => '199',
+			'description' => 'Acompañamiento completo con acceso WhatsApp.',
+			'short_description' => 'Acompañamiento + acceso WhatsApp',
+		),
+		array(
+			'name' => 'Mentoría VIP',
+			'price' => '399',
+			'description' => 'Plan anual con sesiones semanales.',
+			'short_description' => 'Plan anual + sesiones semanales',
+		),
+	);
+
+	foreach ($mentoria_products as $product_data) {
+		$product = new WC_Product_Simple();
+		$product->set_name($product_data['name']);
+		$product->set_price($product_data['price']);
+		$product->set_regular_price($product_data['price']);
+		$product->set_description($product_data['description']);
+		$product->set_short_description($product_data['short_description']);
+		$product->set_status('publish');
+		$product->save();
+
+		wp_set_post_terms($product->get_id(), 'mentoria', 'product_tag', true);
+	}
+
+	update_option('avance_mentoria_products_created', true);
+}, 999);
+
+/**
+ * DESPUÉS de verificar que están creados en WordPress Admin → Productos,
+ * ELIMINA TODO ESTE BLOQUE de functions.php (desde CREAR PRODUCTOS... hasta aquí)
+ */
+
 /**
  * Crear tabla de contactos al cargar WordPress
  */

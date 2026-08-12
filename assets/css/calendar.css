@@ -1,0 +1,156 @@
+/* Avance Appointments - Calendar Styles */
+
+.appointment-calendar-container {
+	background: #f9f9f9;
+	padding: 20px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	max-width: 400px;
+	margin: 20px auto;
+}
+
+.appointment-calendar-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.calendar-month {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+	color: #2c3e50;
+	min-width: 180px;
+	text-align: center;
+}
+
+.calendar-prev,
+.calendar-next {
+	background: #0073aa;
+	color: #fff;
+	border: none;
+	width: 36px;
+	height: 36px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	transition: all 0.2s ease;
+}
+
+.calendar-prev:hover,
+.calendar-next:hover {
+	background: #0059b3;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-weekdays {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 8px;
+	margin-bottom: 10px;
+	font-weight: 600;
+	color: #6c757d;
+	text-align: center;
+	font-size: 12px;
+}
+
+.calendar-days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.calendar-day {
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-size: 14px;
+	font-weight: 500;
+	background: #fff;
+}
+
+.calendar-day:not(.disabled):not(.other-month):hover {
+	background: #e7f3ff;
+	border-color: #0073aa;
+}
+
+.calendar-day.other-month {
+	color: #ccc;
+	cursor: default;
+	background: #fafafa;
+}
+
+.calendar-day.disabled {
+	color: #ccc;
+	cursor: not-allowed;
+	background: #fafafa;
+}
+
+.calendar-day.selected {
+	background: #0073aa;
+	color: #fff;
+	border-color: #0073aa;
+	font-weight: 700;
+}
+
+.appointment-time-picker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-top: 15px;
+	border-top: 1px solid #ddd;
+}
+
+.appointment-time-picker label {
+	font-weight: 600;
+	color: #2c3e50;
+	min-width: 60px;
+}
+
+.appointment-time-picker input[type="time"] {
+	flex: 1;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+	font-family: inherit;
+}
+
+.appointment-time-picker input[type="time"]:focus {
+	outline: none;
+	border-color: #0073aa;
+	box-shadow: 0 0 0 3px #e7f3ff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+	.appointment-calendar-container {
+		max-width: 100%;
+		padding: 15px;
+	}
+
+	.calendar-month {
+		font-size: 16px;
+		min-width: 120px;
+	}
+
+	.calendar-prev,
+	.calendar-next {
+		width: 32px;
+		height: 32px;
+		font-size: 16px;
+	}
+
+	.calendar-day {
+		font-size: 12px;
+	}
+}

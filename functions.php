@@ -12,11 +12,14 @@ if (!defined('ABSPATH')) {
 // Incluir configuración del tema
 require_once get_template_directory() . '/config/theme-config.php';
 
-// Incluir clases
+// Incluir clases de CONTACTOS
 require_once get_template_directory() . '/includes/class-contact-validator.php';
 require_once get_template_directory() . '/includes/class-contact-db.php';
 require_once get_template_directory() . '/includes/class-contact-form-handler.php';
 require_once get_template_directory() . '/includes/class-contact-admin.php';
+
+// Incluir orquestador de AGENDAMIENTO
+require_once get_template_directory() . '/includes/appointments/class-appointments-manager.php';
 
 /**
  * Crear tabla de contactos al cargar WordPress
@@ -131,6 +134,41 @@ function avance_template_enqueue_assets() {
 			'all'
 		);
 	}
+
+	// Agendamiento (Global - se verifica en JS si existe el formulario)
+	wp_enqueue_style(
+		'avance-appointment-calendar',
+		$theme_uri . '/assets/css/calendar.css',
+		array('avance-base'),
+		wp_get_theme()->get('Version'),
+		'all'
+	);
+
+	wp_enqueue_script(
+		'avance-calendar-picker',
+		$theme_uri . '/assets/js/calendar.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
+
+	wp_enqueue_script(
+		'avance-appointment-handler',
+		$theme_uri . '/assets/js/appointment-handler.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
+
+	// Localizar datos para el agendamiento
+	wp_localize_script(
+		'avance-appointment-handler',
+		'avanceAppointmentConfig',
+		array(
+			'ajaxUrl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('avance_appointment_form'),
+		)
+	);
 
 	// Contact Form Script (Enqueue en todas las páginas - el script verifica si el formulario existe)
 	wp_enqueue_script(

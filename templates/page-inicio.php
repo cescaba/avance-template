@@ -254,6 +254,13 @@ get_header();
 		</div>
 	</section>
 
+	<!-- Appointments Section -->
+	<section class="home-appointments" id="home-appointments" aria-label="<?php esc_attr_e('Agendar Cita', 'avance-template'); ?>">
+		<div class="home-appointments__container">
+			<?php include get_template_directory() . '/template-parts/appointments/appointment-widget.php'; ?>
+		</div>
+	</section>
+
 	<!-- Form Section -->
 	<section class="home-form" id="home-form" aria-label="<?php esc_attr_e('Formulario de Contacto', 'avance-template'); ?>">
 		<div class="home-form__container">

@@ -140,11 +140,14 @@ function avance_template_enqueue_assets() {
 		true
 	);
 
-	// Pasar ajaxurl al script
+	// Localizar datos para el formulario de contacto
 	wp_localize_script(
 		'avance-contact-whatsapp',
-		'ajaxurl',
-		admin_url('admin-ajax.php')
+		'avanceFormConfig',
+		array(
+			'ajaxUrl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('avance_contact_form'),
+		)
 	);
 
 	// WordPress styles

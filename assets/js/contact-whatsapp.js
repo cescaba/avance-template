@@ -10,7 +10,9 @@
 
 	const config = {
 		formId: 'contacto-wsp-form',
-		ajaxUrl: typeof ajaxurl !== 'undefined' ? ajaxurl : '/wp-admin/admin-ajax.php',
+		ajaxUrl: (typeof avanceFormConfig !== 'undefined' && avanceFormConfig.ajaxUrl)
+			? avanceFormConfig.ajaxUrl
+			: '/wp-admin/admin-ajax.php',
 		fields: {
 			nombre: 'contacto_wsp_nombre',
 			email: 'contacto_wsp_email',
@@ -23,20 +25,37 @@
 
 	function initForm() {
 		const form = document.getElementById(config.formId);
-		if (!form) return;
 
+		if (!form) {
+			console.warn('[Avance Contact Form] Form ID not found:', config.formId);
+			return;
+		}
+
+		console.log('[Avance Contact Form] Initialized successfully');
+		console.log('[Avance Contact Form] AJAX URL:', config.ajaxUrl);
 		form.addEventListener('submit', handleFormSubmit);
 	}
 
 	function handleFormSubmit(e) {
 		e.preventDefault();
 
-		if (config.isSubmitting) return;
+		console.log('[Avance Contact Form] Form submit triggered');
+
+		if (config.isSubmitting) {
+			console.warn('[Avance Contact Form] Already submitting, ignoring duplicate');
+			return;
+		}
 
 		const formData = getFormData();
-		if (!validateFormData(formData)) return;
+		console.log('[Avance Contact Form] Form data:', formData);
+
+		if (!validateFormData(formData)) {
+			console.warn('[Avance Contact Form] Validation failed');
+			return;
+		}
 
 		config.isSubmitting = true;
+		console.log('[Avance Contact Form] Submitting via AJAX...');
 		submitFormViaAjax(formData);
 	}
 
@@ -99,23 +118,29 @@
 			method: 'POST',
 			body: ajaxData,
 		})
-			.then(response => response.json())
+			.then(response => {
+				console.log('[Avance Contact Form] AJAX Response Status:', response.status);
+				return response.json();
+			})
 			.then(response => {
 				config.isSubmitting = false;
 
+				console.log('[Avance Contact Form] AJAX Response:', response);
+
 				if (response.success && response.data && response.data.url) {
-					// Validación pasada - abrir WhatsApp
+					console.log('[Avance Contact Form] Success! Opening WhatsApp:', response.data.url);
 					openWhatsApp(response.data.url);
 					showSuccess(response.data.message || 'Mensaje enviado correctamente.');
 					resetForm();
 				} else {
+					console.error('[Avance Contact Form] API Error:', response.data);
 					showError(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
 				}
 			})
 			.catch(error => {
 				config.isSubmitting = false;
+				console.error('[Avance Contact Form] Fetch Error:', error);
 				showError('Error de conexión. Intenta de nuevo.');
-				console.error('AJAX Error:', error);
 			});
 	}
 

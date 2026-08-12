@@ -24,9 +24,19 @@ require_once get_template_directory() . '/includes/appointments/class-appointmen
 // Incluir orquestador de RESERVAS (WooCommerce)
 require_once get_template_directory() . '/includes/reservations/class-reservations-manager.php';
 
+// Setup automático de página de checkout
+require_once get_template_directory() . '/includes/reservations/setup-checkout-page.php';
+
+// Setup automático de métodos de pago
+require_once get_template_directory() . '/includes/reservations/setup-payment-methods.php';
+
+// Fix automático del estado de checkout (si está programado, publicarlo)
+require_once get_template_directory() . '/includes/reservations/fix-checkout-status.php';
+
 // Incluir auditoría de WooCommerce (solo en admin)
 if (is_admin()) {
 	require_once get_template_directory() . '/includes/reservations/audit-woocommerce.php';
+	require_once get_template_directory() . '/includes/reservations/debug-checkout.php';
 }
 
 /**

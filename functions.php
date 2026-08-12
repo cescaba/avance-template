@@ -33,6 +33,14 @@ require_once get_template_directory() . '/includes/reservations/setup-payment-me
 // Fix automático del estado de checkout (si está programado, publicarlo)
 require_once get_template_directory() . '/includes/reservations/fix-checkout-status.php';
 
+// Reset de setup (para recrear la página desde cero)
+require_once get_template_directory() . '/includes/reservations/reset-checkout-setup.php';
+
+// Limpiar banderas (temporal - se auto-elimina)
+if (file_exists(get_template_directory() . '/includes/reservations/clean-flags.php')) {
+	require_once get_template_directory() . '/includes/reservations/clean-flags.php';
+}
+
 // Incluir auditoría de WooCommerce (solo en admin)
 if (is_admin()) {
 	require_once get_template_directory() . '/includes/reservations/audit-woocommerce.php';
@@ -206,6 +214,15 @@ function avance_template_enqueue_assets() {
 			'all'
 		);
 	}
+
+	// Debug script para reservaciones (frontend)
+	wp_enqueue_script(
+		'avance-reservation-debug',
+		$theme_uri . '/assets/js/reservation-debug.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
 
 	// Agendamiento (Global - se verifica en JS si existe el formulario)
 	wp_enqueue_style(

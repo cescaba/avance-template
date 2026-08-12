@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Crear página de checkout automáticamente
+ * Crear página de checkout automáticamente (eliminar duplicados primero)
  */
 add_action('wp_loaded', function() {
 	// Solo si WooCommerce está activo
@@ -26,7 +26,22 @@ add_action('wp_loaded', function() {
 		return;
 	}
 
-	// Crear página de checkout
+	// PRIMERO: Eliminar TODAS las páginas con "finalizar-compra" existentes
+	$args = array(
+		'post_type' => 'page',
+		'posts_per_page' => -1,
+		'post_status' => array('publish', 'draft', 'pending', 'future', 'private'),
+	);
+	$all_pages = new WP_Query($args);
+
+	foreach ($all_pages->posts as $page) {
+		if ($page->post_name === 'finalizar-compra' || strpos($page->post_title, 'Finalizar Compra') !== false) {
+			wp_delete_post($page->ID, true);
+			error_log('🗑️ Eliminada página vieja: ID ' . $page->ID . ' - ' . $page->post_title);
+		}
+	}
+
+	// DESPUÉS: Crear página de checkout NUEVA
 	$checkout_page = wp_insert_post(array(
 		'post_type' => 'page',
 		'post_title' => 'Finalizar Compra',
@@ -44,24 +59,9 @@ add_action('wp_loaded', function() {
 		// Marcar como creado
 		update_option('avance_checkout_page_created', true);
 
-		error_log('✅ Página de checkout creada: ID ' . $checkout_page);
+		error_log('✅ Página de checkout NUEVA creada: ID ' . $checkout_page);
 	} else {
-		// Si ya existe, actualizarla y publicarla
-		$existing = get_page_by_path('finalizar-compra');
-		if ($existing) {
-			// Asegurarse de que esté en estado "publish"
-			wp_update_post(array(
-				'ID' => $existing->ID,
-				'post_status' => 'publish',
-				'post_content' => '[woocommerce_checkout]',
-			));
-
-			// Configurar como página de checkout en WooCommerce
-			update_option('woocommerce_checkout_page_id', $existing->ID);
-			update_option('avance_checkout_page_created', true);
-
-			error_log('✅ Página de checkout existente actualizada a publish: ID ' . $existing->ID);
-		}
+		error_log('❌ Error al crear página de checkout: ' . $checkout_page->get_error_message());
 	}
 });
 

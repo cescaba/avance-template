@@ -1,0 +1,401 @@
+/**
+ * Page Libro Styles
+ *
+ * @package Avance_Template
+ */
+
+/* =====================================================
+   ANIMATIONS - Cascada con Scroll
+   ===================================================== */
+
+/* Libro Main Section */
+.libro-main {
+	background-color: var(--bg-white);
+	padding: 80px var(--lateral-spacing);
+}
+
+.libro-wrap {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 65px;
+	align-items: start;
+}
+
+/* Sidebar Styles */
+.libro-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.libro-cover {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
+	border-radius: 8px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	background-color: #F3F4F6;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-cover.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Button Styles */
+.libro-btn {
+	font-family: 'Outfit', sans-serif;
+	font-size: 14px;
+	font-weight: 600;
+	border-radius: 8px;
+	cursor: pointer;
+	padding: 14px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-btn.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-btn:nth-child(2).animate-on-scroll.is-visible {
+	animation-delay: 0.1s;
+}
+
+.libro-btn:nth-child(3).animate-on-scroll.is-visible {
+	animation-delay: 0.15s;
+}
+
+.libro-btn:nth-child(4).animate-on-scroll.is-visible {
+	animation-delay: 0.2s;
+}
+
+.libro-btn:nth-child(5).animate-on-scroll.is-visible {
+	animation-delay: 0.25s;
+}
+
+.libro-btn:nth-child(6).animate-on-scroll.is-visible {
+	animation-delay: 0.25s;
+}
+
+.libro-btn:nth-child(7).animate-on-scroll.is-visible {
+	animation-delay: 0.25s;
+}
+
+.libro-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
+}
+
+.libro-btn--primary {
+	background-color: #466060;
+	color: #FFFFFF;
+	width: 100%;
+}
+
+.libro-btn--primary:hover {
+	background-color: #034732;
+}
+
+.libro-btn--secondary {
+	background-color: #FFFFFF;
+	color: #034732;
+	border: 1px solid #E5E7EB;
+	width: 100%;
+}
+
+.libro-btn--secondary:hover {
+	border-color: #466060;
+}
+
+/* Sidebar Elements */
+.libro-hint {
+	text-align: center;
+	font-size: 12px;
+	color: #99A1AF;
+}
+
+.libro-row-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+}
+
+.libro-row-2 .libro-btn {
+	width: auto;
+}
+
+.libro-mini-label {
+	font-size: 13px;
+	color: #6A7282;
+	margin-top: 12px;
+	font-weight: 600;
+}
+
+.libro-rating {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-rating.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-stars {
+	color: #FFB800;
+	font-size: 14px;
+	letter-spacing: 2px;
+}
+
+.libro-rating-value {
+	font-size: 13px;
+	font-weight: 600;
+	color: #2C2629;
+}
+
+.libro-reviews {
+	font-size: 12px;
+	color: #99A1AF;
+	margin-top: -4px;
+}
+
+/* Content Styles */
+.libro-content {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.libro-header {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-header.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-kicker {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1.1px;
+	text-transform: uppercase;
+	color: #466060;
+	margin-bottom: 16px;
+}
+
+.libro-title {
+	font-weight: 300;
+	font-size: 48px;
+	line-height: 48px;
+	letter-spacing: 0px;
+	color: #034732;
+	margin: 0;
+}
+
+/* Meta Information */
+.libro-meta {
+	display: flex;
+	gap: 65px;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-meta.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-meta-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.libro-meta-label {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	color: #99A1AF;
+	text-transform: uppercase;
+}
+
+.libro-meta-value {
+	font-size: 24px;
+	font-weight: 600;
+	color: #466060;
+}
+
+/* Description */
+.libro-description {
+	font-size: 15px;
+	line-height: 24px;
+	color: #4A5565;
+	margin: 0;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-description.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Chapters Section */
+.libro-chapters-section {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-chapters-section.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-section-label {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1.1px;
+	text-transform: uppercase;
+	color: #99A1AF;
+	margin-bottom: 24px;
+}
+
+.libro-chapters {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.libro-chapter {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-chapter.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(1) {
+	animation-delay: 0.1s;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(3) {
+	animation-delay: 0.2s;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(4) {
+	animation-delay: 0.25s;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(5) {
+	animation-delay: 0.25s;
+}
+
+.libro-chapter.animate-on-scroll.is-visible:nth-child(6) {
+	animation-delay: 0.25s;
+}
+
+.libro-chapter-num {
+	font-size: 14px;
+	font-weight: 700;
+	color: #466060;
+	min-width: 24px;
+	flex-shrink: 0;
+}
+
+/* Quote Section */
+.libro-quote {
+	border-left: 2px solid #98BFBF;
+	padding-left: 24px;
+	margin: 0;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-quote.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-quote-text {
+	font-style: italic;
+	font-size: 15px;
+	line-height: 24px;
+	color: #4A5565;
+	margin: 0 0 12px 0;
+}
+
+.libro-quote-author {
+	font-size: 13px;
+	color: #99A1AF;
+}
+
+/* CTA Band */
+.libro-cta-band {
+	background-color: #F9FAFB;
+	border-radius: 12px;
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	border: 1px solid #E5E7EB;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-cta-band.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-cta-title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 28px;
+	color: #2C2629;
+}
+
+.libro-cta-actions {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.libro-cta-actions .libro-btn {
+	width: auto;
+	flex: 1;
+	min-width: 180px;
+}
+
+.libro-cta-actions .libro-btn.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-cta-actions .libro-btn.animate-on-scroll.is-visible:nth-child(1) {
+	animation-delay: 0.1s;
+}
+
+.libro-cta-actions .libro-btn.animate-on-scroll.is-visible:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.libro-cta-actions .libro-btn.animate-on-scroll.is-visible:nth-child(3) {
+	animation-delay: 0.25s;
+}

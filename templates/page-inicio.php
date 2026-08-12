@@ -260,45 +260,98 @@ get_header();
 			<header class="home-form__header animate-on-scroll" data-animate>
 				<p class="home-form__label"><?php esc_html_e('FORMULARIO MULTISERVICIO', 'avance-template'); ?></p>
 				<h2 class="home-form__title"><?php esc_html_e('¿Listo para dar el siguiente paso?', 'avance-template'); ?></h2>
-				<p class="home-form__description"><?php esc_html_e('Completa el formulario y me pongo en contacto en menos de 24h.', 'avance-template'); ?></p>
+				<p class="home-form__description"><?php esc_html_e('Completa el formulario y me contacto en menos de 24h.', 'avance-template'); ?></p>
 			</header>
 
-			<form class="home-form__form">
+			<form id="contacto-wsp-form" class="home-form__form" aria-label="<?php esc_attr_e('Formulario de contacto por WhatsApp', 'avance-template'); ?>">
+				<?php wp_nonce_field('avance_contact_form', 'nonce', false); ?>
 				<div class="home-form__row animate-on-scroll" data-animate>
 					<div class="home-form__field">
-						<label for="form-nombre" class="home-form__label-field"><?php esc_html_e('Nombre completo', 'avance-template'); ?> <span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span></label>
-						<input type="text" id="form-nombre" class="home-form__input" placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>" required>
+						<label for="contacto_wsp_nombre" class="home-form__label-field">
+							<?php esc_html_e('Nombre completo', 'avance-template'); ?>
+							<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
+						</label>
+						<input
+							type="text"
+							id="contacto_wsp_nombre"
+							name="contacto_wsp_nombre"
+							class="home-form__input"
+							placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>"
+							required
+							aria-required="true">
 					</div>
 					<div class="home-form__field">
-						<label for="form-email" class="home-form__label-field"><?php esc_html_e('Email', 'avance-template'); ?> <span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span></label>
-						<input type="email" id="form-email" class="home-form__input" placeholder="<?php esc_attr_e('juan@empresa.com', 'avance-template'); ?>" required>
+						<label for="contacto_wsp_email" class="home-form__label-field">
+							<?php esc_html_e('Email', 'avance-template'); ?>
+							<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
+						</label>
+						<input
+							type="email"
+							id="contacto_wsp_email"
+							name="contacto_wsp_email"
+							class="home-form__input"
+							placeholder="<?php esc_attr_e('juan@empresa.com', 'avance-template'); ?>"
+							required
+							aria-required="true">
 					</div>
 				</div>
 
 				<div class="home-form__row animate-on-scroll" data-animate>
 					<div class="home-form__field">
-						<label for="form-whatsapp" class="home-form__label-field"><?php esc_html_e('WhatsApp', 'avance-template'); ?></label>
-						<input type="tel" id="form-whatsapp" class="home-form__input" placeholder="<?php esc_attr_e('+51 999 000 000', 'avance-template'); ?>">
+						<label for="contacto_wsp_numero" class="home-form__label-field">
+							<?php esc_html_e('WhatsApp', 'avance-template'); ?>
+							<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
+						</label>
+						<input
+							type="tel"
+							id="contacto_wsp_numero"
+							name="contacto_wsp_numero"
+							class="home-form__input"
+							placeholder="<?php esc_attr_e('+51 999 000 000', 'avance-template'); ?>"
+							required
+							aria-required="true">
 					</div>
 					<div class="home-form__field">
-						<label for="form-service" class="home-form__label-field"><?php esc_html_e('Servicio de interés', 'avance-template'); ?></label>
-						<input type="text" id="form-service" class="home-form__input" placeholder="<?php esc_attr_e('', 'avance-template'); ?>">
+						<label for="contacto_wsp_asunto" class="home-form__label-field">
+							<?php esc_html_e('Servicio de interés', 'avance-template'); ?>
+							<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
+						</label>
+						<select
+							id="contacto_wsp_asunto"
+							name="contacto_wsp_asunto"
+							class="home-form__input"
+							required
+							aria-required="true">
+							<option value=""><?php esc_html_e('Selecciona una opción...', 'avance-template'); ?></option>
+							<option value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></option>
+							<option value="Consultoría Comercial"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></option>
+							<option value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></option>
+							<option value="Otra consulta"><?php esc_html_e('Otra consulta', 'avance-template'); ?></option>
+						</select>
 					</div>
 				</div>
 
 				<div class="home-form__field home-form__field--full animate-on-scroll" data-animate>
-					<label for="form-message" class="home-form__label-field"><?php esc_html_e('Mensaje', 'avance-template'); ?></label>
-					<textarea id="form-message" class="home-form__textarea" rows="4" placeholder="<?php esc_attr_e('Cuéntame brevemente tu situación...', 'avance-template'); ?>"></textarea>
+					<label for="contacto_wsp_mensaje" class="home-form__label-field">
+						<?php esc_html_e('Mensaje', 'avance-template'); ?>
+					</label>
+					<textarea
+						id="contacto_wsp_mensaje"
+						name="contacto_wsp_mensaje"
+						class="home-form__textarea"
+						rows="4"
+						placeholder="<?php esc_attr_e('Cuéntame brevemente tu situación...', 'avance-template'); ?>"></textarea>
 				</div>
 
 				<div class="home-form__buttons">
-					<button type="submit" class="home-form__button"><?php esc_html_e('Enviar mensaje', 'avance-template'); ?></button>
+					<button type="submit" class="home-form__button">
+						<?php esc_html_e('Enviar mensaje', 'avance-template'); ?>
+					</button>
 					<a href="#" class="home-form__button--secondary">
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-form__button-icon" aria-hidden="true">
 						<?php esc_html_e('Escribir al WhatsApp', 'avance-template'); ?>
 					</a>
 				</div>
-
 			</form>
 		</div>
 	</section>

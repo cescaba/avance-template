@@ -9,6 +9,22 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+// Incluir configuración del tema
+require_once get_template_directory() . '/config/theme-config.php';
+
+// Incluir clases
+require_once get_template_directory() . '/includes/class-contact-validator.php';
+require_once get_template_directory() . '/includes/class-contact-db.php';
+require_once get_template_directory() . '/includes/class-contact-form-handler.php';
+
+/**
+ * Crear tabla de contactos al activar el tema
+ */
+function avance_template_activate() {
+	Avance_Contact_DB::create_table();
+}
+add_action('after_setup_theme', 'avance_template_activate');
+
 /**
  * Enqueue styles and scripts
  */
@@ -59,6 +75,76 @@ function avance_template_enqueue_assets() {
 			array('avance-base'),
 			wp_get_theme()->get('Version'),
 			'all'
+		);
+	}
+
+	// Page-specific styles - Diagnóstico
+	if (is_page_template('templates/page-diagnostico.php')) {
+		wp_enqueue_style(
+			'avance-page-diagnostico',
+			$theme_uri . '/assets/css/page-diagnostico.css',
+			array('avance-base'),
+			wp_get_theme()->get('Version'),
+			'all'
+		);
+
+		wp_enqueue_script(
+			'avance-diagnostico-quiz',
+			$theme_uri . '/assets/js/diagnostico-quiz.js',
+			array(),
+			wp_get_theme()->get('Version'),
+			true
+		);
+	}
+
+	// Page-specific styles - Sobre Mí
+	if (is_page_template('templates/page-sobremi.php')) {
+		wp_enqueue_style(
+			'avance-page-sobremi',
+			$theme_uri . '/assets/css/page-sobremi.css',
+			array('avance-base'),
+			wp_get_theme()->get('Version'),
+			'all'
+		);
+	}
+
+	// Page-specific styles - Libro
+	if (is_page_template('templates/page-libro.php')) {
+		wp_enqueue_style(
+			'avance-page-libro',
+			$theme_uri . '/assets/css/page-libro.css',
+			array('avance-base'),
+			wp_get_theme()->get('Version'),
+			'all'
+		);
+	}
+
+	// Page-specific styles - Contacto
+	if (is_page_template('templates/page-contacto.php')) {
+		wp_enqueue_style(
+			'avance-page-contacto',
+			$theme_uri . '/assets/css/page-contacto.css',
+			array('avance-base'),
+			wp_get_theme()->get('Version'),
+			'all'
+		);
+	}
+
+	// Page-specific scripts - Home (Contact Form)
+	if (is_page_template('templates/page-inicio.php')) {
+		wp_enqueue_script(
+			'avance-contact-whatsapp',
+			$theme_uri . '/assets/js/contact-whatsapp.js',
+			array(),
+			wp_get_theme()->get('Version'),
+			true
+		);
+
+		// Pasar ajaxurl al script
+		wp_localize_script(
+			'avance-contact-whatsapp',
+			'ajaxurl',
+			admin_url('admin-ajax.php')
 		);
 	}
 
@@ -131,6 +217,30 @@ function avance_template_create_pages() {
 			'post_name'    => 'servicio-empresa',
 			'post_content' => '',
 			'page_template' => 'templates/page-servicio-empresa.php',
+		),
+		array(
+			'post_title'   => 'Diagnóstico',
+			'post_name'    => 'diagnostico',
+			'post_content' => '',
+			'page_template' => 'templates/page-diagnostico.php',
+		),
+		array(
+			'post_title'   => 'Sobre Mí',
+			'post_name'    => 'sobre-mi',
+			'post_content' => '',
+			'page_template' => 'templates/page-sobremi.php',
+		),
+		array(
+			'post_title'   => 'Libro',
+			'post_name'    => 'mi-libro',
+			'post_content' => '',
+			'page_template' => 'templates/page-libro.php',
+		),
+		array(
+			'post_title'   => 'Contacto',
+			'post_name'    => 'contacto',
+			'post_content' => '',
+			'page_template' => 'templates/page-contacto.php',
 		),
 	);
 

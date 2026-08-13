@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 		<div class="site-footer__grid">
 			<div class="site-footer__brand animate-on-scroll" data-animate>
 				<a href="<?php echo esc_url(home_url('/')); ?>" class="site-footer__logo-link">
-					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/Frame.svg'); ?>" alt="<?php bloginfo('name'); ?>" class="site-footer__logo" width="166" height="47">
+					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/frame.svg'); ?>" alt="<?php bloginfo('name'); ?>" class="site-footer__logo" width="166" height="47">
 				</a>
 				<p class="site-footer__brand-text"><?php esc_html_e('Capacitación ejecutiva, consultoría comercial y mentoría para empresas que quieren resultados reales. Lima, Perú.', 'avance-template'); ?></p>
 			</div>

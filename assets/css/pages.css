@@ -322,6 +322,9 @@ a[class*="btn"]:hover {
 
 .site-footer__logo {
 	display: block;
+	max-width: 166px;
+	height: 47px;
+	width: auto;
 }
 
 .site-footer__brand-text {

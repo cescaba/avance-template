@@ -454,3 +454,6 @@ add_action('wp_ajax_avance_get_contact', function() {
 
 	wp_send_json_success(array('html' => $html));
 });
+
+// Instanciar la clase
+new Avance_Contact_Admin();

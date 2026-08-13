@@ -136,10 +136,6 @@ get_header();
         </div>
     </section>
 
-    <!-- Section 5: Reserva tu Mentoría -->
-    <section class="mentoria-reservations" id="mentoria-reservations" aria-label="Reserva tu mentoría">
-        <?php include get_template_directory() . '/template-parts/reservations/reservation-widget.php'; ?>
-    </section>
 </main>
 
 <?php

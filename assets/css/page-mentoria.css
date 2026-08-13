@@ -350,3 +350,310 @@
 .mentoria-faq__item.is-active .mentoria-faq__toggle {
 	transform: rotate(-90deg);
 }
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP LARGE (1440px+)
+   ===================================================== */
+@media (min-width: 1440px) {
+	/* SECTION 1: MENTORÍA 1:1 */
+	.mentoria-intro {
+		height: 420px;
+	}
+
+	.mentoria-intro__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 50px;
+	}
+
+	.mentoria-intro__title {
+		font-size: 14px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.mentoria-intro__subtitle {
+		font-size: 32px;
+		line-height: 36px;
+	}
+
+	.mentoria-intro__description {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.mentoria-intro__list {
+		gap: 12px;
+	}
+
+	.mentoria-intro__list-item {
+		font-size: 13px;
+		line-height: 18px;
+		padding-left: 24px;
+	}
+
+	.mentoria-intro__list-item::before {
+		font-size: 12px;
+	}
+
+	/* SECTION 2: ¿PARA QUIÉN ES? */
+	.mentoria-target {
+		padding: 50px var(--lateral-spacing);
+	}
+
+	.mentoria-target__container {
+		gap: 20px;
+	}
+
+	.mentoria-target__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.mentoria-target__list {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 12px;
+	}
+
+	.mentoria-target__item {
+		padding: 18px;
+		height: auto;
+	}
+
+	.mentoria-target__item-title {
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.mentoria-target__item-text {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	/* SECTION 3: ¿QUÉ HACEMOS JUNTOS? */
+	.mentoria-together {
+		height: auto;
+	}
+
+	.mentoria-together__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 50px;
+	}
+
+	.mentoria-together__content {
+		gap: 20px;
+	}
+
+	.mentoria-together__title {
+		font-size: 32px;
+		line-height: 36px;
+	}
+
+	.mentoria-together__list {
+		grid-template-columns: 1fr 1fr;
+		gap: 15px 48px;
+	}
+
+	.mentoria-together__list-item {
+		font-size: 13px;
+		line-height: 18px;
+		padding-left: 18px;
+	}
+
+	.mentoria-together__list-item::before {
+		font-size: 18px;
+		line-height: 14px;
+	}
+
+	/* SECTION 4: PREGUNTAS FRECUENTES */
+	.mentoria-faq {
+		padding: 50px var(--lateral-spacing) 100px var(--lateral-spacing);
+	}
+
+	.mentoria-faq__container {
+		gap: 40px;
+	}
+
+	.mentoria-faq__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.mentoria-faq__question {
+		padding: 20px;
+		font-size: 15px;
+		line-height: 20px;
+		gap: 18px;
+	}
+
+	.mentoria-faq__toggle {
+		width: 20px;
+		height: 20px;
+	}
+
+	.mentoria-faq__answer {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.mentoria-faq__item.is-active .mentoria-faq__answer {
+		padding: 16px 20px 20px 20px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP (1024px - 1439px)
+   ===================================================== */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	/* SECTION 1: MENTORÍA 1:1 */
+	.mentoria-intro {
+		height: 420px;
+	}
+
+	.mentoria-intro__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.mentoria-intro__title {
+		font-size: 14px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.mentoria-intro__subtitle {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.mentoria-intro__description {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.mentoria-intro__list-item {
+		font-size: 13px;
+		line-height: 18px;
+		padding-left: 24px;
+	}
+
+	.mentoria-intro__list-item::before {
+		font-size: 12px;
+	}
+
+	/* SECTION 2: ¿PARA QUIÉN ES? */
+	.mentoria-target {
+		padding: 48px var(--lateral-spacing);
+	}
+
+	.mentoria-target__container {
+		gap: 20px;
+	}
+
+	.mentoria-target__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.mentoria-target__list {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
+
+	.mentoria-target__item {
+		padding: 16px;
+		height: auto;
+	}
+
+	.mentoria-target__item-title {
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	.mentoria-target__item-text {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	/* SECTION 3: ¿QUÉ HACEMOS JUNTOS? */
+	.mentoria-together {
+		height: auto;
+	}
+
+	.mentoria-together__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.mentoria-together__content {
+		padding: 0px var(--lateral-spacing) 0px 0;
+		gap: 20px;
+	}
+
+	.mentoria-together__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.mentoria-together__list {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.mentoria-together__list-item {
+		font-size: 12px;
+		line-height: 16px;
+		padding-left: 18px;
+	}
+
+	.mentoria-together__list-item::before {
+		font-size: 16px;
+		line-height: 12px;
+	}
+
+	/* SECTION 4: PREGUNTAS FRECUENTES */
+	.mentoria-faq {
+		padding: 40px var(--lateral-spacing) 80px var(--lateral-spacing);
+	}
+
+	.mentoria-faq__container {
+		gap: 32px;
+	}
+
+	.mentoria-faq__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.mentoria-faq__question {
+		padding: 18px;
+		font-size: 14px;
+		line-height: 18px;
+		gap: 16px;
+	}
+
+	.mentoria-faq__toggle {
+		width: 18px;
+		height: 18px;
+	}
+
+	.mentoria-faq__answer {
+		font-size: 13px;
+		line-height: 1.4;
+	}
+
+	.mentoria-faq__item.is-active .mentoria-faq__answer {
+		padding: 14px 18px 18px 18px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (768px - 1023px)
+   ===================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 480px)
+   ===================================================== */
+@media (max-width: 480px) {
+}

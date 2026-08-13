@@ -39,28 +39,19 @@ get_header();
 	<!-- Quiz Section -->
 	<section class="diagnostico-quiz" aria-label="<?php esc_attr_e('Quiz Diagnóstico', 'avance-template'); ?>">
 		<div class="diagnostico-quiz__container animate-on-scroll" data-animate>
-			<div class="diagnostico-quiz__progress-track">
+			<div class="diagnostico-quiz__progress-track animate-on-scroll" data-animate>
 				<div class="diagnostico-quiz__progress-fill" id="diagnosticoProgressFill"></div>
 			</div>
 
 			<div id="diagnosticoQuizView" class="diagnostico-quiz__view animate-on-scroll" data-animate>
-				<div class="diagnostico-quiz__tag" id="diagnosticoQuestionTag"><?php esc_html_e('PREGUNTA 1 DE 5', 'avance-template'); ?></div>
-				<h2 id="diagnosticoQuestionText" class="diagnostico-quiz__title"></h2>
-				<div class="diagnostico-quiz__options" id="diagnosticoOptionsList"></div>
+				<div class="diagnostico-quiz__tag animate-on-scroll" data-animate id="diagnosticoQuestionTag"><?php esc_html_e('PREGUNTA 1 DE 5', 'avance-template'); ?></div>
+				<h2 id="diagnosticoQuestionText" class="diagnostico-quiz__title animate-on-scroll" data-animate></h2>
+				<div class="diagnostico-quiz__options animate-on-scroll" data-animate id="diagnosticoOptionsList"></div>
 			</div>
 
-			<div id="diagnosticoResultView" class="diagnostico-quiz__result hidden animate-on-scroll" data-animate>
-				<div class="diagnostico-quiz__tag diagnostico-quiz__tag--accent"><?php esc_html_e('DIAGNÓSTICO COMPLETO', 'avance-template'); ?></div>
-				<h2 class="diagnostico-quiz__title"><?php esc_html_e('Gracias por responder', 'avance-template'); ?></h2>
-				<p class="diagnostico-quiz__description"><?php esc_html_e('Hemos registrado tus respuestas. Con esto podemos identificar dónde está el mayor freno en tu proceso comercial y proponerte los próximos pasos.', 'avance-template'); ?></p>
-				<div class="diagnostico-quiz__actions">
-					<button class="diagnostico-quiz__btn diagnostico-quiz__btn--primary animate-on-scroll" data-animate id="diagnosticoCta"><?php esc_html_e('Agendar una llamada', 'avance-template'); ?></button>
-					<button class="diagnostico-quiz__btn diagnostico-quiz__btn--ghost animate-on-scroll" data-animate id="diagnosticoRestart"><?php esc_html_e('Volver a empezar', 'avance-template'); ?></button>
-				</div>
-			</div>
 
 			<!-- CTA Buttons -->
-			<div class="diagnostico-cta">
+			<div class="diagnostico-cta animate-on-scroll" data-animate>
 				<p class="diagnostico-cta__text animate-on-scroll" data-animate><?php esc_html_e('¿Prefieres hablar directamente?', 'avance-template'); ?></p>
 				<a href="#" class="diagnostico-cta__btn diagnostico-cta__btn--secondary animate-on-scroll" data-animate>
 					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">

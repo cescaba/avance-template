@@ -34,6 +34,39 @@
 		console.log('[Avance Contact Form] Initialized successfully');
 		console.log('[Avance Contact Form] AJAX URL:', config.ajaxUrl);
 		form.addEventListener('submit', handleFormSubmit);
+		initCustomDropdown();
+	}
+
+	function initCustomDropdown() {
+		const trigger = document.getElementById('contacto_wsp_asunto_trigger');
+		const menu = document.getElementById('contacto_wsp_asunto_menu');
+		const hiddenInput = document.getElementById('contacto_wsp_asunto');
+		const options = menu ? menu.querySelectorAll('.home-form__select-option') : [];
+
+		if (!trigger || !menu) return;
+
+		trigger.addEventListener('click', () => {
+			menu.classList.toggle('open');
+		});
+
+		document.addEventListener('click', (e) => {
+			if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+				menu.classList.remove('open');
+			}
+		});
+
+		options.forEach(option => {
+			option.addEventListener('click', () => {
+				const value = option.getAttribute('data-value');
+				hiddenInput.value = value;
+				trigger.textContent = option.textContent;
+				trigger.setAttribute('data-selected', value);
+				options.forEach(opt => opt.classList.remove('selected'));
+				option.classList.add('selected');
+				menu.classList.remove('open');
+				console.log('[Custom Dropdown] Selected:', value);
+			});
+		});
 	}
 
 	function handleFormSubmit(e) {

@@ -21,31 +21,17 @@ require_once get_template_directory() . '/includes/class-contact-admin.php';
 // Incluir orquestador de AGENDAMIENTO
 require_once get_template_directory() . '/includes/appointments/class-appointments-manager.php';
 
-// Incluir orquestador de RESERVAS (WooCommerce)
-require_once get_template_directory() . '/includes/reservations/class-reservations-manager.php';
+// Incluir orquestador de DIAGNÓSTICO
+require_once get_template_directory() . '/includes/class-diagnostico-manager.php';
 
-// Setup automático de página de checkout
-require_once get_template_directory() . '/includes/reservations/setup-checkout-page.php';
+// Incluir clases de AGENDAMIENTO
+require_once get_template_directory() . '/includes/class-agendamiento-db.php';
+require_once get_template_directory() . '/includes/class-agendamiento-handler.php';
 
-// Setup automático de métodos de pago
-require_once get_template_directory() . '/includes/reservations/setup-payment-methods.php';
+// Incluir COMPONENTES REUTILIZABLES
+require_once get_template_directory() . '/includes/class-scheduling-component.php';
+require_once get_template_directory() . '/includes/class-form-component.php';
 
-// Fix automático del estado de checkout (si está programado, publicarlo)
-require_once get_template_directory() . '/includes/reservations/fix-checkout-status.php';
-
-// Reset de setup (para recrear la página desde cero)
-require_once get_template_directory() . '/includes/reservations/reset-checkout-setup.php';
-
-// Limpiar banderas (temporal - se auto-elimina)
-if (file_exists(get_template_directory() . '/includes/reservations/clean-flags.php')) {
-	require_once get_template_directory() . '/includes/reservations/clean-flags.php';
-}
-
-// Incluir auditoría de WooCommerce (solo en admin)
-if (is_admin()) {
-	require_once get_template_directory() . '/includes/reservations/audit-woocommerce.php';
-	require_once get_template_directory() . '/includes/reservations/debug-checkout.php';
-}
 
 /**
  * CREAR PRODUCTOS DE MENTORÍA AUTOMÁTICAMENTE
@@ -102,11 +88,14 @@ add_action('init', function() {
  */
 
 /**
- * Crear tabla de contactos al cargar WordPress
+ * Crear tabla de contactos y agendamientos al cargar WordPress
  */
 add_action('wp_loaded', function() {
 	if (class_exists('Avance_Contact_DB')) {
 		Avance_Contact_DB::create_table();
+	}
+	if (class_exists('Avance_Agendamiento_DB')) {
+		Avance_Agendamiento_DB::create_table();
 	}
 });
 
@@ -215,15 +204,6 @@ function avance_template_enqueue_assets() {
 		);
 	}
 
-	// Debug script para reservaciones (frontend)
-	wp_enqueue_script(
-		'avance-reservation-debug',
-		$theme_uri . '/assets/js/reservation-debug.js',
-		array(),
-		wp_get_theme()->get('Version'),
-		true
-	);
-
 	// Agendamiento (Global - se verifica en JS si existe el formulario)
 	wp_enqueue_style(
 		'avance-appointment-calendar',
@@ -278,6 +258,25 @@ function avance_template_enqueue_assets() {
 		)
 	);
 
+	// Contacto Agenda Script (CSS is in pages.css)
+	wp_enqueue_script(
+		'avance-contacto-agenda',
+		$theme_uri . '/assets/js/contacto-agenda.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
+
+	// Localizar datos para el agendamiento
+	wp_localize_script(
+		'avance-contacto-agenda',
+		'avanceAgendamientoConfig',
+		array(
+			'ajaxUrl' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('avance_agendamiento_form'),
+		)
+	);
+
 	// WordPress styles
 	wp_enqueue_style('wp-block-library');
 
@@ -285,6 +284,15 @@ function avance_template_enqueue_assets() {
 	wp_enqueue_script(
 		'avance-animations',
 		$theme_uri . '/assets/js/animations.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
+
+	// JavaScript - Mobile Menu
+	wp_enqueue_script(
+		'avance-mobile-menu',
+		$theme_uri . '/assets/js/mobile-menu.js',
 		array(),
 		wp_get_theme()->get('Version'),
 		true
@@ -393,3 +401,58 @@ function avance_template_create_pages() {
 	}
 }
 add_action('after_setup_theme', 'avance_template_create_pages');
+
+/**
+ * Procesar agendamiento via AJAX
+ */
+add_action('wp_ajax_avance_agendamiento_submit', 'avance_handle_agendamiento_submit');
+add_action('wp_ajax_nopriv_avance_agendamiento_submit', 'avance_handle_agendamiento_submit');
+
+function avance_handle_agendamiento_submit() {
+	check_ajax_referer('avance_agendamiento_form', 'nonce');
+
+	$data = array(
+		'nombre' => $_POST['nombre'] ?? '',
+		'numero' => $_POST['numero'] ?? '',
+		'tema' => $_POST['tema'] ?? '',
+		'fecha' => $_POST['fecha'] ?? '',
+	);
+
+	// Validar datos
+	$validation = Avance_Agendamiento_Handler::validate($data);
+
+	if (!$validation['success']) {
+		wp_send_json_error(array(
+			'message' => implode(', ', $validation['errors']),
+		));
+	}
+
+	// Procesar agendamiento
+	$result = Avance_Agendamiento_Handler::process($validation['data']);
+
+	if (!$result['success']) {
+		wp_send_json_error(array(
+			'message' => $result['message'],
+		));
+	}
+
+	// Formatear datos para WhatsApp
+	$fecha_formato = date('d/m/Y', strtotime($validation['data']['fecha_agendada']));
+	$mensaje = sprintf(
+		"Hola, quiero agendar una sesión:\n\nNombre: %s\nTeléfono: %s\nTema: %s\nFecha: %s",
+		$validation['data']['nombre'],
+		$validation['data']['numero'],
+		$validation['data']['tema'],
+		$fecha_formato
+	);
+
+	$whatsapp_number = '51936975214';
+	$whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($mensaje);
+
+	wp_send_json_success(array(
+		'message' => $result['message'],
+		'id' => $result['id'],
+		'whatsapp_url' => $whatsapp_url,
+		'fecha_formateada' => $fecha_formato,
+	));
+}

@@ -112,7 +112,6 @@
 	display: flex;
 	gap: 28px;
 	align-items: center;
-	justify-content: center;
 }
 
 .servicio-intro__stat {
@@ -833,4 +832,620 @@
 .servicio-contact__direct-btn:hover {
 	transform: scale(1.02);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP LARGE (1440px+)
+   ===================================================== */
+@media (min-width: 1440px) {
+	/* SECTION 1: INTRO SERVICIOS */
+	.servicio-intro {
+		height: 420px;
+	}
+
+	.servicio-intro__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 50px;
+	}
+
+	.servicio-intro__content {
+		padding: 0px var(--lateral-spacing) 0px 0;
+		gap: 16px;
+	}
+
+	.servicio-intro__title {
+		font-size: 14px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-intro__subtitle {
+		font-size: 32px;
+		line-height: 36px;
+	}
+
+	.servicio-intro__description {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.servicio-intro__actions {
+		gap: 12px;
+	}
+
+	.servicio-intro__btn {
+		padding: 11px 20px;
+		font-size: 11px;
+		line-height: 16px;
+		gap: 8px;
+	}
+
+	.servicio-intro__stats {
+		gap: 24px;
+	}
+
+	.servicio-intro__stat-number {
+		font-size: 28px;
+	}
+
+	.servicio-intro__stat-label {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	/* SECTION 2: NUESTROS SERVICIOS */
+	.servicio-offers {
+		padding: 50px var(--lateral-spacing);
+	}
+
+	.servicio-offers__container {
+		gap: 28px;
+	}
+
+	.servicio-offers__header {
+		gap: 12px;
+		max-width: 600px;
+	}
+
+	.servicio-offers__label {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-offers__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.servicio-offers__description {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.servicio-offers__grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+		padding-bottom: 36px;
+	}
+
+	.servicio-offers__item {
+		padding: 20px;
+		height: 220px;
+		gap: 14px;
+	}
+
+	.servicio-offers__item-duration {
+		font-size: 8px;
+		line-height: 12px;
+	}
+
+	.servicio-offers__item-level {
+		width: 74px;
+		height: 24px;
+		font-size: 8px;
+		padding: 4px 8px;
+	}
+
+	.servicio-offers__item-title {
+		font-size: 17px;
+		line-height: 26px;
+	}
+
+	.servicio-offers__item-text {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.servicio-offers__cta {
+		height: auto;
+		padding: 20px;
+		gap: 32px;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.servicio-offers__cta-content {
+		flex: 0 0 auto;
+		max-width: 380px;
+	}
+
+	.servicio-offers__cta-title {
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.servicio-offers__cta-description {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.servicio-offers__cta-actions {
+		gap: 12px;
+		flex-shrink: 0;
+	}
+
+	.servicio-offers__cta-btn {
+		width: 140px;
+		height: 40px;
+		padding: 10px 20px;
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	/* SECTION 3: PROCESO DE TRABAJO */
+	.servicio-process {
+		padding: 50px var(--lateral-spacing);
+	}
+
+	.servicio-process__container {
+		gap: 28px;
+	}
+
+	.servicio-process__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.servicio-process__steps {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 16px;
+	}
+
+	.servicio-process__step {
+		padding: 18px;
+		height: 150px;
+	}
+
+	.servicio-process__step-number {
+		font-size: 22px;
+	}
+
+	.servicio-process__step-title {
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.servicio-process__step-description {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	/* SECTION 4: SOLICITAR PROPUESTA */
+	.servicio-contact {
+		padding: 70px var(--lateral-spacing);
+	}
+
+	.servicio-contact__container {
+		gap: 28px;
+	}
+
+	.servicio-contact__header {
+		gap: 14px;
+	}
+
+	.servicio-contact__label {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-contact__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.servicio-contact__description {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.servicio-contact__content {
+		grid-template-columns: 1fr 1fr;
+		gap: 50px;
+	}
+
+	.servicio-contact__form {
+		gap: 12px;
+	}
+
+	.servicio-contact__form-row {
+		gap: 12px;
+	}
+
+	.servicio-contact__label-text {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.servicio-contact__input {
+		height: 44px;
+		font-size: 13px;
+		padding: 11px 13px;
+	}
+
+	.servicio-contact__textarea {
+		min-height: 90px;
+		font-size: 13px;
+		padding: 11px 13px;
+	}
+
+	.servicio-contact__btn {
+		height: 44px;
+		font-size: 12px;
+		padding: 12px 20px;
+	}
+
+	.servicio-contact__benefits-list {
+		gap: 28px;
+		padding: 22px;
+	}
+
+	.servicio-contact__benefit-title {
+		font-size: 15px;
+		line-height: 20px;
+	}
+
+	.servicio-contact__benefit-text {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.servicio-contact__direct {
+		height: auto;
+		padding: 18px;
+		gap: 18px;
+	}
+
+	.servicio-contact__direct-title {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.servicio-contact__direct-text {
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.servicio-contact__direct-btn {
+		width: 130px;
+		height: 44px;
+		font-size: 11px;
+		padding: 11px 20px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP (1024px - 1439px)
+   ===================================================== */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	/* SECTION 1: INTRO SERVICIOS */
+	.servicio-intro {
+		height: 420px;
+	}
+
+	.servicio-intro__features {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.servicio-intro__content {
+		padding: 0px var(--lateral-spacing) 0px 0;
+		gap: 16px;
+	}
+
+	.servicio-intro__title {
+		font-size: 14px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-intro__subtitle {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.servicio-intro__description {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.servicio-intro__actions {
+		gap: 12px;
+	}
+
+	.servicio-intro__btn {
+		padding: 10px 18px;
+		font-size: 11px;
+		line-height: 14px;
+		gap: 6px;
+	}
+
+	.servicio-intro__stats {
+		gap: 20px;
+	}
+
+	.servicio-intro__stat-number {
+		font-size: 24px;
+	}
+
+	.servicio-intro__stat-label {
+		font-size: 9px;
+		line-height: 13px;
+	}
+
+	/* SECTION 2: NUESTROS SERVICIOS */
+	.servicio-offers {
+		padding: 40px var(--lateral-spacing);
+	}
+
+	.servicio-offers__container {
+		gap: 24px;
+	}
+
+	.servicio-offers__header {
+		gap: 10px;
+		max-width: 550px;
+	}
+
+	.servicio-offers__label {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-offers__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.servicio-offers__description {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.servicio-offers__grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+		padding-bottom: 32px;
+	}
+
+	.servicio-offers__item {
+		padding: 18px;
+		height: 200px;
+		gap: 12px;
+	}
+
+	.servicio-offers__item-duration {
+		font-size: 8px;
+		line-height: 12px;
+	}
+
+	.servicio-offers__item-level {
+		width: 70px;
+		height: 22px;
+		font-size: 8px;
+		padding: 3px 6px;
+	}
+
+	.servicio-offers__item-title {
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	.servicio-offers__item-text {
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.servicio-offers__cta {
+		height: auto;
+		padding: 16px;
+		gap: 30px;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.servicio-offers__cta-content {
+		flex: 0 0 auto;
+		max-width: 350px;
+	}
+
+	.servicio-offers__cta-title {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.servicio-offers__cta-description {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.servicio-offers__cta-actions {
+		gap: 10px;
+		flex-shrink: 0;
+	}
+
+	.servicio-offers__cta-btn {
+		width: 120px;
+		height: 36px;
+		padding: 8px 14px;
+		font-size: 10px;
+		line-height: 12px;
+	}
+
+	/* SECTION 3: PROCESO DE TRABAJO */
+	.servicio-process {
+		padding: 40px var(--lateral-spacing);
+	}
+
+	.servicio-process__container {
+		gap: 20px;
+	}
+
+	.servicio-process__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.servicio-process__steps {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	.servicio-process__step {
+		padding: 14px;
+		height: 120px;
+	}
+
+	.servicio-process__step-number {
+		font-size: 20px;
+	}
+
+	.servicio-process__step-title {
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	.servicio-process__step-description {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	/* SECTION 4: SOLICITAR PROPUESTA */
+	.servicio-contact {
+		padding: 60px var(--lateral-spacing);
+	}
+
+	.servicio-contact__container {
+		gap: 24px;
+	}
+
+	.servicio-contact__header {
+		gap: 12px;
+	}
+
+	.servicio-contact__label {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.servicio-contact__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.servicio-contact__description {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.servicio-contact__content {
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+	}
+
+	.servicio-contact__form {
+		gap: 10px;
+	}
+
+	.servicio-contact__form-row {
+		gap: 10px;
+	}
+
+	.servicio-contact__label-text {
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.servicio-contact__input {
+		height: 40px;
+		font-size: 13px;
+		padding: 10px 12px;
+	}
+
+	.servicio-contact__textarea {
+		min-height: 80px;
+		font-size: 13px;
+		padding: 10px 12px;
+	}
+
+	.servicio-contact__btn {
+		height: 40px;
+		font-size: 11px;
+		padding: 10px 18px;
+	}
+
+	.servicio-contact__benefits-list {
+		gap: 24px;
+		padding: 20px;
+	}
+
+	.servicio-contact__benefit-title {
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	.servicio-contact__benefit-text {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.servicio-contact__direct {
+		height: auto;
+		padding: 16px;
+		gap: 16px;
+	}
+
+	.servicio-contact__direct-title {
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.servicio-contact__direct-text {
+		font-size: 9px;
+		line-height: 13px;
+	}
+
+	.servicio-contact__direct-btn {
+		width: 120px;
+		height: 40px;
+		font-size: 10px;
+		padding: 10px 18px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (768px - 1023px)
+   ===================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 480px)
+   ===================================================== */
+@media (max-width: 480px) {
 }

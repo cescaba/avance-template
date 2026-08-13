@@ -206,6 +206,10 @@ a[class*="btn"]:hover {
 	margin-left: auto;
 }
 
+.site-header__menu-buttons {
+	display: none;
+}
+
 .site-header__btn-whatsapp {
 	display: inline-flex;
 	align-items: center;
@@ -430,15 +434,17 @@ a[class*="btn"]:hover {
 	height: 525px;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	padding-left: var(--lateral-spacing);
+	padding-right: var(--lateral-spacing);
+	box-sizing: border-box;
 }
 
 .home-hero__container {
-	width: 530px;
-	max-width: 100%;
+	width: 520px;
 	display: grid;
 	gap: 20px;
-	padding: 0 var(--lateral-spacing);
+	padding: 0;
+	box-sizing: border-box;
 }
 
 .home-hero__content {
@@ -540,6 +546,7 @@ a[class*="btn"]:hover {
 	color: var(--text-white);
 	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
+
 
 /* =====================================================
    2. FEATURES SECTION
@@ -748,7 +755,7 @@ a[class*="btn"]:hover {
 }
 
 .home-process__subtitle {
-	
+
 	font-weight: 300;
 	font-size: 36px;
 	line-height: 36px;
@@ -1442,6 +1449,12 @@ a[class*="btn"]:hover {
 	width: 100%;
 	display: flex;
 	gap: 12px;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.home-form__buttons.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
 }
 
 .home-form__button {
@@ -1454,9 +1467,15 @@ a[class*="btn"]:hover {
 	text-align: center;
 	color: var(--text-white);
 	box-sizing: border-box;
+	opacity: 0;
+	transform: translateY(20px);
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+
+.home-form__button.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards !important;
 }
 
 .home-form__button:hover {
@@ -1467,6 +1486,8 @@ a[class*="btn"]:hover {
 .home-form__button--secondary {
 	flex: 1;
 	display: flex;
+	opacity: 0;
+	transform: translateY(20px);
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
@@ -1481,6 +1502,10 @@ a[class*="btn"]:hover {
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+.home-form__button--secondary.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards !important;
 }
 
 .home-form__button--secondary:hover {
@@ -1572,27 +1597,6 @@ a[class*="btn"]:hover {
 	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.2);
 }
 
-.home-final-cta__btn-secondary {
-	height: 48px;
-	padding: 14px 28px;
-	font-weight: 500;
-	font-size: var(--font-size-sm);
-	line-height: 18px;
-	letter-spacing: 0.39px;
-	text-align: center;
-	color: var(--text-white);
-	background-color: #34495e;
-	border: none;
-	box-sizing: border-box;
-	white-space: nowrap;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.home-final-cta__btn-secondary:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(52, 73, 94, 0.2);
-}
 
 .home-final-cta__btn-whatsapp {
 	display: flex;
@@ -1622,4 +1626,1624 @@ a[class*="btn"]:hover {
 .home-final-cta__icon {
 	width: 16px;
 	height: 16px;
+}
+
+
+/* =====================================================
+   CONTACTO AGENDA
+   ===================================================== */
+
+.contacto-agenda {
+	padding: 80px var(--lateral-spacing);
+	background-color: var(--bg-white);
+	display: flex;
+	justify-content: center;
+}
+
+.contacto-agenda__container {
+	width: 100%;
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.contacto-agenda__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 24px;
+	flex-wrap: wrap;
+}
+
+
+.contacto-agenda__header-content {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.contacto-agenda__kicker {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 16.5px;
+	letter-spacing: 1.1px;
+	text-transform: uppercase;
+	color: #99A1AF;
+	margin: 0;
+}
+
+.contacto-agenda__title {
+	font-weight: 300;
+	font-size: 36px;
+	line-height: 36px;
+	letter-spacing: 0px;
+	color: #2C2629;
+	margin: 0;
+}
+
+.contacto-agenda__subtitle {
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0px;
+	color: #99A1AF;
+	margin: 0;
+}
+
+.contacto-agenda__actions {
+	display: flex;
+	gap: 10px;
+}
+
+.contacto-agenda__btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1.2;
+	color: #2C2629;
+	background: transparent;
+	border: 1px transparent;
+	padding: 11px 20px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contacto-agenda__btn:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.contacto-agenda__btn--primary {
+	color: var(--text-white);
+	background-color: #466060;
+	border-color: #466060;
+}
+
+.contacto-agenda__btn--primary:hover:not(:disabled) {
+	transform: scale(1.02);
+	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.2);
+}
+
+.contacto-agenda__btn--primary:active:not(:disabled) {
+	background: #3a4d4d;
+}
+
+.contacto-agenda__btn--block {
+	width: 100%;
+	height: 48px;
+	font-size: 14px;
+	opacity: 0;
+}
+
+.contacto-agenda__grid {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	gap: 40px;
+	align-items: start;
+}
+
+.contacto-agenda__feature-grid {
+	/* Base styles only */
+}
+
+/* =====================================================
+   MODIFIER: Animated variant (page-inicio only)
+   ===================================================== */
+
+.contacto-agenda--animated .contacto-agenda__grid {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.contacto-agenda--animated .contacto-agenda__grid.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+.contacto-agenda--animated .contacto-agenda__btn--block.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards !important;
+}
+
+.contacto-agenda--animated .contacto-agenda__btn--block.animate-on-scroll.is-visible:disabled {
+	opacity: 0.45 !important;
+}
+
+.contacto-agenda--animated .contacto-agenda__feature-grid {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.contacto-agenda--animated .contacto-agenda__feature-grid.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+}
+
+.contacto-agenda__left {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.contacto-agenda__card {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 16px;
+	border-radius: 8px;
+	background: var(--bg-white);
+	border: 1px solid #E5E7EB;
+}
+
+.contacto-agenda__card:first-child {
+	height: 60px;
+}
+
+.contacto-agenda__card:last-child {
+	height: 400px;
+}
+
+.contacto-agenda__host-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.contacto-agenda__avatar {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #2C2629;
+	color: #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 8px;
+	font-weight: 700;
+	flex-shrink: 0;
+}
+
+.contacto-agenda__host-info {
+	flex: 1;
+}
+
+.contacto-agenda__host-title {
+	font-family: Outfit;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0px;
+	color: #2C2629;
+}
+
+.contacto-agenda__host-meta {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-family: Outfit;
+	font-weight: 300;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 0px;
+	color: #99A1AF;
+
+}
+
+.contacto-agenda__tag {
+	display: inline-flex;
+	align-items: center;
+	font-size: 12px;
+	letter-spacing: 0.02em;
+	border-radius: 6px;
+	color: #99A1AF;
+}
+
+.contacto-agenda__cal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.contacto-agenda__cal-nav {
+	flex-shrink: 0;
+	background: transparent;
+	border: 1px solid #E5E7EB;
+	border-radius: 6px;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #2C2629;
+	font-size: 18px;
+	line-height: 1;
+	transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contacto-agenda__cal-nav:hover {
+	background: #F9FAFB;
+}
+
+.contacto-agenda__cal-month-label {
+	flex: 1;
+	text-align: center;
+	font-family: Outfit;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 20px;
+	letter-spacing: 0px;
+	text-transform: capitalize;
+	color: #2C2629;
+}
+
+.contacto-agenda__cal-grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 4px;
+	text-align: center;
+	flex: 1;
+	align-content: start;
+}
+
+.contacto-agenda__cal-weekday {
+	font-size: 11px;
+	color: #99A1AF;
+	padding-bottom: 8px;
+	font-weight: 600;
+}
+
+
+.contacto-agenda__tz-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: #99A1AF;
+	margin-top: auto;
+	padding: 12px 0 0 0;
+	border-top: 1px solid #E5E7EB;
+	flex-shrink: 0;
+	height: fit-content;
+}
+
+.contacto-agenda__links-row {
+	font-size: 11px;
+	color: #99A1AF;
+	display: flex;
+	gap: 12px;
+}
+
+.contacto-agenda__daybtn {
+	position: relative;
+	height: 34px;
+	width: 100%;
+	border-radius: 50%;
+	font-size: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background: transparent;
+	font-family: inherit;
+	cursor: pointer;
+	color: #2C2629;
+	font-weight: 600;
+	transition: background-color 0.2s;
+}
+
+.contacto-agenda__daybtn:hover:not(:disabled):not(.selected) {
+	background-color: rgba(44, 38, 41, 0.08);
+}
+
+.contacto-agenda__daybtn.weekend {
+	color: #B2B6CA;
+	font-weight: 400;
+}
+
+.contacto-agenda__daybtn.selected {
+	background-color: #9184D9;
+	color: #161826;
+	font-weight: 600;
+}
+
+.contacto-agenda__daybtn.pad {
+	visibility: hidden;
+	cursor: default;
+}
+
+.contacto-agenda__daybtn .dot {
+	position: absolute;
+	bottom: 3px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background-color: #9184D9;
+}
+
+.contacto-agenda__right {
+	display: flex;
+	flex-direction: column;
+	gap: 35px;
+}
+
+.contacto-agenda__section-header {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.contacto-agenda__section-kicker {
+	font-weight: 300;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 1.2px;
+	text-transform: uppercase;
+	color: #466060;
+
+}
+
+.contacto-agenda__section-sub {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 23px;
+	letter-spacing: 0px;
+	color: #99A1AF;
+}
+
+.contacto-agenda__form-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.contacto-agenda__form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+
+.contacto-agenda__field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	position: relative;
+}
+
+.contacto-agenda__field>label {
+	display: block;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0px;
+	color: #99A1AF;
+}
+
+.contacto-agenda__input {
+	height: 46px;
+	padding: 12px 16px;
+	font-family: Outfit;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0px;
+	color: #2C2629;
+	background: #FFFFFF;
+	border: 1px solid #F9FAFB;
+	box-sizing: border-box;
+}
+
+.contacto-agenda__input::placeholder {
+	color: #99A1AF;
+}
+
+.contacto-agenda__input:focus,
+.contacto-agenda__input:hover {
+	outline: none;
+	border-color: #F9FAFB;
+	box-shadow: none;
+}
+
+.contacto-agenda__select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.contacto-agenda__select-trigger {
+	width: 100%;
+	height: 46px;
+	padding: 12px 40px 12px 16px;
+	font-family: Outfit;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 100%;
+	color: #99A1AF;
+	background: #FFFFFF;
+	border: 1px solid #F9FAFB;
+	border-radius: 0;
+	box-sizing: border-box;
+	cursor: pointer;
+	text-align: left;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%2399A1AF'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 16px center;
+	background-size: 10px 6px;
+	transition: none;
+}
+
+.contacto-agenda__select-trigger:focus {
+	outline: none;
+	border-color: #F9FAFB;
+}
+
+.contacto-agenda__select-menu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	width: 100%;
+	background: #FFFFFF;
+	border: 1px solid #E5E7EB;
+	border-top: none;
+	max-height: 250px;
+	overflow-y: auto;
+	z-index: 1000;
+	box-sizing: border-box;
+}
+
+.contacto-agenda__select-menu.open {
+	display: block;
+}
+
+.contacto-agenda__select-option {
+	padding: 12px 16px;
+	font-size: 14px;
+	color: #99A1AF;
+	cursor: pointer;
+	background: #FFFFFF;
+	transition: background-color 0.2s;
+}
+
+.contacto-agenda__select-option:hover {
+	background-color: #F9FAFB;
+	color: #2C2629;
+}
+
+.contacto-agenda__select-option.selected {
+	background-color: #034732;
+	color: #FFFFFF;
+}
+
+.contacto-agenda__feature-grid {
+	display: grid;
+	height: 57px;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 12px;
+	align-items: stretch;
+}
+
+.contacto-agenda__feature-card {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 12px 16px;
+	border-radius: 8px;
+	background: #F9FAFB;
+	border: 1px solid #E5E7EB;
+	box-sizing: border-box;
+}
+
+.contacto-agenda__feature-title {
+	font-family: Outfit;
+	font-weight: 600;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 0px;
+	text-align: center;
+	color: #364153;
+
+}
+
+.contacto-agenda__feature-body {
+	font-family: Outfit;
+	font-weight: 300;
+	font-size: 9px;
+	line-height: 14px;
+	letter-spacing: 0px;
+	text-align: center;
+	color: #99A1AF;
+
+}
+
+
+
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP LARGE (1440px+)
+   ===================================================== */
+
+@media (min-width: 1440px) {
+	:root {
+		--lateral-spacing: 17.5rem;
+	}
+
+	.site-header {
+		padding: 0;
+	}
+
+	.site-header__container {
+		max-width: 100%;
+		padding: 0 !important;
+		width: auto;
+		box-sizing: border-box;
+	}
+
+	.home-hero__title {
+		font-size: 36px;
+		line-height: 42px;
+		letter-spacing: -0.8px;
+	}
+
+	.home-hero__description {
+		font-size: 14px;
+		line-height: 22px;
+	}
+
+	.home-hero__content {
+		height: 48px;
+		padding-top: 8px;
+	}
+
+	.home-features__container {
+		min-height: 150px;
+		padding: 32px var(--lateral-spacing);
+	}
+
+	.home-features__stat {
+		font-size: 48px;
+		min-width: 100px;
+	}
+
+	.home-features__text {
+		font-size: 15px;
+	}
+
+	/* Services Section */
+	.home-services__container {
+		padding: 36px var(--lateral-spacing) 40px var(--lateral-spacing);
+		gap: 28px;
+	}
+
+	.home-services__subtitle {
+		font-size: 30px;
+		line-height: 32px;
+	}
+
+	.home-services__item {
+		padding: 16px;
+	}
+
+	.home-services__badge {
+		font-size: 20px;
+		padding-bottom: 12px;
+	}
+
+	.home-services__item-title {
+		font-size: 20px;
+		line-height: 24px;
+		padding-bottom: 8px;
+	}
+
+	.home-services__btn {
+		height: 40px;
+		font-size: 13px;
+	}
+
+	.home-services__link {
+		height: 42px;
+	}
+
+	/* Process Section */
+	.home-process__container {
+		padding: 36px var(--lateral-spacing) 45px var(--lateral-spacing);
+		gap: 36px;
+	}
+
+	.home-process__subtitle {
+		font-size: 30px;
+		line-height: 32px;
+	}
+
+	.home-process__list {
+		gap: 24px;
+	}
+
+	.home-process__badge {
+		width: 44px;
+		height: 40px;
+		font-size: 20px;
+		padding: 10px 8px;
+	}
+
+	.home-process__item-title {
+		font-size: 20px;
+		line-height: 22px;
+	}
+
+	.home-process__cta {
+		height: 80px;
+		padding: 20px;
+		gap: 24px;
+	}
+
+	.home-process__cta-grat,
+	.home-process__cta-what {
+		width: 160px;
+		height: 36px;
+		padding: 12px 10px;
+		font-size: 12px;
+	}
+
+	/* Testimonials Section */
+	.home-testimonials__container {
+		padding: 50px var(--lateral-spacing) 30px var(--lateral-spacing);
+		gap: 28px;
+	}
+
+	.home-testimonials__subtitle {
+		font-size: 30px;
+		line-height: 32px;
+	}
+
+	.home-testimonials__item {
+		padding: 24px;
+	}
+
+	.home-testimonials__text {
+		font-size: 13px;
+		line-height: 22px;
+		padding-bottom: 20px;
+	}
+
+	/* CTA Section */
+	.home-cta__container {
+		height: 70px;
+		padding: 16px;
+	}
+
+	.home-cta__btn-diag,
+	.home-cta__btn-consul {
+		padding: 12px 20px;
+	}
+
+	/* Clients Section */
+	.home-clients__container {
+		height: 70px;
+		padding: 12px;
+		gap: 24px;
+	}
+
+	/* Dark Band Section */
+	.home-dark-band__bg {
+		height: 160px;
+	}
+
+	.home-dark-band__title {
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	.home-dark-band__container {
+		gap: 50px;
+	}
+
+	.home-dark-band__btn-primary {
+		height: 48px;
+	}
+
+	.home-dark-band__btn-secondary {
+		height: 48px;
+	}
+
+	/* Form Section */
+	.home-form {
+		padding: 60px var(--lateral-spacing);
+	}
+
+	.home-form__container {
+		gap: 28px;
+	}
+
+	.home-form__title {
+		font-size: 30px;
+		line-height: 32px;
+		padding-bottom: 8px;
+	}
+
+	/* Scheduling Section */
+	.contacto-agenda {
+		padding: 60px var(--lateral-spacing);
+	}
+
+	.contacto-agenda__container {
+		gap: 32px;
+	}
+
+	.contacto-agenda__title {
+		font-size: 30px;
+		line-height: 32px;
+	}
+
+	.contacto-agenda__subtitle {
+		font-size: 12px;
+	}
+
+	.contacto-agenda__header-content {
+		gap: 12px;
+	}
+
+	.contacto-agenda__right {
+		gap: 28px;
+	}
+
+	.contacto-agenda__section-header {
+		gap: 8px;
+	}
+
+	.contacto-agenda__section-kicker {
+		font-size: 11px;
+	}
+
+	.contacto-agenda__section-sub {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.contacto-agenda__form-fields {
+		gap: 10px;
+	}
+
+	.contacto-agenda__feature-grid {
+		height: 50px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP (1024px - 1439px)
+   ===================================================== */
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+	:root {
+		--lateral-spacing: 8.75rem;
+	}
+
+	.contacto-agenda__grid {
+		grid-template-columns: 1fr;
+	}
+
+	.site-header__hamburger {
+		display: flex;
+		margin-left: auto;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.hamburger-svg {
+		color: #2C2629;
+		width: 28px;
+		height: 28px;
+	}
+
+	.hamburger-line {
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		transform-origin: 50% 50%;
+	}
+
+	.site-header__hamburger.is-active .hamburger-line-1 {
+		transform: rotate(45deg);
+	}
+
+	.site-header__hamburger.is-active .hamburger-line-2 {
+		opacity: 0;
+	}
+
+	.site-header__hamburger.is-active .hamburger-line-3 {
+		transform: rotate(-45deg);
+	}
+
+	.site-header__menu {
+		display: none;
+		position: absolute;
+		top: 66px;
+		left: 0;
+		right: 0;
+		background-color: #F0F4EF;
+		border-bottom: 1px solid #F3F4F6;
+		padding: 16px 20px;
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	.site-header__menu.is-open {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.site-header__menu-list {
+		flex-direction: column !important;
+		gap: 0 !important;
+		width: 100%;
+	}
+
+	.site-header__menu-list a {
+		padding: 12px 0 !important;
+		display: block;
+		text-align: left;
+	}
+
+	.site-header__hamburger.is-active span:nth-child(1) {
+		transform: rotate(45deg) translate(10px, 10px);
+	}
+
+	.site-header__hamburger.is-active span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.site-header__hamburger.is-active span:nth-child(3) {
+		transform: rotate(-45deg) translate(7px, -7px);
+	}
+
+	.site-header {
+		padding: 0;
+		justify-content: flex-start;
+		position: relative;
+	}
+
+	.site-header__container {
+		padding: 10px 20px !important;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.site-header__buttons {
+		display: none;
+	}
+
+	.site-header__menu-buttons {
+		display: none;
+		flex-direction: row;
+		gap: 40px;
+		padding: 16px 0px;
+		width: 100%;
+		box-sizing: border-box;
+		border-top: 1px solid #F3F4F6;
+	}
+
+	.site-header__menu.is-open .site-header__menu-buttons {
+		display: flex;
+	}
+
+	.site-header__menu-buttons .site-header__btn-whatsapp,
+	.site-header__menu-buttons .site-header__btn-session {
+		flex: 1;
+	}
+
+	/* HERO SECTION - 1024px */
+	.home-hero__bg {
+		height: 450px;
+	}
+
+	.home-hero__container {
+		width: 100%;
+		max-width: 470px;
+	}
+
+	.home-hero__label {
+		font-size: 9px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.home-hero__title {
+		font-size: 32px;
+		line-height: 40px;
+		letter-spacing: -0.8px;
+	}
+
+	.home-hero__description {
+		font-size: 14px;
+		line-height: 22px;
+	}
+
+	.home-hero__content {
+		height: auto;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	.home-hero__btn-diag,
+	.home-hero__btn-consul,
+	.home-hero__btn-link {
+		height: 36px;
+		font-size: 11px;
+		line-height: 16px;
+		padding: 8px 16px;
+	}
+
+	/* FEATURES SECTION - 1024px */
+	.home-features__container {
+		min-height: 140px;
+		padding: 20px var(--lateral-spacing);
+	}
+
+	.home-features__stat {
+		font-size: 42px;
+		line-height: 90%;
+		min-width: 90px;
+	}
+
+	.home-features__item {
+		gap: 10px;
+	}
+
+	.home-features__text {
+		font-size: 14px;
+		line-height: 1.2;
+	}
+
+	/* SERVICES SECTION - 1024px */
+	.home-services__container {
+		padding: 32px var(--lateral-spacing) 40px var(--lateral-spacing);
+		gap: 24px;
+	}
+
+	.home-services__title {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.home-services__subtitle {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.home-services__list {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+
+	.home-services__item {
+		padding: 16px;
+	}
+
+	.home-services__badge {
+		font-size: 20px;
+		line-height: 14px;
+		padding-bottom: 12px;
+	}
+
+	.home-services__item-title {
+		font-size: 20px;
+		line-height: 24px;
+		padding-bottom: 10px;
+	}
+
+	.home-services__item-text {
+		font-size: 13px;
+		line-height: 20px;
+		min-height: auto;
+		padding-bottom: 8px;
+		flex: 1;
+	}
+
+	.home-services__actions {
+		margin-top: auto;
+	}
+
+	.home-services__btn,
+	.home-services__link {
+		height: 40px;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	/* PROCESS SECTION - 1024px */
+	.home-process__container {
+		padding: 32px var(--lateral-spacing) 40px var(--lateral-spacing);
+		gap: 32px;
+	}
+
+	.home-process__title {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.home-process__subtitle {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.home-process__list {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.home-process__badge {
+		width: 44px;
+		height: 40px;
+		font-size: 20px;
+		line-height: 14px;
+		padding: 12px 10px;
+	}
+
+	.home-process__item-title {
+		font-size: 20px;
+		line-height: 22px;
+	}
+
+	.home-process__item-text {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.home-process__cta {
+		height: 90px;
+		padding: 20px;
+		gap: 15px;
+	}
+
+	.home-process__cta-grat,
+	.home-process__cta-what {
+		width: 160px;
+		height: 36px;
+		padding: 10px;
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	/* TESTIMONIALS SECTION - 1024px */
+	.home-testimonials__container {
+		padding: 48px var(--lateral-spacing) 28px var(--lateral-spacing);
+		gap: 28px;
+	}
+
+	.home-testimonials__title {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+	}
+
+	.home-testimonials__subtitle {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.home-testimonials__item {
+		padding: 24px;
+	}
+
+	.home-testimonials__text {
+		font-size: 13px;
+		line-height: 22px;
+		padding-bottom: 20px;
+	}
+
+	.home-testimonials__author {
+		gap: 12px;
+	}
+
+	.home-testimonials__icon {
+		width: 56px;
+		height: 56px;
+	}
+
+	.home-testimonials__name {
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	.home-testimonials__role {
+		font-size: 11px;
+		line-height: 15px;
+	}
+
+	/* CTA SECTION - 1024px */
+	.home-cta {
+		padding: 0px var(--lateral-spacing) 20px var(--lateral-spacing);
+	}
+
+	.home-cta__container {
+		height: 75px;
+		padding: 16px;
+		gap: 24px;
+	}
+
+	.home-cta__text {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.home-cta__buttons {
+		gap: 12px;
+	}
+
+	.home-cta__btn-diag,
+	.home-cta__btn-consul {
+		padding: 10px 18px;
+		gap: 6px;
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	/* CLIENTS SECTION - 1024px */
+	.home-clients {
+		padding: 0px var(--lateral-spacing) 60px var(--lateral-spacing);
+	}
+
+	.home-clients__container {
+		height: 75px;
+		padding: 12px;
+		gap: 20px;
+	}
+
+	.home-clients__title {
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.home-clients__grid {
+		height: 48px;
+		gap: 12px;
+	}
+
+	.home-clients__logo {
+		height: 100%;
+	}
+
+	/* DARK BAND SECTION - 1024px */
+	.home-dark-band__bg {
+		height: 180px;
+		padding: 0 var(--lateral-spacing);
+	}
+
+	.home-dark-band__container {
+		gap: 50px;
+	}
+
+	.home-dark-band__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.home-dark-band__actions {
+		gap: 12px;
+	}
+
+	.home-dark-band__btn-primary,
+	.home-dark-band__btn-secondary {
+		height: 44px;
+		padding: 11px 20px;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	/* FORM SECTION - 1024px */
+	.home-form {
+		padding: 60px var(--lateral-spacing);
+	}
+
+	.home-form__container {
+		gap: 28px;
+	}
+
+	.home-form__label {
+		font-size: 14px;
+		line-height: 16px;
+		letter-spacing: 0.8px;
+		padding-bottom: 12px;
+	}
+
+	.home-form__title {
+		font-size: 28px;
+		line-height: 32px;
+		padding-bottom: 8px;
+	}
+
+	.home-form__description {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.home-form__form {
+		gap: 10px;
+	}
+
+	.home-form__row {
+		gap: 10px;
+	}
+
+	.home-form__field {
+		gap: 5px;
+	}
+
+	.home-form__label-field {
+		font-size: 11px;
+		line-height: 1.3;
+	}
+
+	.home-form__input {
+		font-size: 13px;
+		height: 40px;
+		padding: 10px 14px;
+	}
+
+	.home-form__textarea {
+		min-height: 80px;
+		font-size: 13px;
+		line-height: 18px;
+		padding: 10px 14px;
+	}
+
+	.home-form__buttons {
+		gap: 10px;
+	}
+
+	.home-form__button {
+		height: 40px;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.home-form__button--secondary {
+		height: 40px;
+		font-size: 11px;
+		line-height: 14px;
+		gap: 6px;
+	}
+
+	/* FOOTER - 1024px */
+	.site-footer {
+		padding: 48px var(--lateral-spacing) 32px var(--lateral-spacing);
+	}
+
+	.site-footer__grid {
+		gap: 28px;
+		padding-bottom: 24px;
+	}
+
+	.site-footer__brand {
+		max-width: 200px;
+	}
+
+	.site-footer__brand-text {
+		font-size: 12px;
+		line-height: 1.5;
+		padding-top: 12px;
+	}
+
+	.site-footer__col {
+		gap: 12px;
+		min-width: 150px;
+	}
+
+	.site-footer__col-title {
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		line-height: 1.2;
+	}
+
+	.site-footer__col a {
+		font-size: 12px;
+		line-height: 1.4;
+	}
+
+	.site-footer__col p {
+		font-size: 12px;
+		line-height: 1.4;
+	}
+
+	.site-footer__bottom {
+		padding-top: 28px;
+		gap: 16px;
+	}
+
+	.site-footer__copyright-text {
+		font-size: 11px;
+		line-height: 1.4;
+	}
+
+	.site-footer__legal-links {
+		gap: 16px;
+	}
+
+	.site-footer__legal-links a {
+		font-size: 11px;
+		line-height: 1.4;
+	}
+
+	/* FINAL CTA SECTION - 1024px */
+	.home-final-cta__bg {
+		height: 80px;
+		gap: 50px;
+	}
+
+	.home-final-cta__title {
+		font-size: 18px;
+		line-height: 28px;
+	}
+
+	.home-final-cta__subtitle-text {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.home-final-cta__actions {
+		gap: 10px;
+	}
+
+	.home-final-cta__btn-primary,
+	.home-final-cta__btn-whatsapp {
+		height: 40px;
+		padding: 10px 18px;
+		font-size: 11px;
+		line-height: 14px;
+		letter-spacing: 0.3px;
+		gap: 6px;
+	}
+
+	.home-final-cta__icon {
+		width: 14px;
+		height: 14px;
+	}
+
+	/* SCHEDULING SECTION - 1024px */
+	.contacto-agenda {
+		padding: 48px var(--lateral-spacing);
+	}
+
+	.contacto-agenda__container {
+		gap: 28px;
+	}
+
+	.contacto-agenda__header {
+		gap: 16px;
+	}
+
+	.contacto-agenda__kicker {
+		font-size: 14px;
+	}
+
+	.contacto-agenda__title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.contacto-agenda__subtitle {
+		font-size: 12px;
+	}
+
+	.contacto-agenda__header-content {
+		gap: 12px;
+	}
+
+	.contacto-agenda__grid {
+		gap: 28px;
+	}
+
+	.contacto-agenda__left {
+		gap: 16px;
+	}
+
+	.contacto-agenda__card {
+		gap: 10px;
+		padding: 12px;
+	}
+
+	.contacto-agenda__card:first-child {
+		height: 50px;
+	}
+
+	.contacto-agenda__card:last-child {
+		height: 350px;
+	}
+
+	.contacto-agenda__host-title {
+		font-size: 11px;
+	}
+
+	.contacto-agenda__host-meta {
+		font-size: 9px;
+	}
+
+	.contacto-agenda__cal-header {
+		gap: 6px;
+	}
+
+	.contacto-agenda__cal-nav {
+		width: 30px;
+		height: 30px;
+		font-size: 16px;
+	}
+
+	.contacto-agenda__cal-month-label {
+		font-size: 14px;
+	}
+
+	.contacto-agenda__cal-grid {
+		gap: 2px;
+	}
+
+	.contacto-agenda__cal-weekday {
+		font-size: 10px;
+		padding-bottom: 6px;
+	}
+
+	.contacto-agenda__tz-row {
+		font-size: 11px;
+		padding-top: 8px;
+	}
+
+	.contacto-agenda__right {
+		gap: 20px;
+	}
+
+	.contacto-agenda__section-header {
+		gap: 8px;
+	}
+
+	.contacto-agenda__section-kicker {
+		font-size: 11px;
+	}
+
+	.contacto-agenda__section-sub {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.contacto-agenda__form-fields {
+		gap: 10px;
+	}
+
+	.contacto-agenda__form-row {
+		gap: 16px;
+	}
+
+	.contacto-agenda__field {
+		gap: 6px;
+	}
+
+	.contacto-agenda__field>label {
+		font-size: 11px;
+	}
+
+	.contacto-agenda__input {
+		height: 40px;
+		font-size: 13px;
+		padding: 10px 12px;
+	}
+
+	.contacto-agenda__select-trigger {
+		height: 40px;
+		font-size: 13px;
+		padding: 10px 36px 10px 12px;
+	}
+
+	.contacto-agenda__select-option {
+		padding: 10px 12px;
+		font-size: 12px;
+	}
+
+	.contacto-agenda__btn {
+		font-size: 13px;
+	}
+
+	.contacto-agenda__btn--primary {
+		height: 40px;
+	}
+
+	.contacto-agenda__btn--block {
+		height: 40px;
+	}
+
+	.contacto-agenda__feature-grid {
+		height: 50px;
+		gap: 10px;
+	}
+
+	.contacto-agenda__feature-card {
+		padding: 10px 12px;
+	}
+
+	.contacto-agenda__feature-title {
+		font-size: 12px;
+	}
+
+	.contacto-agenda__feature-body {
+		font-size: 11px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (768px - 1023px)
+   ===================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+	:root {
+		--lateral-spacing: 5rem;
+	}
+
+	.site-header__hamburger {
+		display: flex;
+	}
+
+	.site-header__hamburger span {
+		width: 22px;
+		height: 2px;
+	}
+
+	.site-header__menu {
+		display: none;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 480px)
+   ===================================================== */
+
+@media (max-width: 480px) {
+	:root {
+		--lateral-spacing: 1.25rem;
+	}
+
+	.site-header__hamburger {
+		display: flex;
+	}
+
+	.site-header__hamburger span {
+		width: 20px;
+		height: 2px;
+	}
+
+	.site-header__menu {
+		display: none;
+	}
 }

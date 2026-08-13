@@ -96,15 +96,15 @@
 }
 
 .sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.1s;
-}
-
-.sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(2) {
 	animation-delay: 0.15s;
 }
 
+.sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(2) {
+	animation-delay: 0.3s;
+}
+
 .sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.25s;
+	animation-delay: 0.45s;
 }
 
 .sobremi-intro__btn:hover {
@@ -182,19 +182,19 @@
 }
 
 .sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.15s;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(3) {
 	animation-delay: 0.2s;
 }
 
+.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
 .sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(4) {
-	animation-delay: 0.25s;
+	animation-delay: 0.4s;
 }
 
 .sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(5) {
-	animation-delay: 0.25s;
+	animation-delay: 0.5s;
 }
 
 .sobremi-intro__list-item::before {
@@ -238,15 +238,15 @@
 }
 
 .sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.1s;
+	animation-delay: 0.5s;
 }
 
 .sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.15s;
+	animation-delay: 0.6s;
 }
 
 .sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.25s;
+	animation-delay: 0.7s;
 }
 
 .sobremi-intro__social-link svg {
@@ -503,4 +503,250 @@
 	letter-spacing: 0.3px;
 	text-align: center;
 	color: #034732;
+}
+
+/* =====================================================
+   RESPONSIVE BREAKPOINTS
+   ===================================================== */
+
+/* Desktop Large: 1440px y superior */
+@media (min-width: 1440px) {
+	/* Intro Section */
+	.sobremi-intro {
+		padding: 50px var(--lateral-spacing);
+	}
+
+	.sobremi-intro__container {
+		gap: 50px;
+	}
+
+	.sobremi-intro__content {
+		flex: 0 0 30%;
+		gap: 18px;
+	}
+
+	.sobremi-intro__features {
+		flex: 0 0 70%;
+		gap: 18px;
+	}
+
+	.sobremi-intro__list {
+		gap: 12px;
+	}
+
+	.sobremi-intro__list-item {
+		font-size: 12px;
+		line-height: 16px;
+		gap: 10px;
+	}
+
+	.sobremi-intro__stat {
+		gap: 14px;
+	}
+
+	.sobremi-intro__stat-subtitle {
+		font-size: 28px;
+		line-height: 28px;
+	}
+
+	.sobremi-intro__stat-text {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.sobremi-intro__stat-quote {
+		padding-left: 32px;
+	}
+
+	.sobremi-intro__stat-quote-text {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.sobremi-intro__skill {
+		gap: 18px;
+	}
+
+	.sobremi-intro__skill-title {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.sobremi-intro__timeline {
+		gap: 16px;
+	}
+
+	.sobremi-intro__timeline-item {
+		gap: 20px;
+	}
+
+	.sobremi-intro__timeline-year {
+		font-size: 14px;
+		line-height: 14px;
+	}
+
+	.sobremi-intro__timeline-text {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.sobremi-intro__achievement {
+		height: auto;
+		gap: 16px;
+		padding: 20px;
+	}
+
+	.sobremi-intro__achievement-title {
+		font-size: 14px;
+		line-height: 14px;
+	}
+
+	.sobremi-intro__achievement-subtitle {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	.sobremi-intro__achievement-btn {
+		height: 40px;
+		padding: 12px 18px;
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.sobremi-intro__buttons {
+		gap: 10px;
+	}
+
+	.sobremi-intro__btn {
+		height: 40px;
+		padding: 12px 18px;
+		font-size: 11px;
+		line-height: 16px;
+	}
+}
+
+/* Desktop: 1024px - 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	/* Intro Section */
+	.sobremi-intro {
+		padding: 45px var(--lateral-spacing);
+	}
+
+	.sobremi-intro__container {
+		gap: 45px;
+	}
+
+	.sobremi-intro__content {
+		flex: 0 0 35%;
+		gap: 16px;
+	}
+
+	.sobremi-intro__features {
+		flex: 0 0 65%;
+		gap: 16px;
+	}
+
+	.sobremi-intro__list {
+		gap: 11px;
+	}
+
+	.sobremi-intro__list-item {
+		font-size: 11px;
+		line-height: 15px;
+		gap: 9px;
+	}
+
+	.sobremi-intro__stat {
+		gap: 13px;
+	}
+
+	.sobremi-intro__stat-subtitle {
+		font-size: 24px;
+		line-height: 24px;
+	}
+
+	.sobremi-intro__stat-text {
+		font-size: 12px;
+		line-height: 17px;
+	}
+
+	.sobremi-intro__stat-quote {
+		padding-left: 30px;
+	}
+
+	.sobremi-intro__stat-quote-text {
+		font-size: 11px;
+		line-height: 15px;
+	}
+
+	.sobremi-intro__skill {
+		gap: 16px;
+	}
+
+	.sobremi-intro__skill-title {
+		font-size: 10px;
+		line-height: 15px;
+	}
+
+	.sobremi-intro__timeline {
+		gap: 15px;
+	}
+
+	.sobremi-intro__timeline-item {
+		gap: 18px;
+	}
+
+	.sobremi-intro__timeline-year {
+		font-size: 12px;
+		line-height: 12px;
+	}
+
+	.sobremi-intro__timeline-text {
+		font-size: 12px;
+		line-height: 17px;
+	}
+
+	.sobremi-intro__achievement {
+		height: auto;
+		gap: 15px;
+		padding: 18px;
+	}
+
+	.sobremi-intro__achievement-title {
+		font-size: 12px;
+		line-height: 12px;
+	}
+
+	.sobremi-intro__achievement-subtitle {
+		font-size: 12px;
+		line-height: 17px;
+	}
+
+	.sobremi-intro__achievement-btn {
+		height: 36px;
+		padding: 10px 16px;
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.sobremi-intro__buttons {
+		gap: 9px;
+	}
+
+	.sobremi-intro__btn {
+		height: 36px;
+		padding: 10px 16px;
+		font-size: 10px;
+		line-height: 14px;
+	}
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+	/* Responsive styles for 768-1023px here */
+}
+
+/* Mobile: hasta 480px */
+@media (max-width: 480px) {
+	/* Responsive styles for 480px and below here */
 }

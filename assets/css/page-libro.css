@@ -26,18 +26,15 @@
 .libro-sidebar {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 16px;
 }
 
 .libro-cover {
 	width: 100%;
-	height: 400px;
+	height: 357px;
 	object-fit: cover;
-	border-radius: 8px;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 	background-color: #F3F4F6;
-	opacity: 0;
-	transform: translateY(20px);
 }
 
 .libro-cover.animate-on-scroll.is-visible {
@@ -45,11 +42,10 @@
 }
 
 /* Button Styles */
-.libro-btn {
-	font-family: 'Outfit', sans-serif;
+.libro-btn-primary {
 	font-size: 14px;
 	font-weight: 600;
-	border-radius: 8px;
+	height: 46px;
 	cursor: pointer;
 	padding: 14px 24px;
 	display: flex;
@@ -60,8 +56,96 @@
 	box-sizing: border-box;
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
 		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	opacity: 0;
-	transform: translateY(20px);
+	background-color: #466060;
+	color: #FFFFFF;
+	width: 100%;
+}
+
+.libro-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
+	background-color: #034732;
+}
+
+.libro-btn-secondary {
+	font-size: 12px;
+	font-weight: 400;
+	height: 48px;
+	cursor: pointer;
+	padding: 14px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #FFFFFF;
+	color: #034732;
+	border: 1px solid #E5E7EB;
+	width: 100%;
+}
+
+.libro-btn-secondary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
+	border-color: #466060;
+}
+
+.libro-btn-small {
+	font-size: 12px;
+	font-weight: 400;
+	height: 42px;
+	cursor: pointer;
+	padding: 10px 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	background-color: #FFFFFF;
+	color: #99A1AF;
+	border: 1px solid #E5E7EB;
+	width: auto;
+}
+
+.libro-btn-small:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
+	border-color: #466060;
+}
+
+.libro-btn-primary.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-btn-secondary.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.libro-btn-small.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Legacy .libro-btn for CTA section */
+.libro-btn {
+	font-size: 12px;
+	font-weight: 400;
+	height: 48px;
+	cursor: pointer;
+	padding: 14px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .libro-btn.animate-on-scroll.is-visible {
@@ -100,18 +184,24 @@
 .libro-btn--primary {
 	background-color: #466060;
 	color: #FFFFFF;
-	width: 100%;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 0.3px;
+	text-align: center;
 }
 
-.libro-btn--primary:hover {
-	background-color: #034732;
-}
 
 .libro-btn--secondary {
 	background-color: #FFFFFF;
 	color: #034732;
 	border: 1px solid #E5E7EB;
-	width: 100%;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 0.3px;
+	text-align: center;
+
 }
 
 .libro-btn--secondary:hover {
@@ -121,14 +211,18 @@
 /* Sidebar Elements */
 .libro-hint {
 	text-align: center;
-	font-size: 12px;
-	color: #99A1AF;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 0px;
+	text-align: center;
+	color: #034732;
 }
 
 .libro-row-2 {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 12px;
+	gap: 8px;
 }
 
 .libro-row-2 .libro-btn {
@@ -136,51 +230,68 @@
 }
 
 .libro-mini-label {
-	font-size: 13px;
-	color: #6A7282;
-	margin-top: 12px;
-	font-weight: 600;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+	letter-spacing: 0px;
+	text-align: center;
+	color: #4A5565;
+}
+
+.libro-rating-section {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: auto;
+	border: 1px solid #F3F4F6;
+	padding: 14px;
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.libro-rating-section.animate-on-scroll.is-visible {
+	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .libro-rating {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	margin-top: 12px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.libro-rating.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .libro-stars {
 	color: #FFB800;
 	font-size: 14px;
+	line-height: 17px;
 	letter-spacing: 2px;
 }
 
 .libro-rating-value {
-	font-size: 13px;
-	font-weight: 600;
-	color: #2C2629;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 16px;
+	color: #FDC700;
 }
 
 .libro-reviews {
-	font-size: 12px;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 0px;
 	color: #99A1AF;
-	margin-top: -4px;
 }
 
 /* Content Styles */
 .libro-content {
 	display: flex;
 	flex-direction: column;
-	gap: 40px;
+	gap: 35px;
 }
 
 .libro-header {
+	display: flex;
+	flex-direction: column;
+	gap: 21px;
 	opacity: 0;
 	transform: translateY(20px);
 }
@@ -190,21 +301,20 @@
 }
 
 .libro-kicker {
-	font-size: 12px;
-	font-weight: 700;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 17px;
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #466060;
-	margin-bottom: 16px;
 }
 
 .libro-title {
 	font-weight: 300;
-	font-size: 48px;
-	line-height: 48px;
+	font-size: 36px;
+	line-height: 36px;
 	letter-spacing: 0px;
 	color: #034732;
-	margin: 0;
 }
 
 /* Meta Information */
@@ -226,27 +336,31 @@
 }
 
 .libro-meta-label {
-	font-size: 11px;
-	font-weight: 600;
-	letter-spacing: 0.5px;
-	color: #99A1AF;
+	font-weight: 500;
+	font-size: 10px;
+	line-height: 15px;
+	letter-spacing: 1px;
 	text-transform: uppercase;
+	color: #98BFBF;
 }
 
 .libro-meta-value {
+	font-weight: 800;
 	font-size: 24px;
-	font-weight: 600;
-	color: #466060;
+	line-height: 28px;
+	letter-spacing: 0px;
+	color: #034732;
+
 }
 
 /* Description */
 .libro-description {
+	font-weight: 400;
 	font-size: 15px;
-	line-height: 24px;
+	line-height: 20px;
+	letter-spacing: 0px;
 	color: #4A5565;
-	margin: 0;
-	opacity: 0;
-	transform: translateY(20px);
+
 }
 
 .libro-description.animate-on-scroll.is-visible {
@@ -255,6 +369,9 @@
 
 /* Chapters Section */
 .libro-chapters-section {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 	opacity: 0;
 	transform: translateY(20px);
 }
@@ -264,26 +381,46 @@
 }
 
 .libro-section-label {
-	font-size: 12px;
-	font-weight: 700;
-	letter-spacing: 1.1px;
+	font-weight: 450;
+	font-size: 14px;
+	line-height: 16.5px;
+	letter-spacing: 0px;
 	text-transform: uppercase;
-	color: #99A1AF;
-	margin-bottom: 24px;
+	color: #466060;
 }
 
 .libro-chapters {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	counter-reset: chapter-counter;
 }
 
 .libro-chapter {
 	display: flex;
-	gap: 24px;
-	align-items: flex-start;
+	gap: 15px;
+	align-items: center;
 	opacity: 0;
 	transform: translateY(20px);
+	counter-increment: chapter-counter;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0px;
+	color: #4A5565;
+}
+
+.libro-chapter::before {
+	content: counter(chapter-counter, decimal-leading-zero);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 16px;
+	color: #98BFBF;
+	flex-shrink: 0;
+	min-width: 24px;
 }
 
 .libro-chapter.animate-on-scroll.is-visible {
@@ -314,19 +451,15 @@
 	animation-delay: 0.25s;
 }
 
-.libro-chapter-num {
-	font-size: 14px;
-	font-weight: 700;
-	color: #466060;
-	min-width: 24px;
-	flex-shrink: 0;
-}
-
 /* Quote Section */
 .libro-quote {
-	border-left: 2px solid #98BFBF;
-	padding-left: 24px;
-	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: auto;
+	padding: 20px;
+	background-color: #F9FAFB;
+	border: 1px solid #F3F4F6;
 	opacity: 0;
 	transform: translateY(20px);
 }
@@ -336,28 +469,30 @@
 }
 
 .libro-quote-text {
-	font-style: italic;
-	font-size: 15px;
-	line-height: 24px;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 23px;
+	letter-spacing: 0px;
 	color: #4A5565;
-	margin: 0 0 12px 0;
 }
 
 .libro-quote-author {
-	font-size: 13px;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0px;
 	color: #99A1AF;
 }
 
 /* CTA Band */
 .libro-cta-band {
 	background-color: #F9FAFB;
-	border-radius: 12px;
-	padding: 40px;
+	height: 134px;
+	padding: 24px;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
-	border: 1px solid #E5E7EB;
-	opacity: 0;
+	gap: 16px;
+	border: 1px solid #F3F4F6;
 	transform: translateY(20px);
 }
 
@@ -366,10 +501,11 @@
 }
 
 .libro-cta-title {
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 28px;
-	color: #2C2629;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 20px;
+	letter-spacing: 0px;
+	color: #034732;
 }
 
 .libro-cta-actions {
@@ -379,9 +515,9 @@
 }
 
 .libro-cta-actions .libro-btn {
-	width: auto;
+	height: 48px;
+	padding: 14px 24px;
 	flex: 1;
-	min-width: 180px;
 }
 
 .libro-cta-actions .libro-btn.animate-on-scroll.is-visible {
@@ -398,4 +534,197 @@
 
 .libro-cta-actions .libro-btn.animate-on-scroll.is-visible:nth-child(3) {
 	animation-delay: 0.25s;
+}
+
+/* =====================================================
+   RESPONSIVE BREAKPOINTS
+   ===================================================== */
+
+/* Desktop Large: 1440px y superior */
+@media (min-width: 1440px) {
+	/* Main Section */
+	.libro-main {
+		padding: 60px var(--lateral-spacing);
+	}
+
+	.libro-wrap {
+		gap: 50px;
+	}
+
+	/* Sidebar */
+	.libro-sidebar {
+		gap: 14px;
+	}
+
+	/* Buttons */
+	.libro-btn-primary {
+		font-size: 12px;
+		height: 40px;
+		padding: 10px 16px;
+	}
+
+	.libro-btn-secondary {
+		font-size: 11px;
+		height: 40px;
+		padding: 10px 16px;
+	}
+
+	.libro-btn-small {
+		font-size: 10px;
+		height: 36px;
+		padding: 8px 12px;
+	}
+
+	/* Sidebar Elements */
+	.libro-hint {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	.libro-mini-label {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.libro-rating-section {
+		gap: 6px;
+		padding: 12px;
+	}
+
+	.libro-stars {
+		font-size: 13px;
+		line-height: 16px;
+	}
+
+	.libro-rating-value {
+		font-size: 11px;
+		line-height: 15px;
+	}
+
+	.libro-reviews {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	/* Content */
+	.libro-content {
+		gap: 30px;
+	}
+
+	.libro-header {
+		gap: 16px;
+	}
+
+	.libro-kicker {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.libro-title {
+		font-size: 28px;
+		line-height: 28px;
+	}
+
+	/* Meta */
+	.libro-meta {
+		gap: 45px;
+	}
+
+	.libro-meta-label {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	.libro-meta-value {
+		font-size: 18px;
+		line-height: 22px;
+	}
+
+	/* Description */
+	.libro-description {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	/* Chapters */
+	.libro-chapters-section {
+		gap: 12px;
+	}
+
+	.libro-chapters {
+		gap: 14px;
+	}
+
+	.libro-chapter {
+		gap: 12px;
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.libro-chapter::before {
+		font-size: 14px;
+		line-height: 14px;
+	}
+
+	.libro-section-label {
+		font-size: 11px;
+		line-height: 16px;
+		margin-bottom: 18px;
+	}
+
+	/* Quote */
+	.libro-quote {
+		gap: 6px;
+		padding: 16px;
+	}
+
+	.libro-quote-text {
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	.libro-quote-author {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	/* CTA Band */
+	.libro-cta-band {
+		padding: 24px;
+		gap: 14px;
+	}
+
+	.libro-cta-title {
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	.libro-cta-actions {
+		gap: 10px;
+	}
+
+	.libro-cta-actions .libro-btn {
+		height: 40px;
+		font-size: 10px;
+		padding: 10px 6px;
+	}
+}
+
+/* Desktop: 1024px - 1439px */
+@media (min-width: 1024px) and (max-width: 1439px) {
+	/* Layout - Sidebar arriba y contenido abajo */
+	.libro-wrap {
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+}
+
+/* Tablet: 768px - 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+	/* Responsive styles for 768-1023px here */
+}
+
+/* Mobile: hasta 480px */
+@media (max-width: 480px) {
+	/* Responsive styles for 480px and below here */
 }

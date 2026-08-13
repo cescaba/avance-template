@@ -21,26 +21,31 @@ get_header();
 	<div class="libro-wrap">
 		<!-- Sidebar -->
 		<aside class="libro-sidebar">
-			<img class="libro-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/libro-placeholder.png'); ?>" alt="<?php esc_attr_e('Portada del libro Avance Comercial', 'avance-template'); ?>">
+			<img class="libro-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg2.png'); ?>" alt="<?php esc_attr_e('Portada del libro Avance Comercial', 'avance-template'); ?>">
 
-			<a href="#" class="libro-btn libro-btn--primary animate-on-scroll" data-animate><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
+			<a href="#" class="libro-btn-primary animate-on-scroll" data-animate><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
 			<div class="libro-hint"><?php esc_html_e('Enlace directo Amazon', 'avance-template'); ?></div>
 
 			<div class="libro-row-2">
-				<button class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Kindle', 'avance-template'); ?></button>
-				<button class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Tapa blanda', 'avance-template'); ?></button>
+				<button class="libro-btn-small animate-on-scroll" data-animate><?php esc_html_e('Kindle', 'avance-template'); ?></button>
+				<button class="libro-btn-small animate-on-scroll" data-animate><?php esc_html_e('Tapa blanda', 'avance-template'); ?></button>
 			</div>
 
 			<div class="libro-mini-label"><?php esc_html_e('¿Quieres aplicar el método?', 'avance-template'); ?></div>
 
-			<a href="#" class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Escribir al consultor', 'avance-template'); ?></a>
-			<a href="#" class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Ir a agendar reunión', 'avance-template'); ?></a>
+			<a href="#" class="libro-btn-secondary animate-on-scroll" data-animate>
+				<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">
+				<?php esc_html_e('Escribir al consultor', 'avance-template'); ?>
+			</a>
+			<a href="#" class="libro-btn-secondary animate-on-scroll" data-animate><?php esc_html_e('Ir a agendar reunión', 'avance-template'); ?></a>
 
-			<div class="libro-rating animate-on-scroll" data-animate>
-				<span class="libro-stars">★★★★★</span>
-				<span class="libro-rating-value">4.9</span>
+			<div class="libro-rating-section animate-on-scroll" data-animate>
+				<div class="libro-rating">
+					<span class="libro-stars">★★★★★</span>
+					<span class="libro-rating-value">4.9</span>
+				</div>
+				<div class="libro-reviews"><?php esc_html_e('+48 reseñas verificadas en Amazon', 'avance-template'); ?></div>
 			</div>
-			<div class="libro-reviews"><?php esc_html_e('+48 reseñas verificadas en Amazon', 'avance-template'); ?></div>
 		</aside>
 
 		<!-- Content -->
@@ -73,28 +78,31 @@ get_header();
 			<!-- Chapters Section -->
 			<div class="libro-chapters-section animate-on-scroll" data-animate>
 				<div class="libro-section-label"><?php esc_html_e('QUÉ ENCONTRARÁS', 'avance-template'); ?></div>
-				<div class="libro-chapters">
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">01</span><span><?php esc_html_e('Diagnóstico de tu situación comercial actual', 'avance-template'); ?></span></div>
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">02</span><span><?php esc_html_e('Construcción de propuesta de valor diferenciada', 'avance-template'); ?></span></div>
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">03</span><span><?php esc_html_e('Diseño del proceso comercial paso a paso', 'avance-template'); ?></span></div>
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">04</span><span><?php esc_html_e('Gestión y motivación de equipos de ventas', 'avance-template'); ?></span></div>
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">05</span><span><?php esc_html_e('Métricas y KPIs que importan de verdad', 'avance-template'); ?></span></div>
-					<div class="libro-chapter animate-on-scroll" data-animate><span class="libro-chapter-num">06</span><span><?php esc_html_e('Plan de implementación en 90 días', 'avance-template'); ?></span></div>
-				</div>
+				<ol class="libro-chapters">
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Diagnóstico de tu situación comercial actual', 'avance-template'); ?></li>
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Construcción de propuesta de valor diferenciada', 'avance-template'); ?></li>
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Diseño del proceso comercial paso a paso', 'avance-template'); ?></li>
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Gestión y motivación de equipos de ventas', 'avance-template'); ?></li>
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Métricas y KPIs que importan de verdad', 'avance-template'); ?></li>
+					<li class="libro-chapter animate-on-scroll" data-animate><?php esc_html_e('Plan de implementación en 90 días', 'avance-template'); ?></li>
+				</ol>
 			</div>
 
 			<!-- Quote Section -->
-			<blockquote class="libro-quote animate-on-scroll" data-animate>
+			<div class="libro-quote animate-on-scroll" data-animate>
 				<p class="libro-quote-text"><?php esc_html_e('"El libro que ojalá hubiera tenido cuando empecé. Práctico, directo y con herramientas que funcionan."', 'avance-template'); ?></p>
 				<div class="libro-quote-author"><?php esc_html_e('— Lector Amazon ★★★★★', 'avance-template'); ?></div>
-			</blockquote>
+			</div>
 
 			<!-- CTA Section -->
 			<div class="libro-cta-band animate-on-scroll" data-animate>
 				<div class="libro-cta-title"><?php esc_html_e('¿Quieres implementar el método en tu empresa?', 'avance-template'); ?></div>
 				<div class="libro-cta-actions">
 					<a href="#" class="libro-btn libro-btn--primary animate-on-scroll" data-animate><?php esc_html_e('Agendar consultoría', 'avance-template'); ?></a>
-					<a href="#" class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?></a>
+					<a href="#" class="libro-btn libro-btn--secondary animate-on-scroll" data-animate>
+				<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">
+				<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
+			</a>
 					<a href="#" class="libro-btn libro-btn--secondary animate-on-scroll" data-animate><?php esc_html_e('Ir al Diagnóstico Gratuito', 'avance-template'); ?></a>
 				</div>
 			</div>

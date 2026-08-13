@@ -36,6 +36,15 @@ if (!defined('ABSPATH')) {
 				</a>
 			</div>
 
+			<!-- Hamburguesa -->
+			<button class="site-header__hamburger" aria-label="Abrir menú">
+				<svg class="hamburger-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+					<line class="hamburger-line hamburger-line-1" x1="3" y1="6" x2="21" y2="6"></line>
+					<line class="hamburger-line hamburger-line-2" x1="3" y1="12" x2="21" y2="12"></line>
+					<line class="hamburger-line hamburger-line-3" x1="3" y1="18" x2="21" y2="18"></line>
+				</svg>
+			</button>
+
 			<!-- Opciones (Menú + Botones) -->
 			<div class="site-header__options">
 				<!-- Menú de elecciones -->
@@ -49,9 +58,17 @@ if (!defined('ABSPATH')) {
 						<li><a href="<?php echo esc_url(home_url('/mi-libro')); ?>">Mi libro</a></li>
 						<li><a href="<?php echo esc_url(home_url('/contacto')); ?>">Contacto</a></li>
 					</ul>
+					<!-- Botones de acción (Móvil) -->
+					<div class="site-header__menu-buttons">
+						<a class="site-header__btn-whatsapp">
+							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16">
+							WhatsApp
+						</a>
+						<button class="site-header__btn-session">Agendar sesión</button>
+					</div>
 				</nav>
 
-				<!-- Botones de acción -->
+				<!-- Botones de acción (Desktop) -->
 				<div class="site-header__buttons animate-on-load">
 					<a class="site-header__btn-whatsapp">
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16">

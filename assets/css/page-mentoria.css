@@ -209,7 +209,7 @@
 	counter-reset: item;
 }
 .mentoria-together__list-item {
-	font-family: Outfit;
+	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 2opx;
@@ -354,7 +354,7 @@
 /* =====================================================
    RESPONSIVE DESIGN - DESKTOP LARGE (1440px+)
    ===================================================== */
-@media (min-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 	/* SECTION 1: MENTORÍA 1:1 */
 	.mentoria-intro {
 		height: 420px;

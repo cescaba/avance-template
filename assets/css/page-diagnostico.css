@@ -475,7 +475,7 @@
 /* =====================================================
    RESPONSIVE DESIGN - DESKTOP LARGE (1440px+)
    ===================================================== */
-@media (min-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 	/* HERO SECTION */
 	.diagnostico-hero__bg {
 		height: 450px;

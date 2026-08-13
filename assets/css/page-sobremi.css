@@ -449,7 +449,7 @@
 
 
 .sobremi-intro__achievement-subtitle {
-	font-family: Outfit;
+	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -472,7 +472,7 @@
 	justify-content: center;
 	gap: 10px;
 	padding: 14px 24px;
-	font-family: Outfit;
+	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -483,7 +483,7 @@
 
 .sobremi-intro__achievement-btn--primary {
 	background-color: #466060;
-	font-family: Outfit;
+	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -496,7 +496,7 @@
 .sobremi-intro__achievement-btn--secondary {
 	background-color: #E5E7EB;
 	border: 1px salid #E5E7EB;
-	font-family: Outfit;
+	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -510,7 +510,7 @@
    ===================================================== */
 
 /* Desktop Large: 1440px y superior */
-@media (min-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 	/* Intro Section */
 	.sobremi-intro {
 		padding: 50px var(--lateral-spacing);

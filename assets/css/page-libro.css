@@ -541,7 +541,7 @@
    ===================================================== */
 
 /* Desktop Large: 1440px y superior */
-@media (min-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 	/* Main Section */
 	.libro-main {
 		padding: 60px var(--lateral-spacing);

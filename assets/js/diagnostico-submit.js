@@ -27,8 +27,7 @@
 	};
 
 	function submitDiagnostico(formData) {
-		console.log('[Diagnostico] 1️⃣  Validando datos...');
-		updateButtonStatus('Validando datos...');
+		updateButtonStatus('Procesando...');
 
 		// Preparar datos para AJAX
 		const ajaxData = new FormData();
@@ -45,42 +44,34 @@
 			});
 		}
 
-		console.log('[Diagnostico] Enviando al servidor...', formData);
-
 		fetch(config.ajaxUrl, {
 			method: 'POST',
 			body: ajaxData,
 		})
 			.then(response => {
-				console.log('[Diagnostico] Response Status:', response.status);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
 				return response.json();
 			})
 			.then(response => {
-				console.log('[Diagnostico] Response:', response);
-
 				if (response.success && response.data && response.data.url) {
-					console.log('[Diagnostico] 2️⃣  Diagnóstico guardado en base de datos');
-					updateButtonStatus('Guardado en base de datos ✓');
+					updateButtonStatus('Abriendo WhatsApp...');
 
 					setTimeout(() => {
-						console.log('[Diagnostico] 3️⃣  Abriendo WhatsApp...');
-						updateButtonStatus('Abriendo WhatsApp...');
 						openWhatsApp(response.data.url);
 
 						setTimeout(() => {
-							console.log('[Diagnostico] 4️⃣  Reiniciando quiz');
 							updateButtonStatus('Se envió su diagnóstico');
 							// El quiz se reiniciará automáticamente después del setTimeout en diagnostico-quiz.js
 						}, 800);
 					}, 1500);
 				} else {
-					console.error('[Diagnostico] ❌ Error:', response.data);
 					updateButtonStatus('Se envió su diagnóstico');
 					showError(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
 				}
 			})
 			.catch(error => {
-				console.error('[Diagnostico] ❌ Fetch Error:', error);
 				updateButtonStatus('Se envió su diagnóstico');
 				showError('Error de conexión. Intenta de nuevo.');
 			});

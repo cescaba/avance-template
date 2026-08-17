@@ -32,7 +32,7 @@ if (!defined('ABSPATH')) {
 			<!-- Logo -->
 			<div class="site-header__logo animate-on-load">
 				<a href="<?php echo esc_url(home_url('/')); ?>">
-					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/frame.svg'); ?>" alt="<?php bloginfo('name'); ?>" width="166" height="47">
+					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/Frame.svg'); ?>" alt="<?php bloginfo('name'); ?>" width="166" height="47">
 				</a>
 			</div>
 

@@ -58,10 +58,6 @@ $args = wp_parse_args($args ?? array(), array());
 					</div>
 
 					<div class="contacto-agenda__tz-row">🕐 Lima (GMT-5)</div>
-					<div class="contacto-agenda__links-row">
-						<span><?php esc_html_e('Google Calendar', 'avance-template'); ?></span>
-						<span><?php esc_html_e('Google Meet', 'avance-template'); ?></span>
-					</div>
 				</div>
 			</div>
 

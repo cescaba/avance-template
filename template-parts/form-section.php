@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Form Section Template Part
  *
@@ -82,18 +83,18 @@ $args = wp_parse_args($args ?? array(), array(
 						<?php esc_html_e('Servicio de interés', 'avance-template'); ?>
 						<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
 					</label>
-					<div class="home-form__select-wrapper">
-						<button class="home-form__select-trigger" id="contacto_wsp_asunto_trigger" type="button">
-							<?php esc_html_e('Selecciona un servicio o tema...', 'avance-template'); ?>
-						</button>
-						<div class="home-form__select-menu" id="contacto_wsp_asunto_menu">
-							<div class="home-form__select-option" data-value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></div>
-							<div class="home-form__select-option" data-value="Consultoría Comercial"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></div>
-							<div class="home-form__select-option" data-value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></div>
-							<div class="home-form__select-option" data-value="Otra consulta"><?php esc_html_e('Otra consulta', 'avance-template'); ?></div>
-						</div>
-					</div>
-					<input type="hidden" id="contacto_wsp_asunto" name="contacto_wsp_asunto" value="">
+					<select
+						id="contacto_wsp_asunto"
+						name="contacto_wsp_asunto"
+						class="home-form__input"
+						required
+						aria-required="true">
+						<option value=""><?php esc_html_e('Selecciona una opción...', 'avance-template'); ?></option>
+						<option value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></option>
+						<option value="Consultoría Comercial"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></option>
+						<option value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></option>
+						<option value="Otra consulta"><?php esc_html_e('Otra consulta', 'avance-template'); ?></option>
+					</select>
 				</div>
 			</div>
 

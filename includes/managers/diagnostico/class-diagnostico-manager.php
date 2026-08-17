@@ -25,11 +25,11 @@ class Avance_Diagnostico_Manager {
 	}
 
 	private function init() {
-		require_once get_template_directory() . '/includes/database/class-diagnostico-table.php';
+		require_once get_template_directory() . '/includes/database/diagnostico/class-diagnostico-table.php';
 		require_once get_template_directory() . '/includes/validators/class-diagnostico-validator.php';
 		require_once get_template_directory() . '/includes/whatsapp/class-whatsapp-service.php';
 		require_once get_template_directory() . '/includes/api/class-diagnostico-handler.php';
-		require_once get_template_directory() . '/includes/admin/class-diagnostico-admin.php';
+		require_once get_template_directory() . '/includes/admin/diagnostico/class-diagnostico-admin.php';
 
 		// Crear tabla al activar tema
 		add_action('wp_loaded', array($this, 'maybe_create_table'));

@@ -18,7 +18,7 @@ const DIAGNOSTICO_QUESTIONS = [
 		]
 	},
 	{
-		text: "¿Cuántos vendedores tiene tu equipo actualmente?",
+		text: "¿Tienes definida tu propuesta de valor?",
 		options: [
 			"Sí , muy claro",
 			"Más o menos",
@@ -66,51 +66,16 @@ function saveDiagnosticoState() {
 }
 
 function loadDiagnosticoState() {
-	// Verificar si vino de otra página (no es reload ni back)
-	const currentPage = window.location.pathname;
-	const lastPage = sessionStorage.getItem('diagnostico_last_page');
-
-	console.log('[Diagnostico] Verificando estado - Página actual:', currentPage, 'Última página:', lastPage);
-
-	// Si vino de otra página diferente, limpiar estado COMPLETAMENTE
-	if (lastPage && lastPage !== currentPage) {
-		console.log('[Diagnostico] ❌ Detectado cambio de página - Limpiando todo');
-		clearDiagnosticoState();
-		sessionStorage.setItem('diagnostico_last_page', currentPage);
-		console.log('[Diagnostico] ✓ Estado limpiado');
-		return false;
-	}
-
-	// Registrar que está en esta página
-	sessionStorage.setItem('diagnostico_last_page', currentPage);
-
-	// Cargar estado del localStorage
-	const saved = localStorage.getItem(DIAGNOSTICO_STORAGE_KEY);
-	if (saved) {
-		try {
-			const state = JSON.parse(saved);
-			diagnosticoCurrentIndex = state.currentIndex;
-			diagnosticoAnswers = state.answers || [];
-			console.log('[Diagnostico] ✓ Estado restaurado:', `Pregunta ${diagnosticoCurrentIndex + 1}`);
-			return true;
-		} catch (e) {
-			console.error('[Diagnostico] Error al restaurar:', e);
-			clearDiagnosticoState();
-			return false;
-		}
-	}
-	console.log('[Diagnostico] ℹ️  Sin estado guardado - Iniciando nuevo quiz');
+	// Siempre comenzar desde la primera pregunta
+	clearDiagnosticoState();
 	return false;
 }
 
 function clearDiagnosticoState() {
-	console.log('[Diagnostico] Limpiando estado...');
 	localStorage.removeItem(DIAGNOSTICO_STORAGE_KEY);
 	localStorage.removeItem(DIAGNOSTICO_STORAGE_KEY); // Doble limpieza para asegurar
 	diagnosticoCurrentIndex = 0;
 	diagnosticoAnswers = [];
-	console.log('[Diagnostico] Variables reseteadas - currentIndex:', diagnosticoCurrentIndex, 'answers:', diagnosticoAnswers);
-	console.log('[Diagnostico] localStorage verificado:', localStorage.getItem(DIAGNOSTICO_STORAGE_KEY) === null);
 }
 
 function initDiagnosticoElements() {
@@ -140,7 +105,7 @@ function renderDiagnosticoQuestion() {
 		});
 	}
 
-	updateDiagnosticoProgress(diagnosticoCurrentIndex);
+	updateDiagnosticoProgress(diagnosticoCurrentIndex + 1);
 }
 
 function renderDiagnosticoForm(q) {
@@ -245,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (diagnosticoOptionsList) {
 		// Restaurar estado guardado si existe
 		const hasState = loadDiagnosticoState();
-		console.log('[Diagnostico]', hasState ? `Continuando - Pregunta ${diagnosticoCurrentIndex + 1}` : 'Nuevo quiz - Pregunta 1');
 		renderDiagnosticoQuestion();
 	}
 });

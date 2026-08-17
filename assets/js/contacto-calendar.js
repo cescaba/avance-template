@@ -7,7 +7,6 @@
 (function() {
 	// Check if flatpickr is available
 	if (typeof flatpickr === 'undefined') {
-		console.warn('Flatpickr library not loaded');
 		return;
 	}
 
@@ -27,7 +26,6 @@
 				}
 			],
 			onChange: function(selectedDates) {
-				console.log('Consultoría fecha seleccionada:', selectedDates[0]);
 			}
 		});
 	}
@@ -45,7 +43,6 @@
 				}
 			],
 			onChange: function(selectedDates) {
-				console.log('Mentoría fecha seleccionada:', selectedDates[0]);
 			}
 		});
 	}

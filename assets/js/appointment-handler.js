@@ -17,11 +17,9 @@
 	function initForm() {
 		const form = document.getElementById(config.formId);
 		if (!form) {
-			console.warn('[Avance Appointments] Form not found');
 			return;
 		}
 
-		console.log('[Avance Appointments] Form initialized');
 		form.addEventListener('submit', handleFormSubmit);
 	}
 
@@ -30,11 +28,9 @@
 
 		if (config.isSubmitting) return;
 
-		console.log('[Avance Appointments] Form submitted');
 
 		const formData = getFormData();
 		if (!validateFormData(formData)) {
-			console.warn('[Avance Appointments] Validation failed');
 			return;
 		}
 
@@ -94,7 +90,6 @@
 		ajaxData.append('hora', formData.hora);
 		ajaxData.append('notas', formData.notas);
 
-		console.log('[Avance Appointments] Sending AJAX...');
 
 		fetch(config.ajaxUrl, {
 			method: 'POST',
@@ -104,8 +99,7 @@
 			.then(response => {
 				config.isSubmitting = false;
 
-				console.log('[Avance Appointments] Response:', response);
-
+	
 				if (response.success && response.data?.url) {
 					showSuccess('Cita agendada. Abriendo WhatsApp...');
 					window.open(response.data.url, '_blank');
@@ -116,8 +110,7 @@
 			})
 			.catch(error => {
 				config.isSubmitting = false;
-				console.error('[Avance Appointments] Error:', error);
-				showError('Error de conexión. Intenta de nuevo.');
+					showError('Error de conexión. Intenta de nuevo.');
 			});
 	}
 
@@ -131,7 +124,6 @@
 	}
 
 	function showSuccess(message) {
-		console.log('[Avance Appointments] Success:', message);
 	}
 
 	// Inicializar cuando el DOM esté listo

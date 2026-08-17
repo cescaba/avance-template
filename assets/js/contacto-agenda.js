@@ -26,6 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const topicNote = document.getElementById('contacto-agenda-note');
 	const submitBtn = document.getElementById('contacto-agenda-submit');
 
+	// Verificar que existen los elementos esenciales
+	if (!calGrid || !monthLabel || !nameInput || !phoneInput || !topicSelect || !topicSelectTrigger || !topicSelectMenu || !submitBtn) {
+		return;
+	}
+
 	function daysInMonth(y, m) {
 		return new Date(y, m + 1, 0).getDate();
 	}
@@ -37,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		calGrid.querySelectorAll('.contacto-agenda__daybtn').forEach(el => el.remove());
 
 		const today = new Date();
-		const todayKey = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+		const todayKey = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 		const firstWeekday = new Date(y, m, 1).getDay();
 		const total = daysInMonth(y, m);
 		const frag = document.createDocumentFragment();
@@ -49,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		for (let d = 1; d <= total; d++) {
-			const key = y + '-' + m + '-' + d;
+			const key = y + '-' + (m + 1) + '-' + d;
 			const weekday = new Date(y, m, d).getDay();
 			const isWeekend = weekday === 0 || weekday === 6;
 			const isSelected = key === selectedKey;
@@ -83,30 +88,35 @@ document.addEventListener('DOMContentLoaded', () => {
 		calGrid.appendChild(frag);
 	}
 
-	document.getElementById('contactoAgendaPrevMonth').addEventListener('click', () => {
-		state.viewMonth -= 1;
-		if (state.viewMonth < 0) {
-			state.viewMonth = 11;
-			state.viewYear -= 1;
-		}
-		renderCalendar();
-	});
+	const prevMonthBtn = document.getElementById('contactoAgendaPrevMonth');
+	if (prevMonthBtn) {
+		prevMonthBtn.addEventListener('click', () => {
+			state.viewMonth -= 1;
+			if (state.viewMonth < 0) {
+				state.viewMonth = 11;
+				state.viewYear -= 1;
+			}
+			renderCalendar();
+		});
+	}
 
-	document.getElementById('contactoAgendaNextMonth').addEventListener('click', () => {
-		state.viewMonth += 1;
-		if (state.viewMonth > 11) {
-			state.viewMonth = 0;
-			state.viewYear += 1;
-		}
-		renderCalendar();
-	});
+	const nextMonthBtn = document.getElementById('contactoAgendaNextMonth');
+	if (nextMonthBtn) {
+		nextMonthBtn.addEventListener('click', () => {
+			state.viewMonth += 1;
+			if (state.viewMonth > 11) {
+				state.viewMonth = 0;
+				state.viewYear += 1;
+			}
+			renderCalendar();
+		});
+	}
 
 	// Manejar select personalizado
 	if (topicSelectTrigger && topicSelectMenu && topicOptions.length > 0) {
 		topicSelectTrigger.addEventListener('click', (e) => {
 			e.stopPropagation();
 			topicSelectMenu.classList.toggle('open');
-			console.log('Click en trigger, open:', topicSelectMenu.classList.contains('open'));
 		});
 
 		topicOptions.forEach(option => {
@@ -121,9 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				topicOptions.forEach(opt => opt.classList.remove('selected'));
 				option.classList.add('selected');
 
-				topicNote.textContent = TOPIC_NOTES[value] || TOPIC_NOTES[''];
+				if (topicNote) {
+					topicNote.textContent = TOPIC_NOTES[value] || TOPIC_NOTES[''];
+				}
 				updateSubmitState();
-				console.log('Opción seleccionada:', value);
 			});
 		});
 
@@ -133,11 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				topicSelectMenu.classList.remove('open');
 			}
 		});
-	} else {
-		console.error('No se encontraron los elementos del select personalizado');
-		console.log('topicSelectTrigger:', topicSelectTrigger);
-		console.log('topicSelectMenu:', topicSelectMenu);
-		console.log('topicOptions:', topicOptions);
 	}
 
 	nameInput.addEventListener('input', updateSubmitState);
@@ -191,8 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				return response.json();
 			})
 			.then(result => {
-				console.log('Respuesta AJAX:', result);
-
 				if (result.success) {
 					submitBtn.textContent = 'Reunión agendada ✓';
 					submitBtn.style.backgroundColor = '#034732';
@@ -200,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					// Abrir WhatsApp
 					if (result.data && result.data.whatsapp_url) {
 						const whatsappUrl = result.data.whatsapp_url;
-						console.log('URL de WhatsApp:', whatsappUrl);
 
 						// Abrir en nueva pestaña
 						const whatsappWindow = window.open(whatsappUrl, '_blank');
@@ -208,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
 							alert('No se pudo abrir WhatsApp. Copia y abre esta URL en tu navegador:\n' + whatsappUrl);
 						}
 					} else {
-						console.error('No se encontró whatsapp_url en la respuesta');
 						alert('Agendamiento guardado. Abre WhatsApp manualmente.');
 					}
 
@@ -221,12 +223,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					submitBtn.disabled = false;
 					const errorMsg = result.data?.message || result.message || 'Error desconocido';
 					alert('Error: ' + errorMsg);
-					console.error('Error en respuesta:', result);
-				}
+					}
 			})
 			.catch(error => {
-				console.error('Error en fetch:', error);
-				submitBtn.textContent = 'Error al agendar';
+					submitBtn.textContent = 'Error al agendar';
 				submitBtn.disabled = false;
 				alert('Error al procesar la solicitud: ' + error.message);
 			});

@@ -108,7 +108,7 @@ class Avance_Appointments_Manager {
 			wp_die('No tienes permiso');
 		}
 
-		$template_path = get_template_directory() . '/includes/appointments/admin-appointments.php';
+		$template_path = get_template_directory() . '/includes/admin/appointments/admin-appointments.php';
 
 		if (file_exists($template_path)) {
 			include $template_path;

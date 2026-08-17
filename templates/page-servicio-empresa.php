@@ -169,52 +169,54 @@ get_header();
                 <p class="servicio-contact__description">Completa el formulario y te enviamos una propuesta personalizada en menos de 48h. Sin compromiso.</p>
             </header>
             <div class="servicio-contact__content">
-                <div class="servicio-contact__form">
+                <form id="proposal-form" class="servicio-contact__form">
+                    <?php wp_nonce_field('avance_proposal_form', 'nonce'); ?>
+
                     <div class="servicio-contact__form-row animate-on-scroll" data-animate>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Nombre *</label>
-                            <input type="text" class="servicio-contact__input" placeholder="Tu nombre">
+                            <input type="text" name="nombre" class="servicio-contact__input" placeholder="Tu nombre" required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Cargo</label>
-                            <input type="text" class="servicio-contact__input" placeholder="Gerente / CEO / Director">
+                            <input type="text" name="cargo" class="servicio-contact__input" placeholder="Gerente / CEO / Director">
                         </div>
                     </div>
                     <div class="servicio-contact__form-row animate-on-scroll" data-animate>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Empresa *</label>
-                            <input type="text" class="servicio-contact__input" placeholder="Nombre de tu empresa">
+                            <input type="text" name="empresa" class="servicio-contact__input" placeholder="Nombre de tu empresa" required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Tamaño del equipo</label>
-                            <input type="text" class="servicio-contact__input" placeholder="Número de colaboradores">
+                            <input type="text" name="tamaño_equipo" class="servicio-contact__input" placeholder="Número de colaboradores">
                         </div>
                     </div>
                     <div class="servicio-contact__form-row animate-on-scroll" data-animate>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Email *</label>
-                            <input type="email" class="servicio-contact__input" placeholder="tu@empresa.com">
+                            <input type="email" name="email" class="servicio-contact__input" placeholder="tu@empresa.com" required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">WhatsApp</label>
-                            <input type="tel" class="servicio-contact__input" placeholder="+51 999 000 000">
+                            <input type="tel" name="whatsapp" class="servicio-contact__input" placeholder="+51 999 000 000">
                         </div>
                     </div>
                     <div class="servicio-contact__form-row servicio-contact__form-row--full animate-on-scroll" data-animate>
                         <div class="servicio-contact__form-group">
                             <label class="servicio-contact__label-text">Servicio de interés *</label>
-                            <input type="text" class="servicio-contact__input" placeholder="Selecciona el servicio">
+                            <input type="text" name="servicio_interes" class="servicio-contact__input" placeholder="Selecciona el servicio" required>
                         </div>
                     </div>
                     <div class="servicio-contact__form-row servicio-contact__form-row--full animate-on-scroll" data-animate>
                         <div class="servicio-contact__form-group">
-                            <label class="servicio-contact__label-text">¿Cuál es tu principal desafío comercial?</label>
-                            <textarea class="servicio-contact__textarea" placeholder="Describe brevemente la situación de tu empresa..."></textarea>
+                            <label class="servicio-contact__label-text">¿Cuál es tu principal desafío comercial? *</label>
+                            <textarea name="desafio_comercial" class="servicio-contact__textarea" placeholder="Describe brevemente la situación de tu empresa..." required></textarea>
                         </div>
                     </div>
-                    <button class="servicio-contact__btn">Solicitar propuesta personalizada</button>
+                    <button type="submit" class="servicio-contact__btn">Solicitar propuesta personalizada</button>
                     <p class="servicio-contact__footnote">* Propuesta enviada en menos de 48h. Sin compromiso. informacion@avance-empresarial.com</p>
-                </div>
+                </form>
                 <div class="servicio-contact__benefits">
                     <div class="servicio-contact__benefits-list">
                         <h3 class="servicio-contact__benefits-title">¿POR QUÉ ELEGIRNOS?</h3>

@@ -434,6 +434,7 @@ get_header();
 								</div>
 							</div>
 							<input type="hidden" id="contacto-agenda-topic" value="">
+							<div class="contacto-agenda__note" id="contacto-agenda-note"></div>
 						</div>
 					</div>
 

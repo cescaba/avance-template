@@ -24,47 +24,68 @@
 	};
 
 	function initForm() {
-		const form = document.getElementById(config.formId);
+		// Usar event delegation en document para detectar submits del formulario
+		// Esto funciona incluso si el formulario se carga dinámicamente
+		document.addEventListener('submit', (e) => {
+			if (e.target && e.target.id === config.formId) {
+				handleFormSubmit(e);
+			}
+		}, true); // Usar capture phase para asegurar que se ejecuta primero
 
-		if (!form) {
-			console.warn('[Avance Contact Form] Form ID not found:', config.formId);
-			return;
-		}
-
-		console.log('[Avance Contact Form] Initialized successfully');
-		console.log('[Avance Contact Form] AJAX URL:', config.ajaxUrl);
-		form.addEventListener('submit', handleFormSubmit);
+		// Inicializar dropdown si el formulario ya existe
 		initCustomDropdown();
 	}
 
 	function initCustomDropdown() {
+		// Solo inicializar si existen los elementos del dropdown personalizado
 		const trigger = document.getElementById('contacto_wsp_asunto_trigger');
 		const menu = document.getElementById('contacto_wsp_asunto_menu');
+
+		// Si no existen, probablemente se esté usando un select nativo
+		if (!trigger || !menu) {
+			return;
+		}
+
 		const hiddenInput = document.getElementById('contacto_wsp_asunto');
-		const options = menu ? menu.querySelectorAll('.home-form__select-option') : [];
+		const options = menu.querySelectorAll('.home-form__select-option');
 
-		if (!trigger || !menu) return;
+		if (!hiddenInput) {
+			return;
+		}
 
-		trigger.addEventListener('click', () => {
+		// Toggle dropdown
+		trigger.addEventListener('click', (e) => {
+			e.preventDefault();
+			e.stopPropagation();
 			menu.classList.toggle('open');
 		});
 
+		// Close dropdown when clicking outside
 		document.addEventListener('click', (e) => {
 			if (!trigger.contains(e.target) && !menu.contains(e.target)) {
 				menu.classList.remove('open');
 			}
 		});
 
+		// Handle option selection
 		options.forEach(option => {
-			option.addEventListener('click', () => {
+			option.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+
 				const value = option.getAttribute('data-value');
-				hiddenInput.value = value;
-				trigger.textContent = option.textContent;
-				trigger.setAttribute('data-selected', value);
-				options.forEach(opt => opt.classList.remove('selected'));
-				option.classList.add('selected');
-				menu.classList.remove('open');
-				console.log('[Custom Dropdown] Selected:', value);
+				if (value) {
+					hiddenInput.value = value;
+					trigger.textContent = option.textContent;
+					trigger.setAttribute('data-selected', value);
+
+					// Update selected state
+					options.forEach(opt => opt.classList.remove('selected'));
+					option.classList.add('selected');
+
+					// Close menu
+					menu.classList.remove('open');
+				}
 			});
 		});
 	}
@@ -72,23 +93,17 @@
 	function handleFormSubmit(e) {
 		e.preventDefault();
 
-		console.log('[Avance Contact Form] Form submit triggered');
-
 		if (config.isSubmitting) {
-			console.warn('[Avance Contact Form] Already submitting, ignoring duplicate');
 			return;
 		}
 
 		const formData = getFormData();
-		console.log('[Avance Contact Form] Form data:', formData);
 
 		if (!validateFormData(formData)) {
-			console.warn('[Avance Contact Form] Validation failed');
 			return;
 		}
 
 		config.isSubmitting = true;
-		console.log('[Avance Contact Form] Submitting via AJAX...');
 		submitFormViaAjax(formData);
 	}
 
@@ -152,27 +167,24 @@
 			body: ajaxData,
 		})
 			.then(response => {
-				console.log('[Avance Contact Form] AJAX Response Status:', response.status);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
 				return response.json();
 			})
 			.then(response => {
 				config.isSubmitting = false;
 
-				console.log('[Avance Contact Form] AJAX Response:', response);
-
 				if (response.success && response.data && response.data.url) {
-					console.log('[Avance Contact Form] Success! Opening WhatsApp:', response.data.url);
 					openWhatsApp(response.data.url);
 					showSuccess(response.data.message || 'Mensaje enviado correctamente.');
 					resetForm();
 				} else {
-					console.error('[Avance Contact Form] API Error:', response.data);
 					showError(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
 				}
 			})
 			.catch(error => {
 				config.isSubmitting = false;
-				console.error('[Avance Contact Form] Fetch Error:', error);
 				showError('Error de conexión. Intenta de nuevo.');
 			});
 	}
@@ -193,12 +205,25 @@
 	}
 
 	function showError(message) {
-		alert(message);
+		const form = document.getElementById(config.formId);
+		if (form) {
+			const errorDiv = document.createElement('div');
+			errorDiv.style.cssText = 'background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;';
+			errorDiv.textContent = message;
+			form.insertAdjacentElement('afterbegin', errorDiv);
+			setTimeout(() => errorDiv.remove(), 4000);
+		}
 	}
 
 	function showSuccess(message) {
-		// Opcional: mostrar mensaje de éxito elegante
-		console.log('Success:', message);
+		const form = document.getElementById(config.formId);
+		if (form) {
+			const successDiv = document.createElement('div');
+			successDiv.style.cssText = 'background-color: #efe; border: 1px solid #cfc; color: #3c3; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;';
+			successDiv.textContent = message;
+			form.insertAdjacentElement('afterbegin', successDiv);
+			setTimeout(() => successDiv.remove(), 4000);
+		}
 	}
 
 	// Inicializar cuando el DOM esté listo

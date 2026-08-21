@@ -21,9 +21,8 @@
 	--breakpoint-desktop: 1025px;
 	--breakpoint-desktop-large: 1440px;
 
-	/* Spacing */
-	--lateral-spacing: clamp(40px, 20vw, 280px);
-	--lateral-spacing-mobile: 1rem;
+	/* Spacing - Responsivo dinámico */
+	--lateral-spacing: clamp(80px, 10vw, 240px);
 
 	/* Colors - Text */
 	--text-white: #FFFFFF;
@@ -130,4 +129,11 @@ a {
 	border-radius: 2px;
 	transition: all 0.3s ease;
 	display: block;
+}
+
+/* 480px Responsive */
+@media (max-width: 480px) {
+	:root {
+		--lateral-spacing: 24px;
+	}
 }

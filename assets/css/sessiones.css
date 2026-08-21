@@ -117,8 +117,8 @@
 
 .contacto-agenda__right {
 	display: flex;
-    flex-direction: column;
-    gap: 35px;
+	flex-direction: column;
+	gap: 35px;
 }
 
 .contacto-agenda__kicker {
@@ -160,6 +160,10 @@
 	border-radius: 8px;
 	background: var(--bg-white);
 	border: 1px solid #E5E7EB;
+}
+
+.contacto-agenda__card:first-child {
+	height: 60px;
 }
 
 .contacto-agenda__host-row {
@@ -215,7 +219,7 @@
 	display: inline-flex;
 	align-items: center;
 	font-size: 12px;
-	letter-spacing: 0.02em;
+	letter-spacing: 0px;
 	border-radius: 6px;
 	color: #99A1AF;
 }
@@ -282,7 +286,7 @@
 .contacto-agenda__daybtn {
 	position: relative;
 	height: 34px;
-	width: 100%;
+	width: 34px;
 	border-radius: 50%;
 	font-size: 13px;
 	display: flex;
@@ -306,11 +310,12 @@
 	background-color: #034732;
 	color: #FFFFFF;
 	border-color: #034732;
+	border-radius: 50%;
 }
 
 .contacto-agenda__daybtn.weekend {
-	background-color: #F9FAFB;
-	color: #99A1AF;
+	color: #B2B6CA;
+	font-weight: 400;
 }
 
 .contacto-agenda__daybtn .dot {
@@ -394,7 +399,7 @@
 	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 100%;
+	line-height: 1;
 	letter-spacing: 0px;
 	color: #2C2629;
 	background: #FFFFFF;
@@ -413,17 +418,6 @@
 	box-shadow: 0 0 0 3px rgba(3, 71, 50, 0.1);
 }
 
-.contacto-agenda__note {
-	margin-top: 12px;
-	padding: 12px;
-	background-color: #F3F4F6;
-	border-left: 3px solid #034732;
-	font-size: 13px;
-	line-height: 1.5;
-	color: #4B5563;
-	border-radius: 2px;
-}
-
 /* Select Dropdown */
 .contacto-agenda__select-wrapper {
 	position: relative;
@@ -437,7 +431,7 @@
 	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 100%;
+	line-height: 1;
 	color: #99A1AF;
 	background: #FFFFFF;
 	border: 1px solid #F9FAFB;
@@ -449,7 +443,7 @@
 	background-repeat: no-repeat;
 	background-position: right 16px center;
 	background-size: 10px 6px;
-	transition: none;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contacto-agenda__select-trigger:focus,
@@ -532,7 +526,6 @@
 	width: 100%;
 	height: 48px;
 	font-size: 14px;
-	opacity: 0;
 }
 
 /* Features Grid */
@@ -641,9 +634,9 @@
 
 .home-form__field {
 	flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
 	overflow: visible;
 	position: relative;
 }
@@ -662,17 +655,17 @@
 
 .home-form__input {
 	width: 100%;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 400;
-    font-size: var(--font-size-base);
-    color: var(--text-secondary);
-    line-height: 1.5;
-    height: 46px;
-    padding: 12px 16px;
-    border: 1px solid var(--bg-light);
-    background-color: var(--bg-white);
-    box-sizing: border-box;
-    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-family: 'Outfit', sans-serif;
+	font-weight: 400;
+	font-size: var(--font-size-base);
+	color: var(--text-secondary);
+	line-height: 1.5;
+	height: 46px;
+	padding: 12px 16px;
+	border: 1px solid var(--bg-light);
+	background-color: var(--bg-white);
+	box-sizing: border-box;
+	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .home-form__input::placeholder {
@@ -699,7 +692,7 @@
 	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 100%;
+	line-height: 1;
 	color: #99A1AF;
 	background: #FFFFFF;
 	border: 1px solid #F9FAFB;
@@ -847,10 +840,10 @@
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN - 1440px - 1025px (SCHEDULING + FORM)
+   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1439px)
    ===================================================== */
 
-@media (min-width: 1025px) and (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1439px) {
 	.contacto-agenda {
 		padding: 50px var(--lateral-spacing);
 	}
@@ -979,10 +972,14 @@
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN - 1024px - 768px (SCHEDULING + FORM)
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
    ===================================================== */
 
-@media (min-width: 1024px) and (max-width: 1439px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+	.contacto-agenda__feature-grid {
+		display: none;
+	}
+
 	.contacto-agenda {
 		padding: 48px var(--lateral-spacing);
 	}
@@ -1069,6 +1066,7 @@
 
 	.contacto-agenda__daybtn {
 		height: 30px;
+		width: 30px;
 		font-size: 11px;
 	}
 
@@ -1244,10 +1242,14 @@
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN - 768px - 480px (SCHEDULING + FORM)
+   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
    ===================================================== */
 
-@media (max-width: 768px) {
+@media (min-width: 480px) and (max-width: 768px) {
+	.contacto-agenda__feature-grid {
+		display: none;
+	}
+
 	.contacto-agenda {
 		padding: 40px var(--lateral-spacing);
 	}
@@ -1301,11 +1303,17 @@
 	.contacto-agenda__daybtn {
 		font-size: 12px;
 		height: 32px;
+		width: 32px;
 	}
 
 	.contacto-agenda__form-row {
-		grid-template-columns: 1fr;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		gap: 14px;
+	}
+
+	.contacto-agenda__form-fields > .contacto-agenda__field {
+		grid-column: 1 / -1;
 	}
 
 	.contacto-agenda__input,
@@ -1418,57 +1426,57 @@
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN - Mobile (< 480px) (SCHEDULING + FORM)
+   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
    ===================================================== */
 
-@media (max-width: 480px) {
-	.contacto-agenda {
-		padding: 32px var(--lateral-spacing);
+@media (max-width: 479px) {
+	.contacto-agenda__feature-grid {
+		display: none;
 	}
 
-	.contacto-agenda__container {
-		gap: 28px;
+	.contacto-agenda {
+		padding: 56px var(--lateral-spacing);
 	}
 
 	.contacto-agenda__header {
 		gap: 10px;
 	}
 
+	.contacto-agenda__kicker {
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0.5px;
+	}
+
 	.contacto-agenda__title {
-		font-size: 22px;
-		line-height: 26px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 24px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.contacto-agenda__subtitle {
-		font-size: 12px;
-		line-height: 16px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.contacto-agenda__grid {
+		grid-template-columns: 1fr;
 		gap: 24px;
 	}
 
-	.contacto-agenda__card {
-		padding: 16px;
-		gap: 10px;
+	.contacto-agenda__left {
+		display: flex;
 	}
 
 	.contacto-agenda__host-row {
 		gap: 10px;
-	}
-
-	.contacto-agenda__avatar {
-		width: 44px;
-		height: 44px;
-		font-size: 12px;
-	}
-
-	.contacto-agenda__host-title {
-		font-size: 13px;
-	}
-
-	.contacto-agenda__host-meta {
-		font-size: 11px;
 	}
 
 	.contacto-agenda__cal-header {
@@ -1476,29 +1484,10 @@
 		padding: 10px;
 	}
 
-	.contacto-agenda__cal-nav {
-		width: 30px;
-		height: 30px;
-		font-size: 16px;
-	}
-
-	.contacto-agenda__cal-month-label {
-		font-size: 12px;
-	}
-
-	.contacto-agenda__cal-grid {
-		gap: 2px;
-		padding: 10px;
-	}
-
-	.contacto-agenda__cal-weekday {
-		font-size: 10px;
-		padding-bottom: 6px;
-	}
-
 	.contacto-agenda__daybtn {
-		font-size: 11px;
-		height: 30px;
+		height: 28px;
+		width: 28px;
+		font-size: 12px;
 	}
 
 	.contacto-agenda__form-fields {
@@ -1515,14 +1504,22 @@
 	}
 
 	.contacto-agenda__field>label {
-		font-size: 11px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.contacto-agenda__input,
 	.contacto-agenda__select-trigger {
-		height: 42px;
-		font-size: 13px;
-		padding: 10px 12px;
+		height: 45px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 14px 16px;
 	}
 
 	.contacto-agenda__select-option {
@@ -1537,23 +1534,19 @@
 	}
 
 	.contacto-agenda__feature-grid {
-		grid-template-columns: 1fr;
-		gap: 10px;
+		display: none;
 	}
 
-	.contacto-agenda__feature-card {
-		padding: 14px;
-		gap: 6px;
+	.contacto-agenda__right {
+		display: none;
 	}
 
-	.contacto-agenda__feature-title {
-		font-size: 12px;
-		line-height: 16px;
+	.contacto-agenda__grid.show-right .contacto-agenda__left {
+		display: none;
 	}
 
-	.contacto-agenda__feature-body {
-		font-size: 11px;
-		line-height: 14px;
+	.contacto-agenda__grid.show-right .contacto-agenda__right {
+		display: flex;
 	}
 
 	.home-form {
@@ -1561,7 +1554,7 @@
 	}
 
 	.home-form__container {
-		gap: 16px;
+		gap: 20px;
 	}
 
 	.home-form__header {
@@ -1569,28 +1562,36 @@
 	}
 
 	.home-form__label {
-		font-size: 8px;
-		line-height: 10px;
-		letter-spacing: 0.6px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0.5px;
 	}
 
 	.home-form__title {
-		font-size: 18px;
-		line-height: 20px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 24px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.home-form__description {
-		font-size: 9px;
-		line-height: 12px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.home-form__form {
-		gap: 8px;
+		gap: 24px;
 	}
 
 	.home-form__row {
 		grid-template-columns: 1fr;
-		gap: 8px;
+		gap: 24px;
 	}
 
 	.home-form__field {
@@ -1598,20 +1599,30 @@
 	}
 
 	.home-form__label-field {
-		font-size: 8px;
-		line-height: 10px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.home-form__input {
-		height: 32px;
-		font-size: 10px;
-		padding: 6px 8px;
+		height: 45px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 14px 16px;
 	}
 
 	.home-form__textarea {
 		height: 48px;
-		font-size: 10px;
-		line-height: 12px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
 		padding: 6px 8px;
 	}
 
@@ -1621,15 +1632,23 @@
 	}
 
 	.home-form__button {
-		height: 28px;
-		font-size: 10px;
-		line-height: 14px;
+		height: 49px;
+		flex: 0 0 auto;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
 	}
 
 	.home-form__button--secondary {
-		height: 28px;
-		font-size: 9px;
-		line-height: 12px;
+		height: 49px;
+		flex: 0 0 auto;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
 		gap: 4px;
 	}
 

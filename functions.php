@@ -41,6 +41,9 @@ require_once get_template_directory() . '/includes/database/agendamientos-sesion
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-db.php';
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-handler.php';
 
+// Incluir integración con WOOCOMMERCE (Mentoría, Reservas)
+require_once get_template_directory() . '/includes/woocommerce/index.php';
+
 // Incluir COMPONENTES REUTILIZABLES
 require_once get_template_directory() . '/includes/managers/scheduling/class-scheduling-component.php';
 require_once get_template_directory() . '/includes/database/form-sesiones/class-form-component.php';

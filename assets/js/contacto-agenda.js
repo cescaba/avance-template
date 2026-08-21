@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const topicOptions = document.querySelectorAll('.contacto-agenda__select-option');
 	const topicNote = document.getElementById('contacto-agenda-note');
 	const submitBtn = document.getElementById('contacto-agenda-submit');
+	const agendaRight = document.querySelector('.contacto-agenda__right');
+	const agendaGrid = document.querySelector('.contacto-agenda__grid');
 
 	// Verificar que existen los elementos esenciales
 	if (!calGrid || !monthLabel || !nameInput || !phoneInput || !topicSelect || !topicSelectTrigger || !topicSelectMenu || !submitBtn) {
@@ -73,6 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				state.selectedKey = key;
 				renderCalendar();
 				updateSubmitState();
+				// Mostrar contacto-agenda__right y ocultar left cuando se selecciona una fecha (solo 480px vía CSS)
+				if (agendaGrid) {
+					agendaGrid.classList.add('show-right');
+				}
 			});
 			frag.appendChild(btn);
 		}
@@ -240,6 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		renderCalendar();
 		submitBtn.textContent = 'Agendar Reunión';
 		updateSubmitState();
+		// Ocultar contacto-agenda__right y mostrar left cuando se resetea el formulario
+		if (agendaGrid) {
+			agendaGrid.classList.remove('show-right');
+		}
 	}
 
 	renderCalendar();

@@ -25,7 +25,8 @@ get_header();
 			<!-- Content Group -->
 			<div class="sobremi-intro__content">
 				<div class="sobremi-intro__image">
-					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg.png'); ?>" alt="<?php bloginfo('name'); ?>" class="sobremi-intro__image-img">
+					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg.png'); ?>" alt="<?php bloginfo('name'); ?>" class="sobremi-intro__image-img sobremi-intro__image-img--desktop">
+					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/MiMobil.png'); ?>" alt="<?php bloginfo('name'); ?>" class="sobremi-intro__image-img sobremi-intro__image-img--mobile">
 				</div>
 				<div class="sobremi-intro__text">
 					<ul class="sobremi-intro__list animate-on-scroll" data-animate>
@@ -36,7 +37,7 @@ get_header();
 						<li class="sobremi-intro__list-item animate-on-scroll" data-animate><?php esc_html_e('Speaker internacional', 'avance-template'); ?></li>
 					</ul>
 				</div>
-				<div class="sobremi-intro__buttom">
+				<div class="sobremi-intro__button">
 					<div class="sobremi-intro__buttons animate-on-scroll" data-animate>
 						<a href="#" class="sobremi-intro__btn sobremi-intro__btn--primary animate-on-scroll" data-animate><?php esc_html_e('Agendar sesión', 'avance-template'); ?></a>
 						<a href="#" class="sobremi-intro__btn sobremi-intro__btn--secondary animate-on-scroll" data-animate>

@@ -58,7 +58,12 @@ class Avance_Ajax_Handler {
             $fecha_fmt
         );
 
-        $wa_url = 'https://wa.me/' . AVANCE_WHATSAPP . '?text=' . urlencode($mensaje);
+        // Normalizar número para WhatsApp (agregar +51 si falta)
+        $phone = preg_replace('/[^0-9]/', '', AVANCE_WHATSAPP);
+        if (strlen($phone) === 9) {
+            $phone = '51' . $phone;
+        }
+        $wa_url = 'https://wa.me/' . $phone . '?text=' . urlencode($mensaje);
 
         wp_send_json_success([
             'id' => $result['id'],
@@ -110,7 +115,12 @@ class Avance_Ajax_Handler {
             $validation['data']['desafio_comercial']
         );
 
-        $wa_url = 'https://wa.me/' . AVANCE_WHATSAPP . '?text=' . urlencode($mensaje);
+        // Normalizar número para WhatsApp (agregar +51 si falta)
+        $phone = preg_replace('/[^0-9]/', '', AVANCE_WHATSAPP);
+        if (strlen($phone) === 9) {
+            $phone = '51' . $phone;
+        }
+        $wa_url = 'https://wa.me/' . $phone . '?text=' . urlencode($mensaje);
 
         wp_send_json_success([
             'id' => $result['id'],

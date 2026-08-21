@@ -18,6 +18,14 @@
 	background-position: center;
 }
 
+.contacto-hero__bg--top,
+.contacto-hero__bg--bottom {
+	display: none;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .contacto-hero__bg {
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -93,12 +101,12 @@
 .contacto-hero__label {
 	padding-bottom: 20px;
 	font-weight: 400;
-	font-style: Bold;
 	font-size: 16px;
 	line-height: 17px;
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #FFFFFF;
+	margin: 0;
 	animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
 
@@ -146,10 +154,10 @@
    RESPONSIVE DESIGN - 1440px+
    ===================================================== */
 
-@media (min-width: 1025px) and (max-width: 1440px) {
+@media (min-width: 1440px) {
 	/* Hero Section */
 	.contacto-hero__bg {
-		height: 350px !important;
+		height: 525px;
 	}
 
 	.contacto-hero__label {
@@ -444,38 +452,92 @@
 	}
 
 	/* Form Section - Moved to form-section.css */
+}
 
-	/* Hero Section */
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
+   ===================================================== */
+@media (max-width: 479px) {
+	.contacto-hero {
+		position: relative;
+	}
+
+	.contacto-hero__bg--top {
+		display: block;
+		height: 300px;
+	}
+
 	.contacto-hero__bg {
-		height: 360px !important;
+		height: auto;
+		background-image: none !important;
+		display: block;
+		align-items: initial;
+		justify-content: initial;
 	}
 
 	.contacto-hero__label {
-		padding-bottom: 12px;
-		font-size: 14px;
+		position: absolute;
+		top: 230px;
+		left: var(--lateral-spacing);
+		right: var(--lateral-spacing);
+		margin: 0;
+		z-index: 10;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		line-height: 1;
+		letter-spacing: 1px;
 	}
 
 	.contacto-hero__title {
-		font-size: 30px;
-		line-height: 30px;
-		padding-bottom: 6px;
+		position: absolute;
+		top: 258px;
+		left: var(--lateral-spacing);
+		right: var(--lateral-spacing);
+		margin: 0;
+		z-index: 10;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 32px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding-bottom: 0;
 	}
 
 	.contacto-hero__description {
-		font-size: 12px;
-		line-height: 16px;
-		padding-bottom: 14px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.contacto-hero__container {
+		background-color: #A6BEB8;
+		padding-top: 16px;
+		padding-right: var(--lateral-spacing);
+		padding-bottom: 40px;
+		padding-left: var(--lateral-spacing);
+		width: 100%;
+		display: block;
 	}
 
 	.contacto-hero__content {
-		height: 40px;
-		gap: 6px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		height: auto;
 	}
 
 	.contacto-hero__btn-primary,
 	.contacto-hero__btn-secondary {
-		padding: 10px 18px;
-		font-size: 11px;
-		height: 36px;
+		width: 100%;
+		height: 49px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		flex: 0 0 auto;
 	}
 }

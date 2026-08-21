@@ -21,6 +21,7 @@ get_header();
 
 	<!-- Hero Section -->
 	<section class="contacto-hero" aria-label="<?php esc_attr_e('Sección Hero Contacto', 'avance-template'); ?>">
+		<div class="contacto-hero__bg--top" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/Rectangle 16.png'); ?>')"></div>
 		<div class="contacto-hero__bg" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/Rectangle 16.png'); ?>')">
 			<div class="contacto-hero__container">
 				<p class="contacto-hero__label"><?php esc_html_e('Contacto', 'avance-template'); ?></p>

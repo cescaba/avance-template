@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
  * - Colombia: 573012345678
  * - Argentina: 541123456789
  */
-define('AVANCE_WHATSAPP_OWNER', '51936975214');
+define('AVANCE_WHATSAPP_OWNER', '51993508652');
 
 /**
  * Obtener configuración de WhatsApp del propietario

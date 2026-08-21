@@ -121,8 +121,14 @@ class Avance_Contact_Form_Handler {
 		// Construir mensaje
 		$message = $this->build_whatsapp_message($data);
 
+		// Normalizar número para WhatsApp (agregar +51 si falta)
+		$phone = preg_replace('/[^0-9]/', '', $owner_phone);
+		if (strlen($phone) === 9) {
+			$phone = '51' . $phone;
+		}
+
 		// Construir URL de wa.me
-		$url = 'https://wa.me/' . $owner_phone . '?text=' . rawurlencode($message);
+		$url = 'https://wa.me/' . $phone . '?text=' . rawurlencode($message);
 
 		// Intentar abrir WhatsApp (esto se hace desde el cliente, no desde el servidor)
 		// El servidor solo construye el URL y lo retorna

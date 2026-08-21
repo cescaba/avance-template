@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 class Avance_WhatsApp_Service {
-	private $phone_number = '+51936975214';
+	private $phone_number = '+51993508652';
 	private $questions = array(
 		1 => '¿Cuál es tu mayor desafío comercial ahora mismo?',
 		2 => '¿Cuántos vendedores tiene tu equipo actualmente?',
@@ -62,6 +62,13 @@ class Avance_WhatsApp_Service {
 	public function generate_whatsapp_url($encoded_message) {
 		// Formatear número para WhatsApp (sin +, solo dígitos)
 		$phone = preg_replace('/[^0-9]/', '', $this->phone_number);
+
+		// Si el número no tiene el código de país (51), agregarlo
+		if (strlen($phone) === 9) {
+			// Solo 9 dígitos = número sin código de país
+			$phone = '51' . $phone;
+		}
+
 		// Asegurar que tiene el formato correcto para WhatsApp API
 		if (substr($phone, 0, 1) === '0') {
 			$phone = substr($phone, 1);

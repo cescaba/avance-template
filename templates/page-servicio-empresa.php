@@ -59,7 +59,7 @@ get_header();
             <header class="servicio-offers__header animate-on-scroll" data-animate>
                 <p class="servicio-offers__label">SERVICIOS TOP CLASS</p>
                 <h2 class="servicio-offers__title">Programas intensivos de alto impacto</h2>
-                <p class="servicio-offers__description">Seminarios diseñados para equipos que necesitan resultados rápidos. Formato compacto (4–6 horas), metodología experiencial y contenido directamente aplicable al día siguiente.</p>
+                <p class="servicio-offers__description">Formato compacto (4–6 horas), metodología experiencial y contenido aplicable al día siguiente.</p>
             </header>
             <div class="servicio-offers__grid">
                 <div class="servicio-offers__item animate-on-scroll" data-animate>

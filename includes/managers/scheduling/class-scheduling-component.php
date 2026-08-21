@@ -31,7 +31,7 @@ class Avance_Scheduling_Component {
 			'subtitle' => 'Google Meet · Sin compromiso',
 			'kicker' => 'Agendamiento directo',
 			'show_whatsapp_btn' => true,
-			'whatsapp_number' => '51936975214',
+			'whatsapp_number' => '51993508652',
 			'show_feature_cards' => true,
 			'container_class' => 'contacto-agenda',
 		);

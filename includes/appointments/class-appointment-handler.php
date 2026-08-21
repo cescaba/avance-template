@@ -74,7 +74,13 @@ class Avance_Appointment_Handler {
 
 		$owner_phone = AVANCE_WHATSAPP_OWNER;
 		$message = $this->build_whatsapp_message($data, $appointment_id);
-		$url = 'https://wa.me/' . $owner_phone . '?text=' . rawurlencode($message);
+		// Normalizar número para WhatsApp (agregar +51 si falta)
+		$phone = preg_replace('/[^0-9]/', '', $owner_phone);
+		if (strlen($phone) === 9) {
+			$phone = '51' . $phone;
+		}
+
+		$url = 'https://wa.me/' . $phone . '?text=' . rawurlencode($message);
 
 		return array(
 			'success' => true,

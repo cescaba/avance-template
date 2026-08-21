@@ -14,6 +14,10 @@
 	padding: 80px var(--lateral-spacing);
 }
 
+.libro-wrap-mobile {
+	display: none;
+}
+
 .libro-wrap {
 	width: 100%;
 	display: grid;
@@ -542,6 +546,10 @@
 
 /* Desktop Large: 1440px y superior */
 @media (min-width: 1025px) and (max-width: 1440px) {
+	.libro-wrap-mobile {
+		display: none;
+	}
+
 	/* Main Section */
 	.libro-main {
 		padding: 60px var(--lateral-spacing);
@@ -710,21 +718,613 @@
 	}
 }
 
-/* Desktop: 1024px - 1439px */
-@media (min-width: 1024px) and (max-width: 1439px) {
-	/* Layout - Sidebar arriba y contenido abajo */
+
+@media (min-width: 769px) and (max-width: 1024px)  {
+	.libro-wrap-mobile {
+		display: none;
+	}
+
+	/* Main Section */
+	.libro-main {
+		padding: 50px var(--lateral-spacing);
+	}
+
 	.libro-wrap {
-		grid-template-columns: 1fr;
+		grid-template-columns: 320px 1fr;
 		gap: 40px;
+	}
+
+	/* Sidebar */
+	.libro-sidebar {
+		gap: 12px;
+	}
+
+	/* Buttons */
+	.libro-btn-primary {
+		font-size: 11px;
+		height: 38px;
+		padding: 9px 14px;
+	}
+
+	.libro-btn-secondary {
+		font-size: 10px;
+		height: 38px;
+		padding: 9px 14px;
+	}
+
+	.libro-btn-small {
+		font-size: 9px;
+		height: 34px;
+		padding: 7px 11px;
+	}
+
+	/* Sidebar Elements */
+	.libro-hint {
+		font-size: 8px;
+		line-height: 13px;
+	}
+
+	.libro-mini-label {
+		font-size: 11px;
+		line-height: 15px;
+	}
+
+	.libro-rating-section {
+		gap: 5px;
+		padding: 11px;
+	}
+
+	.libro-stars {
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.libro-rating-value {
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.libro-reviews {
+		font-size: 8px;
+		line-height: 13px;
+	}
+
+	/* Content */
+	.libro-content {
+		gap: 28px;
+	}
+
+	.libro-header {
+		gap: 15px;
+	}
+
+	.libro-kicker {
+		font-size: 11px;
+		line-height: 15px;
+	}
+
+	.libro-title {
+		font-size: 26px;
+		line-height: 26px;
+	}
+
+	/* Meta */
+	.libro-meta {
+		gap: 40px;
+	}
+
+	.libro-meta-label {
+		font-size: 8px;
+		line-height: 13px;
+	}
+
+	.libro-meta-value {
+		font-size: 17px;
+		line-height: 20px;
+	}
+
+	/* Description */
+	.libro-description {
+		font-size: 12px;
+		line-height: 17px;
+	}
+
+	/* Chapters */
+	.libro-chapters-section {
+		gap: 11px;
+	}
+
+	.libro-chapters {
+		gap: 13px;
+	}
+
+	.libro-chapter {
+		gap: 11px;
+		font-size: 11px;
+		line-height: 17px;
+	}
+
+	.libro-chapter::before {
+		font-size: 13px;
+		line-height: 13px;
+	}
+
+	.libro-section-label {
+		font-size: 10px;
+		line-height: 15px;
+		margin-bottom: 16px;
+	}
+
+	/* Quote */
+	.libro-quote {
+		gap: 5px;
+		padding: 15px;
+	}
+
+	.libro-quote-text {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.libro-quote-author {
+		font-size: 10px;
+		line-height: 15px;
+	}
+
+	/* CTA Band */
+	.libro-cta-band {
+		padding: 22px;
+		gap: 12px;
+		height: auto;
+	}
+
+	.libro-cta-title {
+		font-size: 13px;
+		line-height: 17px;
+	}
+
+	.libro-cta-actions {
+		gap: 9px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.libro-cta-actions .libro-btn {
+		height: 38px;
+		font-size: 9px;
+		width: 100%;
 	}
 }
 
-/* Tablet: 768px - 1023px */
-@media (min-width: 768px) and (max-width: 1023px) {
-	/* Responsive styles for 768-1023px here */
+
+@media (min-width: 480px) and (max-width: 768px) {
+	.libro-wrap-mobile {
+		display: none;
+	}
+
+	/* Main Section */
+	.libro-main {
+		padding: 40px var(--lateral-spacing);
+	}
+
+	.libro-wrap {
+		grid-template-columns: 280px 1fr;
+		gap: 35px;
+	}
+
+	/* Sidebar */
+	.libro-sidebar {
+		gap: 11px;
+	}
+
+	/* Buttons */
+	.libro-btn-primary {
+		font-size: 10px;
+		height: 36px;
+		padding: 8px 13px;
+	}
+
+	.libro-btn-secondary {
+		font-size: 9px;
+		height: 36px;
+		padding: 8px 13px;
+	}
+
+	.libro-btn-small {
+		font-size: 8px;
+		height: 32px;
+		padding: 6px 10px;
+	}
+
+	/* Sidebar Elements */
+	.libro-hint {
+		font-size: 7px;
+		line-height: 12px;
+	}
+
+	.libro-mini-label {
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.libro-rating-section {
+		gap: 4px;
+		padding: 10px;
+	}
+
+	.libro-stars {
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.libro-rating-value {
+		font-size: 9px;
+		line-height: 13px;
+	}
+
+	.libro-reviews {
+		font-size: 7px;
+		line-height: 12px;
+	}
+
+	/* Content */
+	.libro-content {
+		gap: 26px;
+	}
+
+	.libro-header {
+		gap: 14px;
+	}
+
+	.libro-kicker {
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.libro-title {
+		font-size: 24px;
+		line-height: 24px;
+	}
+
+	/* Meta */
+	.libro-meta {
+		gap: 38px;
+	}
+
+	.libro-meta-label {
+		font-size: 7px;
+		line-height: 12px;
+	}
+
+	.libro-meta-value {
+		font-size: 16px;
+		line-height: 19px;
+	}
+
+	/* Description */
+	.libro-description {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	/* Chapters */
+	.libro-chapters-section {
+		gap: 25px;
+	}
+
+	.libro-chapters {
+		gap: 12px;
+	}
+
+	.libro-chapter {
+		gap: 10px;
+		font-size: 10px;
+		line-height: 16px;
+	}
+
+	.libro-chapter::before {
+		font-size: 12px;
+		line-height: 12px;
+	}
+
+	.libro-section-label {
+		font-size: 9px;
+		line-height: 14px;
+		margin-bottom: 15px;
+	}
+
+	/* Quote */
+	.libro-quote {
+		gap: 4px;
+		padding: 14px;
+	}
+
+	.libro-quote-text {
+		font-size: 11px;
+		line-height: 17px;
+	}
+
+	.libro-quote-author {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	/* CTA Band */
+	.libro-cta-band {
+		padding: 21px;
+		gap: 11px;
+		height: auto;
+	}
+
+	.libro-cta-title {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.libro-cta-actions {
+		gap: 8px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.libro-cta-actions .libro-btn {
+		height: 36px;
+		font-size: 8px;
+		width: 100%;
+	}
 }
 
 /* Mobile: hasta 480px */
-@media (max-width: 480px) {
-	/* Responsive styles for 480px and below here */
+@media (max-width: 479px) {
+	.libro-main {
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+
+	/* Hide desktop version */
+	.libro-wrap {
+		display: none;
+	}
+
+	/* Show mobile version */
+	.libro-wrap-mobile {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	/* Header Section: Cover + Header + Meta (2 Columns) */
+	.libro-header-section-mobile {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+		align-items: stretch;
+		height: 300px;
+	}
+
+	/* Left Column: Cover */
+	.libro-sidebar-mobile {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+
+	.libro-cover {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
+
+	/* Right Column: Header + Meta */
+	.libro-header-content-mobile {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		height: 100%;
+	}
+
+	.libro-header-mobile {
+		gap: 12px;
+		flex: 0 1 auto;
+	}
+
+	.libro-header-mobile .libro-kicker {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		line-height: 1;
+		letter-spacing: 1px;
+	}
+
+	.libro-header-mobile .libro-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 20px;
+		line-height: 1.2;
+		letter-spacing: 0px;
+	}
+
+	/* Right Column: Meta (row 2) */
+	.libro-meta-mobile {
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
+		justify-content: space-between;
+	}
+
+	.libro-meta-mobile .libro-meta-label {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 9px;
+		line-height: 1;
+		letter-spacing: 1px;
+	}
+
+	.libro-meta-mobile .libro-meta-value {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 19px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	/* Full width below: Description */
+	.libro-wrap-mobile .libro-description {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1.5;
+		letter-spacing: 0px;
+	}
+
+	/* Button and rest: Full width */
+	.libro-wrap-mobile .libro-btn-primary {
+		height: 49px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 12px 16px;
+	}
+
+	.libro-wrap-mobile .libro-hint {
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+	.libro-wrap-mobile .libro-row-2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+	}
+
+	.libro-wrap-mobile .libro-btn-small {
+		height: 40px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-rating-section {
+		height: 57px;
+		gap: 6px;
+		padding: 12px;
+	}
+
+	.libro-wrap-mobile .libro-stars {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-rating-value {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-reviews {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 10px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-section-label {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 1px;
+	}
+
+	.libro-wrap-mobile .libro-chapters-section {
+		gap: 25px;
+	}
+
+	.libro-wrap-mobile .libro-quote {
+	}
+
+	.libro-wrap-mobile .libro-cta-band {
+		height: auto;
+		padding: 24px;
+		gap: 16px;
+	}
+
+	.libro-wrap-mobile .libro-cta-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.libro-wrap-mobile .libro-cta-actions .libro-btn {
+		width: 100%;
+		height: 44px;
+		flex: 0 0 auto;
+	}
+
+	.libro-wrap-mobile .libro-chapter {
+		border-bottom: 1px solid #E5E7EB;
+		padding-bottom: 12px;
+		margin-bottom: 12px;
+		align-items: flex-start;
+		background-color: #FFFFFF;
+	}
+
+	.libro-wrap-mobile .libro-chapter:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	.libro-wrap-mobile .libro-chapter::before {
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
+		flex-shrink: 0;
+	}
+
+	.libro-wrap-mobile .libro-quote-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-style: italic;
+		font-size: 13px;
+		line-height: 1.5;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-quote-author {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-cta-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 15px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.libro-wrap-mobile .libro-cta-actions .libro-btn {
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
 }

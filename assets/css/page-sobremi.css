@@ -54,6 +54,10 @@
 	border-radius: 8px;
 }
 
+.sobremi-intro__image-img--mobile {
+	display: none;
+}
+
 .sobremi-intro__image-img {
 	width: 100%;
 	height: 100%;
@@ -136,7 +140,7 @@
 	display: block;
 }
 
-.sobremi-intro__buttom {
+.sobremi-intro__button {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -495,7 +499,7 @@
 
 .sobremi-intro__achievement-btn--secondary {
 	background-color: #E5E7EB;
-	border: 1px salid #E5E7EB;
+	border: 1px solid #E5E7EB;
 	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
@@ -505,12 +509,9 @@
 	color: #034732;
 }
 
-/* =====================================================
-   RESPONSIVE BREAKPOINTS
-   ===================================================== */
 
-/* Desktop Large: 1440px y superior */
-@media (min-width: 1025px) and (max-width: 1440px) {
+/* Desktop Large: 1025px - 1439px */
+@media (min-width: 1025px) and (max-width: 1439px) {
 	/* Intro Section */
 	.sobremi-intro {
 		padding: 50px var(--lateral-spacing);
@@ -625,25 +626,31 @@
 	}
 }
 
-/* Desktop: 1024px - 1439px */
-@media (min-width: 1024px) and (max-width: 1439px) {
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
+   ===================================================== */
+@media (min-width: 769px) and (max-width: 1024px)  {
 	/* Intro Section */
 	.sobremi-intro {
-		padding: 45px var(--lateral-spacing);
+		padding: 40px var(--lateral-spacing);
 	}
 
 	.sobremi-intro__container {
-		gap: 45px;
+		gap: 35px;
 	}
 
 	.sobremi-intro__content {
 		flex: 0 0 35%;
-		gap: 16px;
+		gap: 15px;
 	}
 
 	.sobremi-intro__features {
 		flex: 0 0 65%;
-		gap: 16px;
+		gap: 15px;
+	}
+
+	.sobremi-intro__image {
+		height: 310px;
 	}
 
 	.sobremi-intro__list {
@@ -660,6 +667,10 @@
 		gap: 13px;
 	}
 
+	.sobremi-intro__stat-title {
+		gap: 15px;
+	}
+
 	.sobremi-intro__stat-subtitle {
 		font-size: 24px;
 		line-height: 24px;
@@ -668,6 +679,10 @@
 	.sobremi-intro__stat-text {
 		font-size: 12px;
 		line-height: 17px;
+	}
+
+	.sobremi-intro__button {
+		gap: 15px;
 	}
 
 	.sobremi-intro__stat-quote {
@@ -741,12 +756,466 @@
 	}
 }
 
-/* Tablet: 768px - 1023px */
-@media (min-width: 768px) and (max-width: 1023px) {
-	/* Responsive styles for 768-1023px here */
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
+   ===================================================== */
+@media (min-width: 480px) and (max-width: 768px) {
+	.sobremi-intro {
+		padding: 0;
+	}
+
+	.sobremi-intro__image {
+		margin-left: calc(-1 * var(--lateral-spacing));
+		margin-right: calc(-1 * var(--lateral-spacing));
+		width: calc(100% + calc(2 * var(--lateral-spacing)));
+		height: 500px;
+		order: 1;
+	}
+
+	.sobremi-intro__image-img--desktop {
+		display: none;
+	}
+
+	.sobremi-intro__image-img--mobile {
+		display: block;
+	}
+
+	.sobremi-intro__container {
+		flex-direction: column;
+		gap: 40px;
+		padding: 0 var(--lateral-spacing) 50px var(--lateral-spacing);
+	}
+
+	.sobremi-intro__content {
+		display: contents;
+	}
+
+	.sobremi-intro__features {
+		display: contents;
+	}
+
+
+	.sobremi-intro__stat {
+		order: 2;
+	}
+
+	.sobremi-intro__text {
+		order: 3;
+	}
+
+	.sobremi-intro__skill {
+		order: 4;
+	}
+
+	.sobremi-intro__button {
+		order: 5;
+	}
+
+	.sobremi-intro__achievement {
+		order: 6;
+	}
+
+	.sobremi-intro__stat-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0.08em;
+	}
+
+	.sobremi-intro__stat-subtitle {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 28px;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 15px;
+		line-height: 1.5;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-quote-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+		font-style: italic;
+	}
+
+	.sobremi-intro__stat-quote-author {
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-quote {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.sobremi-intro__list-item {
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__btn,
+	.sobremi-intro__btn--primary {
+		width: 100%;
+		height: 51px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 15px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__skill-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0.06em;
+	}
+
+	.sobremi-intro__timeline-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__timeline-year {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		width: 100%;
+		align-items: stretch;
+		justify-content: flex-start;
+		gap: 18px;
+		padding: 17px;
+	}
+
+	.sobremi-intro__achievement-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 20px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement-subtitle {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement-header {
+		text-align: left;
+	}
+
+	.sobremi-intro__achievement-buttons {
+		flex-direction: column;
+	}
+
+	.sobremi-intro__achievement-buttons button,
+	.sobremi-intro__achievement-buttons a {
+		width: 100%;
+		height: 46px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.sobremi-intro__achievement-btn {
+		width: 100%;
+		height: 46px;
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		line-height: 1;
+	}
+
+	.sobremi-intro__achievement-btn--primary {
+		width: 100%;
+		height: 46px;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.sobremi-intro__achievement-btn--secondary {
+		width: 100%;
+		height: 46px;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.sobremi-intro__achievement-btn img {
+		height: auto;
+		width: auto;
+	}
 }
 
 /* Mobile: hasta 480px */
-@media (max-width: 480px) {
-	/* Responsive styles for 480px and below here */
+@media (max-width: 479px) {
+	.sobremi-intro {
+		padding: 0;
+	}
+
+	.sobremi-intro__container {
+		display: flex;
+		flex-direction: column;
+		gap: 35px;
+		padding: 0 var(--lateral-spacing) 45px var(--lateral-spacing);
+	}
+
+	.sobremi-intro__content {
+		display: contents;
+	}
+
+	.sobremi-intro__features {
+		display: contents;
+	}
+
+	.sobremi-intro__image {
+		order: 1;
+		height: 300px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: calc(-1 * var(--lateral-spacing));
+		margin-right: calc(-1 * var(--lateral-spacing));
+		width: calc(100% + calc(2 * var(--lateral-spacing)));
+	}
+
+	.sobremi-intro__image-img--desktop {
+		display: none;
+	}
+
+	.sobremi-intro__image-img--mobile {
+		display: block;
+	}
+
+	.sobremi-intro__stat {
+		order: 2;
+		gap: 20px;
+	}
+
+	.sobremi-intro__text {
+		order: 3;
+	}
+
+	.sobremi-intro__list {
+		gap: 20px;
+	}
+
+	.sobremi-intro__skill {
+		order: 4;
+	}
+
+	.sobremi-intro__button {
+		order: 5;
+	}
+
+	.sobremi-intro__achievement {
+		order: 6;
+	}
+
+	.sobremi-intro__stat-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 11px;
+		line-height: 1;
+		letter-spacing: 0.08em;
+	}
+
+	.sobremi-intro__stat-subtitle {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 26px;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1.5;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-quote-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0;
+		font-style: italic;
+	}
+
+	.sobremi-intro__stat-quote-author {
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__stat-quote {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.sobremi-intro__list-item {
+		font-family: 'Inter', sans-serif;
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__btn,
+	.sobremi-intro__btn--primary {
+		width: 100%;
+		height: 49px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__buttons {
+		gap: 16px;
+	}
+
+	.sobremi-intro__skill-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0.06em;
+	}
+
+	.sobremi-intro__timeline-text {
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__timeline-year {
+		font-family: 'Inter', sans-serif;
+		font-weight: 700;
+		font-size: 15px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		width: 100%;
+		align-items: stretch;
+		justify-content: flex-start;
+		gap: 16px;
+		padding: 15px;
+	}
+
+	.sobremi-intro__achievement-title {
+		font-family: 'Inter', sans-serif;
+		font-weight: 300;
+		font-size: 19px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement-subtitle {
+		font-family: 'Inter', sans-serif;
+		font-weight: 400;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.sobremi-intro__achievement-header {
+		text-align: left;
+	}
+
+	.sobremi-intro__achievement-buttons {
+		flex-direction: column;
+	}
+
+	.sobremi-intro__achievement-buttons button,
+	.sobremi-intro__achievement-buttons a {
+		width: 100%;
+		height: 44px;
+		font-family: 'Inter', sans-serif;
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.sobremi-intro__achievement-btn {
+		width: 100% !important;
+		height: 44px !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		box-sizing: border-box !important;
+		line-height: 1 !important;
+	}
+
+	.sobremi-intro__achievement-btn--primary {
+		width: 100% !important;
+		height: 44px !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	.sobremi-intro__achievement-btn--secondary {
+		width: 100% !important;
+		height: 44px !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	.sobremi-intro__achievement-btn img {
+		height: auto;
+		width: auto;
+	}
 }

@@ -1174,10 +1174,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-top: 1px solid #FFFFFF;
-	border-right: 1px solid #FFFFFF;
-	border-bottom: 1px solid #FFFFFF;
-	border-left: 1px solid #FFFFFF;
+	border: 1px solid #FFFFFF;
 	background-color: #466060;
 	font-weight: 900;
 	font-size: 14px;

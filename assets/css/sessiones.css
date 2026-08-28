@@ -567,6 +567,10 @@ select.contacto-agenda__input:valid {
 	width: 100%;
 }
 
+.contacto-agenda__btn--back {
+	display: none;
+}
+
 .contacto-agenda__feature-grid {
 	display: grid;
 	width: 100%;

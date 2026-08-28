@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const WEEK_DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const TIME_SLOTS = ['09:00', '10:00', '11:00', '14:00', '15:00'];
 
-	const calGrid = document.querySelector('.contacto-agenda__cal-grid');
-	const monthLabel = document.querySelector('.contacto-agenda__cal-month-label');
+	const calGrid = document.querySelector('[id$="CalGrid"]');
+	const monthLabel = document.querySelector('[id$="MonthLabel"]');
 	const prevMonthBtn = document.querySelector('[id$="PrevMonth"]');
 	const nextMonthBtn = document.querySelector('[id$="NextMonth"]');
-	const timeContainer = document.querySelector('.contacto-agenda__time-slots');
+	const timeContainer = document.querySelector('[id$="TimeSlots"]');
 
 	if (!calGrid || !monthLabel) {
 		return;

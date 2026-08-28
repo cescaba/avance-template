@@ -106,7 +106,7 @@
 .avance-nav-primary {
 	display: flex;
 	align-items: center;
-	gap: 24px;
+	gap: 15px;
 }
 
 .avance-nav-primary__link {
@@ -137,7 +137,7 @@
 .avance-header__actions {
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: 15px;
 }
 
 .avance-btn {
@@ -268,8 +268,6 @@
 	opacity: 1;
 	transform: scale(1);
 }
-
-.avance-menu-panel.closing {}
 
 .avance-menu-panel__link {
 	display: flex;
@@ -1424,7 +1422,7 @@
 	}
 
 	.avance-nav-primary {
-		gap: 16px;
+		gap: 14px;
 	}
 
 	.avance-nav-primary__link {

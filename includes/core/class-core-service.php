@@ -76,7 +76,7 @@ class Avance_Core_Service {
             wp_enqueue_script('avance-diagnostico-quiz', $theme_uri . '/assets/js/diagnostico-quiz.js', [], $version, true);
         }
 
-        if (is_page_template('templates/page-inicio.php')) {
+        if (is_front_page() || is_page_template('templates/page-inicio.php')) {
             wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
             wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [

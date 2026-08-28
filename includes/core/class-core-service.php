@@ -57,12 +57,12 @@ class Avance_Core_Service {
         // Base styles
         wp_enqueue_style('avance-base', $theme_uri . '/assets/css/base.css', [], $version);
         wp_enqueue_style('avance-pages', $theme_uri . '/assets/css/pages.css', ['avance-base'], $version);
+        wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
         wp_enqueue_style('avance-sessiones', $theme_uri . '/assets/css/sessiones.css', ['avance-pages'], $version);
 
         // Page-specific SOLO si es necesario
         if (is_page_template('templates/page-mentoria.php')) {
             wp_enqueue_style('avance-page-mentoria', $theme_uri . '/assets/css/page-mentoria.css', ['avance-pages'], $version);
-            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
             wp_enqueue_script('avance-mentoria-reserva', $theme_uri . '/assets/js/mentoria-reserva.js', [], $version, true);
             wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_localize_script('avance-mentoria-reserva', 'mentoriaConfig', [
@@ -77,7 +77,6 @@ class Avance_Core_Service {
         }
 
         if (is_page_template('templates/page-inicio.php')) {
-            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
             wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
             wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [
@@ -88,7 +87,6 @@ class Avance_Core_Service {
 
         if (is_page_template('templates/page-contacto.php')) {
             wp_enqueue_style('avance-page-contacto', $theme_uri . '/assets/css/page-contacto.css', ['avance-base'], $version);
-            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
             wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
             wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [

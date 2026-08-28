@@ -17,89 +17,73 @@ $args = wp_parse_args($args ?? array(), array());
 
 ?>
 
-<section class="contacto-agenda contacto-agenda--animated" aria-label="<?php esc_attr_e('Sección de Agendamiento', 'avance-template'); ?>">
+<section id="scheduling-section" class="contacto-agenda contacto-agenda--animated" aria-label="<?php esc_attr_e('Sección de Agendamiento', 'avance-template'); ?>">
 	<div class="contacto-agenda__container">
-		<div class="contacto-agenda__header animate-on-scroll" data-animate>
+		<header class="contacto-agenda__header">
 			<div class="contacto-agenda__header-content">
 				<div class="contacto-agenda__kicker"><?php esc_html_e('Agendamiento directo', 'avance-template'); ?></div>
 				<h2 class="contacto-agenda__title"><?php esc_html_e('Sesión gratuita de 10 min', 'avance-template'); ?></h2>
-				<div class="contacto-agenda__subtitle"><?php esc_html_e('Google Meet · Sin compromiso', 'avance-template'); ?></div>
+				<div class="contacto-agenda__subtitle"><?php esc_html_e('Google Meet · Sin compromiso · Calendly plan gratuito', 'avance-template'); ?></div>
 			</div>
-		</div>
+		</header>
 
-		<div class="contacto-agenda__grid animate-on-scroll" data-animate>
-			<div class="contacto-agenda__left">
-				<div class="contacto-agenda__card">
-					<div class="contacto-agenda__host-row">
-						<div class="contacto-agenda__avatar">AE</div>
-						<div class="contacto-agenda__host-info">
-							<div class="contacto-agenda__host-title"><?php esc_html_e('Avance Empresarial', 'avance-template'); ?></div>
-							<div class="contacto-agenda__host-meta"><?php esc_html_e('Sesión de diagnóstico · 30 min · Google Meet', 'avance-template'); ?></div>
-						</div>
-						<span class="contacto-agenda__tag"><?php esc_html_e('Gratis', 'avance-template'); ?></span>
-					</div>
-				</div>
-
-				<div class="contacto-agenda__card">
-					<div class="contacto-agenda__cal-header">
-						<button class="contacto-agenda__cal-nav" id="contactoAgendaPrevMonth" aria-label="<?php esc_attr_e('Mes anterior', 'avance-template'); ?>">‹</button>
-						<div class="contacto-agenda__cal-month-label" id="contactoAgendaMonthLabel"></div>
-						<button class="contacto-agenda__cal-nav" id="contactoAgendaNextMonth" aria-label="<?php esc_attr_e('Mes siguiente', 'avance-template'); ?>">›</button>
-					</div>
-
-					<div class="contacto-agenda__cal-grid" id="contactoAgendaCalGrid">
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('DOM', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('LUN', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('MAR', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('MIÉ', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('JUE', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('VIE', 'avance-template'); ?></div>
-						<div class="contacto-agenda__cal-weekday"><?php esc_html_e('SÁB', 'avance-template'); ?></div>
-					</div>
-
-					<div class="contacto-agenda__tz-row">🕐 Lima (GMT-5)</div>
-				</div>
-			</div>
+		<div class="contacto-agenda__grid">
+			<?php
+			get_template_part('template-parts/calendar-agenda', null, [
+				'host_title'    => 'Avance Empresarial',
+				'host_meta'     => 'Sesión de diagnóstico · 30 min · Google Meet',
+				'avatar_text'   => 'AE',
+				'tag_text'      => 'Gratis',
+				'cal_id'        => 'contactoAgenda',
+				'timezone'      => 'Lima (GMT-5)',
+			]);
+			?>
 
 			<div class="contacto-agenda__right">
-				<div class="contacto-agenda__section-header">
+				<form id="contacto-agenda-form" class="contacto-agenda__form" aria-label="<?php esc_attr_e('Formulario de agendamiento', 'avance-template'); ?>">
+					<?php wp_nonce_field('avance_scheduling_form', 'nonce', false); ?>
+
+					<div class="contacto-agenda__section-header">
 					<div class="contacto-agenda__section-kicker"><?php esc_html_e('¿Qué te gustaría tratar en la sesión?', 'avance-template'); ?></div>
 					<div class="contacto-agenda__section-sub"><?php esc_html_e('Selecciona el tema principal para que pueda preparar la sesión y llegar con información relevante para tu caso.', 'avance-template'); ?></div>
 				</div>
 
-				<div class="contacto-agenda__form-fields">
+				<div class="contacto-agenda__form-fields ">
 					<div class="contacto-agenda__form-row">
 						<div class="contacto-agenda__field">
 							<label for="contacto-agenda-name"><?php esc_html_e('Nombre completo *', 'avance-template'); ?></label>
-							<input class="contacto-agenda__input" type="text" id="contacto-agenda-name" placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>">
+							<input class="contacto-agenda__input" type="text" id="contacto-agenda-name" name="contacto-agenda-name" placeholder="<?php esc_attr_e('ej. Carlos González', 'avance-template'); ?>" required aria-required="true">
 						</div>
 						<div class="contacto-agenda__field">
 							<label for="contacto-agenda-phone"><?php esc_html_e('WhatsApp', 'avance-template'); ?></label>
-							<input class="contacto-agenda__input" type="text" id="contacto-agenda-phone" placeholder="<?php esc_attr_e('+51 999 000 000', 'avance-template'); ?>">
+							<input class="contacto-agenda__input" type="tel" id="contacto-agenda-phone" name="contacto-agenda-phone" placeholder="<?php esc_attr_e('ej. +51 987 654 321', 'avance-template'); ?>" required aria-required="true">
 						</div>
 					</div>
 
 					<div class="contacto-agenda__field">
 						<label for="contacto-agenda-topic"><?php esc_html_e('Tema de interés *', 'avance-template'); ?></label>
-						<div class="contacto-agenda__select-wrapper">
-							<button class="contacto-agenda__select-trigger" id="contacto-agenda-topic-trigger" type="button">
-								<?php esc_html_e('Selecciona un servicio o tema...', 'avance-template'); ?>
-							</button>
-							<div class="contacto-agenda__select-menu" id="contacto-agenda-topic-menu">
-								<div class="contacto-agenda__select-option" data-value="Diagnóstico de negocio"><?php esc_html_e('Diagnóstico de negocio', 'avance-template'); ?></div>
-								<div class="contacto-agenda__select-option" data-value="Estrategia comercial"><?php esc_html_e('Estrategia comercial', 'avance-template'); ?></div>
-								<div class="contacto-agenda__select-option" data-value="Capacitación ejecutiva"><?php esc_html_e('Capacitación ejecutiva', 'avance-template'); ?></div>
-								<div class="contacto-agenda__select-option" data-value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></div>
-								<div class="contacto-agenda__select-option" data-value="Otro tema"><?php esc_html_e('Otro tema', 'avance-template'); ?></div>
-							</div>
-						</div>
-						<input type="hidden" id="contacto-agenda-topic" value="">
+						<select
+							id="contacto-agenda-topic"
+							name="contacto-agenda-topic"
+							class="contacto-agenda__input"
+							required
+							aria-required="true">
+							<option value=""><?php esc_html_e('Selecciona un servicio o tema...', 'avance-template'); ?></option>
+							<option value="Diagnóstico de negocio"><?php esc_html_e('Diagnóstico de negocio', 'avance-template'); ?></option>
+							<option value="Estrategia comercial"><?php esc_html_e('Estrategia comercial', 'avance-template'); ?></option>
+							<option value="Capacitación ejecutiva"><?php esc_html_e('Capacitación ejecutiva', 'avance-template'); ?></option>
+							<option value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></option>
+							<option value="Otro tema"><?php esc_html_e('Otro tema', 'avance-template'); ?></option>
+						</select>
 					</div>
 				</div>
 
-				<button class="contacto-agenda__btn contacto-agenda__btn--primary contacto-agenda__btn--block animate-on-scroll" id="contacto-agenda-submit" disabled data-animate><?php esc_html_e('Agendar Reunión', 'avance-template'); ?></button>
+				<button type="submit" class="contacto-agenda__btn contacto-agenda__btn--primary contacto-agenda__btn--block" id="contacto-agenda-submit" disabled><?php esc_html_e('Agendar Reunión', 'avance-template'); ?></button>
 
-				<div class="contacto-agenda__feature-grid animate-on-scroll" data-animate>
+					<button type="button" class="contacto-agenda__btn contacto-agenda__btn--back" id="contacto-agenda-back"><?php esc_html_e('Volver al calendario', 'avance-template'); ?></button>
+				</form>
+
+				<div class="contacto-agenda__feature-grid ">
 					<div class="contacto-agenda__feature-card">
 						<div class="contacto-agenda__feature-title"><?php esc_html_e('Sin compromiso', 'avance-template'); ?></div>
 						<div class="contacto-agenda__feature-body"><?php esc_html_e('La sesión es 100% gratuita', 'avance-template'); ?></div>

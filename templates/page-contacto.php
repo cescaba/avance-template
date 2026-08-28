@@ -28,11 +28,11 @@ get_header();
 				<h1 class="contacto-hero__title"><?php esc_html_e('Hablemos', 'avance-template'); ?></h1>
 				<p class="contacto-hero__description"><?php esc_html_e('Elige cómo prefieres conectar. Respondo en menos de 1 hora.', 'avance-template'); ?></p>
 				<div class="contacto-hero__content">
-					<a href="#" class="contacto-hero__btn-secondary">
+					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="contacto-hero__btn-secondary">
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="contacto-hero__btn-icon" aria-hidden="true">
 						<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
 					</a>
-					<a href="#contacto-form" class="contacto-hero__btn-primary"><?php esc_html_e('informes@avance-empresarial.com', 'avance-template'); ?></a>
+					<a href="#home-form" class="contacto-hero__btn-primary"><?php esc_html_e('informes@avance-empresarial.com', 'avance-template'); ?></a>
 
 				</div>
 			</div>
@@ -40,20 +40,10 @@ get_header();
 	</section>
 
 	<!-- Scheduling Section -->
-	<section class="contacto-scheduling" aria-label="<?php esc_attr_e('Sección de Agendamiento', 'avance-template'); ?>" id="contacto-scheduling">
-		<?php
-		$scheduling = new Avance_Scheduling_Component();
-		$scheduling->render();
-		?>
-	</section>
+	<?php get_template_part('template-parts/scheduling-section'); ?>
 
 	<!-- Form Section -->
-	<section class="contacto-form-section" aria-label="<?php esc_attr_e('Sección de Formulario', 'avance-template'); ?>" id="contacto-form">
-		<?php
-		$form = new Avance_Form_Component();
-		$form->render();
-		?>
-	</section>
+	<?php get_template_part('template-parts/form-section'); ?>
 
 </main>
 

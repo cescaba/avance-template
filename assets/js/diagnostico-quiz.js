@@ -39,9 +39,9 @@ const DIAGNOSTICO_QUESTIONS = [
 		text: "Tu diagnóstico está listo. ¿A dónde lo enviamos?",
 		isForm: true,
 		formFields: [
-			{ name: "nombreCompleto", label: "Nombre Completo*", type: "text", placeholder: "Tu nombre completo" },
-			{ name: "email", label: "Email*", type: "email", placeholder: "tu@email.com" },
-			{ name: "whatsapp", label: "WhatsApp*", type: "tel", placeholder: "+51 XXX XXX XXX" }
+			{ name: "nombreCompleto", label: "Nombre Completo*", type: "text", placeholder: "Ej. Juan García Rodríguez" },
+			{ name: "email", label: "Email*", type: "email", placeholder: "Ej. juan@empresa.com" },
+			{ name: "whatsapp", label: "WhatsApp*", type: "tel", placeholder: "Ej. +51 987 654 321" }
 		]
 	}
 ];
@@ -99,6 +99,7 @@ function renderDiagnosticoQuestion() {
 			const btn = document.createElement('button');
 			btn.className = 'diagnostico-quiz__option-btn animate-on-scroll is-visible';
 			btn.setAttribute('data-animate', '');
+			btn.setAttribute('data-answer', label);
 			btn.textContent = label;
 			btn.addEventListener('click', () => selectDiagnosticoOption(label)); // Guardar texto, no índice
 			diagnosticoOptionsList.appendChild(btn);
@@ -120,7 +121,6 @@ function renderDiagnosticoForm(q) {
 
 		const label = document.createElement('label');
 		label.textContent = field.label;
-		label.style.cssText = 'font-size: 13px; font-weight: 500; color: #364153;';
 
 		const input = document.createElement('input');
 		input.type = field.type;
@@ -205,11 +205,22 @@ function resetDiagnosticoOnSuccess() {
 	renderDiagnosticoQuestion();
 }
 
+function attachDiagnosticoButtonEvents() {
+	const buttons = diagnosticoOptionsList.querySelectorAll('[data-answer]');
+	buttons.forEach(btn => {
+		// Remover listeners anteriores para evitar duplicados
+		const newBtn = btn.cloneNode(true);
+		btn.parentNode.replaceChild(newBtn, btn);
+
+		const answerText = newBtn.getAttribute('data-answer');
+		newBtn.addEventListener('click', () => selectDiagnosticoOption(answerText));
+	});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	initDiagnosticoElements();
 	if (diagnosticoOptionsList) {
-		// Restaurar estado guardado si existe
-		const hasState = loadDiagnosticoState();
-		renderDiagnosticoQuestion();
+		// Conectar eventos a botones (pre-renderizados o nuevos)
+		attachDiagnosticoButtonEvents();
 	}
 });

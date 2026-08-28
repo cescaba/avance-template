@@ -14,62 +14,31 @@
    ===================================================== */
 
 :root {
-	/* ========== BREAKPOINTS ========== */
-	--breakpoint-mobile-small: 320px;
-	--breakpoint-mobile-large: 481px;
-	--breakpoint-tablet: 769px;
-	--breakpoint-desktop: 1025px;
-	--breakpoint-desktop-large: 1440px;
-
-	/* Spacing - Responsivo dinámico */
-	--lateral-spacing: clamp(80px, 10vw, 240px);
-
-	/* Colors - Text */
-	--text-white: #FFFFFF;
-	--text-primary: #364153;
-	--text-secondary: #99A1AF;
-
-	/* Colors - Background */
-	--bg-white: #FFFFFF;
-	--bg-light: #F9FAFB;
-
 	/* Typography */
 	--font-size-sm: 12px;
 	--font-size-base: 14px;
 	--font-size-md: 16px;
 
-	/* Spacing - Gap */
-	--gap-sm: 10px;
-	--gap-md: 16px;
+	/* Spacing - Responsivo dinámico */
+	--lateral-spacing: clamp(80px, 10vw, 220px);
 
-	/* Utilities */
-	--transition: all 0.3s ease;
-	--radius: 8px;
+	/* Animations */
+	--button-animation: button-hover 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* CÓMO USAR LOS BREAKPOINTS:
-
-   Mobile (320-480px):
-   @media (max-width: 480px) { ... }
-
-   Mobile Large (481-768px):
-   @media (min-width: 481px) and (max-width: 768px) { ... }
-
-   Tablet (769-1024px):
-   @media (min-width: 769px) and (max-width: 1024px) { ... }
-
-   Desktop (1025-1439px):
-   @media (min-width: 1025px) and (max-width: 1439px) { ... }
-
-   Desktop Large (1440px+):
-   @media (min-width: 1025px) and (max-width: 1440px) { ... }
-*/
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+	}
+}
 
 /* =====================================================
-   1. TIPOGRAFÍA BASE - JOST
+   1. TIPOGRAFÍA BASE - INTER
    ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* =====================================================
    2. CSS RESET
@@ -88,12 +57,7 @@ html {
 }
 
 body {
-	font-family: 'Jost', sans-serif;
-	font-size: 16px;
-	line-height: 1.6;
-	color: #333;
-	background-color: #fff;
-	overflow-x: hidden;
+	font-family: 'Inter', sans-serif;
 	margin: 0;
 	padding: 0;
 }
@@ -107,33 +71,34 @@ a {
 	text-decoration: none;
 }
 
-/* Hamburguesa - Oculta por defecto en desktop large */
-.site-header__hamburger {
-	display: none;
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-	width: 28px;
-	height: 28px;
-	flex-direction: column;
-	justify-content: center;
-	gap: 5px;
-	align-items: center;
+input,
+textarea,
+select,
+button {
+	font-family: 'Inter', sans-serif;
 }
 
-.site-header__hamburger span {
-	width: 100%;
-	height: 2px;
-	background-color: #2C2629;
-	border-radius: 2px;
-	transition: all 0.3s ease;
-	display: block;
-}
+/* =====================================================
+   3. ANIMATIONS - KEYFRAMES GLOBALES
+   ===================================================== */
 
-/* 480px Responsive */
-@media (max-width: 480px) {
-	:root {
-		--lateral-spacing: 24px;
+@keyframes button-hover {
+	0% {
+		transform: scale(1) translateY(0);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		filter: brightness(1);
+	}
+	100% {
+		transform: scale(1.05) translateY(-4px);
+		box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 24px rgba(70, 96, 96, 0.12);
+		filter: brightness(1.1);
 	}
 }
+
+/* =====================================================
+   5. GLOBAL COMPONENTS
+   ===================================================== */
+
+
+
+

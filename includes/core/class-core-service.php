@@ -17,6 +17,7 @@ class Avance_Core_Service {
         add_action('widgets_init', [$this, 'register_widgets']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
         add_action('wp_loaded', [$this, 'create_tables']);
+        add_action('wp_loaded', [$this, 'load_handlers']);
         register_activation_hook(WP_CONTENT_DIR . '/themes/avance-template/functions.php', [$this, 'on_activate']);
     }
 
@@ -60,7 +61,9 @@ class Avance_Core_Service {
         // Page-specific SOLO si es necesario
         if (is_page_template('templates/page-mentoria.php')) {
             wp_enqueue_style('avance-page-mentoria', $theme_uri . '/assets/css/page-mentoria.css', ['avance-pages'], $version);
+            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
             wp_enqueue_script('avance-mentoria-reserva', $theme_uri . '/assets/js/mentoria-reserva.js', [], $version, true);
+            wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_localize_script('avance-mentoria-reserva', 'mentoriaConfig', [
                 'ajaxUrl' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('avance_mentoria_booking'),
@@ -72,10 +75,27 @@ class Avance_Core_Service {
             wp_enqueue_script('avance-diagnostico-quiz', $theme_uri . '/assets/js/diagnostico-quiz.js', [], $version, true);
         }
 
+        if (is_page_template('templates/page-inicio.php')) {
+            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
+            wp_enqueue_style('avance-sessiones', $theme_uri . '/assets/css/sessiones.css', ['avance-pages'], $version);
+            wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
+            wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
+            wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('avance_agendamiento_contacto'),
+            ]);
+        }
+
         if (is_page_template('templates/page-contacto.php')) {
             wp_enqueue_style('avance-page-contacto', $theme_uri . '/assets/css/page-contacto.css', ['avance-base'], $version);
-            wp_enqueue_style('avance-sessiones', $theme_uri . '/assets/css/sessiones.css', ['avance-base'], $version);
+            wp_enqueue_style('avance-calendar-agenda', $theme_uri . '/assets/css/calendar-agenda.css', ['avance-pages'], $version);
+            wp_enqueue_style('avance-sessiones', $theme_uri . '/assets/css/sessiones.css', ['avance-pages'], $version);
+            wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
             wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
+            wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('avance_agendamiento_contacto'),
+            ]);
         }
 
         if (is_page_template('templates/page-servicio-empresa.php')) {
@@ -99,6 +119,10 @@ class Avance_Core_Service {
         wp_enqueue_script('avance-animations', $theme_uri . '/assets/js/animations.js', [], $version, true);
         wp_enqueue_script('avance-ui-components', $theme_uri . '/assets/js/ui-components.js', [], $version, true);
 
+        // Modal PDF Download
+        wp_enqueue_style('avance-modal-pdf', $theme_uri . '/assets/css/modal-pdf.css', ['avance-base'], $version);
+        wp_enqueue_script('avance-modal-pdf', $theme_uri . '/assets/js/modal-pdf.js', [], $version, true);
+
         // Forms system (all forms consolidated)
         wp_enqueue_script('avance-forms', $theme_uri . '/assets/js/forms.js', [], $version, true);
         wp_localize_script('avance-forms', 'avanceProposalConfig', [
@@ -118,13 +142,6 @@ class Avance_Core_Service {
             'nonce' => wp_create_nonce('avance_diagnostico_form'),
         ]);
 
-        // Agenda scripts (mantener separado por ahora)
-        wp_enqueue_script('avance-contacto-agenda', $theme_uri . '/assets/js/contacto-agenda.js', [], $version, true);
-        wp_localize_script('avance-contacto-agenda', 'avanceAgendamientoConfig', [
-            'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('avance_agendamiento_form'),
-        ]);
-
         wp_enqueue_style('wp-block-library');
     }
 
@@ -135,11 +152,23 @@ class Avance_Core_Service {
         if (class_exists('Avance_Contact_DB')) {
             Avance_Contact_DB::create_table();
         }
-        if (class_exists('Avance_Agendamiento_Sesiones_DB')) {
-            Avance_Agendamiento_Sesiones_DB::create_table();
-        }
         if (class_exists('Avance_Proposal_DB')) {
             Avance_Proposal_DB::create_table();
+        }
+        if (class_exists('Avance_Agendamiento_Contacto_DB')) {
+            Avance_Agendamiento_Contacto_DB::create_table();
+        }
+    }
+
+    /**
+     * Cargar handlers
+     */
+    public function load_handlers() {
+        require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
+        require_once get_template_directory() . '/includes/database/agendamientos-sesiones/handler-agendamiento-contacto.php';
+
+        if (is_admin()) {
+            require_once get_template_directory() . '/includes/admin/class-admin-agendamiento-contacto.php';
         }
     }
 

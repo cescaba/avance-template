@@ -32,39 +32,8 @@
 	gap: var(--gap-sm);
 	flex-wrap: wrap;
 	box-sizing: border-box;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
 }
 
-.diagnostico-hero__btn-link {
-	width: 270px;
-	height: 48px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: var(--gap-sm);
-	padding: 0 24px;
-	background-color: #FFFFFF;
-	color: #034732;
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 18px;
-	letter-spacing: 0.3px;
-	border: 1px solid #E5E7EB;
-	box-sizing: border-box;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.diagnostico-hero__btn-link:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.diagnostico-hero__btn-link-icon {
-	width: 16px;
-	height: 16px;
-	display: block;
-}
 
 .diagnostico-hero__label {
 	font-weight: 400;
@@ -73,7 +42,6 @@
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #466060;
-	animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
 
 .diagnostico-hero__title {
@@ -82,7 +50,6 @@
 	line-height: 36px;
 	letter-spacing: 0px;
 	color: #2C2629;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .diagnostico-hero__description {
@@ -91,7 +58,6 @@
 	line-height: 23px;
 	padding-bottom: 12px;
 	color: #466060;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 /* Quiz Section */
@@ -107,16 +73,8 @@
 	max-width: 640px;
 	display: flex;
 	flex-direction: column;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__container.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.diagnostico-quiz__container.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__progress-track {
@@ -126,12 +84,8 @@
 	background-color: #F3F4F6;
 	margin-bottom: 45px;
 	overflow: hidden;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__progress-track.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__progress-fill {
@@ -149,12 +103,8 @@
 	letter-spacing: 1.1px;
 	color: #466060;
 	text-transform: uppercase;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__tag.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__tag--accent {
@@ -166,24 +116,26 @@
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	opacity: 0;
-	transform: translateY(20px);
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__view.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__result {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	opacity: 0;
-	transform: translateY(20px);
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__result.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .hidden {
@@ -197,12 +149,8 @@
 	letter-spacing: 0px;
 	margin: 0;
 	color: #034732;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__title.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__description {
@@ -211,24 +159,16 @@
 	line-height: 20px;
 	color: #364153;
 	margin: 0;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__description.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__options {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-quiz__options.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__option-btn {
@@ -243,43 +183,22 @@
 	font-weight: 400;
 	line-height: 20px;
 	cursor: pointer;
-	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	opacity: 0;
-	transform: translateY(20px);
+	opacity: 1;
+	transform: none;
 }
 
-.diagnostico-quiz__option-btn.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
 
-.diagnostico-quiz__option-btn.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.1s;
-}
-
-.diagnostico-quiz__option-btn.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.15s;
-}
-
-.diagnostico-quiz__option-btn.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.2s;
-}
-
-.diagnostico-quiz__option-btn.animate-on-scroll.is-visible:nth-child(4) {
-	animation-delay: 0.25s;
-}
 
 .diagnostico-quiz__form-field label {
-	font-family: 'Gotham', sans-serif;
 	font-weight: 500;
 	font-size: 12px;
 	line-height: 20px;
 	letter-spacing: 0px;
-	color: #364153 !important;
+	color: #364153;
 }
 
 .diagnostico-quiz__form-input {
 	height: 44px;
-	font-family: 'Inter', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 1;
@@ -310,10 +229,9 @@
 	width: 100%;
 	height: 44px;
 	padding: 0 24px;
-	border-radius: 8px;
 	background-color: #466060;
 	border: 1px solid #466060;
-	color: var(--text-white);
+	color: #FFFFFF;
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 20px;
@@ -322,20 +240,17 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	opacity: 0;
-	transform: translateY(20px);
+	opacity: 1;
+	transform: none;
 	box-sizing: border-box;
 }
 
 .diagnostico-quiz__form-submit:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(70, 96, 96, 0.15);
+	animation: var(--button-animation);
 }
 
 .diagnostico-quiz__option-btn:hover {
-	transform: translateY(-4px);
-	box-shadow: 0 8px 20px rgba(70, 96, 96, 0.12);
+	animation: var(--button-animation);
 }
 
 .diagnostico-quiz__option-btn:active {
@@ -350,21 +265,13 @@
 }
 
 .diagnostico-quiz__btn {
-	font-family: 'Outfit', sans-serif;
 	font-size: 14px;
 	font-weight: 500;
 	padding: 12px 24px;
-	border-radius: 6px;
 	cursor: pointer;
 	border: 1px solid transparent;
-	opacity: 0;
-	transform: translateY(20px);
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.diagnostico-quiz__btn.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-quiz__btn--primary {
@@ -374,8 +281,7 @@
 }
 
 .diagnostico-quiz__btn--primary:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(70, 96, 96, 0.15);
+	animation: var(--button-animation);
 }
 
 .diagnostico-quiz__btn--ghost {
@@ -385,8 +291,7 @@
 }
 
 .diagnostico-quiz__btn--ghost:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	animation: var(--button-animation);
 }
 
 /* CTA Buttons */
@@ -398,12 +303,8 @@
 	margin-top: 40px;
 	padding-top: 24px;
 	gap: 24px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-cta.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-cta__text {
@@ -413,12 +314,8 @@
 	color: #034732;
 	margin: 0;
 	flex-shrink: 0;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.diagnostico-cta__text.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards !important;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-cta__btn {
@@ -427,7 +324,7 @@
 	justify-content: center;
 	background-color: #FFFFFF;
 	border: 1px solid #E5E7EB;
-	gap: var(--gap-sm);
+	gap: 10px;
 	height: 48px;
 	width: 165px;
 	padding: 14px 24px;
@@ -435,19 +332,12 @@
 	font-weight: 400;
 	line-height: 18px;
 	letter-spacing: 0.3px;
-	border-radius: 6px;
 	text-align: center;
 	cursor: pointer;
 	text-decoration: none;
 	box-sizing: border-box;
-	opacity: 0;
-	transform: translateY(20px);
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.diagnostico-cta__btn.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards !important;
+	opacity: 1;
+	transform: none;
 }
 
 .diagnostico-cta__btn--primary {
@@ -457,8 +347,7 @@
 }
 
 .diagnostico-cta__btn--primary:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(70, 96, 96, 0.15);
+	animation: var(--button-animation);
 }
 
 .diagnostico-cta__btn--secondary {
@@ -467,9 +356,9 @@
 	border: 1px solid #E5E7EB;
 }
 
+
 .diagnostico-cta__btn--secondary:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	animation: var(--button-animation);
 }
 
 /* =====================================================
@@ -480,11 +369,13 @@
 	.diagnostico-hero__bg {
 		height: 450px;
 		background-position: left center;
+		background-size: cover;
+		background-repeat: no-repeat;
 	}
 
 	.diagnostico-hero__container {
 		width: 100%;
-		max-width: 500px;
+		max-width: 468px;
 		gap: 10px;
 	}
 
@@ -502,22 +393,15 @@
 	.diagnostico-hero__description {
 		font-size: 13px;
 		line-height: 20px;
-		padding-bottom: 8px;
+		padding-bottom: 10px;
 	}
 
 	.diagnostico-hero__content {
-		height: auto;
+		height: 40px;
 		gap: 10px;
-		padding-top: 8px;
+		padding-top: 10px;
 	}
 
-	.diagnostico-hero__btn-link {
-		width: auto;
-		height: 40px;
-		font-size: 11px;
-		line-height: 15px;
-		padding: 10px 18px;
-	}
 
 	/* QUIZ SECTION */
 	.diagnostico-quiz {
@@ -534,7 +418,7 @@
 	}
 
 	.diagnostico-quiz__tag {
-		font-size: 15px;
+		font-size: 14px;
 		line-height: 16px;
 		letter-spacing: 1px;
 	}
@@ -545,17 +429,17 @@
 	}
 
 	.diagnostico-quiz__description {
-		font-size: 15px;
+		font-size: 14px;
 		line-height: 20px;
 	}
 
 	.diagnostico-quiz__options {
-		gap: 10px;
+		gap: 8px;
 	}
 
 	.diagnostico-quiz__option-btn {
 		padding: 14px 18px;
-		font-size: 15px;
+		font-size: 14px;
 		line-height: 20px;
 	}
 
@@ -572,20 +456,21 @@
 	.diagnostico-cta {
 		margin-top: 36px;
 		padding-top: 20px;
-		gap: 20px;
+		gap: 15px;
 	}
 
 	.diagnostico-cta__text {
-		font-size: 12px;
+		font-size: 11px;
 		line-height: 16px;
 	}
 
 	.diagnostico-cta__btn {
-		height: 44px;
-		width: auto;
+		height: 43px;
+		width: 149px;
 		padding: 12px 22px;
-		font-size: 12px;
+		font-size: 11px;
 		line-height: 16px;
+		gap: 9px;
 	}
 
 	/* FORMULARIO - 1440px */
@@ -603,21 +488,18 @@
 	}
 
 	.diagnostico-quiz__form-input {
-		height: 42px !important;
+		height: 40px !important;
 		font-size: 13px;
 		padding: 10px 13px !important;
 	}
 
 	.diagnostico-quiz__form-submit {
-		height: 42px;
+		height: 40px;
 		font-size: 14px;
 		padding: 0 22px;
 		margin-top: 10px;
 	}
 
-	.diagnostico-cta__btn.animate-on-scroll.is-visible {
-		animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
-	}
 }
 
 /* =====================================================
@@ -626,44 +508,39 @@
 @media (min-width: 769px) and (max-width: 1024px) {
 	/* HERO SECTION */
 	.diagnostico-hero__bg {
+		height: 400px;
 		background-position: 75% center;
 	}
 
 	.diagnostico-hero__container {
 		width: 100%;
-		max-width: 450px;
+		max-width: 421px;
 		gap: 8px;
 	}
 
 	.diagnostico-hero__label {
-		font-size: 9px;
+		font-size: 11px;
 		line-height: 14px;
 		letter-spacing: 0.8px;
 	}
 
 	.diagnostico-hero__title {
-		font-size: 32px;
-		line-height: 40px;
+		font-size: 28px;
+		line-height: 32px;
 	}
 
 	.diagnostico-hero__description {
-		font-size: 14px;
-		line-height: 22px;
-		padding-bottom: 0;
+		font-size: 12px;
+		line-height: 18px;
+		padding-bottom: 8px;
 	}
 
 	.diagnostico-hero__content {
-		height: auto;
+		height: 36px;
 		gap: 8px;
+		padding-top: 8px;
 	}
 
-	.diagnostico-hero__btn-link {
-		width: auto;
-		height: auto;
-		font-size: 11px;
-		line-height: 16px;
-		padding: 8px 16px;
-	}
 
 	/* QUIZ SECTION */
 	.diagnostico-quiz {
@@ -675,18 +552,18 @@
 	}
 
 	.diagnostico-quiz__tag {
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 14px;
 		letter-spacing: 0.8px;
 	}
 
 	.diagnostico-quiz__title {
-		font-size: 28px;
+		font-size: 27px;
 		line-height: 32px;
 	}
 
 	.diagnostico-quiz__description {
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 18px;
 	}
 
@@ -696,7 +573,7 @@
 
 	.diagnostico-quiz__option-btn {
 		padding: 12px 16px;
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 18px;
 	}
 
@@ -717,16 +594,17 @@
 	}
 
 	.diagnostico-cta__text {
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 14px;
 	}
 
 	.diagnostico-cta__btn {
-		height: 40px;
-		width: auto;
+		height: 36px;
+		width: 135px;
 		padding: 10px 20px;
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 14px;
+		gap: 8px;
 	}
 
 	/* FORMULARIO - 1024px */
@@ -744,29 +622,151 @@
 	}
 
 	.diagnostico-quiz__form-input {
-		height: 40px !important;
-		font-size: 13px;
+		height: 36px !important;
+		font-size: 12px;
 		padding: 8px 12px !important;
 	}
 
 	.diagnostico-quiz__form-submit {
-		height: 40px;
+		height: 36px;
 		font-size: 13px;
 		padding: 0 20px;
 		margin-top: 8px;
 	}
 
-	.diagnostico-cta__btn.animate-on-scroll.is-visible {
-		animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
-	}
 }
 
 /* =====================================================
    RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
    ===================================================== */
 @media (min-width: 480px) and (max-width: 768px) {
+	/* HERO SECTION */
+	.diagnostico-hero__bg {
+		height: 350px;
+	}
 
-	
+	.diagnostico-hero__container {
+		width: 100%;
+		max-width: 379px;
+		gap: 7px;
+	}
+
+	.diagnostico-hero__label {
+		font-size: 10px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.diagnostico-hero__title {
+		font-size: 24px;
+		line-height: 28px;
+	}
+
+	.diagnostico-hero__description {
+		font-size: 11px;
+		line-height: 16px;
+		padding-bottom: 6px;
+	}
+
+	.diagnostico-hero__content {
+		height: 32px;
+		gap: 7px;
+		padding-top: 7px;
+	}
+
+
+	/* QUIZ SECTION */
+	.diagnostico-quiz {
+		padding: 35px var(--lateral-spacing);
+	}
+
+	.diagnostico-quiz__progress-track {
+		margin-bottom: 28px;
+		height: 4px;
+	}
+
+	.diagnostico-quiz__tag {
+		font-size: 12px;
+		line-height: 14px;
+		letter-spacing: 0.8px;
+	}
+
+	.diagnostico-quiz__title {
+		font-size: 24px;
+		line-height: 28px;
+	}
+
+	.diagnostico-quiz__description {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.diagnostico-quiz__options {
+		gap: 6px;
+	}
+
+	.diagnostico-quiz__option-btn {
+		padding: 11px 14px;
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.diagnostico-quiz__btn {
+		padding: 9px 18px;
+		font-size: 11px;
+		line-height: 14px;
+	}
+
+	.diagnostico-quiz__actions {
+		gap: 10px;
+	}
+
+	.diagnostico-cta {
+		margin-top: 28px;
+		padding-top: 14px;
+		gap: 14px;
+	}
+
+	.diagnostico-cta__text {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	.diagnostico-cta__btn {
+		height: 32px;
+		width: 122px;
+		padding: 9px 18px;
+		font-size: 9px;
+		line-height: 14px;
+		gap: 7px;
+	}
+
+	/* FORMULARIO - 768px */
+	.diagnostico-quiz__form {
+		gap: 10px;
+	}
+
+	.diagnostico-quiz__form-field {
+		gap: 5px;
+	}
+
+	.diagnostico-quiz__form-field label {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.diagnostico-quiz__form-input {
+		height: 32px !important;
+		font-size: 11px;
+		padding: 7px 10px !important;
+	}
+
+	.diagnostico-quiz__form-submit {
+		height: 32px;
+		font-size: 12px;
+		padding: 0 18px;
+		margin-top: 8px;
+	}
 }
 
 /* =====================================================
@@ -781,7 +781,6 @@
 	}
 
 	.diagnostico-hero__label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 11px;
 		line-height: 1.2;
@@ -789,7 +788,6 @@
 	}
 
 	.diagnostico-hero__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 26px;
 		line-height: 1.15;
@@ -797,7 +795,6 @@
 	}
 
 	.diagnostico-hero__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.2;
@@ -808,18 +805,8 @@
 		padding-top: 0;
 	}
 
-	.diagnostico-hero__btn-link {
-		width: 100%;
-		height: 44px;
-		font-family: 'Inter', sans-serif;
-		font-weight: 600;
-		font-size: 13px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
 
 	.diagnostico-quiz__tag {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 12px;
 		line-height: 1.2;
@@ -827,7 +814,6 @@
 	}
 
 	.diagnostico-quiz__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 22px;
 		line-height: 1.25;
@@ -837,7 +823,6 @@
 	.diagnostico-quiz__option-btn {
 		padding: 16px 18px;
 		height: 49px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.2;
@@ -852,7 +837,6 @@
 	.diagnostico-cta__btn--secondary {
 		width: 100%;
 		height: 44px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 13px;
 		line-height: 1.2;
@@ -864,7 +848,6 @@
 	}
 
 	.diagnostico-quiz__form-field label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 1.2;
@@ -873,7 +856,6 @@
 
 	.diagnostico-quiz__form-input {
 		height: 45px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.2;
@@ -882,7 +864,6 @@
 
 	.diagnostico-quiz__form-submit {
 		height: 49px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 13px;
 		line-height: 1.2;

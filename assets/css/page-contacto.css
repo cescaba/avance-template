@@ -48,7 +48,6 @@
 	gap: 8px;
 	flex-wrap: wrap;
 	box-sizing: border-box;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
 }
 
 .contacto-hero__btn-primary,
@@ -56,7 +55,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: var(--gap-sm);
+	gap: 10px;
 	padding: 14px 24px;
 	font-weight: 400;
 	font-size: 12px;
@@ -66,8 +65,6 @@
 	text-decoration: none;
 	height: 38px;
 	cursor: pointer;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contacto-hero__btn-primary {
@@ -83,13 +80,11 @@
 }
 
 .contacto-hero__btn-primary:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
+	animation: var(--button-animation);
 }
 
 .contacto-hero__btn-secondary:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	animation: var(--button-animation);
 }
 
 .contacto-hero__btn-icon {
@@ -99,35 +94,34 @@
 }
 
 .contacto-hero__label {
+	margin: 0;
 	padding-bottom: 20px;
 	font-weight: 400;
 	font-size: 16px;
-	line-height: 17px;
+	line-height: 20px;
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	margin: 0;
-	animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
 
 .contacto-hero__title {
+	margin: 0;
 	padding-bottom: 10px;
 	font-weight: 300;
 	font-size: 36px;
-	line-height: 36px;
+	line-height: 44px;
 	letter-spacing: 0px;
 	color: #FFFFFF;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .contacto-hero__description {
+	margin: 0;
 	padding-bottom: 30px;
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 20px;
 	letter-spacing: 0px;
 	color: #FFFFFF;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 /* =====================================================
@@ -146,312 +140,128 @@
 	width: 100%;
 }
 
-/* =====================================================
-   FORM SECTION - Moved to form-section.css
-   ===================================================== */
 
 /* =====================================================
-   RESPONSIVE DESIGN - 1440px+
+   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
    ===================================================== */
 
-@media (min-width: 1440px) {
-	/* Hero Section */
+@media (min-width: 1025px) and (max-width: 1440px) {
 	.contacto-hero__bg {
-		height: 525px;
+		height: 250px;
 	}
 
 	.contacto-hero__label {
 		padding-bottom: 12px;
 		font-size: 14px;
+		line-height: 17px;
 	}
 
 	.contacto-hero__title {
-		font-size: 30px;
-		line-height: 30px;
+		font-size: 28px;
+		line-height: 34px;
 		padding-bottom: 6px;
 	}
 
 	.contacto-hero__description {
 		font-size: 12px;
+		line-height: 18px;
+		padding-bottom: 16px;
+	}
+
+	.contacto-hero__content {
+		height: 40px;
+		gap: 6px;
+	}
+
+	.contacto-hero__btn-primary,
+	.contacto-hero__btn-secondary {
+		padding: 10px 18px;
+		font-size: 11px;
 		line-height: 16px;
+		height: 36px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
+   ===================================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.contacto-hero__bg {
+		height: 200px;
+	}
+
+	.contacto-hero__label {
+		padding-bottom: 10px;
+		font-size: 13px;
+		line-height: 16px;
+	}
+
+	.contacto-hero__title {
+		font-size: 26px;
+		line-height: 31px;
+		padding-bottom: 5px;
+	}
+
+	.contacto-hero__description {
+		font-size: 13px;
+		line-height: 17px;
 		padding-bottom: 14px;
 	}
 
 	.contacto-hero__content {
-		height: 40px;
-		gap: 6px;
+		height: 36px;
+		gap: 5px;
 	}
 
 	.contacto-hero__btn-primary,
 	.contacto-hero__btn-secondary {
-		padding: 10px 18px;
-		font-size: 11px;
-		height: 36px;
+		padding: 9px 14px;
+		font-size: 10px;
+		line-height: 15px;
+		height: 34px;
 	}
-
-	/* Scheduling Section */
-	.contacto-agenda {
-		padding: 60px var(--lateral-spacing);
-	}
-
-	.contacto-agenda__container {
-		gap: 32px;
-	}
-
-	.contacto-agenda__title {
-		font-size: 30px;
-		line-height: 32px;
-	}
-
-	.contacto-agenda__subtitle {
-		font-size: 12px;
-	}
-
-	.contacto-agenda__header-content {
-		gap: 12px;
-	}
-
-	.contacto-agenda__right {
-		gap: 28px;
-	}
-
-	.contacto-agenda__section-header {
-		gap: 8px;
-	}
-
-	.contacto-agenda__section-kicker {
-		font-size: 11px;
-	}
-
-	.contacto-agenda__section-sub {
-		font-size: 13px;
-		line-height: 20px;
-	}
-
-	.contacto-agenda__form-fields {
-		gap: 10px;
-	}
-
-	.contacto-agenda__feature-grid {
-		height: 50px;
-	}
-
-	/* Form Section - Moved to form-section.css */
 }
 
 /* =====================================================
-   RESPONSIVE DESIGN - 1024px - 1439px
+   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
    ===================================================== */
 
-@media (min-width: 1024px) and (max-width: 1439px) {
-	/* Hero Section */
+@media (min-width: 480px) and (max-width: 768px) {
 	.contacto-hero__bg {
-		height: 250px !important;
-	}
-
-	.contacto-hero__title {
-		font-size: 28px;
-		line-height: 28px;
-		padding-bottom: 6px;
-	}
-
-	.contacto-hero__description {
-		font-size: 12px;
-		line-height: 16px;
-		padding-bottom: 16px;
+		height: 180px;
 	}
 
 	.contacto-hero__label {
-		padding-bottom: 12px;
-		font-size: 14px;
+		padding-bottom: 9px;
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.contacto-hero__title {
+		font-size: 24px;
+		line-height: 29px;
+		padding-bottom: 4px;
+	}
+
+	.contacto-hero__description {
+		font-size: 11px;
 		line-height: 16px;
+		padding-bottom: 12px;
 	}
 
 	.contacto-hero__content {
-		height: 40px;
-		gap: 6px;
+		height: 32px;
+		gap: 4px;
 	}
 
 	.contacto-hero__btn-primary,
 	.contacto-hero__btn-secondary {
-		padding: 10px 18px;
-		font-size: 11px;
-		height: 36px;
-	}
-
-	/* SCHEDULING SECTION - 1024px */
-	.contacto-agenda {
-		padding: 48px var(--lateral-spacing);
-	}
-
-	.contacto-agenda__container {
-		gap: 28px;
-	}
-
-	.contacto-agenda__header {
-		gap: 16px;
-	}
-
-	.contacto-agenda__kicker {
-		font-size: 14px;
-	}
-
-	.contacto-agenda__title {
-		font-size: 28px;
-		line-height: 32px;
-	}
-
-	.contacto-agenda__subtitle {
-		font-size: 12px;
-	}
-
-	.contacto-agenda__header-content {
-		gap: 12px;
-	}
-
-	.contacto-agenda__grid {
-		gap: 28px;
-		grid-template-columns: 1fr;
-	}
-
-	.contacto-agenda__left {
-		gap: 16px;
-	}
-
-	.contacto-agenda__card {
-		gap: 10px;
-		padding: 12px;
-	}
-
-	.contacto-agenda__card:first-child {
-		height: 50px;
-	}
-
-	.contacto-agenda__card:last-child {
-		height: 350px;
-	}
-
-	.contacto-agenda__host-title {
-		font-size: 11px;
-	}
-
-	.contacto-agenda__host-meta {
+		padding: 8px 12px;
 		font-size: 9px;
+		line-height: 14px;
+		height: 32px;
 	}
-
-	.contacto-agenda__cal-header {
-		gap: 6px;
-	}
-
-	.contacto-agenda__cal-nav {
-		width: 30px;
-		height: 30px;
-		font-size: 16px;
-	}
-
-	.contacto-agenda__cal-month-label {
-		font-size: 14px;
-	}
-
-	.contacto-agenda__cal-grid {
-		gap: 2px;
-	}
-
-	.contacto-agenda__cal-weekday {
-		font-size: 10px;
-		padding-bottom: 6px;
-	}
-
-	.contacto-agenda__daybtn {
-		height: 30px;
-		font-size: 11px;
-	}
-
-	.contacto-agenda__tz-row {
-		font-size: 11px;
-		padding-top: 8px;
-	}
-
-	.contacto-agenda__right {
-		gap: 20px;
-	}
-
-	.contacto-agenda__section-header {
-		gap: 8px;
-	}
-
-	.contacto-agenda__section-kicker {
-		font-size: 11px;
-	}
-
-	.contacto-agenda__section-sub {
-		font-size: 12px;
-		line-height: 18px;
-	}
-
-	.contacto-agenda__form-fields {
-		gap: 10px;
-	}
-
-	.contacto-agenda__form-row {
-		gap: 16px;
-	}
-
-	.contacto-agenda__field {
-		gap: 6px;
-	}
-
-	.contacto-agenda__field > label {
-		font-size: 11px;
-	}
-
-	.contacto-agenda__input {
-		height: 40px;
-		font-size: 13px;
-		padding: 10px 12px;
-	}
-
-	.contacto-agenda__select-trigger {
-		height: 40px;
-		font-size: 13px;
-		padding: 10px 36px 10px 12px;
-	}
-
-	.contacto-agenda__select-option {
-		padding: 10px 12px;
-		font-size: 12px;
-	}
-
-	.contacto-agenda__btn {
-		font-size: 13px;
-	}
-
-	.contacto-agenda__btn--primary {
-		height: 40px;
-	}
-
-	.contacto-agenda__btn--block {
-		height: 40px;
-	}
-
-	.contacto-agenda__feature-grid {
-		height: 50px;
-		gap: 10px;
-	}
-
-	.contacto-agenda__feature-card {
-		padding: 10px 12px;
-	}
-
-	.contacto-agenda__feature-title {
-		font-size: 12px;
-	}
-
-	.contacto-agenda__feature-body {
-		font-size: 11px;
-	}
-
-	/* Form Section - Moved to form-section.css */
 }
 
 /* =====================================================
@@ -482,7 +292,6 @@
 		right: var(--lateral-spacing);
 		margin: 0;
 		z-index: 10;
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 11px;
 		line-height: 1;
@@ -496,7 +305,6 @@
 		right: var(--lateral-spacing);
 		margin: 0;
 		z-index: 10;
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 32px;
 		line-height: 1;
@@ -505,7 +313,6 @@
 	}
 
 	.contacto-hero__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 14px;
 		line-height: 1;
@@ -533,7 +340,6 @@
 	.contacto-hero__btn-secondary {
 		width: 100%;
 		height: 49px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 14px;
 		line-height: 1;

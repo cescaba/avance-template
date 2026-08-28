@@ -8,10 +8,6 @@
 	/* Page specific styles here */
 }
 
-/* =====================================================
-   ANIMATIONS - Cascada con Scroll
-   ===================================================== */
-
 /* Intro Section */
 .sobremi-intro {
 	padding: 65px var(--lateral-spacing);
@@ -24,13 +20,10 @@
 	width: 100%;
 	display: flex;
 	gap: 65px;
-	opacity: 0;
-	transform: translateY(20px);
+	opacity: 1;
+	transform: none;
 }
 
-.sobremi-intro__container.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
 
 .sobremi-intro__content {
 	flex: 0 0 30%;
@@ -48,10 +41,9 @@
 
 /* Content Styles */
 .sobremi-intro__image {
-	height: 370px;
 	width: 100%;
+	aspect-ratio: 1 / 1.15;
 	overflow: hidden;
-	border-radius: 8px;
 }
 
 .sobremi-intro__image-img--mobile {
@@ -64,81 +56,6 @@
 	object-fit: cover;
 }
 
-.sobremi-intro__buttons {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__buttons.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.sobremi-intro__btn {
-	height: 46px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	padding: 14px 24px;
-	font-weight: 700;
-	font-size: 12px;
-	line-height: 18px;
-	letter-spacing: 0.3px;
-	text-decoration: none;
-	box-sizing: border-box;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__btn.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.15s;
-}
-
-.sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.3s;
-}
-
-.sobremi-intro__btn.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.45s;
-}
-
-.sobremi-intro__btn:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(70, 96, 96, 0.15);
-}
-
-.sobremi-intro__btn--primary {
-	background-color: #466060;
-	color: #FFFFFF;
-
-}
-
-.sobremi-intro__btn--secondary {
-	background-color: #FFFFFF;
-	color: #034732;
-	border: 1px solid #E5E7EB;
-}
-
-.sobremi-intro__btn--tertiary {
-	background-color: #FFFFFF;
-	color: #034732;
-	border: 1px solid #E5E7EB;
-}
-
-.sobremi-intro__btn-icon {
-	width: 16px;
-	height: 16px;
-	display: block;
-}
 
 .sobremi-intro__button {
 	width: 100%;
@@ -156,12 +73,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__list.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .sobremi-intro__list-item {
@@ -173,32 +86,8 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 12px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.1s;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.2s;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.3s;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(4) {
-	animation-delay: 0.4s;
-}
-
-.sobremi-intro__list-item.animate-on-scroll.is-visible:nth-child(5) {
-	animation-delay: 0.5s;
+	opacity: 1;
+	transform: none;
 }
 
 .sobremi-intro__list-item::before {
@@ -216,12 +105,8 @@
 .sobremi-intro__socials {
 	display: flex;
 	gap: 16px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__socials.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 .sobremi-intro__social-link {
@@ -233,30 +118,23 @@
 	background-color: #466060;
 	border-radius: 50%;
 	color: #FFFFFF;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__social-link.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.5s;
-}
-
-.sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.6s;
-}
-
-.sobremi-intro__social-link.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.7s;
+	opacity: 1;
+	transform: none;
 }
 
 .sobremi-intro__social-link svg {
 	width: 20px;
 	height: 20px;
 	fill: #FFFFFF;
+}
+
+.sobremi-intro__social-link:hover {
+	animation: var(--button-animation);
+}
+
+.sobremi-intro__social-link:focus-visible {
+	outline: 2px solid #98BFBF;
+	outline-offset: 2px;
 }
 
 
@@ -266,16 +144,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: 17px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__stat.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 
 .sobremi-intro__stat-title {
+	margin: 0;
 	font-weight: 700;
 	font-size: 16px;
 	line-height: 17px;
@@ -286,9 +161,10 @@
 
 
 .sobremi-intro__stat-subtitle {
+	margin: 0;
 	font-weight: 300;
 	font-size: 36px;
-	line-height: 36px;
+	line-height: 44px;
 	letter-spacing: 0px;
 	color: #034732;
 
@@ -296,6 +172,7 @@
 
 
 .sobremi-intro__stat-text {
+	margin: 0;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -306,6 +183,7 @@
 
 
 .sobremi-intro__stat-quote {
+	margin: 0;
 	border-left: 2px solid #98BFBF;
 	margin-left: 0px;
 	padding-left: 44px;
@@ -313,6 +191,7 @@
 
 
 .sobremi-intro__stat-quote-text {
+	margin: 0;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 17px;
@@ -323,6 +202,7 @@
 }
 
 .sobremi-intro__stat-quote-author {
+	margin: 0;
 	font-weight: 300;
 	font-size: 12px;
 	line-height: 16px;
@@ -336,16 +216,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__skill.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 
 .sobremi-intro__skill-title {
+	margin: 0;
 	font-weight: 700;
 	font-size: 12px;
 	line-height: 17px;
@@ -366,39 +243,15 @@
 	display: flex;
 	gap: 28px;
 	align-items: flex-start;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible:nth-child(1) {
-	animation-delay: 0.1s;
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible:nth-child(2) {
-	animation-delay: 0.15s;
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible:nth-child(3) {
-	animation-delay: 0.2s;
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible:nth-child(4) {
-	animation-delay: 0.25s;
-}
-
-.sobremi-intro__timeline-item.animate-on-scroll.is-visible:nth-child(5) {
-	animation-delay: 0.25s;
+	opacity: 1;
+	transform: none;
 }
 
 
 .sobremi-intro__timeline-year {
 	font-weight: 400;
 	font-size: 16px;
-	line-height: 16px;
+	line-height: 20px;
 	letter-spacing: 0px;
 	color: #98BFBF;
 	flex-shrink: 0;
@@ -406,6 +259,7 @@
 
 
 .sobremi-intro__timeline-text {
+	margin: 0;
 	font-weight: 300;
 	font-size: 14px;
 	line-height: 20px;
@@ -421,17 +275,13 @@
 	align-items: center;
 	justify-content: space-between;
 	gap: 20px;
-	height: 105px;
+	height: auto;
 	border: 1px solid #F3F4F6;
 	padding: 24px;
 	background-color: #F9FAFB;
 	box-sizing: border-box;
-	opacity: 0;
-	transform: translateY(20px);
-}
-
-.sobremi-intro__achievement.animate-on-scroll.is-visible {
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	opacity: 1;
+	transform: none;
 }
 
 
@@ -444,6 +294,7 @@
 
 
 .sobremi-intro__achievement-title {
+	margin: 0;
 	font-weight: 200;
 	font-size: 16px;
 	line-height: 16px;
@@ -453,7 +304,7 @@
 
 
 .sobremi-intro__achievement-subtitle {
-	font-family: 'Outfit', sans-serif;
+	margin: 0;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -476,7 +327,6 @@
 	justify-content: center;
 	gap: 10px;
 	padding: 14px 24px;
-	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -487,38 +337,43 @@
 
 .sobremi-intro__achievement-btn--primary {
 	background-color: #466060;
-	font-family: 'Outfit', sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	line-height: 18px;
-	letter-spacing: 0.3px;
-	text-align: center;
 	color: #FFFFFF;
+}
 
+.sobremi-intro__achievement-btn--primary:hover {
+	animation: var(--button-animation);
+}
+
+.sobremi-intro__achievement-btn--primary:focus-visible {
+	outline: 2px solid #FFFFFF;
+	outline-offset: 2px;
 }
 
 .sobremi-intro__achievement-btn--secondary {
 	background-color: #E5E7EB;
-	border: 1px solid #E5E7EB;
-	font-family: 'Outfit', sans-serif;
-	font-weight: 600;
-	font-size: 12px;
-	line-height: 18px;
-	letter-spacing: 0.3px;
-	text-align: center;
+	border: 1px solid #D1D5DC;
 	color: #034732;
+}
+
+.sobremi-intro__achievement-btn--secondary:hover {
+	animation: var(--button-animation);
+}
+
+.sobremi-intro__achievement-btn--secondary:focus-visible {
+	outline: 2px solid #034732;
+	outline-offset: 2px;
 }
 
 
 /* Desktop Large: 1025px - 1439px */
-@media (min-width: 1025px) and (max-width: 1439px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
 	/* Intro Section */
 	.sobremi-intro {
-		padding: 50px var(--lateral-spacing);
+		padding: 48px var(--lateral-spacing);
 	}
 
 	.sobremi-intro__container {
-		gap: 50px;
+		gap: 44px;
 	}
 
 	.sobremi-intro__content {
@@ -537,7 +392,7 @@
 
 	.sobremi-intro__list-item {
 		font-size: 12px;
-		line-height: 16px;
+		line-height: 14px;
 		gap: 10px;
 	}
 
@@ -545,9 +400,18 @@
 		gap: 14px;
 	}
 
+	.sobremi-intro__button {
+		gap: 16px;
+	}
+
+	.sobremi-intro__stat-title {
+		font-size: 14px;
+		line-height: 15px;
+	}
+
 	.sobremi-intro__stat-subtitle {
-		font-size: 28px;
-		line-height: 28px;
+		font-size: 30px;
+		line-height: 36px;
 	}
 
 	.sobremi-intro__stat-text {
@@ -556,16 +420,17 @@
 	}
 
 	.sobremi-intro__stat-quote {
-		padding-left: 32px;
+		padding-left: 36px;
 	}
 
 	.sobremi-intro__stat-quote-text {
-		font-size: 12px;
-		line-height: 16px;
+		font-size: 13px;
+		line-height: 18px;
 	}
 
+	/* Skill Section (Timeline) */
 	.sobremi-intro__skill {
-		gap: 18px;
+		gap: 16px;
 	}
 
 	.sobremi-intro__skill-title {
@@ -574,32 +439,32 @@
 	}
 
 	.sobremi-intro__timeline {
-		gap: 16px;
+		gap: 14px;
 	}
 
 	.sobremi-intro__timeline-item {
-		gap: 20px;
+		gap: 18px;
 	}
 
 	.sobremi-intro__timeline-year {
-		font-size: 14px;
-		line-height: 14px;
+		font-size: 13px;
+		line-height: 13px;
 	}
 
 	.sobremi-intro__timeline-text {
-		font-size: 13px;
-		line-height: 18px;
+		font-size: 12px;
+		line-height: 16px;
 	}
 
+	/* Achievement Section (CTA) */
 	.sobremi-intro__achievement {
-		height: auto;
-		gap: 16px;
-		padding: 20px;
+		gap: 14px;
+		padding: 24px;
 	}
 
 	.sobremi-intro__achievement-title {
-		font-size: 14px;
-		line-height: 14px;
+		font-size: 15px;
+		line-height: 15px;
 	}
 
 	.sobremi-intro__achievement-subtitle {
@@ -607,23 +472,17 @@
 		line-height: 18px;
 	}
 
-	.sobremi-intro__achievement-btn {
-		height: 40px;
-		padding: 12px 18px;
-		font-size: 11px;
-		line-height: 16px;
-	}
-
-	.sobremi-intro__buttons {
+	.sobremi-intro__achievement-buttons {
 		gap: 10px;
 	}
 
-	.sobremi-intro__btn {
-		height: 40px;
-		padding: 12px 18px;
-		font-size: 11px;
+	.sobremi-intro__achievement-btn {
+		height: 42px;
+		padding: 12px 20px;
+		font-size: 12px;
 		line-height: 16px;
 	}
+
 }
 
 /* =====================================================
@@ -640,17 +499,13 @@
 	}
 
 	.sobremi-intro__content {
-		flex: 0 0 35%;
+		flex: 0 0 30%;
 		gap: 15px;
 	}
 
 	.sobremi-intro__features {
-		flex: 0 0 65%;
+		flex: 0 0 70%;
 		gap: 15px;
-	}
-
-	.sobremi-intro__image {
-		height: 310px;
 	}
 
 	.sobremi-intro__list {
@@ -659,7 +514,7 @@
 
 	.sobremi-intro__list-item {
 		font-size: 11px;
-		line-height: 15px;
+		line-height: 13px;
 		gap: 9px;
 	}
 
@@ -668,34 +523,45 @@
 	}
 
 	.sobremi-intro__stat-title {
-		gap: 15px;
+		font-size: 12px;
+		line-height: 14px;
 	}
 
 	.sobremi-intro__stat-subtitle {
 		font-size: 24px;
-		line-height: 24px;
+		line-height: 28px;
 	}
 
 	.sobremi-intro__stat-text {
 		font-size: 12px;
-		line-height: 17px;
+		line-height: 16px;
 	}
 
 	.sobremi-intro__button {
 		gap: 15px;
 	}
 
+	.sobremi-intro__social-link {
+		width: 26px;
+		height: 26px;
+	}
+
+	.sobremi-intro__social-link svg {
+		width: 18px;
+		height: 18px;
+	}
+
 	.sobremi-intro__stat-quote {
-		padding-left: 30px;
+		padding-left: 28px;
 	}
 
 	.sobremi-intro__stat-quote-text {
 		font-size: 11px;
-		line-height: 15px;
+		line-height: 16px;
 	}
 
 	.sobremi-intro__skill {
-		gap: 16px;
+		gap: 15px;
 	}
 
 	.sobremi-intro__skill-title {
@@ -704,7 +570,7 @@
 	}
 
 	.sobremi-intro__timeline {
-		gap: 15px;
+		gap: 14px;
 	}
 
 	.sobremi-intro__timeline-item {
@@ -713,28 +579,27 @@
 
 	.sobremi-intro__timeline-year {
 		font-size: 12px;
-		line-height: 12px;
+		line-height: 14px;
 	}
 
 	.sobremi-intro__timeline-text {
 		font-size: 12px;
-		line-height: 17px;
+		line-height: 16px;
 	}
 
 	.sobremi-intro__achievement {
-		height: auto;
-		gap: 15px;
+		gap: 14px;
 		padding: 18px;
 	}
 
 	.sobremi-intro__achievement-title {
 		font-size: 12px;
-		line-height: 12px;
+		line-height: 14px;
 	}
 
 	.sobremi-intro__achievement-subtitle {
 		font-size: 12px;
-		line-height: 17px;
+		line-height: 16px;
 	}
 
 	.sobremi-intro__achievement-btn {
@@ -744,16 +609,15 @@
 		line-height: 14px;
 	}
 
-	.sobremi-intro__buttons {
-		gap: 9px;
+	.sobremi-intro__button {
+		gap: 16px;
 	}
 
-	.sobremi-intro__btn {
-		height: 36px;
-		padding: 10px 16px;
-		font-size: 10px;
-		line-height: 14px;
+	.sobremi-intro__social-link {
+		width: 27px;
+		height: 27px;
 	}
+
 }
 
 /* =====================================================
@@ -768,7 +632,7 @@
 		margin-left: calc(-1 * var(--lateral-spacing));
 		margin-right: calc(-1 * var(--lateral-spacing));
 		width: calc(100% + calc(2 * var(--lateral-spacing)));
-		height: 500px;
+		aspect-ratio: 1 / 0.9;
 		order: 1;
 	}
 
@@ -782,7 +646,7 @@
 
 	.sobremi-intro__container {
 		flex-direction: column;
-		gap: 40px;
+		gap: 28px;
 		padding: 0 var(--lateral-spacing) 50px var(--lateral-spacing);
 	}
 
@@ -816,43 +680,38 @@
 	}
 
 	.sobremi-intro__stat-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 12px;
-		line-height: 1;
+		line-height: 1.2;
 		letter-spacing: 0.08em;
 	}
 
 	.sobremi-intro__stat-subtitle {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 28px;
+			font-weight: 700;
+		font-size: 22px;
 		line-height: 1.2;
 		letter-spacing: 0;
 	}
 
 	.sobremi-intro__stat-text {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 15px;
+			font-weight: 400;
+		font-size: 12px;
 		line-height: 1.5;
 		letter-spacing: 0;
 	}
 
 	.sobremi-intro__stat-quote-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 14px;
-		line-height: 1;
+		font-size: 11px;
+		line-height: 1.3;
 		letter-spacing: 0;
 		font-style: italic;
 	}
 
 	.sobremi-intro__stat-quote-author {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
-		font-size: 13px;
-		line-height: 1;
+		font-size: 11px;
+		line-height: 1.2;
 		letter-spacing: 0;
 	}
 
@@ -863,45 +722,31 @@
 	}
 
 	.sobremi-intro__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
-		font-size: 15px;
-		line-height: 1;
+		font-size: 12px;
+		line-height: 1.3;
 		letter-spacing: 0;
 	}
 
-	.sobremi-intro__btn,
-	.sobremi-intro__btn--primary {
-		width: 100%;
-		height: 51px;
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 15px;
-		line-height: 1;
-		letter-spacing: 0;
-	}
 
 	.sobremi-intro__skill-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
-		font-size: 13px;
-		line-height: 1;
+		font-size: 11px;
+		line-height: 1.2;
 		letter-spacing: 0.06em;
 	}
 
 	.sobremi-intro__timeline-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 14px;
-		line-height: 1;
+		font-size: 12px;
+		line-height: 1.3;
 		letter-spacing: 0;
 	}
 
 	.sobremi-intro__timeline-year {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
-		font-size: 16px;
-		line-height: 1;
+		font-size: 12px;
+		line-height: 1.2;
 		letter-spacing: 0;
 	}
 
@@ -912,23 +757,21 @@
 		width: 100%;
 		align-items: stretch;
 		justify-content: flex-start;
-		gap: 18px;
+		gap: 14px;
 		padding: 17px;
 	}
 
 	.sobremi-intro__achievement-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 20px;
-		line-height: 1;
+		font-size: 14px;
+		line-height: 1.2;
 		letter-spacing: 0;
 	}
 
 	.sobremi-intro__achievement-subtitle {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 14px;
-		line-height: 1;
+		font-size: 12px;
+		line-height: 1.3;
 		letter-spacing: 0;
 	}
 
@@ -940,39 +783,31 @@
 		flex-direction: column;
 	}
 
-	.sobremi-intro__achievement-buttons button,
-	.sobremi-intro__achievement-buttons a {
+	.sobremi-intro__achievement-btn {
 		width: 100%;
-		height: 46px;
-		font-family: 'Inter', sans-serif;
+		height: 36px;
+		padding: 10px 16px;
+		margin: 0;
+		box-sizing: border-box;
+		line-height: 1.3;
 		font-weight: 600;
-		font-size: 14px;
-		line-height: 1;
+		font-size: 10px;
 		letter-spacing: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 
-	.sobremi-intro__achievement-btn {
-		width: 100%;
-		height: 46px;
-		padding: 0;
-		margin: 0;
-		box-sizing: border-box;
-		line-height: 1;
-	}
-
 	.sobremi-intro__achievement-btn--primary {
 		width: 100%;
-		height: 46px;
+		height: 40px;
 		padding: 0;
 		box-sizing: border-box;
 	}
 
 	.sobremi-intro__achievement-btn--secondary {
 		width: 100%;
-		height: 46px;
+		height: 40px;
 		padding: 0;
 		box-sizing: border-box;
 	}
@@ -1049,7 +884,6 @@
 	}
 
 	.sobremi-intro__stat-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 11px;
 		line-height: 1;
@@ -1057,7 +891,6 @@
 	}
 
 	.sobremi-intro__stat-subtitle {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 26px;
 		line-height: 1.2;
@@ -1065,7 +898,6 @@
 	}
 
 	.sobremi-intro__stat-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.5;
@@ -1073,16 +905,14 @@
 	}
 
 	.sobremi-intro__stat-quote-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
-		line-height: 1;
+		line-height: 100%;
 		letter-spacing: 0;
 		font-style: italic;
 	}
 
 	.sobremi-intro__stat-quote-author {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 12px;
 		line-height: 1;
@@ -1096,30 +926,14 @@
 	}
 
 	.sobremi-intro__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 14px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
-	.sobremi-intro__btn,
-	.sobremi-intro__btn--primary {
-		width: 100%;
-		height: 49px;
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 14px;
-		line-height: 1;
-		letter-spacing: 0;
-	}
-
-	.sobremi-intro__buttons {
-		gap: 16px;
-	}
 
 	.sobremi-intro__skill-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 12px;
 		line-height: 1;
@@ -1127,7 +941,6 @@
 	}
 
 	.sobremi-intro__timeline-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 13px;
 		line-height: 1;
@@ -1135,7 +948,6 @@
 	}
 
 	.sobremi-intro__timeline-year {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 15px;
 		line-height: 1;
@@ -1154,7 +966,7 @@
 	}
 
 	.sobremi-intro__achievement-title {
-		font-family: 'Inter', sans-serif;
+	
 		font-weight: 300;
 		font-size: 19px;
 		line-height: 1;
@@ -1162,7 +974,6 @@
 	}
 
 	.sobremi-intro__achievement-subtitle {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1;
@@ -1181,7 +992,6 @@
 	.sobremi-intro__achievement-buttons a {
 		width: 100%;
 		height: 44px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 13px;
 		line-height: 1;

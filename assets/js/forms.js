@@ -256,56 +256,11 @@ class ContactWhatsAppHandler extends FormHandler {
 	}
 
 	onInit() {
-		this.initCustomDropdown();
-
 		document.addEventListener('submit', (e) => {
 			if (e.target && e.target.id === this.config.formId) {
 				this.handleFormSubmit(e);
 			}
 		}, true);
-	}
-
-	initCustomDropdown() {
-		const trigger = document.getElementById('contacto_wsp_asunto_trigger');
-		const menu = document.getElementById('contacto_wsp_asunto_menu');
-
-		if (!trigger || !menu) return;
-
-		const hiddenInput = document.getElementById('contacto_wsp_asunto');
-		const options = menu.querySelectorAll('.home-form__select-option');
-
-		if (!hiddenInput) return;
-
-		trigger.addEventListener('click', (e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			menu.classList.toggle('open');
-		});
-
-		document.addEventListener('click', (e) => {
-			if (!trigger.contains(e.target) && !menu.contains(e.target)) {
-				menu.classList.remove('open');
-			}
-		});
-
-		options.forEach(option => {
-			option.addEventListener('click', (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-
-				const value = option.getAttribute('data-value');
-				if (value) {
-					hiddenInput.value = value;
-					trigger.textContent = option.textContent;
-					trigger.setAttribute('data-selected', value);
-
-					options.forEach(opt => opt.classList.remove('selected'));
-					option.classList.add('selected');
-
-					menu.classList.remove('open');
-				}
-			});
-		});
 	}
 
 	getFormData() {

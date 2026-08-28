@@ -1,0 +1,461 @@
+/* =====================================================
+   MODAL PDF DOWNLOAD
+   ===================================================== */
+
+.pf-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 48px 20px;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 99999;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.pf-overlay--hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.pf-modal {
+	width: 100%;
+	max-width: 600px;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 48px;
+	background: #ffffff;
+	border-radius: 2px;
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+	animation: slideIn 0.3s ease;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.pf-head {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.pf-topbar {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	height: 20px;
+}
+
+.pf-kicker {
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 1.1px;
+	text-transform: uppercase;
+	color: #99A1AF;
+}
+
+.pf-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	padding: 0;
+	border: 0;
+	border-radius: 2px;
+	background: transparent;
+	color: #8a9099;
+	font: 500 15px / 1 Inter, sans-serif;
+	cursor: pointer;
+	transition: color 0.15s ease, background 0.15s ease;
+}
+
+
+.pf-titles {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.pf-title {
+	margin: 0;
+	font-family: Inter, sans-serif;
+	font-weight: 300;
+	font-size: 32px;
+	line-height: 36px;
+	letter-spacing: 0%;
+	color: #2C2629;
+}
+
+.pf-sub {
+	margin: 0;
+	font-family: Inter, sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	color: #99A1AF;
+}
+
+.pf-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px 20px;
+}
+
+.pf-field {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.pf-field label {
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	color: #6A7282;
+}
+
+.pf-input,
+.pf-select {
+	width: 100%;
+	height: 46px;
+	padding: 13px 17px;
+	font-family: Inter, sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	color: #2C2629;
+	border: 1px solid #D0D5E0;
+	border-radius: 3px;
+	background: #ffffff;
+	outline: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	box-sizing: border-box;
+}
+
+.pf-input::placeholder {
+	color: #D0D5E0;
+}
+
+.pf-input:focus-visible,
+.pf-select:focus-visible {
+	border-color: #3f5c52;
+	box-shadow: 0 0 0 3px rgba(63, 92, 82, 0.12);
+}
+
+.pf-selectwrap {
+	position: relative;
+	display: flex;
+	height: 38px;
+}
+
+.pf-select {
+	appearance: none;
+	-webkit-appearance: none;
+	font-size: 12.5px;
+	padding-right: 22px;
+	color: #b3b7bd;
+	cursor: pointer;
+}
+
+.pf-select:valid {
+	color: #23262b;
+}
+
+.pf-caret {
+	position: absolute;
+	top: 0;
+	right: 9px;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	font-size: 9px;
+	color: #8a9099;
+	pointer-events: none;
+}
+
+.pf-foot {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.pf-submit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: 48px;
+	padding: 0 20px;
+	border: 0;
+	border-radius: 3px;
+	background: #466060;
+	color: #FFFFFF;
+	font-family: Inter, sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 100%;
+	letter-spacing: 0%;
+	cursor: pointer;
+	transition: background 0.15s ease;
+	box-sizing: border-box;
+}
+
+.pf-submit:hover {
+	animation: var(--button-animation);
+	background: #334a42;
+}
+
+.pf-submit:active {
+	animation: var(--button-animation);
+	background: #2a3d36;
+}
+
+.pf-submit:focus-visible {
+	outline: 2px solid #3f5c52;
+	outline-offset: 3px;
+}
+
+.pf-arrow {
+	font-size: 12px;
+	line-height: 1;
+}
+
+.pf-note {
+	margin: 0;
+	font-size: 10.5px;
+	line-height: 1.5;
+	color: #a6abb2;
+	text-align: center;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
+   ===================================================== */
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+	.pf-overlay {
+		padding: 40px 20px;
+	}
+
+	.pf-modal {
+		max-width: 540px;
+		padding: 42px;
+		gap: 22px;
+	}
+
+	.pf-head {
+		gap: 20px;
+	}
+
+	.pf-titles {
+		gap: 20px;
+	}
+
+	.pf-kicker {
+		font-size: 12px;
+		letter-spacing: 1px;
+	}
+
+	.pf-title {
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.pf-sub {
+		font-size: 13px;
+		line-height: 100%;
+	}
+
+	.pf-grid {
+		gap: 20px 16px;
+	}
+
+	.pf-field label {
+		font-size: 11px;
+	}
+
+	.pf-input,
+	.pf-select {
+		height: 42px;
+		padding: 11px 15px;
+		font-size: 13px;
+	}
+
+	.pf-selectwrap {
+		height: 42px;
+	}
+
+	.pf-submit {
+		height: 44px;
+		font-size: 13px;
+	}
+
+	.pf-note {
+		font-size: 10px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
+   ===================================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.pf-overlay {
+		padding: 32px 20px;
+	}
+
+	.pf-modal {
+		max-width: 480px;
+		padding: 36px;
+		gap: 20px;
+	}
+
+	.pf-head {
+		gap: 18px;
+	}
+
+	.pf-titles {
+		gap: 18px;
+	}
+
+	.pf-kicker {
+		font-size: 11px;
+		letter-spacing: 0.9px;
+	}
+
+	.pf-title {
+		font-size: 24px;
+		line-height: 28px;
+	}
+
+	.pf-sub {
+		font-size: 12px;
+		line-height: 100%;
+	}
+
+	.pf-grid {
+		gap: 18px 14px;
+	}
+
+	.pf-field label {
+		font-size: 11px;
+	}
+
+	.pf-input,
+	.pf-select {
+		height: 40px;
+		padding: 10px 14px;
+		font-size: 12px;
+	}
+
+	.pf-selectwrap {
+		height: 40px;
+	}
+
+	.pf-submit {
+		height: 42px;
+		font-size: 12px;
+	}
+
+	.pf-note {
+		font-size: 9px;
+	}
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
+   ===================================================== */
+
+@media (min-width: 480px) and (max-width: 768px) {
+	.pf-overlay {
+		padding: 24px 16px;
+	}
+
+	.pf-modal {
+		max-width: 100%;
+		height: auto;
+		min-height: 520px;
+		padding: 30px;
+		gap: 18px;
+	}
+
+	.pf-head {
+		gap: 16px;
+	}
+
+	.pf-titles {
+		gap: 16px;
+	}
+
+	.pf-kicker {
+		font-size: 10px;
+		letter-spacing: 0.8px;
+	}
+
+	.pf-title {
+		font-size: 20px;
+		line-height: 24px;
+	}
+
+	.pf-sub {
+		font-size: 11px;
+		line-height: 100%;
+	}
+
+	.pf-grid {
+		gap: 16px 12px;
+	}
+
+	.pf-field label {
+		font-size: 10px;
+	}
+
+	.pf-input,
+	.pf-select {
+		height: 38px;
+		padding: 9px 12px;
+		font-size: 11px;
+	}
+
+	.pf-selectwrap {
+		height: 38px;
+	}
+
+	.pf-submit {
+		height: 40px;
+		font-size: 11px;
+	}
+
+	.pf-note {
+		font-size: 8px;
+	}
+}

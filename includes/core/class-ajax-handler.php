@@ -13,63 +13,9 @@ if (!defined('ABSPATH')) {
 class Avance_Ajax_Handler {
 
     public function __construct() {
-        // Agendamiento
-        add_action('wp_ajax_avance_agendamiento_submit', [$this, 'handle_agendamiento']);
-        add_action('wp_ajax_nopriv_avance_agendamiento_submit', [$this, 'handle_agendamiento']);
-
         // Propuestas
         add_action('wp_ajax_avance_proposal_submit', [$this, 'handle_proposal']);
         add_action('wp_ajax_nopriv_avance_proposal_submit', [$this, 'handle_proposal']);
-    }
-
-    /**
-     * Handle Agendamiento - Sanitizado, validado, correcto
-     */
-    public function handle_agendamiento() {
-        check_ajax_referer('avance_agendamiento_form', 'nonce');
-
-        // SANITIZAR primero (defense-in-depth)
-        $data = [
-            'nombre'   => sanitize_text_field($_POST['nombre'] ?? ''),
-            'numero'   => sanitize_text_field($_POST['numero'] ?? ''),
-            'tema'     => sanitize_text_field($_POST['tema'] ?? ''),
-            'fecha'    => sanitize_text_field($_POST['fecha'] ?? ''),
-        ];
-
-        // Validar
-        $validation = Avance_Agendamiento_Sesiones_Handler::validate($data);
-        if (!$validation['success']) {
-            wp_send_json_error(['message' => implode(', ', $validation['errors'])]);
-        }
-
-        // Procesar
-        $result = Avance_Agendamiento_Sesiones_Handler::process($validation['data']);
-        if (!$result['success']) {
-            wp_send_json_error(['message' => $result['message']]);
-        }
-
-        // WhatsApp con variable centralizada
-        $fecha_fmt = date('d/m/Y', strtotime($validation['data']['fecha_agendada']));
-        $mensaje = sprintf(
-            "Hola, quiero agendar una sesión:\n\nNombre: %s\nTeléfono: %s\nTema: %s\nFecha: %s",
-            $validation['data']['nombre'],
-            $validation['data']['numero'],
-            $validation['data']['tema'],
-            $fecha_fmt
-        );
-
-        // Normalizar número para WhatsApp (agregar +51 si falta)
-        $phone = preg_replace('/[^0-9]/', '', AVANCE_WHATSAPP);
-        if (strlen($phone) === 9) {
-            $phone = '51' . $phone;
-        }
-        $wa_url = 'https://wa.me/' . $phone . '?text=' . urlencode($mensaje);
-
-        wp_send_json_success([
-            'id' => $result['id'],
-            'whatsapp_url' => $wa_url,
-            'fecha_formateada' => $fecha_fmt,
-        ]);
     }
 
     /**

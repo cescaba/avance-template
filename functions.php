@@ -33,9 +33,9 @@ require_once get_template_directory() . '/includes/appointments/class-appointmen
 // Incluir orquestador de DIAGNÓSTICO
 require_once get_template_directory() . '/includes/managers/diagnostico/class-diagnostico-manager.php';
 
+
 // Incluir clases de AGENDAMIENTO DE SESIONES
-require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-sesiones-db.php';
-require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-sesiones-handler.php';
+require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
 
 // Incluir clases de PROPUESTAS
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-db.php';
@@ -44,6 +44,15 @@ require_once get_template_directory() . '/includes/database/proposals/class-prop
 // Incluir integración con WOOCOMMERCE (Mentoría, Reservas)
 require_once get_template_directory() . '/includes/woocommerce/index.php';
 
+// Incluir actualización de precios de mentoría
+require_once get_template_directory() . '/includes/mentoria/update-mentoria-prices.php';
+
 // Incluir COMPONENTES REUTILIZABLES
-require_once get_template_directory() . '/includes/managers/scheduling/class-scheduling-component.php';
 require_once get_template_directory() . '/includes/database/form-sesiones/class-form-component.php';
+
+// Crear tabla de agendamiento contacto si no existe
+add_action('init', function() {
+	if (class_exists('Avance_Agendamiento_Contacto_DB')) {
+		Avance_Agendamiento_Contacto_DB::create_table();
+	}
+}, 1);

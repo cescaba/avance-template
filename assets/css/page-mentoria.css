@@ -5,6 +5,7 @@
  *
  * @package Avance_Template
  */
+
 /* =====================================================
    MAIN WRAPPER
    ===================================================== */
@@ -52,7 +53,6 @@
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #2C2629;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .mentoria-intro__subtitle {
@@ -60,7 +60,6 @@
 	font-size: 36px;
 	line-height: 36px;
 	color: #2C2629;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 .mentoria-intro__description {
@@ -68,7 +67,6 @@
 	font-size: 14px;
 	line-height: 23px;
 	color: #99A1AF;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
 }
 
 .mentoria-intro__list {
@@ -87,28 +85,18 @@
 	color: #034732;
 	padding-left: 28px;
 	position: relative;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .mentoria-intro__list-item::before {
-	content: '✓';
+	content: '\2713';
 	position: absolute;
 	left: 0;
+	top: 0;
 	color: #00C950;
 	font-weight: bold;
 	font-size: 14px;
 }
 
-@keyframes fadeInUp {
-	from {
-		opacity: 0;
-		transform: translateY(20px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
 
 .mentoria-intro__img {
 	width: 100%;
@@ -124,7 +112,7 @@
    ===================================================== */
 .mentoria-target {
 	padding: 60px var(--lateral-spacing);
-	background: linear-gradient(180deg, var(--bg-light) 0%, rgba(242, 245, 244, 0.7) 100%);
+	background-color: #F9FAFB;
 	display: flex;
 	justify-content: center;
 }
@@ -190,7 +178,7 @@
    SECTION 3: ¿QUÉ HACEMOS JUNTOS?
    ===================================================== */
 .mentoria-together {
-	height: 524px;
+	height: 444px;
 	background-color: var(--bg-white);
 	display: flex;
 }
@@ -198,7 +186,6 @@
 .mentoria-together__container {
 	width: 100%;
 	display: flex;
-	height: 444px;
 	align-items: center;
 }
 
@@ -249,7 +236,6 @@
 }
 
 .mentoria-together__list-item {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -259,33 +245,6 @@
 	position: relative;
 }
 
-.mentoria-together__list-item:nth-child(1) {
-	animation-delay: 0.0s;
-}
-
-.mentoria-together__list-item:nth-child(2) {
-	animation-delay: 0.1s;
-}
-
-.mentoria-together__list-item:nth-child(3) {
-	animation-delay: 0.2s;
-}
-
-.mentoria-together__list-item:nth-child(4) {
-	animation-delay: 0.3s;
-}
-
-.mentoria-together__list-item:nth-child(5) {
-	animation-delay: 0.4s;
-}
-
-.mentoria-together__list-item:nth-child(6) {
-	animation-delay: 0.5s;
-}
-
-.mentoria-together__list-item:nth-child(7) {
-	animation-delay: 0.6s;
-}
 
 .mentoria-together__list-item::before {
 	content: counter(item);
@@ -330,21 +289,6 @@
 	border-bottom: 1px solid #E5E7EB;
 }
 
-.mentoria-faq__item:nth-child(1) {
-	animation-delay: 0.0s;
-}
-
-.mentoria-faq__item:nth-child(2) {
-	animation-delay: 0.1s;
-}
-
-.mentoria-faq__item:nth-child(3) {
-	animation-delay: 0.2s;
-}
-
-.mentoria-faq__item:nth-child(4) {
-	animation-delay: 0.3s;
-}
 
 .mentoria-faq__item:last-child {
 	border-bottom: none;
@@ -410,13 +354,13 @@
    ===================================================== */
 .mentoria-reserva {
 	padding: 60px var(--lateral-spacing);
-	background-color: var(--bg-light);
+	background-color: #F9FAFB;
 	display: flex;
 }
 
 .mentoria-reserva__container {
 	display: grid;
-	grid-template-columns: 65% 35%;
+	grid-template-columns: minmax(350px, 70%) minmax(150px, 30%);
 	gap: 40px;
 	align-items: start;
 	width: 100%;
@@ -426,6 +370,12 @@
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
+}
+
+.mentoria-reserva__right {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
 }
 
 .mentoria-reserva__sidebar {
@@ -465,6 +415,16 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	pointer-events: auto;
+}
+
+.mentoria-reserva__plans-container.is-hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
 }
 
 .mentoria-reserva__plan {
@@ -586,21 +546,8 @@
 	margin: 14px 0 0 30px;
 	font-size: 12.5px;
 	color: #4a4f57;
-	animation: slideDown 0.3s ease;
 }
 
-@keyframes slideDown {
-	from {
-		opacity: 0;
-		max-height: 0;
-		overflow: hidden;
-	}
-
-	to {
-		opacity: 1;
-		max-height: 500px;
-	}
-}
 
 .mentoria-reserva__feature {
 	display: flex;
@@ -670,10 +617,14 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	pointer-events: auto;
 }
 
+
 .mentoria-reserva__card-kicker {
-	font-family: Outfit;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 16px;
@@ -683,7 +634,6 @@
 }
 
 .mentoria-reserva__card-subtitle {
-	font-family: Outfit;
 	font-weight: 700;
 	font-size: 14px;
 	line-height: 20px;
@@ -736,7 +686,6 @@
 }
 
 .mentoria-reserva__event-meta {
-	font-family: Outfit;
 	font-weight: 300;
 	font-size: 10px;
 	line-height: 15px;
@@ -780,7 +729,6 @@
 }
 
 .mentoria-reserva__cal-month {
-	font-family: Outfit;
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 20px;
@@ -805,7 +753,6 @@
 }
 
 .mentoria-reserva__weekday {
-	font-family: Outfit;
 	font-weight: 600;
 	font-size: 9px;
 	line-height: 13.5px;
@@ -818,7 +765,6 @@
 .mentoria-reserva__day-btn {
 	border: none;
 	background: none;
-	font-family: Outfit;
 	font-weight: 500;
 	font-size: 12px;
 	line-height: 16px;
@@ -889,7 +835,6 @@
 }
 
 .mentoria-reserva__tz {
-	font-family: Outfit;
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 15px;
@@ -911,7 +856,6 @@
 
 .mentoria-reserva__integration-item {
 	display: flex;
-	font-family: Outfit;
 	font-weight: 400;
 	font-size: 9px;
 	line-height: 13.5px;
@@ -948,7 +892,6 @@
 }
 
 .mentoria-reserva__field label {
-	font-family: Outfit;
 	font-weight: 500;
 	font-size: 10px;
 	line-height: 15px;
@@ -962,7 +905,6 @@
 	height: 40px;
 	border: 1px solid #E5E7EB;
 	padding: 10px 12px;
-	font-family: Outfit;
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 100%;
@@ -976,7 +918,6 @@
 	height: 70px;
 	border: 1px solid #E5E7EB;
 	padding: 10px 12px;
-	font-family: Outfit;
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 100%;
@@ -988,8 +929,16 @@
 .mentoria-reserva__field input:focus,
 .mentoria-reserva__field textarea:focus {
 	outline: none;
-	border-color: #2c4a3e;
-	box-shadow: 0 0 0 3px rgba(44, 74, 62, 0.12);
+}
+
+.mentoria-reserva__field input,
+.mentoria-reserva__field textarea {
+	color: #99A1AF;
+}
+
+.mentoria-reserva__field input:not(:placeholder-shown),
+.mentoria-reserva__field textarea:not(:placeholder-shown) {
+	color: #000;
 }
 
 .mentoria-reserva__submit {
@@ -999,7 +948,6 @@
 	color: #FFFFFF;
 	border: none;
 	padding: 14px 24px;
-	font-family: Outfit;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 16px;
@@ -1010,8 +958,9 @@
 }
 
 .mentoria-reserva__submit:hover:not(:disabled) {
-	background: #466060;
+	animation: var(--button-animation);
 }
+
 
 .mentoria-reserva__pay-options {
 	display: flex;
@@ -1021,7 +970,6 @@
 }
 
 .mentoria-reserva__pay-options label {
-	font-family: Outfit;
 	font-weight: 400;
 	font-size: 9px;
 	line-height: 12px;
@@ -1049,12 +997,19 @@
 	text-align: center;
 }
 
+.mentoria-reserva__back-btn {
+	display: none;
+}
+
+.mentoria-reserva__continue-btn {
+	display: none;
+}
+
 .mentoria-reserva__whatsapp-btn {
 	width: 100%;
 	height: 48px;
 	background: #FFFFFF;
 	border: 1px solid #E5E7EB;
-	font-family: Outfit;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -1066,7 +1021,12 @@
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
-	transition: background 0.15s;
+	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity, transform;
+}
+
+.mentoria-reserva__whatsapp-btn:hover {
+	animation: var(--button-animation);
 }
 
 /* =====================================================
@@ -1100,7 +1060,7 @@
 	}
 
 	.mentoria-intro__list {
-		gap: 10px;
+		gap: 8px;
 	}
 
 	.mentoria-intro__list-item {
@@ -1128,11 +1088,11 @@
 
 	.mentoria-target__list {
 		grid-template-columns: repeat(4, 1fr);
-		gap: 10px;
+		gap: 8px;
 	}
 
 	.mentoria-target__item {
-		padding: 13px;
+		padding: 16px 12px;
 		min-height: 110px;
 		gap: 8px;
 	}
@@ -1150,7 +1110,7 @@
 	}
 
 	.mentoria-together {
-		height: auto;
+		height: 380px;
 	}
 
 	.mentoria-together__features {
@@ -1223,8 +1183,8 @@
 	}
 
 	.mentoria-reserva__container {
-		grid-template-columns: 65% 35%;
-		gap: 36px;
+		grid-template-columns: minmax(300px, 65%) minmax(120px, 35%);
+		gap: 32px;
 	}
 
 	.mentoria-reserva__kicker {
@@ -1294,7 +1254,7 @@
 
 	.mentoria-reserva__card {
 		padding: 18px;
-		gap: 14px;
+		gap: 10px;
 	}
 
 	.mentoria-reserva__card-kicker {
@@ -1378,9 +1338,9 @@
 	}
 
 	.mentoria-reserva__submit {
-		height: 44px;
+		height: 40px;
 		font-size: 11px;
-		padding: 12px 20px;
+		padding: 10px 20px;
 	}
 
 	.mentoria-reserva__pay-options {
@@ -1397,11 +1357,20 @@
 		font-size: 9px;
 	}
 
+	.mentoria-reserva__continue-btn {
+		display: none;
+	}
+
+	.mentoria-reserva__back-btn {
+		display: none;
+	}
+
 	.mentoria-reserva__whatsapp-btn {
 		height: 44px;
 		font-size: 11px;
 		gap: 8px;
 	}
+
 }
 
 /* =====================================================
@@ -1435,7 +1404,7 @@
 	}
 
 	.mentoria-intro__list {
-		gap: 9px;
+		gap: 8px;
 	}
 
 	.mentoria-intro__list-item {
@@ -1463,11 +1432,11 @@
 
 	.mentoria-target__list {
 		grid-template-columns: repeat(4, 1fr);
-		gap: 9px;
+		gap: 8px;
 	}
 
 	.mentoria-target__item {
-		padding: 14px;
+		padding: 14px 11px;
 		min-height: 100px;
 		gap: 7px;
 	}
@@ -1485,12 +1454,12 @@
 	}
 
 	.mentoria-together {
-		height: auto;
+		height: 340px;
 	}
 
 	.mentoria-together__features {
 		grid-template-columns: 1fr 1fr;
-		gap: 36px;
+		gap: 32px;
 	}
 
 	.mentoria-together__content {
@@ -1503,19 +1472,19 @@
 	}
 
 	.mentoria-together__list {
-		grid-template-columns: 1fr 1fr;
-		gap: 11px 38px;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px 32px;
 	}
 
 	.mentoria-together__list-item {
-		font-size: 11px;
-		line-height: 15px;
-		padding-left: 15px;
+		font-size: 12px;
+		line-height: 16px;
+		padding-left: 16px;
 	}
 
 	.mentoria-together__list-item::before {
-		font-size: 15px;
-		line-height: 15px;
+		font-size: 14px;
+		line-height: 14px;
 		top: 0;
 	}
 
@@ -1558,7 +1527,7 @@
 	}
 
 	.mentoria-reserva__container {
-		grid-template-columns: 55% 45%;
+		grid-template-columns: minmax(280px, 55%) minmax(100px, 45%);
 		gap: 28px;
 	}
 
@@ -1732,6 +1701,14 @@
 		font-size: 8px;
 	}
 
+	.mentoria-reserva__continue-btn {
+		display: none;
+	}
+
+	.mentoria-reserva__back-btn {
+		display: none;
+	}
+
 	.mentoria-reserva__whatsapp-btn {
 		height: 42px;
 		font-size: 10px;
@@ -1744,12 +1721,33 @@
    ===================================================== */
 @media (min-width: 480px) and (max-width: 768px) {
 	.mentoria-intro {
-		height: 680px;
+		height: auto;
 		padding: 36px var(--lateral-spacing) 48px var(--lateral-spacing);
 	}
 
+	.mentoria-reserva__back-btn {
+		display: block;
+		width: 100%;
+		height: 44px;
+		background: transparent;
+		color: #2c4a3e;
+		border: 1px solid #E5E7EB;
+		padding: 0;
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 16px;
+		letter-spacing: 0px;
+		text-align: center;
+		cursor: pointer;
+		transition: all 0.15s;
+		margin-top: 0;
+	}
+
+	.mentoria-reserva__back-btn:hover {
+		animation: var(--button-animation);
+	}
+
 	.mentoria-intro__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 12px;
 		line-height: 1;
@@ -1757,25 +1755,22 @@
 	}
 
 	.mentoria-intro__subtitle {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
-		font-size: 30px;
+		font-size: 24px;
 		line-height: 1.15;
 		letter-spacing: 0;
 	}
 
 	.mentoria-intro__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 15px;
+		font-size: 12px;
 		line-height: 1.5;
 		letter-spacing: 0;
 	}
 
 	.mentoria-intro__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
-		font-size: 14px;
+		font-size: 11px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
@@ -1796,51 +1791,48 @@
 	}
 
 	.mentoria-target {
-		padding: 50px var(--lateral-spacing) 50px var(--lateral-spacing);
+		padding: 40px var(--lateral-spacing) 40px var(--lateral-spacing);
 	}
 
 	.mentoria-target__container {
-		gap: 22px;
+		gap: 16px;
 	}
 
 	.mentoria-target__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 26px;
+		font-size: 24px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-target__item {
-		height: 110px;
-		min-height: 110px;
-		padding: 22px;
+		height: 100px;
+		min-height: 100px;
+		padding: 14px 11px;
 		box-sizing: border-box;
 	}
 
 	.mentoria-target__item-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 18px;
+		font-size: 11px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-target__item-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 14px;
+		font-size: 10px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-target__list {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 16px;
+		gap: 8px;
 	}
 
 	.mentoria-together {
-		padding: 50px var(--lateral-spacing) 50px var(--lateral-spacing);
+		padding: 40px var(--lateral-spacing) 40px var(--lateral-spacing);
 		height: auto;
 	}
 
@@ -1849,26 +1841,23 @@
 	}
 
 	.mentoria-together__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 26px;
+		font-size: 24px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-together__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 15px;
+		font-size: 12px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-together__list-item::before {
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
-		font-size: 17px;
-		line-height: 17px;
+		font-size: 14px;
+		line-height: 14px;
 		top: 0;
 	}
 
@@ -1887,48 +1876,44 @@
 
 	.mentoria-together__list {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 20px 18px;
+		gap: 16px 24px;
 	}
 
 	.mentoria-reserva {
-		padding: 44px var(--lateral-spacing);
+		padding: 36px var(--lateral-spacing);
 	}
 
 	.mentoria-reserva__main {
-		gap: 17px;
+		gap: 15px;
 	}
 
 	.mentoria-reserva__kicker {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
-		font-size: 14px;
+		font-size: 12px;
 		line-height: 1;
 		letter-spacing: 0.06em;
 	}
 
 	.mentoria-reserva__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 26px;
+		font-size: 24px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-reserva__plan {
-		height: 85px;
-		padding: 22px;
+		height: 70px;
+		padding: 18px;
 	}
 
 	.mentoria-reserva__plan-name {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
-		font-size: 16px;
+		font-size: 12px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.mentoria-reserva__plan-meta {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 13px;
 		line-height: 1;
@@ -1936,7 +1921,6 @@
 	}
 
 	.mentoria-reserva__plan-price-amount {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 20px;
 		line-height: 1;
@@ -1944,7 +1928,6 @@
 	}
 
 	.mentoria-reserva__plan-price-unit {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1;
@@ -1968,22 +1951,30 @@
 		grid-template-columns: 1fr;
 	}
 
+	.mentoria-reserva__card {
+		padding: 16px;
+		gap: 10px;
+	}
+
+	.mentoria-reserva__back-btn {
+		display: none;
+	}
+
 	.mentoria-reserva__testimonial {
 		display: none;
 	}
 
 	.mentoria-faq {
-		padding: 50px var(--lateral-spacing) 50px var(--lateral-spacing);
+		padding: 40px var(--lateral-spacing) 60px var(--lateral-spacing);
 	}
 
 	.mentoria-faq__container {
 		max-width: none;
 		width: 100%;
-		gap: 22px;
+		gap: 20px;
 	}
 
 	.mentoria-faq__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1;
@@ -1991,26 +1982,28 @@
 	}
 
 	.mentoria-faq__question {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 15px;
+		font-size: 13px;
 		line-height: 1;
 		letter-spacing: 0;
-		height: 54px;
-		padding: 6px;
+		height: auto;
+		padding: 12px;
+	}
+
+	.mentoria-faq__answer {
+		font-size: 12px;
+		line-height: 1.3;
 	}
 
 	.mentoria-reserva__field input {
 		height: 40px;
-		font-family: 'Outfit', sans-serif;
 		font-weight: 400;
-		font-size: 13px;
+		font-size: 11px;
 		line-height: 100%;
 		letter-spacing: 0px;
 	}
 
 	.mentoria-reserva__field label {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 500;
 		font-size: 11px;
 		line-height: 16px;
@@ -2018,7 +2011,6 @@
 	}
 
 	.mentoria-reserva__card-kicker {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 600;
 		font-size: 13px;
 		line-height: 17px;
@@ -2027,21 +2019,26 @@
 	}
 
 	.mentoria-reserva__submit {
-		height: 46px;
-		font-family: 'Outfit', sans-serif;
-		font-weight: 600;
-		font-size: 13px;
-		line-height: 17px;
+		height: 49px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
 		letter-spacing: 0px;
+		padding: 0;
 		text-align: center;
 	}
 
 	.mentoria-reserva__note {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 400;
 		font-size: 10px;
 		line-height: 14px;
 		letter-spacing: 0px;
+	}
+
+	.mentoria-reserva__whatsapp-btn {
+		height: 42px;
+		font-size: 11px;
 	}
 }
 
@@ -2055,7 +2052,6 @@
 	}
 
 	.mentoria-intro__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 11px;
 		line-height: 1;
@@ -2063,7 +2059,6 @@
 	}
 
 	.mentoria-intro__subtitle {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 28px;
 		line-height: 1.15;
@@ -2071,7 +2066,6 @@
 	}
 
 	.mentoria-intro__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 14px;
 		line-height: 1.5;
@@ -2079,7 +2073,6 @@
 	}
 
 	.mentoria-intro__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 13px;
 		line-height: 1;
@@ -2113,7 +2106,6 @@
 	}
 
 	.mentoria-target__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1;
@@ -2128,7 +2120,6 @@
 	}
 
 	.mentoria-target__item-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 17px;
 		line-height: 1;
@@ -2136,7 +2127,6 @@
 	}
 
 	.mentoria-target__item-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 13px;
 		line-height: 1;
@@ -2154,7 +2144,6 @@
 	}
 
 	.mentoria-together__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1;
@@ -2162,7 +2151,6 @@
 	}
 
 	.mentoria-together__list-item {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1;
@@ -2177,7 +2165,6 @@
 	}
 
 	.mentoria-together__list-item::before {
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 16px;
 		line-height: 16px;
@@ -2212,11 +2199,129 @@
 	}
 
 	.mentoria-reserva__main {
+		gap: 0;
+	}
+
+	.mentoria-reserva__main:has(.mentoria-reserva__plans-container:not(.is-hidden)) {
 		gap: 15px;
 	}
 
+	.mentoria-reserva__plans-container.is-hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s, margin 0.5s ease 0s;
+	}
+
+	.mentoria-reserva__card.is-hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s;
+	}
+
+	.mentoria-reserva__card.is-visible {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		height: auto;
+		padding: 20px;
+		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s;
+	}
+
+	.mentoria-reserva__right {
+		gap: 0;
+	}
+
+	.mentoria-reserva__right:has(.mentoria-reserva__card:not(.is-hidden)) {
+		gap: 12px;
+	}
+
+	.mentoria-reserva__sidebar {
+		gap: 0;
+	}
+
+	.mentoria-reserva__sidebar:has(.mentoria-reserva__card:not(.is-hidden)) {
+		gap: 12px;
+	}
+
+	.mentoria-reserva__calendar-section {
+		gap: 0;
+	}
+
+	.mentoria-reserva__form {
+		gap: 20px;
+	}
+
+	.mentoria-reserva__back-btn {
+		display: block;
+		width: 100%;
+		height: 49px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 0;
+		text-align: center;
+		background-color: #FFFFFF;
+		color: #2C2629;
+		border: 1px solid #E5E7EB;
+		cursor: pointer;
+		transition: all 0.15s;
+	}
+
+	.mentoria-reserva__back-btn:hover {
+		animation: var(--button-animation);
+	}
+
+	.mentoria-reserva__continue-btn {
+		display: block;
+		width: 100%;
+		height: 49px;
+		flex: 0 0 auto;
+		background-color: #466060;
+		color: #FFFFFF;
+		border: none;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 0;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	.mentoria-reserva__continue-btn:hover {
+		background-color: #3d4f50;
+	}
+
+	.mentoria-reserva__continue-btn:disabled {
+		background-color: #99A1AF;
+		cursor: not-allowed;
+		opacity: 0.6;
+		margin-bottom: 0;
+	}
+
+	.mentoria-reserva__whatsapp-btn {
+		height: 49px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 0;
+	}
+
 	.mentoria-reserva__kicker {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 13px;
 		line-height: 1;
@@ -2224,7 +2329,6 @@
 	}
 
 	.mentoria-reserva__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1;
@@ -2237,7 +2341,6 @@
 	}
 
 	.mentoria-reserva__plan-name {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 15px;
 		line-height: 1;
@@ -2245,7 +2348,6 @@
 	}
 
 	.mentoria-reserva__plan-meta {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 12px;
 		line-height: 1;
@@ -2253,7 +2355,6 @@
 	}
 
 	.mentoria-reserva__plan-price-amount {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 18px;
 		line-height: 1;
@@ -2261,24 +2362,15 @@
 	}
 
 	.mentoria-reserva__plan-price-unit {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
-	.mentoria-reserva__plans-container {
-		gap: 16px;
-	}
-
-	.mentoria-reserva__card {
-		gap: 15px;
-	}
-
 	.mentoria-reserva__container {
 		grid-template-columns: 1fr;
-		gap: 24px;
+		gap: 15px;
 	}
 
 	.mentoria-reserva__form-row {
@@ -2300,7 +2392,6 @@
 	}
 
 	.mentoria-faq__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 22px;
 		line-height: 1;
@@ -2308,7 +2399,6 @@
 	}
 
 	.mentoria-faq__question {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1;
@@ -2319,7 +2409,6 @@
 
 	.mentoria-reserva__field input {
 		height: 38px;
-		font-family: 'Outfit', sans-serif;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 100%;
@@ -2327,7 +2416,6 @@
 	}
 
 	.mentoria-reserva__field label {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 500;
 		font-size: 10px;
 		line-height: 15px;
@@ -2335,7 +2423,6 @@
 	}
 
 	.mentoria-reserva__card-kicker {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 600;
 		font-size: 12px;
 		line-height: 16px;
@@ -2344,20 +2431,48 @@
 	}
 
 	.mentoria-reserva__submit {
-		height: 44px;
-		font-family: 'Outfit', sans-serif;
-		font-weight: 600;
-		font-size: 12px;
-		line-height: 16px;
+		height: 49px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 1;
 		letter-spacing: 0px;
+		padding: 0;
 		text-align: center;
 	}
 
 	.mentoria-reserva__note {
-		font-family: 'Outfit', sans-serif;
 		font-weight: 400;
 		font-size: 9px;
 		line-height: 13.5px;
 		letter-spacing: 0px;
+	}
+
+	.mentoria-reserva__message {
+		padding: 12px;
+		border-radius: 6px;
+		margin-bottom: 12px;
+		font-size: 13px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+	}
+
+	.mentoria-faq__answer {
+		font-size: 12px;
+	}
+
+	.mentoria-reserva__message--error {
+		background-color: #fee;
+		border: 1px solid #fcc;
+		color: #c33;
+	}
+
+	.mentoria-reserva__message--success {
+		background-color: #efe;
+		border: 1px solid #cfc;
+		color: #3c3;
 	}
 }

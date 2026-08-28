@@ -26,34 +26,61 @@ get_header();
 				<p class="diagnostico-hero__label"><?php esc_html_e('Diagnóstico comercial gratuito', 'avance-template'); ?></p>
 				<h1 class="diagnostico-hero__title"><?php esc_html_e('¿Cuánto dinero está dejando sobre la mesa tu empresa?', 'avance-template'); ?></h1>
 				<p class="diagnostico-hero__description"><?php esc_html_e('Responde 5 preguntas y recibe tu diagnóstico personalizado + ebook gratuito.', 'avance-template'); ?></p>
-				<div class="diagnostico-hero__content">
-					<a href="#" class="diagnostico-hero__btn-link">
-						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="diagnostico-hero__btn-link-icon" aria-hidden="true">
-						<?php esc_html_e('Prefiero hablar por WhatsApp', 'avance-template'); ?>
-					</a>
-				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Quiz Section -->
 	<section class="diagnostico-quiz" aria-label="<?php esc_attr_e('Quiz Diagnóstico', 'avance-template'); ?>">
-		<div class="diagnostico-quiz__container animate-on-scroll" data-animate>
-			<div class="diagnostico-quiz__progress-track animate-on-scroll" data-animate>
+		<div class="diagnostico-quiz__container">
+			<div class="diagnostico-quiz__progress-track">
 				<div class="diagnostico-quiz__progress-fill" id="diagnosticoProgressFill"></div>
 			</div>
 
-			<div id="diagnosticoQuizView" class="diagnostico-quiz__view animate-on-scroll" data-animate>
-				<div class="diagnostico-quiz__tag animate-on-scroll" data-animate id="diagnosticoQuestionTag"><?php esc_html_e('PREGUNTA 1 DE 5', 'avance-template'); ?></div>
-				<h2 id="diagnosticoQuestionText" class="diagnostico-quiz__title animate-on-scroll" data-animate></h2>
-				<div class="diagnostico-quiz__options animate-on-scroll" data-animate id="diagnosticoOptionsList"></div>
+			<div id="diagnosticoQuizView" class="diagnostico-quiz__view">
+				<div class="diagnostico-quiz__tag" id="diagnosticoQuestionTag"><?php esc_html_e('PREGUNTA 1 DE 5', 'avance-template'); ?></div>
+				<h2 id="diagnosticoQuestionText" class="diagnostico-quiz__title"></h2>
+				<div class="diagnostico-quiz__options" id="diagnosticoOptionsList"></div>
 			</div>
+
+			<script>
+				// Script síncrono para cargar primer pregunta instantáneamente (sin esperar DOMContentLoaded)
+				(function() {
+					const DIAGNOSTICO_QUESTIONS = [
+						{
+							text: "¿Cuál es tu mayor desafío comercial ahora mismo?",
+							options: [
+								"No genero suficientes leads",
+								"Bajo porcentaje de cierre",
+								"No tengo proceso comercial definido",
+								"Equipo de ventas poco efectivo"
+							]
+						}
+					];
+
+					const questionText = document.getElementById('diagnosticoQuestionText');
+					const optionsList = document.getElementById('diagnosticoOptionsList');
+
+					if (questionText && optionsList) {
+						const q = DIAGNOSTICO_QUESTIONS[0];
+						questionText.textContent = q.text;
+
+						q.options.forEach(label => {
+							const btn = document.createElement('button');
+							btn.className = 'diagnostico-quiz__option-btn';
+							btn.setAttribute('data-answer', label);
+							btn.textContent = label;
+							optionsList.appendChild(btn);
+						});
+					}
+				})();
+			</script>
 
 
 			<!-- CTA Buttons -->
-			<div class="diagnostico-cta animate-on-scroll" data-animate>
-				<p class="diagnostico-cta__text animate-on-scroll" data-animate><?php esc_html_e('¿Prefieres hablar directamente?', 'avance-template'); ?></p>
-				<a href="#" class="diagnostico-cta__btn diagnostico-cta__btn--secondary animate-on-scroll" data-animate>
+			<div class="diagnostico-cta">
+				<p class="diagnostico-cta__text"><?php esc_html_e('¿Prefieres hablar directamente?', 'avance-template'); ?></p>
+				<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="diagnostico-cta__btn diagnostico-cta__btn--secondary">
 					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">
 					<?php esc_html_e('Escribir ahora', 'avance-template'); ?>
 				</a>

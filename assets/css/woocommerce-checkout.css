@@ -1,14 +1,14 @@
-.page-main {
+﻿.page-main {
 	padding: 20px var(--lateral-spacing) 20px var(--lateral-spacing);
 }
 
 
-/* ===== TIPOGRAFÍA BASE - JOST ===== */
+/* ===== TIPOGRAFÍA BASE - INTER ===== */
 .woocommerce,
 .woocommerce-page,
 .woocommerce-checkout,
 .woocommerce-checkout form {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	line-height: 1.6;
 	color: #364153;
@@ -22,22 +22,24 @@
 #order_review {}
 
 .woocommerce-billing-fields,
-.woocommerce-shipping-fields {}
+.woocommerce-shipping-fields {
+	margin: 0;
+}
 
 .woocommerce-billing-fields h3,
 .woocommerce-shipping-fields h3 {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 24px;
 	letter-spacing: 0px;
 	color: #364153;
-	margin: 0 0 20px 0;
+	margin: 0;
 	padding: 0;
 }
 
 .woocommerce form .form-row {
-	margin-bottom: 16px;
+	margin: 0;
 }
 
 .woocommerce form .form-row.form-row-first,
@@ -54,11 +56,15 @@
 
 .woocommerce form .form-row.form-row-first {}
 
+.woocommerce form .form-row.form-row-first.validate-required {
+	margin: 0;
+}
+
 .woocommerce form .form-row.form-row-last {}
 
 
 .woocommerce form .form-row label {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 16px;
@@ -67,7 +73,7 @@
 }
 
 .woocommerce form label {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 16px;
@@ -90,7 +96,7 @@
 .woocommerce form .form-row input[type="tel"],
 .woocommerce form .form-row input[type="number"],
 .woocommerce form .form-row select {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 100%;
@@ -105,7 +111,7 @@
 .woocommerce form input[type="tel"],
 .woocommerce form input[type="number"],
 .woocommerce form select {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 100%;
@@ -116,7 +122,7 @@
 }
 
 .woocommerce form textarea {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.5;
@@ -129,7 +135,7 @@
 
 .woocommerce form input::placeholder,
 .woocommerce form textarea::placeholder {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	color: #99a1af;
 }
 
@@ -148,7 +154,7 @@
 
 .woocommerce-checkout-review-order-table th,
 .woocommerce-checkout-review-order-table td {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 13px;
 	font-weight: 400;
 	line-height: 1.6;
@@ -185,7 +191,7 @@
 }
 
 .woocommerce-checkout #payment ul.payment_methods li label {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 1.5;
@@ -193,7 +199,7 @@
 }
 
 .woocommerce-checkout #payment .payment_box {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 13px;
 	font-weight: 400;
 	line-height: 1.6;
@@ -201,7 +207,7 @@
 }
 
 .woocommerce-checkout #place_order {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 1.5;
@@ -215,7 +221,7 @@
 .woocommerce-error,
 .woocommerce-notice,
 .woocommerce-info {
-	font-family: 'Jost', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 13px;
 	font-weight: 400;
 	line-height: 1.6;

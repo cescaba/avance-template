@@ -61,13 +61,11 @@ class MobileMenu {
 			this.line1.setAttribute('y2', '12');
 			this.line3.setAttribute('y1', '12');
 			this.line3.setAttribute('y2', '12');
-			this.updateMargin();
 		} else {
 			this.line1.setAttribute('y1', '6');
 			this.line1.setAttribute('y2', '6');
 			this.line3.setAttribute('y1', '18');
 			this.line3.setAttribute('y2', '18');
-			this.clearMargin();
 		}
 	}
 
@@ -79,20 +77,6 @@ class MobileMenu {
 		this.line1.setAttribute('y2', '6');
 		this.line3.setAttribute('y1', '18');
 		this.line3.setAttribute('y2', '18');
-		this.clearMargin();
-	}
-
-	updateMargin() {
-		if (this.nextElement) {
-			const menuHeight = this.menu.offsetHeight;
-			this.nextElement.style.marginTop = menuHeight + 'px';
-		}
-	}
-
-	clearMargin() {
-		if (this.nextElement) {
-			this.nextElement.style.marginTop = '0px';
-		}
 	}
 }
 

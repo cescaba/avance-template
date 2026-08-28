@@ -5,6 +5,7 @@
  *
  * @package Avance_Template
  */
+
 /* =====================================================
    SECTION 1: INTRO
    ===================================================== */
@@ -22,6 +23,7 @@
 
 .servicio-intro__features {
 	display: grid;
+	padding: 0px var(--lateral-spacing) 0px 0;
 	grid-template-columns: 1fr 1fr;
 	gap: 61px;
 	align-items: center;
@@ -33,11 +35,11 @@
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	max-width: 700px;
-	padding: 0px var(--lateral-spacing) 0px 0;
+	max-width: 600px;
 	justify-content: center;
 	height: 100%;
 	box-sizing: border-box;
+	padding: 0;
 }
 
 .servicio-intro__title {
@@ -47,7 +49,6 @@
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #466060;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }
 
 .servicio-intro__subtitle {
@@ -56,7 +57,6 @@
 	line-height: 36px;
 	letter-spacing: 0px;
 	color: #2C2629;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .servicio-intro__description {
@@ -65,7 +65,6 @@
 	line-height: 23px;
 	letter-spacing: 0px;
 	color: #466060;
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
 .servicio-intro__actions {
@@ -86,14 +85,16 @@
 	border: none;
 	cursor: pointer;
 	text-decoration: none;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
 }
 
 .servicio-intro__btn:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	animation: var(--button-animation);
+}
+
+.servicio-intro__btn:focus,
+.servicio-intro__btn:focus-visible {
+	outline: 2px solid #466060;
+	outline-offset: 2px;
 }
 
 .servicio-intro__btn--primary {
@@ -128,7 +129,6 @@
 	letter-spacing: 0px;
 	color: #466060;
 	text-align: center;
-	animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .servicio-intro__stat-label {
@@ -139,7 +139,6 @@
 	text-transform: uppercase;
 	color: #99A1AF;
 	text-align: center;
-	animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .servicio-intro__img {
@@ -159,6 +158,10 @@
 	background-color: #FFFFFF;
 	display: flex;
 	justify-content: center;
+	max-width: 1400px;
+	margin: 0 auto;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .servicio-offers__container {
@@ -170,17 +173,18 @@
 .servicio-offers__header {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	max-width: 630px;
+	gap: 15px;
+	max-width: 700px;
 }
 
 .servicio-offers__label {
-	font-weight: 300;
+	font-weight: 600;
 	font-size: 16px;
-	line-height: 17px;
+	line-height: 16px;
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #1E2939;
+
 }
 
 .servicio-offers__title {
@@ -193,7 +197,6 @@
 }
 
 .servicio-offers__description {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -209,92 +212,129 @@
 }
 
 .servicio-offers__item {
-	padding: 24px;
+	padding: 25px;
 	background-color: var(--bg-white);
-	border-radius: var(--radius);
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 	position: relative;
-	gap: 16px;
-	height: 240px;
+	gap: 18px;
+	height: 350px;
 	overflow: visible;
 }
 
-.servicio-offers__item:nth-child(1) {
-	animation-delay: 0.1s;
-}
+.servicio-offers__item:nth-child(1) {}
 
-.servicio-offers__item:nth-child(2) {
-	animation-delay: 0.2s;
-}
+.servicio-offers__item:nth-child(2) {}
 
-.servicio-offers__item:nth-child(3) {
-	animation-delay: 0.3s;
-}
+.servicio-offers__item:nth-child(3) {}
 
-.servicio-offers__item:nth-child(4) {
-	animation-delay: 0.4s;
-}
+.servicio-offers__item:nth-child(4) {}
 
 .servicio-offers__item-header {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+.servicio-offers__header-title {
+	font-weight: 400;
+	font-size: 17px;
+	line-height: 22px;
+	letter-spacing: 0px;
+	color: #466060;
+	margin: 0;
+	flex: 0 0 calc(80% - 10px);
+	min-width: 0;
+}
+
+.servicio-offers__item-header .servicio-offers__item-duration {
+	flex: 0 0 calc(20% - 10px);
+	white-space: nowrap;
 }
 
 .servicio-offers__item-duration {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 700;
-	font-size: 9px;
-	line-height: 13.5px;
-	letter-spacing: 0.9px;
-	text-transform: uppercase;
-	color: #99A1AF;
-}
-
-.servicio-offers__item-level {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 78px;
-	height: 24px;
-	padding: 4px 8px;
-	border: 1px solid #FFFFFF;
-	background-color: #466060;
-	font-weight: 400;
 	font-size: 9px;
 	line-height: 1;
 	letter-spacing: 0.9px;
 	text-transform: uppercase;
 	color: #FFFFFF;
+	background-color: #466060;
+	padding: 0 9px;
+	height: 25px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	box-sizing: border-box;
 }
 
+
 .servicio-offers__item-title {
-	font-weight: 300;
-	font-size: 18px;
-	line-height: 28px;
-	letter-spacing: 0px;
-	color: #466060;
+	font-weight: 600;
+	font-size: 10px;
+	line-height: 1;
+	letter-spacing: 0.8px;
+	color: #98BFBF;
+	margin: 0;
+	text-transform: uppercase;
 }
 
 .servicio-offers__item-text {
 	font-weight: 400;
 	font-size: 12px;
-	line-height: 16px;
+	line-height: 18px;
 	letter-spacing: 0px;
 	color: #6A7282;
+	margin: 0;
+}
+
+.servicio-offers__item-description {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .servicio-offers__tags {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin-top: auto;
+	flex-direction: column;
+	gap: 12px;
 	border-top: 1px solid #99A1AF;
-	padding-top: 10px;
+	padding-top: 15px;
+	flex-shrink: 0;
+}
+
+.servicio-offers__justification-list {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.servicio-offers__justification-item {
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 17px;
+	letter-spacing: 0px;
+	color: #4A5565;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.servicio-offers__justification-item::before {
+	content: "•";
+	flex-shrink: 0;
+	color: #98BFBF;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1;
+	letter-spacing: 0px;
 }
 
 .servicio-offers__tag {
@@ -308,20 +348,19 @@
 	color: #FFFFFF;
 	background-color: #98BFBF;
 	padding: 2px 8px;
-	border-radius: 42px;
 	height: 18px;
 	box-sizing: border-box;
 }
 
 .servicio-offers__cta {
-	height: 100px;
+	height: 130px;
 	padding: 24px;
 	display: flex;
-	background-color: #F9FAFB;
+	background-color: #F0F4EF;
 	justify-content: space-between;
 	align-items: center;
 	gap: 40px;
-	border: 1px solid #F3F4F6;
+	border: 1px solid #E5E7EB;
 	box-sizing: border-box;
 }
 
@@ -332,15 +371,14 @@
 }
 
 .servicio-offers__cta-title {
-	font-weight: 400;
-	font-size: 18px;
+	font-weight: 300;
+	font-size: 20px;
 	line-height: 36px;
 	letter-spacing: 0px;
 	color: #2C2629;
 }
 
 .servicio-offers__cta-description {
-	font-family: 'Outfit';
 	font-weight: 400;
 	font-size: 15px;
 	line-height: 20px;
@@ -355,7 +393,7 @@
 	flex-shrink: 0;
 }
 
-.servicio-offers__cta-btn {
+.servicio-offers__cta-btn--primary {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -363,9 +401,8 @@
 	padding: 14px 24px;
 	font-weight: 600;
 	text-decoration: none;
-	width: 168px;
+	width: 300px;
 	height: 48px;
-	font-family: 'Outfit', sans-serif;
 	font-size: 12px;
 	line-height: 1;
 	letter-spacing: 0.3px;
@@ -373,24 +410,18 @@
 	box-sizing: border-box;
 	border: none;
 	cursor: pointer;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.servicio-offers__cta-btn:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.servicio-offers__cta-btn--primary {
 	background-color: #466060;
 	color: #FFFFFF;
 }
 
-.servicio-offers__cta-btn--whatsapp {
-	background-color: #FFFFFF;
-	color: #034732;
-	border: 1px solid #E5E7EB;
+.servicio-offers__cta-btn--primary:hover {
+	animation: var(--button-animation);
+}
+
+.servicio-offers__cta-btn--primary:focus,
+.servicio-offers__cta-btn--primary:focus-visible {
+	outline: 2px solid #466060;
+	outline-offset: 2px;
 }
 
 /* =====================================================
@@ -398,7 +429,7 @@
    ===================================================== */
 .servicio-process {
 	padding: 50px var(--lateral-spacing);
-	background-color: #F9FAFB;
+	background-color: #FFFFFF;
 	display: flex;
 	justify-content: center;
 }
@@ -418,7 +449,6 @@
 	letter-spacing: 0px;
 	text-align: center;
 	color: #466060;
-	animation-delay: 0.0s;
 	text-transform: none;
 }
 
@@ -442,21 +472,13 @@
 		background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.servicio-process__step:nth-child(1) {
-	animation-delay: 0.1s;
-}
+.servicio-process__step:nth-child(1) {}
 
-.servicio-process__step:nth-child(2) {
-	animation-delay: 0.2s;
-}
+.servicio-process__step:nth-child(2) {}
 
-.servicio-process__step:nth-child(3) {
-	animation-delay: 0.3s;
-}
+.servicio-process__step:nth-child(3) {}
 
-.servicio-process__step:nth-child(4) {
-	animation-delay: 0.4s;
-}
+.servicio-process__step:nth-child(4) {}
 
 .servicio-process__step:hover {
 	background-color: #466060;
@@ -505,7 +527,7 @@
    ===================================================== */
 .servicio-contact {
 	padding: 80px var(--lateral-spacing);
-	background-color: var(--bg-white);
+	background-color: #F9FAFB;
 	display: flex;
 	justify-content: center;
 }
@@ -543,7 +565,6 @@
 }
 
 .servicio-contact__description {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 300;
 	font-size: 15px;
 	line-height: 20px;
@@ -560,7 +581,7 @@
 .servicio-contact__form {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 15px;
 }
 
 .servicio-contact__form-row {
@@ -569,25 +590,15 @@
 	gap: 12px;
 }
 
-.servicio-contact__form-row:nth-child(1) {
-	animation-delay: 0.1s;
-}
+.servicio-contact__form-row:nth-child(1) {}
 
-.servicio-contact__form-row:nth-child(2) {
-	animation-delay: 0.2s;
-}
+.servicio-contact__form-row:nth-child(2) {}
 
-.servicio-contact__form-row:nth-child(3) {
-	animation-delay: 0.3s;
-}
+.servicio-contact__form-row:nth-child(3) {}
 
-.servicio-contact__form-row:nth-child(4) {
-	animation-delay: 0.4s;
-}
+.servicio-contact__form-row:nth-child(4) {}
 
-.servicio-contact__form-row:nth-child(5) {
-	animation-delay: 0.5s;
-}
+.servicio-contact__form-row:nth-child(5) {}
 
 .servicio-contact__form-row--full {
 	grid-template-columns: 1fr;
@@ -611,12 +622,11 @@
 	height: 46px;
 	padding: 12px 14px;
 	border: 1px solid #E5E7EB;
-	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 1.4;
 	letter-spacing: 0px;
-	color: #D1D5DC;
+	color: #99A1AF;
 	box-sizing: border-box;
 	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -625,11 +635,15 @@
 	color: #99A1AF;
 }
 
+.servicio-contact__input:not(:placeholder-shown) {
+	color: #000;
+}
+
 .servicio-contact__input:hover,
 .servicio-contact__input:focus {
 	outline: none;
-	border-color: #E5E7EB;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 0 0 2px rgba(70, 96, 96, 0.15);
+	border-color: #466060;
 }
 
 .servicio-contact__textarea {
@@ -637,22 +651,29 @@
 	min-height: 96px;
 	padding: 12px 14px;
 	border: 1px solid #E5E7EB;
-	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 20px;
 	letter-spacing: 0px;
 	resize: vertical;
-	color: #D1D5DC;
+	color: #99A1AF;
 	box-sizing: border-box;
 	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.servicio-contact__textarea::placeholder {
+	color: #99A1AF;
+}
+
+.servicio-contact__textarea:not(:placeholder-shown) {
+	color: #000;
 }
 
 .servicio-contact__textarea:hover,
 .servicio-contact__textarea:focus {
 	outline: none;
-	border-color: #E5E7EB;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 0 0 2px rgba(70, 96, 96, 0.15);
+	border-color: #466060;
 }
 
 
@@ -661,27 +682,27 @@
 	height: 46px;
 	padding: 14px 24px;
 	background-color: #466060;
-	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
 	letter-spacing: 0.3px;
 	text-align: center;
 	color: #FFFFFF;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 	cursor: pointer;
 	border: none;
 }
 
 .servicio-contact__btn:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	animation: var(--button-animation);
+}
+
+.servicio-contact__btn:focus,
+.servicio-contact__btn:focus-visible {
+	outline: 2px solid #FFFFFF;
+	outline-offset: 2px;
 }
 
 .servicio-contact__footnote {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 15px;
@@ -698,7 +719,6 @@
 }
 
 .servicio-contact__benefits-title {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 16px;
@@ -722,24 +742,15 @@
 	align-items: flex-start;
 }
 
-.servicio-contact__benefit:nth-child(1) {
-	animation-delay: 0.1s;
-}
+.servicio-contact__benefit:nth-child(1) {}
 
-.servicio-contact__benefit:nth-child(2) {
-	animation-delay: 0.2s;
-}
+.servicio-contact__benefit:nth-child(2) {}
 
-.servicio-contact__benefit:nth-child(3) {
-	animation-delay: 0.3s;
-}
+.servicio-contact__benefit:nth-child(3) {}
 
-.servicio-contact__benefit:nth-child(4) {
-	animation-delay: 0.4s;
-}
+.servicio-contact__benefit:nth-child(4) {}
 
 .servicio-contact__benefit-number {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 700;
 	font-size: 20px;
 	line-height: 1.2;
@@ -780,7 +791,6 @@
 	align-items: center;
 	gap: 20px;
 	box-sizing: border-box;
-	animation-delay: 0.6s;
 }
 
 .servicio-contact__direct-info {
@@ -790,7 +800,6 @@
 }
 
 .servicio-contact__direct-title {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 16px;
@@ -799,7 +808,6 @@
 }
 
 .servicio-contact__direct-text {
-	font-family: 'Outfit', sans-serif;
 	font-weight: 300;
 	font-size: 10px;
 	line-height: 15px;
@@ -816,7 +824,6 @@
 	padding: 14px 24px;
 	border: 1px solid #E5E7EB;
 	background-color: #FFFFFF;
-	font-family: 'Outfit', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 18px;
@@ -826,20 +833,23 @@
 	color: #4A5565;
 	cursor: pointer;
 	box-sizing: border-box;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-		box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .servicio-contact__direct-btn:hover {
-	transform: scale(1.02);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	animation: var(--button-animation);
+}
+
+.servicio-contact__direct-btn:focus,
+.servicio-contact__direct-btn:focus-visible {
+	outline: 2px solid #466060;
+	outline-offset: 2px;
 }
 
 /* =====================================================
    RESPONSIVE DESIGN - DESKTOP XL (1440px+)
    ===================================================== */
 @media (min-width: 1025px) and (max-width: 1440px) {
+
 	/* SECTION 1: INTRO SERVICIOS */
 	.servicio-intro {
 		height: 420px;
@@ -851,19 +861,18 @@
 	}
 
 	.servicio-intro__content {
-		padding: 0px var(--lateral-spacing) 0px 0;
 		gap: 16px;
+		max-width: 500px;
 	}
 
 	.servicio-intro__title {
 		font-size: 14px;
 		line-height: 14px;
-		letter-spacing: 0.8px;
 	}
 
 	.servicio-intro__subtitle {
 		font-size: 32px;
-		line-height: 36px;
+		line-height: 32px;
 	}
 
 	.servicio-intro__description {
@@ -895,6 +904,15 @@
 		line-height: 14px;
 	}
 
+	.servicio-intro__stat {
+		flex: 1;
+	}
+
+	.servicio-intro__img {
+		width: 100%;
+		height: 100%;
+	}
+
 	/* SECTION 2: NUESTROS SERVICIOS */
 	.servicio-offers {
 		padding: 50px var(--lateral-spacing);
@@ -912,12 +930,11 @@
 	.servicio-offers__label {
 		font-size: 14px;
 		line-height: 16px;
-		letter-spacing: 0.8px;
 	}
 
 	.servicio-offers__title {
 		font-size: 30px;
-		line-height: 36px;
+		line-height: 30px;
 	}
 
 	.servicio-offers__description {
@@ -933,30 +950,62 @@
 
 	.servicio-offers__item {
 		padding: 20px;
-		height: 220px;
+		height: 320px;
 		gap: 14px;
+	}
+
+	.servicio-offers__header-title {
+		font-size: 14px;
+		line-height: 20px;
+		flex: 0 0 calc(80% - 10px);
+		min-width: 0;
+	}
+
+	.servicio-offers__item-header .servicio-offers__item-duration {
+		flex: 0 0 calc(20% - 10px);
+		white-space: nowrap;
 	}
 
 	.servicio-offers__item-duration {
 		font-size: 8px;
-		line-height: 12px;
-	}
-
-	.servicio-offers__item-level {
-		width: 74px;
-		height: 24px;
-		font-size: 8px;
-		padding: 4px 8px;
+		line-height: 1;
 	}
 
 	.servicio-offers__item-title {
-		font-size: 17px;
-		line-height: 26px;
+		font-size: 11px;
+		line-height: 1;
 	}
 
 	.servicio-offers__item-text {
-		font-size: 12px;
+		font-size: 11px;
 		line-height: 16px;
+	}
+
+	.servicio-offers__item-description {
+		gap: 12px;
+	}
+
+	.servicio-offers__tags {
+		gap: 12px;
+		padding-top: 15px;
+	}
+
+	.servicio-offers__justification-list {
+		gap: 8px;
+	}
+
+	.servicio-offers__justification-item {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.servicio-offers__item-header {
+		gap: 20px;
+	}
+
+	.servicio-offers__tag {
+		font-size: 8px;
+		height: 16px;
 	}
 
 	.servicio-offers__cta {
@@ -988,8 +1037,8 @@
 		flex-shrink: 0;
 	}
 
-	.servicio-offers__cta-btn {
-		width: 140px;
+	.servicio-offers__cta-btn--primary {
+		width: 240px;
 		height: 40px;
 		padding: 10px 20px;
 		font-size: 11px;
@@ -1002,22 +1051,22 @@
 	}
 
 	.servicio-process__container {
-		gap: 28px;
+		gap: 20px;
 	}
 
 	.servicio-process__title {
 		font-size: 30px;
-		line-height: 36px;
+		line-height: 30px;
 	}
 
 	.servicio-process__steps {
 		grid-template-columns: repeat(4, 1fr);
-		gap: 16px;
+		gap: 12px;
 	}
 
 	.servicio-process__step {
-		padding: 18px;
-		height: 150px;
+		padding: 18px 14px;
+		height: 135px;
 	}
 
 	.servicio-process__step-number {
@@ -1032,6 +1081,24 @@
 	.servicio-process__step-description {
 		font-size: 12px;
 		line-height: 18px;
+	}
+
+	.servicio-process__step:hover {
+		background-color: #466060;
+		transform: scale(1.02);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	.servicio-process__step:hover .servicio-process__step-number {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-title {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-description {
+		color: #FFFFFF;
 	}
 
 	/* SECTION 4: SOLICITAR PROPUESTA */
@@ -1050,12 +1117,11 @@
 	.servicio-contact__label {
 		font-size: 14px;
 		line-height: 16px;
-		letter-spacing: 0.8px;
 	}
 
 	.servicio-contact__title {
 		font-size: 30px;
-		line-height: 36px;
+		line-height: 30px;
 	}
 
 	.servicio-contact__description {
@@ -1073,7 +1139,7 @@
 	}
 
 	.servicio-contact__form-row {
-		gap: 12px;
+		gap: 10px;
 	}
 
 	.servicio-contact__label-text {
@@ -1082,20 +1148,20 @@
 	}
 
 	.servicio-contact__input {
-		height: 44px;
+		height: 41px;
 		font-size: 13px;
 		padding: 11px 13px;
 	}
 
 	.servicio-contact__textarea {
-		min-height: 90px;
+		min-height: 86px;
 		font-size: 13px;
 		padding: 11px 13px;
 	}
 
 	.servicio-contact__btn {
-		height: 44px;
-		font-size: 12px;
+		height: 41px;
+		font-size: 11px;
 		padding: 12px 20px;
 	}
 
@@ -1110,7 +1176,7 @@
 	}
 
 	.servicio-contact__benefit-text {
-		font-size: 12px;
+		font-size: 11px;
 		line-height: 18px;
 	}
 
@@ -1131,35 +1197,64 @@
 	}
 
 	.servicio-contact__direct-btn {
-		width: 130px;
+		width: 123px;
 		height: 44px;
 		font-size: 11px;
 		padding: 11px 20px;
 	}
+
+	.servicio-contact__direct-btn:hover {
+		animation: var(--button-animation);
+	}
+
+	.servicio-contact__direct-btn:focus,
+	.servicio-contact__direct-btn:focus-visible {
+		outline: 2px solid #466060;
+		outline-offset: 2px;
+	}
+
+	.servicio-contact__form-group {
+		gap: 8px;
+	}
+
+	.servicio-contact__benefit {
+		gap: 15px;
+	}
+
+	.servicio-contact__benefits {
+		gap: 20px;
+	}
+
+	.servicio-contact__footnote {
+		font-size: 10px;
+		line-height: 15px;
+	}
 }
+
 /* =====================================================
    RESPONSIVE DESIGN - TABLET (769px - 1024px)
    ===================================================== */
-@media (min-width: 769px) and (max-width: 1024px){
+@media (min-width: 769px) and (max-width: 1024px) {
+
 	/* SECTION 1: INTRO SERVICIOS */
 	.servicio-intro {
-		height: 420px;
+		height: 380px;
 	}
 
 	.servicio-intro__features {
+
 		grid-template-columns: 1fr 1fr;
 		gap: 40px;
 	}
 
 	.servicio-intro__content {
-		padding: 0px var(--lateral-spacing) 0px 0;
-		gap: 16px;
+		gap: 14px;
+		max-width: 450px;
 	}
 
 	.servicio-intro__title {
-		font-size: 14px;
-		line-height: 14px;
-		letter-spacing: 0.8px;
+		font-size: 13px;
+		line-height: 13px;
 	}
 
 	.servicio-intro__subtitle {
@@ -1168,17 +1263,17 @@
 	}
 
 	.servicio-intro__description {
-		font-size: 13px;
+		font-size: 12px;
 		line-height: 20px;
 	}
 
 	.servicio-intro__actions {
-		gap: 12px;
+		gap: 11px;
 	}
 
 	.servicio-intro__btn {
 		padding: 10px 18px;
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 14px;
 		gap: 6px;
 	}
@@ -1189,11 +1284,12 @@
 
 	.servicio-intro__stat-number {
 		font-size: 24px;
+		line-height: 24px;
 	}
 
 	.servicio-intro__stat-label {
-		font-size: 9px;
-		line-height: 13px;
+		font-size: 8px;
+		line-height: 12px;
 	}
 
 	/* SECTION 2: NUESTROS SERVICIOS */
@@ -1211,14 +1307,13 @@
 	}
 
 	.servicio-offers__label {
-		font-size: 14px;
+		font-size: 13px;
 		line-height: 16px;
-		letter-spacing: 0.8px;
 	}
 
 	.servicio-offers__title {
 		font-size: 28px;
-		line-height: 32px;
+		line-height: 28px;
 	}
 
 	.servicio-offers__description {
@@ -1234,36 +1329,68 @@
 
 	.servicio-offers__item {
 		padding: 18px;
-		height: 200px;
+		height: 288px;
 		gap: 12px;
 	}
 
 	.servicio-offers__item-duration {
 		font-size: 8px;
-		line-height: 12px;
+		line-height: 1;
 	}
 
-	.servicio-offers__item-level {
-		width: 70px;
-		height: 22px;
-		font-size: 8px;
-		padding: 3px 6px;
+	.servicio-offers__header-title {
+		font-size: 13px;
+		line-height: 18px;
+		flex: 0 0 calc(80% - 10px);
+		min-width: 0;
+	}
+
+	.servicio-offers__item-header .servicio-offers__item-duration {
+		flex: 0 0 calc(20% - 10px);
+		white-space: nowrap;
 	}
 
 	.servicio-offers__item-title {
-		font-size: 16px;
-		line-height: 22px;
+		font-size: 10px;
+		line-height: 1;
 	}
 
 	.servicio-offers__item-text {
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 14px;
+	}
+
+	.servicio-offers__item-description {
+		gap: 10px;
+	}
+
+	.servicio-offers__tags {
+		gap: 10px;
+		padding-top: 12px;
+	}
+
+	.servicio-offers__justification-list {
+		gap: 6px;
+	}
+
+	.servicio-offers__justification-item {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.servicio-offers__item-header {
+		gap: 20px;
+	}
+
+	.servicio-offers__tag {
+		font-size: 8px;
+		height: 16px;
 	}
 
 	.servicio-offers__cta {
 		height: auto;
 		padding: 16px;
-		gap: 30px;
+		gap: 26px;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
@@ -1289,8 +1416,8 @@
 		flex-shrink: 0;
 	}
 
-	.servicio-offers__cta-btn {
-		width: 120px;
+	.servicio-offers__cta-btn--primary {
+		width: 204px;
 		height: 36px;
 		padding: 8px 14px;
 		font-size: 10px;
@@ -1313,11 +1440,11 @@
 
 	.servicio-process__steps {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 20px;
+		gap: 12px;
 	}
 
 	.servicio-process__step {
-		padding: 14px;
+		padding: 14px 12px;
 		height: 120px;
 	}
 
@@ -1326,13 +1453,13 @@
 	}
 
 	.servicio-process__step-title {
-		font-size: 16px;
-		line-height: 22px;
+		font-size: 15px;
+		line-height: 20px;
 	}
 
 	.servicio-process__step-description {
-		font-size: 12px;
-		line-height: 18px;
+		font-size: 11px;
+		line-height: 16px;
 	}
 
 	/* SECTION 4: SOLICITAR PROPUESTA */
@@ -1351,7 +1478,6 @@
 	.servicio-contact__label {
 		font-size: 14px;
 		line-height: 16px;
-		letter-spacing: 0.8px;
 	}
 
 	.servicio-contact__title {
@@ -1374,7 +1500,7 @@
 	}
 
 	.servicio-contact__form-row {
-		gap: 10px;
+		gap: 9px;
 	}
 
 	.servicio-contact__label-text {
@@ -1383,20 +1509,20 @@
 	}
 
 	.servicio-contact__input {
-		height: 40px;
-		font-size: 13px;
+		height: 37px;
+		font-size: 12px;
 		padding: 10px 12px;
 	}
 
 	.servicio-contact__textarea {
-		min-height: 80px;
+		min-height: 77px;
 		font-size: 13px;
 		padding: 10px 12px;
 	}
 
 	.servicio-contact__btn {
-		height: 40px;
-		font-size: 11px;
+		height: 37px;
+		font-size: 10px;
 		padding: 10px 18px;
 	}
 
@@ -1411,7 +1537,7 @@
 	}
 
 	.servicio-contact__benefit-text {
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 16px;
 	}
 
@@ -1432,10 +1558,59 @@
 	}
 
 	.servicio-contact__direct-btn {
-		width: 120px;
+		width: 113px;
 		height: 40px;
 		font-size: 10px;
 		padding: 10px 18px;
+	}
+
+	.servicio-offers__item-header {
+		gap: 20px;
+	}
+
+	.servicio-offers__tag {
+		font-size: 8px;
+		height: 16px;
+	}
+
+	.servicio-process__step:hover {
+		background-color: #466060;
+		transform: scale(1.02);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	.servicio-process__step:hover .servicio-process__step-number {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-title {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-description {
+		color: #FFFFFF;
+	}
+
+	.servicio-contact__direct-btn:hover {
+		animation: var(--button-animation);
+	}
+
+	.servicio-contact__direct-btn:focus,
+	.servicio-contact__direct-btn:focus-visible {
+		outline: 2px solid #466060;
+		outline-offset: 2px;
+	}
+
+	.servicio-contact__form-group {
+		gap: 8px;
+	}
+
+	.servicio-contact__benefit {
+		gap: 15px;
+	}
+
+	.servicio-contact__benefits {
+		gap: 20px;
 	}
 }
 
@@ -1448,6 +1623,7 @@
 	}
 
 	.servicio-intro__features {
+		padding: 0px;
 		display: flex;
 		flex-direction: column;
 		gap: 0;
@@ -1460,27 +1636,18 @@
 	}
 
 	.servicio-intro__title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
 		font-size: 12px;
-		line-height: 1;
-		letter-spacing: 0.08em;
+		line-height: 12px;
 	}
 
 	.servicio-intro__subtitle {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 28px;
-		line-height: 1.15;
-		letter-spacing: 0;
+		font-size: 24px;
+		line-height: 28px;
 	}
 
 	.servicio-intro__description {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 15px;
-		line-height: 1.5;
-		letter-spacing: 0;
+		font-size: 11px;
+		line-height: 18px;
 	}
 
 	.servicio-intro__content {
@@ -1496,16 +1663,14 @@
 	.servicio-intro__actions {
 		flex-direction: column;
 		align-items: flex-start;
+		gap: 10px;
 	}
 
 	.servicio-intro__btn {
 		width: 100%;
 		height: 51px;
-		font-family: 'Inter', sans-serif;
-		font-weight: 600;
-		font-size: 15px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-size: 10px;
+		line-height: 14px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -1518,19 +1683,13 @@
 	}
 
 	.servicio-intro__stat-number {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 28px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-size: 21px;
+		line-height: 21px;
 	}
 
 	.servicio-intro__stat-label {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 10px;
-		line-height: 1;
-		letter-spacing: 0.08em;
+		font-size: 7px;
+		line-height: 11px;
 	}
 
 	.servicio-intro__stats {
@@ -1550,7 +1709,6 @@
 	}
 
 	.servicio-offers__label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 13px;
 		line-height: 1;
@@ -1558,7 +1716,6 @@
 	}
 
 	.servicio-offers__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 26px;
 		line-height: 1;
@@ -1566,58 +1723,121 @@
 	}
 
 	.servicio-offers__description {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-size: 13px;
+		line-height: 18px;
 	}
 
 	.servicio-offers__item {
-		padding: 22px;
+		padding: 16px;
 		height: auto;
 		box-sizing: border-box;
 	}
 
 	.servicio-offers__item-duration {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 11px;
 		line-height: 1;
 		letter-spacing: 0.08em;
 	}
 
-	.servicio-offers__item-title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 18px;
-		line-height: 1;
-		letter-spacing: 0;
+	.servicio-offers__container {
+		gap: 24px;
 	}
 
-	.servicio-offers__item-text {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 13px;
-		line-height: 1.5;
-		letter-spacing: 0;
-	}
-
-	.servicio-offers__tag {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 10px;
-		line-height: 1;
-		letter-spacing: 0;
+	.servicio-offers__header {
+		gap: 10px;
+		max-width: 100%;
 	}
 
 	.servicio-offers__grid {
 		grid-template-columns: 1fr;
-		gap: 18px;
+		gap: 14px;
+		padding-bottom: 32px;
+	}
+
+	.servicio-offers__item-header {
+		gap: 20px;
+	}
+
+	.servicio-offers__header-title {
+		flex: 0 0 calc(80% - 10px);
+		min-width: 0;
+	}
+
+	.servicio-offers__item-header .servicio-offers__item-duration {
+		flex: 0 0 calc(20% - 10px);
+		white-space: nowrap;
+	}
+
+	.servicio-offers__item-title {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	.servicio-offers__item-text {
+		font-size: 9px;
+		line-height: 14px;
+	}
+
+	.servicio-offers__item-description {
+		gap: 10px;
+	}
+
+	.servicio-offers__tags {
+		gap: 10px;
+		padding-top: 12px;
+	}
+
+	.servicio-offers__justification-list {
+		gap: 6px;
+	}
+
+	.servicio-offers__justification-item {
+		font-size: 12px;
+		line-height: 17px;
+	}
+
+	.servicio-offers__tag {
+		font-weight: 400;
+		font-size: 10px;
+		line-height: 1;
+		letter-spacing: 0;
+		height: 16px;
+	}
+
+	.servicio-offers__cta {
+		flex-direction: column;
+		height: auto;
+		gap: 12px;
+		padding: 14px;
+	}
+
+	.servicio-offers__cta-title {
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	.servicio-offers__cta-description {
+		font-weight: 400;
+		font-size: 11px;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	.servicio-offers__cta-actions {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.servicio-offers__cta-btn--primary {
+		width: 100%;
+		height: 32px;
+		padding: 6px 8px;
 	}
 
 	.servicio-contact__label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 13px;
 		line-height: 1;
@@ -1625,7 +1845,6 @@
 	}
 
 	.servicio-contact__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1.3;
@@ -1633,29 +1852,28 @@
 	}
 
 	.servicio-contact__description {
-		font-family: 'Inter', sans-serif;
-		font-weight: 300;
-		font-size: 14px;
-		line-height: 1.3;
-		letter-spacing: 0;
+		font-size: 13px;
+		line-height: 18px;
 	}
 
 	.servicio-contact__label-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
-		font-size: 13px;
+		font-size: 12px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.servicio-contact__input {
-		height: 47px;
+		height: 33px;
+		padding: 8px 10px;
+		font-size: 11px;
+		line-height: 1.4;
+	}
+
+	.servicio-contact__textarea {
+		min-height: 69px;
+		font-size: 11px;
 		padding: 16px 18px;
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 15px;
-		line-height: 1;
-		letter-spacing: 0;
 	}
 
 	.servicio-contact__content {
@@ -1664,20 +1882,18 @@
 	}
 
 	.servicio-contact__benefits-list {
-		gap: 32px;
+		gap: 17px;
 	}
 
 	.servicio-contact__btn {
-		height: 50px;
-		font-family: 'Inter', sans-serif;
+		height: 33px;
 		font-weight: 700;
-		font-size: 14px;
+		font-size: 9px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
 
 	.servicio-contact__benefits-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 13px;
 		line-height: 1;
@@ -1685,7 +1901,6 @@
 	}
 
 	.servicio-contact__benefit-number {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 17px;
 		line-height: 1;
@@ -1693,19 +1908,13 @@
 	}
 
 	.servicio-contact__benefit-title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 15px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-size: 12px;
+		line-height: 16px;
 	}
 
 	.servicio-contact__benefit-text {
-		font-family: 'Inter', sans-serif;
-		font-weight: 300;
-		font-size: 13px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-size: 9px;
+		line-height: 15px;
 	}
 
 	.servicio-contact__direct {
@@ -1719,10 +1928,9 @@
 	.servicio-contact__direct-btn {
 		width: 100%;
 		padding: 22px;
-		height: 51px;
-		font-family: 'Inter', sans-serif;
+		height: 35px;
 		font-weight: 600;
-		font-size: 14px;
+		font-size: 9px;
 		line-height: 1;
 		letter-spacing: 0;
 		display: flex;
@@ -1731,6 +1939,11 @@
 	}
 
 	.servicio-contact__form-row {
+		grid-template-columns: 1fr 1fr;
+		gap: 9px;
+	}
+
+	.servicio-contact__form-row--full {
 		grid-template-columns: 1fr;
 	}
 
@@ -1739,7 +1952,6 @@
 	}
 
 	.servicio-process__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 26px;
 		line-height: 1.3;
@@ -1748,38 +1960,31 @@
 	}
 
 	.servicio-process__step {
-		padding: 22px;
-		height: 140px;
+		padding: 10px;
+		height: 100px;
 		gap: 6px;
 	}
 
 	.servicio-process__step-number {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 22px;
-		line-height: 1.3;
-		letter-spacing: 0;
+		font-size: 17px;
+		line-height: 17px;
 	}
 
 	.servicio-process__step-title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 18px;
-		line-height: 1.3;
-		letter-spacing: 0;
+		font-size: 13px;
+		line-height: 18px;
 	}
 
 	.servicio-process__step-description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
-		font-size: 14px;
-		line-height: 1.5;
+		font-size: 9px;
+		line-height: 13px;
 		letter-spacing: 0;
 	}
 
 	.servicio-process__steps {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 16px;
+		gap: 10px;
 	}
 
 	.servicio-offers__cta {
@@ -1790,7 +1995,6 @@
 	}
 
 	.servicio-offers__cta-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1.3;
@@ -1798,7 +2002,6 @@
 	}
 
 	.servicio-offers__cta-description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1.3;
@@ -1810,15 +2013,53 @@
 		width: 100%;
 	}
 
-	.servicio-offers__cta-btn {
-		width: 100%;
-		height: 46px;
+	.servicio-offers__item-header {
+		gap: 20px;
 	}
 
-	.servicio-offers__cta-btn--primary,
-	.servicio-offers__cta-btn--whatsapp {
-		width: 100%;
-		height: 46px;
+	.servicio-offers__tag {
+		font-size: 8px;
+		height: 16px;
+	}
+
+	.servicio-process__step:hover {
+		background-color: #466060;
+		transform: scale(1.02);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+
+	.servicio-process__step:hover .servicio-process__step-number {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-title {
+		color: #FFFFFF;
+	}
+
+	.servicio-process__step:hover .servicio-process__step-description {
+		color: #FFFFFF;
+	}
+
+	.servicio-contact__direct-btn:hover {
+		animation: var(--button-animation);
+	}
+
+	.servicio-contact__direct-btn:focus,
+	.servicio-contact__direct-btn:focus-visible {
+		outline: 2px solid #466060;
+		outline-offset: 2px;
+	}
+
+	.servicio-contact__form-group {
+		gap: 8px;
+	}
+
+	.servicio-contact__benefit {
+		gap: 15px;
+	}
+
+	.servicio-contact__benefits {
+		gap: 20px;
 	}
 }
 
@@ -1832,6 +2073,7 @@
 
 	.servicio-intro__features {
 		display: flex;
+		padding: 0;
 		flex-direction: column;
 		gap: 0;
 		align-items: flex-start;
@@ -1843,32 +2085,23 @@
 	}
 
 	.servicio-intro__title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
 		font-size: 11px;
-		line-height: 1;
-		letter-spacing: 0.08em;
+		line-height: 11px;
 	}
 
 	.servicio-intro__subtitle {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
 		font-size: 26px;
-		line-height: 1.15;
-		letter-spacing: 0;
+		line-height: 30px;
 	}
 
 	.servicio-intro__description {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1.5;
-		letter-spacing: 0;
+		font-size: 13px;
+		line-height: 20px;
 	}
 
 	.servicio-intro__content {
 		width: 100%;
-		gap: 10px;
+		gap: 20px;
 		padding: 32px var(--lateral-spacing) 32px var(--lateral-spacing);
 		max-width: 100%;
 		box-sizing: border-box;
@@ -1884,7 +2117,6 @@
 	.servicio-intro__btn {
 		width: 100%;
 		height: 49px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 14px;
 		line-height: 1;
@@ -1901,7 +2133,6 @@
 	}
 
 	.servicio-intro__stat-number {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 26px;
 		line-height: 1;
@@ -1909,7 +2140,6 @@
 	}
 
 	.servicio-intro__stat-label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 9px;
 		line-height: 1;
@@ -1938,15 +2168,13 @@
 	}
 
 	.servicio-offers__label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 12px;
-		line-height: 1;
-		letter-spacing: 0.06em;
+		line-height: 100%;
+		letter-spacing: 6%;
 	}
 
 	.servicio-offers__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1;
@@ -1954,7 +2182,6 @@
 	}
 
 	.servicio-offers__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1;
@@ -1963,36 +2190,44 @@
 
 	.servicio-offers__item {
 		padding: 20px;
-		height: auto;
+		height: 370px;
+		gap: 12px;
 		box-sizing: border-box;
 	}
 
 	.servicio-offers__item-duration {
-		font-family: 'Inter', sans-serif;
-		font-weight: 700;
-		font-size: 10px;
-		line-height: 1;
-		letter-spacing: 0.08em;
+		display: none;
+	}
+
+	.servicio-offers__header-title {
+		font-weight: 400;
+		font-size: 17px;
+		line-height: 22px;
+		letter-spacing: 0%;
 	}
 
 	.servicio-offers__item-title {
-		font-family: 'Inter', sans-serif;
-		font-weight: 400;
-		font-size: 17px;
-		line-height: 1;
-		letter-spacing: 0;
+		font-weight: 700;
+		font-size: 10px;
+		line-height: 100%;
+		letter-spacing: 0.8px;
 	}
 
 	.servicio-offers__item-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 12px;
-		line-height: 1.5;
-		letter-spacing: 0;
+		line-height: 18px;
+		letter-spacing: 0%;
+	}
+
+	.servicio-offers__justification-item {
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 17px;
+		letter-spacing: 0%;
 	}
 
 	.servicio-offers__tag {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 9px;
 		line-height: 1;
@@ -2005,7 +2240,6 @@
 	}
 
 	.servicio-contact__label {
-		font-family: 'Inter', sans-serif;
 		font-weight: 500;
 		font-size: 12px;
 		line-height: 1;
@@ -2013,7 +2247,6 @@
 	}
 
 	.servicio-contact__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 22px;
 		line-height: 1.3;
@@ -2021,7 +2254,6 @@
 	}
 
 	.servicio-contact__description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 13px;
 		line-height: 1.3;
@@ -2029,7 +2261,6 @@
 	}
 
 	.servicio-contact__label-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 1;
@@ -2039,7 +2270,6 @@
 	.servicio-contact__input {
 		height: 45px;
 		padding: 14px 16px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1;
@@ -2057,7 +2287,6 @@
 
 	.servicio-contact__btn {
 		height: 48px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 13px;
 		line-height: 1;
@@ -2065,7 +2294,6 @@
 	}
 
 	.servicio-contact__benefits-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 12px;
 		line-height: 1;
@@ -2073,7 +2301,6 @@
 	}
 
 	.servicio-contact__benefit-number {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 16px;
 		line-height: 1;
@@ -2081,7 +2308,6 @@
 	}
 
 	.servicio-contact__benefit-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 1;
@@ -2089,7 +2315,6 @@
 	}
 
 	.servicio-contact__benefit-text {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 12px;
 		line-height: 1;
@@ -2108,7 +2333,6 @@
 		width: 100%;
 		padding: 20px;
 		height: 49px;
-		font-family: 'Inter', sans-serif;
 		font-weight: 600;
 		font-size: 13px;
 		line-height: 1;
@@ -2132,7 +2356,6 @@
 	}
 
 	.servicio-process__title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 24px;
 		line-height: 1.3;
@@ -2147,7 +2370,6 @@
 	}
 
 	.servicio-process__step-number {
-		font-family: 'Inter', sans-serif;
 		font-weight: 700;
 		font-size: 20px;
 		line-height: 1.3;
@@ -2155,7 +2377,6 @@
 	}
 
 	.servicio-process__step-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 17px;
 		line-height: 1.3;
@@ -2163,7 +2384,6 @@
 	}
 
 	.servicio-process__step-description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 300;
 		font-size: 13px;
 		line-height: 1.5;
@@ -2179,10 +2399,10 @@
 		height: auto;
 		gap: 12px;
 		padding: 20px;
+		align-items: unset;
 	}
 
 	.servicio-offers__cta-title {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1.3;
@@ -2190,7 +2410,6 @@
 	}
 
 	.servicio-offers__cta-description {
-		font-family: 'Inter', sans-serif;
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 1.3;
@@ -2202,14 +2421,9 @@
 		width: 100%;
 	}
 
-	.servicio-offers__cta-btn {
+	.servicio-offers__cta-btn--primary {
 		width: 100%;
 		height: 44px;
 	}
 
-	.servicio-offers__cta-btn--primary,
-	.servicio-offers__cta-btn--whatsapp {
-		width: 100%;
-		height: 44px;
-	}
 }

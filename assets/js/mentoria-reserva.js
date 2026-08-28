@@ -14,7 +14,7 @@
 			wc_id: null,
 			name: 'Entrada',
 			meta: '4 sesiones · 60 min c/u',
-			price: 'S/ 490',
+			price: 'S/ 800',
 			unit: 'mes',
 			features: ['Sesiones individuales', 'Acceso a recursos básicos', 'Soporte vía email', 'Plan de acción inicial']
 		},
@@ -23,7 +23,7 @@
 			wc_id: null,
 			name: 'Pro',
 			meta: '8 sesiones · 60 min c/u',
-			price: 'S/ 890',
+			price: 'S/ 1200',
 			unit: 'mes',
 			features: ['Todo lo del plan Entrada', 'Materiales personalizados', 'Grabación de sesiones', 'Revisión de métricas y resultados', 'Prioridad en agenda']
 		},
@@ -32,7 +32,7 @@
 			wc_id: null,
 			name: 'Sesión puntual',
 			meta: '1 sesión · 90 min',
-			price: 'S/ 180',
+			price: 'S/ 250',
 			unit: 'sesión',
 			features: ['Una sesión completa', 'Diagnóstico inicial', 'Plan de acción específico', 'Seguimiento por correo']
 		},
@@ -41,6 +41,27 @@
 	const WEEK_DAYS = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
 	const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 	const TIME_SLOTS = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00'];
+
+	const DOM_SELECTORS = {
+		plansContainer: '#mentoriaPlans',
+		calendarCard: '#mentoriaCalendarCard',
+		formCard: '#mentoriaFormCard',
+		continueBtn: '#mentoriaContinueBtn',
+		agendaSub: '#agendaSub',
+		submitBtn: '#mentoriaSubmitBtn',
+		monthLabel: '#mentoriaMonthLabel',
+		dowContainer: '#mentoriaDow',
+		daysContainer: '#mentoriaDays',
+		timeSlots: '#mentoriaTimeSlots',
+		prevMonth: '#mentoriaPrevMonth',
+		nextMonth: '#mentoriaNextMonth',
+		whatsappBtn: '.mentoria-reserva__whatsapp-btn',
+		calNav: '.mentoria-reserva__cal-nav',
+		calWeekdays: '.mentoria-reserva__cal-weekdays',
+		calDays: '.mentoria-reserva__cal-days',
+		calendarSection: '.mentoria-reserva__calendar-section',
+		sidebar: '.mentoria-reserva__sidebar',
+	};
 
 	const config = {
 		ajaxUrl: (typeof avanceFormConfig !== 'undefined' && avanceFormConfig.ajaxUrl)
@@ -110,6 +131,61 @@
 				}
 			});
 		});
+
+		// Renderizar botón SOLO en mobile
+		if (isMobile480()) {
+			renderContinueButton();
+		}
+	}
+
+	function renderContinueButton() {
+		let continueBtn = document.getElementById('mentoriaContinueBtn');
+		const isMobile = isMobile480();
+
+		if (isMobile) {
+			// Crear botón SOLO en mobile
+			if (!continueBtn) {
+				const container = document.getElementById('mentoriaPlans');
+				if (!container) return;
+
+				continueBtn = document.createElement('button');
+				continueBtn.type = 'button';
+				continueBtn.id = 'mentoriaContinueBtn';
+				continueBtn.className = 'mentoria-reserva__continue-btn';
+				continueBtn.textContent = 'Continuar reserva';
+				container.parentNode.insertBefore(continueBtn, container.nextSibling);
+
+				// Agregar event listener SOLO UNA VEZ
+				continueBtn.addEventListener('click', () => {
+					if (state.selectedPlan) {
+						const calendarCard = document.getElementById('mentoriaCalendarCard');
+						const plansContainer = document.getElementById('mentoriaPlans');
+						if (plansContainer) plansContainer.classList.add('is-hidden');
+						if (calendarCard) {
+							calendarCard.classList.remove('is-hidden');
+							calendarCard.classList.add('is-visible');
+							setTimeout(() => {
+								calendarCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+							}, 350);
+						}
+						continueBtn.style.display = 'none';
+					}
+				});
+			}
+
+			// Actualizar estado del botón en mobile
+			if (continueBtn) {
+				continueBtn.disabled = !state.selectedPlan;
+				if (state.selectedPlan && !state.selectedDay && !state.selectedTime) {
+					continueBtn.style.display = 'block';
+				}
+			}
+		} else {
+			// En desktop: remover botón si existe
+			if (continueBtn) {
+				continueBtn.remove();
+			}
+		}
 	}
 
 	function handlePlanSelect() {
@@ -126,55 +202,67 @@
 		return window.innerWidth <= 479;
 	}
 
+	function toggleElement(selector, show) {
+		const el = document.querySelector(selector);
+		if (!el) return;
+		if (show) {
+			el.classList.remove('is-hidden');
+			el.classList.add('is-visible');
+		} else {
+			el.classList.add('is-hidden');
+			el.classList.remove('is-visible');
+		}
+	}
+
+	function getElement(selector) {
+		return document.querySelector(selector);
+	}
+
+	function setElementText(selector, text) {
+		const el = getElement(selector);
+		if (el) el.textContent = text;
+	}
+
 	function renderAgenda() {
 		const plan = PLANS.find(p => p.id === state.selectedPlan);
 
-		const agendaSub = document.getElementById('agendaSub');
-		if (agendaSub) {
-			agendaSub.textContent = plan ? `${plan.name} · ${plan.price}/${plan.unit}` : 'Selecciona un plan';
-		}
+		setElementText(DOM_SELECTORS.agendaSub, plan ? `${plan.name} · ${plan.price}/${plan.unit}` : 'Selecciona un plan');
 
-		const submitBtn = document.getElementById('mentoriaSubmitBtn');
+		const submitBtn = getElement(DOM_SELECTORS.submitBtn);
 		if (submitBtn) {
 			submitBtn.textContent = plan ? `Confirmar reserva · ${plan.price}/${plan.unit} →` : 'Selecciona un plan primero';
 			submitBtn.disabled = !plan;
 		}
 
-		// Controlar visibilidad por pasos SOLO en 479px (mobile)
-		const isMobile = isMobile480();
-		if (!isMobile) {
-			// NO aplicar lógica a otras resoluciones
-			return;
-		}
-
-		const plansContainer = document.getElementById('mentoriaPlans');
-		const sidebar = document.querySelector('.mentoria-reserva__sidebar');
-
-		if (!sidebar) return;
-
-		const cards = sidebar.querySelectorAll('.mentoria-reserva__card');
-
 		if (!plan) {
-			// Paso 1: Mostrar planes, ocultar tarjetas (479px)
-			if (plansContainer) plansContainer.style.display = 'flex';
-			cards.forEach(card => card.style.display = 'none');
+			toggleElement(DOM_SELECTORS.plansContainer, true);
+			toggleElement(DOM_SELECTORS.calendarCard, false);
+			toggleElement(DOM_SELECTORS.formCard, false);
 		} else if (!state.selectedDay || !state.selectedTime) {
-			// Paso 2: Ocultar planes, mostrar calendario (479px)
-			if (plansContainer) plansContainer.style.display = 'none';
-			if (cards[0]) cards[0].style.display = 'flex';
-			if (cards[1]) cards[1].style.display = 'none';
+			if (isMobile480()) {
+				toggleElement(DOM_SELECTORS.plansContainer, true);
+				toggleElement(DOM_SELECTORS.calendarCard, false);
+				toggleElement(DOM_SELECTORS.formCard, false);
+			} else {
+				toggleElement(DOM_SELECTORS.plansContainer, true);
+				toggleElement(DOM_SELECTORS.calendarCard, true);
+				toggleElement(DOM_SELECTORS.formCard, true);
+			}
 		} else {
-			// Paso 3: Ocultar calendario, mostrar formulario (479px)
-			if (plansContainer) plansContainer.style.display = 'none';
-			if (cards[0]) cards[0].style.display = 'none';
-			if (cards[1]) cards[1].style.display = 'flex';
+			toggleElement(DOM_SELECTORS.plansContainer, false);
+			toggleElement(DOM_SELECTORS.calendarCard, false);
+			toggleElement(DOM_SELECTORS.formCard, true);
+			const continueBtn = getElement(DOM_SELECTORS.continueBtn);
+			if (continueBtn && isMobile480()) {
+				continueBtn.style.display = 'none';
+			}
 		}
 	}
 
 	function renderCalendar() {
-		const monthLabel = document.getElementById('mentoriaMonthLabel');
-		const dowContainer = document.getElementById('mentoriaDow');
-		const daysContainer = document.getElementById('mentoriaDays');
+		const monthLabel = getElement(DOM_SELECTORS.monthLabel);
+		const dowContainer = getElement(DOM_SELECTORS.dowContainer);
+		const daysContainer = getElement(DOM_SELECTORS.daysContainer);
 
 		if (!monthLabel || !dowContainer || !daysContainer) return;
 
@@ -206,38 +294,35 @@
 		});
 	}
 
+	function toggleCalendarDisplay(show) {
+		const elements = [DOM_SELECTORS.calNav, DOM_SELECTORS.calWeekdays, DOM_SELECTORS.calDays];
+		elements.forEach(selector => {
+			const el = getElement(selector);
+			if (el) el.style.display = show ? (selector === DOM_SELECTORS.calNav ? 'flex' : 'grid') : 'none';
+		});
+	}
+
 	function renderTimeSlots() {
-		let timeContainer = document.getElementById('mentoriaTimeSlots');
+		let timeContainer = getElement(DOM_SELECTORS.timeSlots);
 
 		if (!timeContainer) {
-			const calendarSection = document.querySelector('.mentoria-reserva__calendar-section');
+			const calendarSection = getElement(DOM_SELECTORS.calendarSection);
 			if (!calendarSection) return;
 
 			timeContainer = document.createElement('div');
 			timeContainer.id = 'mentoriaTimeSlots';
 			timeContainer.className = 'mentoria-reserva__time-slots';
-			calendarSection.insertBefore(timeContainer, calendarSection.querySelector('.mentoria-reserva__tz'));
+			const tz = calendarSection.querySelector('.mentoria-reserva__tz');
+			calendarSection.insertBefore(timeContainer, tz);
 		}
 
 		if (!state.selectedDay) {
 			timeContainer.innerHTML = '';
-			// Mostrar calendario cuando no hay día seleccionado
-			const calNav = document.querySelector('.mentoria-reserva__cal-nav');
-			const calWeekdays = document.querySelector('.mentoria-reserva__cal-weekdays');
-			const calDays = document.querySelector('.mentoria-reserva__cal-days');
-			if (calNav) calNav.style.display = 'flex';
-			if (calWeekdays) calWeekdays.style.display = 'grid';
-			if (calDays) calDays.style.display = 'grid';
+			toggleCalendarDisplay(true);
 			return;
 		}
 
-		// Ocultar calendario cuando hay día seleccionado
-		const calNav = document.querySelector('.mentoria-reserva__cal-nav');
-		const calWeekdays = document.querySelector('.mentoria-reserva__cal-weekdays');
-		const calDays = document.querySelector('.mentoria-reserva__cal-days');
-		if (calNav) calNav.style.display = 'none';
-		if (calWeekdays) calWeekdays.style.display = 'none';
-		if (calDays) calDays.style.display = 'none';
+		toggleCalendarDisplay(false);
 
 		timeContainer.innerHTML = `<div class="mentoria-reserva__time-label">Elige una hora:</div>
 			${TIME_SLOTS.map(time => `
@@ -255,41 +340,28 @@
 		});
 	}
 
+	function changeMonth(offset) {
+		state.month += offset;
+		if (state.month < 0) {
+			state.month = 11;
+			state.year--;
+		} else if (state.month > 11) {
+			state.month = 0;
+			state.year++;
+		}
+		renderCalendar();
+	}
+
 	function attachEventListeners() {
-		const prevBtn = document.getElementById('mentoriaPrevMonth');
-		const nextBtn = document.getElementById('mentoriaNextMonth');
-		const submitBtn = document.getElementById('mentoriaSubmitBtn');
-		const whatsappBtn = document.querySelector('.mentoria-reserva__whatsapp-btn');
+		const prevBtn = getElement(DOM_SELECTORS.prevMonth);
+		const nextBtn = getElement(DOM_SELECTORS.nextMonth);
+		const submitBtn = getElement(DOM_SELECTORS.submitBtn);
+		const whatsappBtn = getElement(DOM_SELECTORS.whatsappBtn);
 
-		if (prevBtn) {
-			prevBtn.addEventListener('click', () => {
-				state.month--;
-				if (state.month < 0) {
-					state.month = 11;
-					state.year--;
-				}
-				renderCalendar();
-			});
-		}
-
-		if (nextBtn) {
-			nextBtn.addEventListener('click', () => {
-				state.month++;
-				if (state.month > 11) {
-					state.month = 0;
-					state.year++;
-				}
-				renderCalendar();
-			});
-		}
-
-		if (submitBtn) {
-			submitBtn.addEventListener('click', handleSubmit);
-		}
-
-		if (whatsappBtn) {
-			whatsappBtn.addEventListener('click', handleWhatsAppButton);
-		}
+		if (prevBtn) prevBtn.addEventListener('click', () => changeMonth(-1));
+		if (nextBtn) nextBtn.addEventListener('click', () => changeMonth(1));
+		if (submitBtn) submitBtn.addEventListener('click', handleSubmit);
+		if (whatsappBtn) whatsappBtn.addEventListener('click', handleWhatsAppButton);
 	}
 
 	function handleSubmit(e) {
@@ -309,14 +381,16 @@
 
 	function getFormData() {
 		const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+		const selectedDate = window.mentoriaSelectedDate || state;
+		const selectedTime = window.mentoriaSelectedTime || state.selectedTime;
 		return {
 			nombre: getFieldValue('mentoriaName'),
 			whatsapp: getFieldValue('mentoriaWhatsapp'),
 			email: getFieldValue('mentoriaEmail'),
 			desafio: getFieldValue('mentoriaDesafio'),
 			plan: state.selectedPlan,
-			fecha: state.selectedDay ? `${state.selectedDay}/${state.month + 1}/${state.year}` : '',
-			hora: state.selectedTime || '',
+			fecha: selectedDate.day ? `${selectedDate.day}/${selectedDate.month + 1}/${selectedDate.year}` : '',
+			hora: selectedTime || '',
 			payment_method: paymentMethod ? paymentMethod.value : 'visa',
 		};
 	}
@@ -431,26 +505,24 @@
 		renderCalendar();
 	}
 
-	function showError(message) {
-		const container = document.querySelector('.mentoria-reserva__sidebar');
+	function showMessage(message, type = 'error') {
+		const container = getElement(DOM_SELECTORS.sidebar);
 		if (!container) return;
 
-		const errorDiv = document.createElement('div');
-		errorDiv.style.cssText = 'background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; position: absolute; top: 0; left: 0; right: 0; z-index: 1000;';
-		errorDiv.textContent = message;
-		container.insertBefore(errorDiv, container.firstChild);
-		setTimeout(() => errorDiv.remove(), 4000);
+		const messageDiv = document.createElement('div');
+		messageDiv.className = `mentoria-reserva__message mentoria-reserva__message--${type}`;
+		messageDiv.textContent = message;
+		messageDiv.setAttribute('role', 'alert');
+		container.insertBefore(messageDiv, container.firstChild);
+		setTimeout(() => messageDiv.remove(), 4000);
+	}
+
+	function showError(message) {
+		showMessage(message, 'error');
 	}
 
 	function showSuccess(message) {
-		const container = document.querySelector('.mentoria-reserva__sidebar');
-		if (!container) return;
-
-		const successDiv = document.createElement('div');
-		successDiv.style.cssText = 'background-color: #efe; border: 1px solid #cfc; color: #3c3; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; position: absolute; top: 0; left: 0; right: 0; z-index: 1000;';
-		successDiv.textContent = message;
-		container.insertBefore(successDiv, container.firstChild);
-		setTimeout(() => successDiv.remove(), 4000);
+		showMessage(message, 'success');
 	}
 
 	if (document.readyState === 'loading') {

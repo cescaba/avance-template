@@ -3,11 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const WEEK_DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const TIME_SLOTS = ['09:00', '10:00', '11:00', '14:00', '15:00'];
 
-	const calGrid = document.querySelector('[id$="CalGrid"]');
-	const monthLabel = document.querySelector('[id$="MonthLabel"]');
-	const prevMonthBtn = document.querySelector('[id$="PrevMonth"]');
-	const nextMonthBtn = document.querySelector('[id$="NextMonth"]');
-	const timeContainer = document.querySelector('[id$="TimeSlots"]');
+	const calendarSection = document.querySelector('[id$="scheduling-section"], [id$="mentoriaAgendaTimeSlots"]') || document.querySelector('section.contacto-agenda');
+	const calGrid = calendarSection?.querySelector('[id$="CalGrid"]');
+	const monthLabel = calendarSection?.querySelector('[id$="MonthLabel"]');
+	const prevMonthBtn = calendarSection?.querySelector('[id$="PrevMonth"]');
+	const nextMonthBtn = calendarSection?.querySelector('[id$="NextMonth"]');
+	const timeContainer = calendarSection?.querySelector('[id$="TimeSlots"]');
 
 	if (!calGrid || !monthLabel) {
 		return;

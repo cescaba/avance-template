@@ -80,7 +80,22 @@ function initDiagnosticoElements() {
 }
 
 function renderDiagnosticoQuestion() {
+	if (!diagnosticoQuestionText || !diagnosticoOptionsList) {
+		console.error('Elementos no inicializados correctamente');
+		return;
+	}
+
+	if (diagnosticoCurrentIndex < 0 || diagnosticoCurrentIndex >= DIAGNOSTICO_QUESTIONS.length) {
+		diagnosticoCurrentIndex = 0;
+		clearDiagnosticoState();
+	}
+
 	const q = DIAGNOSTICO_QUESTIONS[diagnosticoCurrentIndex];
+	if (!q) {
+		console.error('Pregunta no encontrada en índice:', diagnosticoCurrentIndex);
+		return;
+	}
+
 	diagnosticoQuestionTag.textContent = `PREGUNTA ${diagnosticoCurrentIndex + 1} DE ${DIAGNOSTICO_QUESTIONS.length}`;
 	diagnosticoQuestionText.textContent = q.text;
 	diagnosticoOptionsList.innerHTML = '';
@@ -225,6 +240,7 @@ function showDiagnosticoNotification(message, type = 'error') {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+	clearDiagnosticoState();
 	initDiagnosticoElements();
 	renderDiagnosticoQuestion();
 	if (diagnosticoOptionsList) {

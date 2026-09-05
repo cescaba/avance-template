@@ -155,6 +155,10 @@ class Avance_Core_Service {
 
         // Forms system
         wp_enqueue_script('avance-forms', $theme_uri . '/assets/js/forms.js', [], $version, true);
+        wp_localize_script('avance-forms', 'avanceDiagnosticoConfig', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('form_diagnostico'),
+        ]);
 
         // Custom selects
         wp_enqueue_script('scheduling-select', $theme_uri . '/assets/js/scheduling-select.js', [], $version, true);

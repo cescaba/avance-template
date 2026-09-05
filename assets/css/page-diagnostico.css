@@ -181,24 +181,41 @@
 	transform: none;
 }
 
+.diagnostico-quiz__form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.diagnostico-quiz__form-field {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .diagnostico-quiz__form-field label {
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 20px;
-	letter-spacing: 0px;
-	color: #364153;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.4;
+	color: rgb(106, 114, 130);
 }
 
 .diagnostico-quiz__form-input {
-	height: 44px;
+	width: 100%;
+	font-family: Inter, sans-serif;
 	font-weight: 400;
 	font-size: 14px;
-	line-height: 1;
-	letter-spacing: 0px;
-	color: #2C2629;
+	color: rgb(0, 0, 0);
+	line-height: 1.5;
+	height: 46px;
+	background-color: var(--bg-white);
 	box-sizing: border-box;
-	border: 1px solid #E5E7EB;
-	transition: none;
+	padding: 12px 16px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(208, 213, 224);
+	border-image: none;
+	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .diagnostico-quiz__form-input::placeholder {
@@ -217,9 +234,8 @@
 }
 
 .diagnostico-quiz__form-submit {
-	text-align: center;
 	width: 100%;
-	height: 44px;
+	height: 48px;
 	padding: 0 24px;
 	background-color: #466060;
 	border: 1px solid #466060;
@@ -232,9 +248,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	box-sizing: border-box;
 	opacity: 1;
 	transform: none;
-	box-sizing: border-box;
 }
 
 .diagnostico-quiz__form-submit:hover {
@@ -317,7 +333,6 @@
 	border: 1px solid #E5E7EB;
 	gap: 10px;
 	height: 48px;
-	width: 165px;
 	padding: 14px 24px;
 	font-size: 12px;
 	font-weight: 400;
@@ -450,7 +465,6 @@
 
 	.diagnostico-cta__btn {
 		height: 43px;
-		width: 149px;
 		padding: 12px 22px;
 		font-size: 11px;
 		line-height: 16px;
@@ -458,29 +472,295 @@
 	}
 
 	.diagnostico-quiz__form {
-		gap: 10px;
+		gap: 18px;
 	}
 
 	.diagnostico-quiz__form-field {
-		gap: 5px;
+		gap: 9px;
 	}
 
 	.diagnostico-quiz__form-field label {
-		font-size: 11px;
-		line-height: 18px;
+		font-size: 14px;
+		line-height: 1.4;
 	}
 
 	.diagnostico-quiz__form-input {
-		height: 36px !important;
-		font-size: 12px;
-		padding: 8px 12px !important;
+		height: 42px;
+		font-size: 13px;
+		padding: 10px 14px;
 	}
 
 	.diagnostico-quiz__form-submit {
-		height: 36px;
-		font-size: 13px;
+		width: 100%;
+		height: 44px;
 		padding: 0 20px;
-		margin-top: 8px;
+		background-color: #466060;
+		border: 1px solid #466060;
+		color: #FFFFFF;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 20px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+
+	.diagnostico-quiz__view {
+		gap: 22px;
+	}
+
+	.diagnostico-quiz__result {
+		gap: 22px;
+	}
+
+	.diagnostico-quiz__progress-fill {
+		width: 0%;
+	}
+
+	.diagnostico-quiz__btn--primary {
+		border: 1px solid #98BFBF;
+		background-color: #466060;
+		color: var(--text-white);
+	}
+
+	.diagnostico-quiz__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__btn--ghost {
+		border: 1px solid #E5E7EB;
+		background-color: var(--bg-white);
+		color: #2C2629;
+	}
+
+	.diagnostico-quiz__btn--ghost:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--primary {
+		background-color: #466060;
+		color: var(--text-white);
+		border: 1px solid #466060;
+	}
+
+	.diagnostico-cta__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--secondary {
+		background-color: var(--bg-white);
+		color: #2C2629;
+		border: 1px solid #E5E7EB;
+	}
+
+	.diagnostico-cta__btn--secondary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__tag--accent {
+		border-color: #98BFBF;
+		color: #6FA593;
+	}
+
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
+   ===================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+	.diagnostico-hero__bg {
+		height: 420px;
+		background-position: left center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.diagnostico-hero__container {
+		width: 100%;
+		max-width: 540px;
+		gap: 11px;
+	}
+
+	.diagnostico-hero__label {
+		font-size: 18px;
+		line-height: 18px;
+		letter-spacing: 0.95px;
+	}
+
+	.diagnostico-hero__title {
+		font-size: 42px;
+		line-height: 42px;
+	}
+
+	.diagnostico-hero__description {
+		font-size: 16px;
+		line-height: 26px;
+		padding-bottom: 9px;
+	}
+
+	.diagnostico-hero__content {
+		height: 40px;
+		gap: 11px;
+		padding-top: 11px;
+	}
+
+	.diagnostico-quiz {
+		padding: 45px var(--lateral-spacing);
+	}
+
+	.diagnostico-quiz__container {
+		max-width: 640px;
+	}
+
+	.diagnostico-quiz__progress-track {
+		margin-bottom: 36px;
+		height: 4px;
+	}
+
+	.diagnostico-quiz__tag {
+		font-size: 13px;
+		line-height: 15px;
+		letter-spacing: 0.9px;
+	}
+
+	.diagnostico-quiz__title {
+		font-size: 27px;
+		line-height: 32px;
+	}
+
+	.diagnostico-quiz__description {
+		font-size: 13px;
+		line-height: 19px;
+	}
+
+	.diagnostico-quiz__options {
+		gap: 7px;
+	}
+
+	.diagnostico-quiz__option-btn {
+		padding: 13px 16px;
+		font-size: 13px;
+		line-height: 19px;
+	}
+
+	.diagnostico-quiz__btn {
+		padding: 10px 20px;
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+	.diagnostico-quiz__actions {
+		gap: 12px;
+	}
+
+	.diagnostico-cta {
+		margin-top: 33px;
+		padding-top: 18px;
+		gap: 14px;
+	}
+
+	.diagnostico-cta__text {
+		font-size: 10px;
+		line-height: 16px;
+	}
+
+	.diagnostico-cta__btn {
+		height: 41px;
+		padding: 11px 20px;
+		font-size: 10px;
+		line-height: 16px;
+		gap: 8px;
+	}
+
+	.diagnostico-quiz__form {
+		gap: 16px;
+	}
+
+	.diagnostico-quiz__form-field {
+		gap: 8px;
+	}
+
+	.diagnostico-quiz__form-field label {
+		font-size: 13px;
+		line-height: 1.4;
+	}
+
+	.diagnostico-quiz__form-input {
+		height: 39px;
+		font-size: 12px;
+		padding: 9px 12px;
+	}
+
+	.diagnostico-quiz__form-submit {
+		width: 100%;
+		height: 40px;
+		padding: 0 18px;
+		background-color: #466060;
+		border: 1px solid #466060;
+		color: #FFFFFF;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 16px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+
+	.diagnostico-quiz__view {
+		gap: 21px;
+	}
+
+	.diagnostico-quiz__result {
+		gap: 21px;
+	}
+
+	.diagnostico-quiz__btn--primary {
+		border: 1px solid #98BFBF;
+		background-color: #466060;
+		color: var(--text-white);
+	}
+
+	.diagnostico-quiz__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__btn--ghost {
+		border: 1px solid #E5E7EB;
+		background-color: var(--bg-white);
+		color: #2C2629;
+	}
+
+	.diagnostico-quiz__btn--ghost:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--primary {
+		background-color: #466060;
+		color: var(--text-white);
+		border: 1px solid #466060;
+	}
+
+	.diagnostico-cta__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--secondary {
+		background-color: var(--bg-white);
+		color: #2C2629;
+		border: 1px solid #E5E7EB;
+	}
+
+	.diagnostico-cta__btn--secondary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__tag--accent {
+		border-color: #98BFBF;
+		color: #6FA593;
 	}
 
 }
@@ -577,11 +857,319 @@
 
 	.diagnostico-cta__btn {
 		height: 32px;
-		width: 122px;
 		padding: 9px 18px;
 		font-size: 9px;
 		line-height: 14px;
 		gap: 7px;
+	}
+
+	.diagnostico-quiz__form {
+		gap: 14px;
+	}
+
+	.diagnostico-quiz__form-field {
+		gap: 7px;
+	}
+
+	.diagnostico-quiz__form-field label {
+		font-size: 12px;
+		line-height: 1.4;
+	}
+
+	.diagnostico-quiz__form-input {
+		height: 36px;
+		font-size: 11px;
+		padding: 8px 11px;
+	}
+
+	.diagnostico-quiz__form-submit {
+		width: 100%;
+		height: 36px;
+		padding: 0 16px;
+		background-color: #466060;
+		border: 1px solid #466060;
+		color: #FFFFFF;
+		font-size: 11px;
+		font-weight: 400;
+		line-height: 14px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+
+	.diagnostico-quiz__view {
+		gap: 20px;
+	}
+
+	.diagnostico-quiz__result {
+		gap: 20px;
+	}
+
+	.diagnostico-quiz__progress-fill {
+		width: 0%;
+	}
+
+	.diagnostico-quiz__btn--primary {
+		border: 1px solid #98BFBF;
+		background-color: #466060;
+		color: var(--text-white);
+	}
+
+	.diagnostico-quiz__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__btn--ghost {
+		border: 1px solid #E5E7EB;
+		background-color: var(--bg-white);
+		color: #2C2629;
+	}
+
+	.diagnostico-quiz__btn--ghost:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--primary {
+		background-color: #466060;
+		color: var(--text-white);
+		border: 1px solid #466060;
+	}
+
+	.diagnostico-cta__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--secondary {
+		background-color: var(--bg-white);
+		color: #2C2629;
+		border: 1px solid #E5E7EB;
+	}
+
+	.diagnostico-cta__btn--secondary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__tag--accent {
+		border-color: #98BFBF;
+		color: #6FA593;
+	}
+
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
+   ===================================================== */
+@media (max-width: 479px) {
+	.diagnostico-hero__bg {
+		height: 340px;
+		background-position: left center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.diagnostico-hero__container {
+		width: 100%;
+		max-width: 340px;
+		gap: 9px;
+	}
+
+	.diagnostico-hero__label {
+		font-weight: 700;
+		font-size: 11px;
+		line-height: 100%;
+		letter-spacing: 6%;
+
+	}
+
+	.diagnostico-hero__title {
+		font-weight: 700;
+		font-size: 26px;
+		line-height: 114%;
+		letter-spacing: 0%;
+		color: #2C2629;
+	}
+
+	.diagnostico-hero__description {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 100%;
+	}
+
+	.diagnostico-hero__content {
+		height: 28px;
+		gap: 8px;
+		padding-top: 8px;
+	}
+
+	.diagnostico-quiz {
+		padding: 28px var(--lateral-spacing);
+	}
+
+	.diagnostico-quiz__container {
+		max-width: 640px;
+	}
+
+	.diagnostico-quiz__progress-track {
+		margin-bottom: 20px;
+		height: 4px;
+	}
+
+	.diagnostico-quiz__tag {
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 100%;
+		letter-spacing: 6%;
+	}
+
+	.diagnostico-quiz__title {
+		font-weight: 300;
+		font-size: 22px;
+		line-height: 120%;
+	}
+
+	.diagnostico-quiz__description {
+		font-size: 11px;
+		line-height: 16px;
+	}
+
+	.diagnostico-quiz__options {
+		gap: 5px;
+	}
+
+	.diagnostico-quiz__option-btn {
+		height: 49px;
+		padding: 16px 18px;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 100%;
+
+	}
+
+	.diagnostico-quiz__btn {
+		padding: 8px 14px;
+		font-size: 10px;
+		line-height: 12px;
+	}
+
+	.diagnostico-quiz__actions {
+		gap: 8px;
+	}
+
+	.diagnostico-cta {
+		margin-top: 24px;
+		padding-top: 12px;
+		gap: 10px;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.diagnostico-cta__text {
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 100%;
+	}
+
+	.diagnostico-cta__btn {
+		height: 44px;
+		width: 100%;
+		padding: 14px;
+		font-weight: 600;
+		font-size: 13px;
+		line-height: 100%;
+		gap: 6px;
+	}
+
+	.diagnostico-quiz__form {
+		gap: 15px;
+	}
+
+	.diagnostico-quiz__form-field {
+		gap: 10px;
+	}
+
+	.diagnostico-quiz__form-field label {
+		font-weight: 700;
+		font-size: 12px;
+		line-height: 1;
+		letter-spacing: 0px;
+	}
+
+	.diagnostico-quiz__form-input {
+		height: 46px;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 14px 16px;
+	}
+
+	.diagnostico-quiz__form-submit {
+		width:100%;
+		height: 49px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1;
+        letter-spacing: 0px;
+        flex: 0 0 auto;
+	}
+
+	.diagnostico-quiz__view {
+		gap: 18px;
+	}
+
+	.diagnostico-quiz__result {
+		gap: 18px;
+	}
+
+	.diagnostico-quiz__progress-fill {
+		width: 0%;
+	}
+
+	.diagnostico-quiz__btn--primary {
+		border: 1px solid #98BFBF;
+		background-color: #466060;
+		color: var(--text-white);
+	}
+
+	.diagnostico-quiz__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__btn--ghost {
+		border: 1px solid #E5E7EB;
+		background-color: var(--bg-white);
+		color: #2C2629;
+	}
+
+	.diagnostico-quiz__btn--ghost:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--primary {
+		background-color: #466060;
+		color: var(--text-white);
+		border: 1px solid #466060;
+	}
+
+	.diagnostico-cta__btn--primary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-cta__btn--secondary {
+		background-color: var(--bg-white);
+		color: #2C2629;
+		border: 1px solid #E5E7EB;
+	}
+
+	.diagnostico-cta__btn--secondary:hover {
+		animation: var(--button-animation);
+	}
+
+	.diagnostico-quiz__tag--accent {
+		border-color: #98BFBF;
+		color: #6FA593;
 	}
 
 }

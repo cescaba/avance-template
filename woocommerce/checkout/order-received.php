@@ -130,11 +130,6 @@ if ( function_exists( 'get_field' ) ) {
         <div class="order-bc-cell"><dt class="order-bc-cap">Importe</dt><dd class="v"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></dd></div>
       </dl>
     </div>
-
-    <p class="order-reference">
-      <span class="txt">Usa este código como referencia de la transferencia para que podamos identificar tu pago.</span>
-      <span class="code">PEDIDO&nbsp;#<?php echo esc_html( $order->get_order_number() ); ?></span>
-    </p>
   </section>
 
   <!-- Dirección de facturación -->

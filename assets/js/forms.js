@@ -108,6 +108,30 @@ class ServicioEmpresaHandler extends FormHandler {
 		}
 	}
 
+	showError(message) {
+		const header = document.querySelector('.servicio-contact__header');
+		if (header) {
+			// Crear notificación con diseño correcto
+			const notif = document.createElement('div');
+			notif.className = 'notification notification--error';
+			notif.textContent = message;
+			header.insertAdjacentElement('afterend', notif);
+			setTimeout(() => notif.remove(), 4000);
+		}
+	}
+
+	showSuccessMessage(message) {
+		const header = document.querySelector('.servicio-contact__header');
+		if (header) {
+			// Crear notificación con diseño correcto
+			const notif = document.createElement('div');
+			notif.className = 'notification notification--success';
+			notif.textContent = message;
+			header.insertAdjacentElement('afterend', notif);
+			setTimeout(() => notif.remove(), 4000);
+		}
+	}
+
 	getFormData() {
 		const form = document.getElementById(this.config.formId);
 		return {
@@ -117,7 +141,7 @@ class ServicioEmpresaHandler extends FormHandler {
 			tamaño_equipo: form.querySelector('input[name="tamaño_equipo"]')?.value.trim() || '',
 			email: form.querySelector('input[name="email"]')?.value.trim() || '',
 			whatsapp: form.querySelector('input[name="whatsapp"]')?.value.trim() || '',
-			servicio_interes: form.querySelector('input[name="servicio_interes"]')?.value.trim() || '',
+			servicio_interes: form.querySelector('select[name="servicio_interes"]')?.value.trim() || '',
 			desafio_comercial: form.querySelector('textarea[name="desafio_comercial"]')?.value.trim() || '',
 			nonce: this.config.nonce,
 		};
@@ -162,8 +186,12 @@ class ServicioEmpresaHandler extends FormHandler {
 			body: ajaxData,
 		})
 			.then((response) => {
-				if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-				return response.json();
+				return response.json().then(data => {
+					if (!response.ok) {
+						throw { status: response.status, data: data };
+					}
+					return data;
+				});
 			})
 			.then((result) => {
 				this.config.isSubmitting = false;
@@ -190,9 +218,24 @@ class ServicioEmpresaHandler extends FormHandler {
 			})
 			.catch((error) => {
 				this.config.isSubmitting = false;
-				submitBtn.textContent = 'Error al procesar';
+				submitBtn.textContent = 'Solicitar propuesta personalizada';
 				submitBtn.disabled = false;
-				this.showError('Error al procesar la solicitud: ' + error.message);
+
+				let errorMessage = 'Error al procesar la solicitud. Intenta de nuevo.';
+
+				if (error.status === 409) {
+					errorMessage = error.data?.data?.message || 'Este email ya fue registrado en las últimas 24 horas.';
+				} else if (error.status === 429) {
+					errorMessage = error.data?.data?.message || 'Demasiados intentos. Por favor, espera antes de intentar de nuevo.';
+				} else if (error.status === 403) {
+					errorMessage = error.data?.data?.message || 'Tu IP ha sido bloqueada.';
+				} else if (error.status === 400) {
+					errorMessage = error.data?.data?.message || 'Datos inválidos. Por favor, verifica tu información.';
+				} else if (error.status === 500) {
+					errorMessage = error.data?.data?.message || 'Error del servidor. Por favor, intenta más tarde.';
+				}
+
+				this.showError(errorMessage);
 			});
 	}
 }
@@ -218,7 +261,7 @@ class ProposalFormHandler extends FormHandler {
 			tamaño_equipo: form.querySelector('input[name="tamaño_equipo"]')?.value.trim() || '',
 			email: form.querySelector('input[name="email"]')?.value.trim() || '',
 			whatsapp: form.querySelector('input[name="whatsapp"]')?.value.trim() || '',
-			servicio_interes: form.querySelector('input[name="servicio_interes"]')?.value.trim() || '',
+			servicio_interes: form.querySelector('select[name="servicio_interes"]')?.value.trim() || '',
 			desafio_comercial: form.querySelector('textarea[name="desafio_comercial"]')?.value.trim() || '',
 		};
 	}
@@ -310,9 +353,10 @@ class DiagnosticoSubmitHandler {
 	}
 
 	submitDiagnostico(formData, button) {
-		// Obtener nonce del formulario o del config
 		let nonce = this.config.nonce;
 		const quizView = document.getElementById('diagnosticoQuizView');
+		const quizTitle = document.getElementById('diagnosticoQuestionText');
+
 		if (quizView) {
 			const nonceField = quizView.querySelector('input[name="nonce"]');
 			if (nonceField) {
@@ -340,12 +384,20 @@ class DiagnosticoSubmitHandler {
 			body: ajaxData,
 		})
 			.then(response => {
-				if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-				return response.json();
+				return response.json().then(data => {
+					if (!response.ok) {
+						throw { status: response.status, data: data };
+					}
+					return data;
+				});
 			})
 			.then(response => {
 				if (response.success && response.data?.url) {
 					button.textContent = 'Abriendo WhatsApp...';
+
+					if (quizTitle && typeof NotificationManager !== 'undefined') {
+						NotificationManager.success('¡Diagnóstico enviado correctamente!', quizTitle);
+					}
 
 					setTimeout(() => {
 						window.open(response.data.url, '_blank');
@@ -356,12 +408,37 @@ class DiagnosticoSubmitHandler {
 					}, 1500);
 				} else {
 					button.textContent = 'Se envió su diagnóstico';
-					alert(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
+					const errorMsg = response.data?.message || 'Ocurrió un error. Intenta de nuevo.';
+					if (quizTitle && typeof NotificationManager !== 'undefined') {
+						NotificationManager.error(errorMsg, quizTitle);
+					} else {
+						alert(errorMsg);
+					}
 				}
 			})
 			.catch(error => {
 				button.textContent = 'Se envió su diagnóstico';
-				alert('Error de conexión. Intenta de nuevo.');
+				button.disabled = false;
+
+				let errorMessage = 'Error de conexión. Intenta de nuevo.';
+
+				if (error.status === 409) {
+					errorMessage = error.data?.data?.message || 'Este email ya fue registrado en las últimas 24 horas.';
+				} else if (error.status === 429) {
+					errorMessage = error.data?.data?.message || 'Demasiados intentos. Por favor, espera antes de intentar de nuevo.';
+				} else if (error.status === 403) {
+					errorMessage = error.data?.data?.message || 'Tu IP ha sido bloqueada.';
+				} else if (error.status === 400) {
+					errorMessage = error.data?.data?.message || 'Datos inválidos. Por favor, verifica tu información.';
+				} else if (error.status === 500) {
+					errorMessage = error.data?.data?.message || 'Error del servidor. Por favor, intenta más tarde.';
+				}
+
+				if (quizTitle && typeof NotificationManager !== 'undefined') {
+					NotificationManager.error(errorMessage, quizTitle);
+				} else {
+					alert(errorMessage);
+				}
 			});
 	}
 }
@@ -468,7 +545,6 @@ class ContactWhatsAppHandler extends FormHandler {
 					errorMessage = error.data?.data?.message || 'Error del servidor. Por favor, intenta más tarde.';
 				}
 
-				console.error('Error:', error);
 				this.showError(errorMessage);
 			});
 	}

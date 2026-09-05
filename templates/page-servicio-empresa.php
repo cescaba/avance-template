@@ -195,7 +195,7 @@ get_header();
                     <div class="servicio-contact__form-row">
                         <div class="servicio-contact__form-group">
                             <label for="proposal-nombre" class="servicio-contact__label-text">Nombre *</label>
-                            <input type="text" id="proposal-nombre" name="nombre" class="servicio-contact__input" placeholder="Ej. Juan García Rodríguez" required aria-required="true">
+                            <input type="text" id="proposal-nombre" name="nombre" class="servicio-contact__input" placeholder="Ej. Juan García Rodríguez" required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label for="proposal-cargo" class="servicio-contact__label-text">Cargo</label>
@@ -205,7 +205,7 @@ get_header();
                     <div class="servicio-contact__form-row">
                         <div class="servicio-contact__form-group">
                             <label for="proposal-empresa" class="servicio-contact__label-text">Empresa *</label>
-                            <input type="text" id="proposal-empresa" name="empresa" class="servicio-contact__input" placeholder="Ej. Tech Solutions S.A." required aria-required="true">
+                            <input type="text" id="proposal-empresa" name="empresa" class="servicio-contact__input" placeholder="Ej. Tech Solutions S.A." required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label for="proposal-tamaño" class="servicio-contact__label-text">Tamaño del equipo</label>
@@ -215,7 +215,7 @@ get_header();
                     <div class="servicio-contact__form-row">
                         <div class="servicio-contact__form-group">
                             <label for="proposal-email" class="servicio-contact__label-text">Email *</label>
-                            <input type="email" id="proposal-email" name="email" class="servicio-contact__input" placeholder="Ej. juan@empresa.com" required aria-required="true">
+                            <input type="email" id="proposal-email" name="email" class="servicio-contact__input" placeholder="Ej. juan@empresa.com" required>
                         </div>
                         <div class="servicio-contact__form-group">
                             <label for="proposal-whatsapp" class="servicio-contact__label-text">WhatsApp</label>
@@ -226,11 +226,11 @@ get_header();
                         <div class="servicio-contact__form-group">
                             <label for="proposal-servicio" class="servicio-contact__label-text">Servicio de interés *</label>
                             <div class="avance-select-wrapper">
-                                <div class="avance-select-trigger" id="avance-select-trigger" data-select="proposal-servicio">
+                                <div class="avance-select-trigger" id="proposal-select-trigger" data-select="proposal-servicio">
                                     <span class="avance-select-value"><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></span>
                                     <svg class="avance-select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
                                 </div>
-                                <div class="avance-select-dropdown" id="avance-select-dropdown">
+                                <div class="avance-select-dropdown" id="proposal-select-dropdown">
                                     <div class="avance-select-option" data-value=""><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></div>
                                     <div class="avance-select-option" data-value="Mentoría"><?php esc_html_e('Mentoría', 'avance-template'); ?></div>
                                     <div class="avance-select-option" data-value="Servicio Empresa"><?php esc_html_e('Servicio Empresa', 'avance-template'); ?></div>
@@ -252,7 +252,7 @@ get_header();
                     <div class="servicio-contact__form-row servicio-contact__form-row--full">
                         <div class="servicio-contact__form-group">
                             <label for="proposal-desafio" class="servicio-contact__label-text">¿Cuál es tu principal desafío comercial? *</label>
-                            <textarea id="proposal-desafio" name="desafio_comercial" class="servicio-contact__textarea" placeholder="Ej. Necesitamos mejorar nuestra estrategia de ventas y reorganizar el equipo..." required aria-required="true"></textarea>
+                            <textarea id="proposal-desafio" name="desafio_comercial" class="servicio-contact__textarea" placeholder="Ej. Necesitamos mejorar nuestra estrategia de ventas y reorganizar el equipo..." required></textarea>
                         </div>
                     </div>
                     <button type="submit" class="servicio-contact__btn">Solicitar propuesta personalizada</button>
@@ -307,5 +307,5 @@ get_header();
 </main>
 
 <?php
-wp_enqueue_script('avance-select', get_template_directory_uri() . '/assets/js/avance-select.js', [], '1.0.0', true);
+wp_enqueue_script('proposal-select', get_template_directory_uri() . '/assets/js/proposal-select.js', [], '1.0.0', true);
 get_footer();

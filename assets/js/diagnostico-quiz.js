@@ -65,7 +65,6 @@ function saveDiagnosticoState() {
 	localStorage.setItem(DIAGNOSTICO_STORAGE_KEY, JSON.stringify(state));
 }
 
-
 function clearDiagnosticoState() {
 	localStorage.removeItem(DIAGNOSTICO_STORAGE_KEY);
 	diagnosticoCurrentIndex = 0;
@@ -89,13 +88,13 @@ function renderDiagnosticoQuestion() {
 	if (q.isForm) {
 		renderDiagnosticoForm(q);
 	} else {
-		q.options.forEach((label, i) => {
+		q.options.forEach((label) => {
 			const btn = document.createElement('button');
 			btn.className = 'diagnostico-quiz__option-btn animate-on-scroll is-visible';
 			btn.setAttribute('data-animate', '');
 			btn.setAttribute('data-answer', label);
 			btn.textContent = label;
-			btn.addEventListener('click', () => selectDiagnosticoOption(label)); // Guardar texto, no índice
+			btn.addEventListener('click', () => selectDiagnosticoOption(label));
 			diagnosticoOptionsList.appendChild(btn);
 		});
 	}
@@ -106,9 +105,7 @@ function renderDiagnosticoQuestion() {
 function renderDiagnosticoForm(q) {
 	const form = document.createElement('form');
 	form.className = 'diagnostico-quiz__form';
-	form.style.cssText = 'display: flex; flex-direction: column; gap: 12px;';
 
-	// Agregar nonce oculto
 	const nonceInput = document.createElement('input');
 	nonceInput.type = 'hidden';
 	nonceInput.name = 'nonce';
@@ -118,7 +115,6 @@ function renderDiagnosticoForm(q) {
 	q.formFields.forEach(field => {
 		const fieldDiv = document.createElement('div');
 		fieldDiv.className = 'diagnostico-quiz__form-field';
-		fieldDiv.style.cssText = 'display: flex; flex-direction: column; gap: 6px;';
 
 		const label = document.createElement('label');
 		label.textContent = field.label;
@@ -128,7 +124,6 @@ function renderDiagnosticoForm(q) {
 		input.name = field.name;
 		input.placeholder = field.placeholder;
 		input.className = 'diagnostico-quiz__form-input';
-		input.style.cssText = 'padding: 10px 12px; font-size: 13px; border: 1px solid #E5E7EB; border-radius: 6px; font-family: inherit;';
 		input.required = true;
 
 		fieldDiv.appendChild(label);
@@ -141,7 +136,6 @@ function renderDiagnosticoForm(q) {
 	submitBtn.className = 'diagnostico-quiz__form-submit animate-on-scroll is-visible';
 	submitBtn.setAttribute('data-animate', '');
 	submitBtn.textContent = 'Recibir diagnostico';
-	submitBtn.style.cssText = 'margin-top: 12px;';
 
 	form.appendChild(submitBtn);
 
@@ -150,19 +144,33 @@ function renderDiagnosticoForm(q) {
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData);
 
+		// Validar campos
+		if (!data.nombreCompleto || data.nombreCompleto.trim().length < 3) {
+			showDiagnosticoNotification('El nombre debe tener mínimo 3 caracteres', 'error');
+			return;
+		}
+
+		if (!data.email || !isValidEmail(data.email)) {
+			showDiagnosticoNotification('Email inválido', 'error');
+			return;
+		}
+
+		if (!data.whatsapp || data.whatsapp.trim().length < 9) {
+			showDiagnosticoNotification('WhatsApp debe tener mínimo 9 dígitos', 'error');
+			return;
+		}
+
 		submitBtn.disabled = true;
 		submitBtn.style.opacity = '0.7';
 		submitBtn.style.cursor = 'default';
 
-		// Preparar datos para envío
 		const submissionData = {
 			nombreCompleto: data.nombreCompleto,
 			email: data.email,
 			whatsapp: data.whatsapp,
-			respuestas: diagnosticoAnswers.slice(0, 4), // Solo las 4 primeras preguntas
+			respuestas: diagnosticoAnswers.slice(0, 4),
 		};
 
-		// Llamar función global si existe
 		if (typeof avanceDiagnosticoSubmit === 'function') {
 			avanceDiagnosticoSubmit(submissionData, submitBtn);
 		}
@@ -192,34 +200,39 @@ function selectDiagnosticoOption(answerText) {
 	}
 }
 
-function restartDiagnosticoQuiz(clearHistory = true) {
-	if (clearHistory) {
-		clearDiagnosticoState();
-	}
-	renderDiagnosticoQuestion();
-}
-
 function resetDiagnosticoOnSuccess() {
 	clearDiagnosticoState();
 	renderDiagnosticoQuestion();
 }
 
-function attachDiagnosticoButtonEvents() {
-	const buttons = diagnosticoOptionsList.querySelectorAll('[data-answer]');
-	buttons.forEach(btn => {
-		// Remover listeners anteriores para evitar duplicados
-		const newBtn = btn.cloneNode(true);
-		btn.parentNode.replaceChild(newBtn, btn);
+function isValidEmail(email) {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
+}
 
-		const answerText = newBtn.getAttribute('data-answer');
-		newBtn.addEventListener('click', () => selectDiagnosticoOption(answerText));
-	});
+function showDiagnosticoNotification(message, type = 'error') {
+	const quizTitle = document.getElementById('diagnosticoQuestionText');
+	if (!quizTitle || typeof NotificationManager === 'undefined') {
+		alert(message);
+		return;
+	}
+
+	if (type === 'error') {
+		NotificationManager.error(message, quizTitle);
+	} else {
+		NotificationManager.success(message, quizTitle);
+	}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
 	initDiagnosticoElements();
 	if (diagnosticoOptionsList) {
-		// Conectar eventos a botones (pre-renderizados o nuevos)
-		attachDiagnosticoButtonEvents();
+		const buttons = diagnosticoOptionsList.querySelectorAll('[data-answer]');
+		buttons.forEach(btn => {
+			const newBtn = btn.cloneNode(true);
+			btn.parentNode.replaceChild(newBtn, btn);
+			const answerText = newBtn.getAttribute('data-answer');
+			newBtn.addEventListener('click', () => selectDiagnosticoOption(answerText));
+		});
 	}
 });

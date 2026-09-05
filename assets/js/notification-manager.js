@@ -10,7 +10,7 @@ class NotificationManager {
 		notif.textContent = message;
 
 		if (targetElement) {
-			targetElement.insertAdjacentElement('afterbegin', notif);
+			targetElement.insertAdjacentElement('afterend', notif);
 		} else {
 			document.body.insertAdjacentElement('afterbegin', notif);
 		}

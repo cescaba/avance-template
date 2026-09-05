@@ -25,10 +25,8 @@ class Avance_Contact_Form_Handler {
 	 * Manejar envío del formulario via AJAX
 	 */
 	public function handle_ajax_submit() {
-		// 1. OBTENER DATOS DEL POST
 		$post_data = $this->get_form_data($_POST);
 
-		// 2. PREPARAR PARA GLOBAL_FORM_HANDLER (mapear numero → whatsapp, dividir nombre)
 		$nombre_completo = $post_data['nombre'] ?? '';
 		$partes = explode(' ', trim($nombre_completo), 2);
 		$data_for_global = array(
@@ -41,34 +39,28 @@ class Avance_Contact_Form_Handler {
 			'nonce' => $post_data['nonce'] ?? '',
 		);
 
-		// 3. GLOBAL_FORM_HANDLER::PROCESS()
 		$validated = Global_Form_Handler::process('contact', $data_for_global);
-
-		// 4. FORM_VALIDATORS::VALIDATE_CONTACT()
 		Form_Validators::validate_contact($validated);
 
-		// 5. PREPARAR DATOS PARA BD (mapear whatsapp → numero)
 		$data_for_db = array(
 			'nombre' => $validated['nombre'],
 			'email' => $validated['email'],
 			'numero' => $validated['whatsapp'],
 			'asunto' => $validated['asunto'],
 			'mensaje' => $validated['mensaje'],
-			'whatsapp' => $validated['whatsapp'],  // Para build_whatsapp_message()
+			'whatsapp' => $validated['whatsapp'],
 		);
 
-		// 6. GUARDAR EN BD
 		$contact_id = Avance_Contact_DB::save_contact($data_for_db);
 		if (!$contact_id) {
 			error_log('Error: No se pudo guardar en BD');
 			wp_send_json_error(['message' => 'Error al guardar el contacto. Intenta de nuevo.'], 500);
 		}
 
-		// 7. GENERAR URL WHATSAPP
-		$whatsapp_url = $this->build_whatsapp_url($data_for_db);
-		error_log('Paso 4: ✅ OK');
+		$ip = Avance_Rate_Limiter::get_client_ip();
+		Avance_Rate_Limiter::log_attempt($ip, $validated['email'], 'success');
 
-		// 8. RESPUESTA
+		$whatsapp_url = $this->build_whatsapp_url($data_for_db);
 		wp_send_json_success([
 			'message' => 'Mensaje guardado correctamente. Abriendo WhatsApp...',
 			'contact_id' => $contact_id,

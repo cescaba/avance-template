@@ -7,6 +7,15 @@
   display: none !important;
 }
 
+.checkout-wrap .woocommerce-error,
+.checkout-wrap .woocommerce-error li,
+.checkout-wrap ul.woocommerce-error,
+.checkout-wrap div.woocommerce-error,
+.woocommerce-error,
+.woocommerce-error li {
+  display: none !important;
+}
+
 .checkout-wrap {
   color: #466060;
   font-size: 14px;
@@ -42,7 +51,7 @@
 .checkout-wrap {
   max-width: 1100px;
   margin-inline: auto;
-  padding: 44px 40px 64px;
+  padding: 44px var(--lateral-spacing) 64px;
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -372,9 +381,9 @@
 
 .order-received-page {
   width: 100%;
-  max-width: 700px;
+  max-width: 1200px;
   margin-inline: auto;
-  padding: 30px;
+  padding: 30px var(--lateral-spacing);
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -807,35 +816,6 @@
   overflow-wrap: anywhere;
 }
 
-.order-reference {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: #F4F8F2;
-  border: 1px solid #E1E9DE;
-}
-
-.order-reference .txt {
-  flex: 1;
-  min-width: 180px;
-  font-size: 14px;
-  color: #7C9086;
-}
-
-.order-reference .code {
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: #FFFFFF;
-  border: 1px dashed #D3DED0;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #2E4141;
-}
-
 .order-billing {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -954,108 +934,935 @@
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
+  /* Form-Pay */
+  .checkout-wrap {
+    padding: 40px var(--lateral-spacing) 56px;
+    gap: 24px;
+  }
 
+  .checkout-grid {
+    gap: 28px;
+  }
+
+  .checkout-head {
+    gap: 4px;
+  }
+
+  .checkout-title {
+    font-size: 20px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-subtitle {
+    font-size: 13px;
+  }
+
+  .checkout-section-title {
+    font-size: 15px;
+  }
+
+  .checkout-hint {
+    font-size: 11px;
+  }
+
+  .checkout-panel-main {
+    padding: 28px 28px 28px;
+    gap: 22px;
+  }
+
+  .checkout-panel-side {
+    padding: 24px 24px 24px;
+    gap: 16px;
+    top: 20px;
+  }
+
+  .checkout-notice {
+    padding: 12px 14px;
+    font-size: 12px;
+    gap: 10px;
+  }
+
+  .checkout-pay-block {
+    gap: 13px;
+  }
+
+  .checkout-methods {
+    gap: 9px;
+  }
+
+  .checkout-method {
+    gap: 12px;
+    padding: 13px 15px;
+  }
+
+  .checkout-method-top {
+    gap: 11px;
+  }
+
+  .checkout-method-name {
+    font-size: 14px;
+  }
+
+  .checkout-method-badge {
+    font-size: 11px;
+    letter-spacing: 0.8px;
+  }
+
+  .checkout-method-panel {
+    gap: 5px;
+    padding-top: 12px;
+  }
+
+  .checkout-method-desc {
+    font-size: 12px;
+  }
+
+  .checkout-line-item {
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .checkout-line-thumb {
+    width: 60px;
+    height: 60px;
+  }
+
+  .checkout-line-info {
+    gap: 2px;
+  }
+
+  .checkout-line-name {
+    font-size: 14px;
+  }
+
+  .checkout-line-meta {
+    font-size: 12px;
+  }
+
+  .checkout-line-price {
+    font-size: 14px;
+  }
+
+  .checkout-totals {
+    gap: 8px;
+  }
+
+  .checkout-totals-row {
+    font-size: 13px;
+  }
+
+  .checkout-total {
+    padding-top: 14px;
+  }
+
+  .checkout-total-label {
+    font-size: 14px;
+  }
+
+  .checkout-total-value {
+    font-size: 22px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-privacy {
+    font-size: 12px;
+  }
+
+  .checkout-btn-pay {
+    height: 48px;
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-secure {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .checkout-trust {
+    gap: 7px;
+    padding-top: 16px;
+  }
+
+  .checkout-trust li {
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  /* Order-Received */
+  .order-received-page {
+    padding: 28px var(--lateral-spacing);
+    gap: 32px;
+    font-size: 14px;
+  }
+
+  .order-product .thumb {
+    width: 40px;
+    height: 40px;
+  }
+
+  .order-stamp {
+    padding: 9px 15px;
+    gap: 3px;
+  }
+
+  .order-stamp .cap {
+    font-size: 10px;
+  }
+
+  .order-stamp .val {
+    font-size: 17px;
+  }
+
+  /* Order-Received Header */
+  .order-masthead {
+    gap: 12px;
+  }
+
+  .order-eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-headline {
+    font-size: 34px;
+    line-height: 1.06;
+    letter-spacing: -1px;
+  }
+
+  .order-lede {
+    font-size: 15px;
+  }
+
+  /* Order-Receipt Head */
+  .order-receipt-head {
+    gap: 18px;
+    padding: 24px 26px 22px;
+  }
+
+  .order-amount .cap {
+    font-size: 11px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-amount .val {
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .order-amount .note {
+    font-size: 12px;
+  }
+
+  /* Order-Receipt Body */
+  .order-receipt-body {
+    padding: 26px 26px 30px;
+    gap: 24px;
+  }
+
+  .order-rows {
+    gap: 14px;
+  }
+
+  .order-row {
+    gap: 18px;
+  }
+
+  .order-row + .order-row {
+    padding-top: 12px;
+  }
+
+  .order-row dt {
+    font-size: 13px;
+  }
+
+  .order-row dd {
+    font-size: 13px;
+  }
+
+  /* Order Product */
+  .order-product {
+    gap: 12px;
+  }
+
+  .order-product .name {
+    font-size: 15px;
+  }
+
+  .order-product .sub {
+    font-size: 12px;
+  }
+
+  .order-product-price {
+    font-size: 15px;
+  }
+
+  .order-product-line {
+    gap: 18px;
+    padding: 18px 0;
+  }
+
+  /* Order Total Line */
+  .order-total-line {
+    gap: 18px;
+    padding-top: 18px;
+  }
+
+  .order-total-line dt {
+    font-size: 14px;
+  }
+
+  .order-total-line dd {
+    font-size: 20px;
+    letter-spacing: -1px;
+  }
+
+  /* Order Section */
+  .order-section {
+    gap: 14px;
+  }
+
+  .order-section-head {
+    gap: 14px;
+  }
+
+  .order-section-title {
+    font-size: 11px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-section-note {
+    font-size: 12px;
+  }
+
+  /* Order Bankcard */
+  .order-bc-top {
+    gap: 16px;
+  }
+
+  .order-bc-cap {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-bc-issuer .name {
+    font-size: 17px;
+  }
+
+  .order-bc-chip {
+    width: 40px;
+    height: 28px;
+  }
+
+  .order-bc-chip i {
+    width: 22px;
+    height: 13px;
+  }
+
+  .order-bc-number {
+    gap: 11px;
+    font-size: 20px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-bc-foot {
+    gap: 20px 28px;
+  }
+
+  .order-bc-cell .v {
+    font-size: 14px;
+  }
+
+  /* Order Billing */
+  .order-billing > div {
+    gap: 2px;
+    padding: 14px 16px;
+  }
+
+  .order-billing dt {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .order-billing dd {
+    font-size: 14px;
+  }
+
+  /* Order Actions */
+  .order-actions {
+    gap: 11px;
+  }
+
+  .order-btn {
+    height: 46px;
+    gap: 9px;
+    font-size: 14px;
+  }
+
+  /* Order Footnote */
+  .order-footnote {
+    gap: 7px;
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   /* Form-Pay */
   .checkout-wrap {
-    padding: 32px 28px 56px;
+    padding: 36px var(--lateral-spacing) 52px;
+    gap: 22px;
   }
 
   .checkout-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .checkout-head {
+    gap: 3px;
+  }
+
+  .checkout-title {
+    font-size: 18px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-subtitle {
+    font-size: 12px;
+  }
+
+  .checkout-section-title {
+    font-size: 14px;
+  }
+
+  .checkout-hint {
+    font-size: 10px;
+  }
+
+  .checkout-panel-main {
+    padding: 26px 24px 26px;
+    gap: 20px;
   }
 
   .checkout-panel-side {
     position: static;
+    padding: 22px 22px 22px;
+    gap: 14px;
+    top: auto;
   }
 
-  .checkout-panel-main {
-    padding: 28px 24px;
+  .checkout-notice {
+    padding: 11px 13px;
+    font-size: 11px;
+    gap: 9px;
+  }
+
+  .checkout-pay-block {
+    gap: 12px;
+  }
+
+  .checkout-methods {
+    gap: 8px;
+  }
+
+  .checkout-method {
+    gap: 11px;
+    padding: 12px 14px;
+  }
+
+  .checkout-method-top {
+    gap: 10px;
+  }
+
+  .checkout-method input {
+    width: 15px;
+    height: 15px;
+  }
+
+  .checkout-method-name {
+    font-size: 13px;
+  }
+
+  .checkout-method-badge {
+    font-size: 10px;
+    letter-spacing: 0.7px;
+  }
+
+  .checkout-method-panel {
+    gap: 4px;
+    padding-top: 11px;
+  }
+
+  .checkout-method-desc {
+    font-size: 11px;
+  }
+
+  .checkout-line-item {
+    gap: 11px;
+    padding-bottom: 14px;
+  }
+
+  .checkout-line-thumb {
+    width: 56px;
+    height: 56px;
+  }
+
+  .checkout-line-info {
+    gap: 2px;
+  }
+
+  .checkout-line-name {
+    font-size: 13px;
+  }
+
+  .checkout-line-meta {
+    font-size: 11px;
+  }
+
+  .checkout-line-price {
+    font-size: 13px;
+  }
+
+  .checkout-totals {
+    gap: 7px;
+  }
+
+  .checkout-totals-row {
+    font-size: 12px;
+  }
+
+  .checkout-total {
+    padding-top: 12px;
+  }
+
+  .checkout-total-label {
+    font-size: 13px;
+  }
+
+  .checkout-total-value {
+    font-size: 20px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-privacy {
+    font-size: 11px;
+  }
+
+  .checkout-btn-pay {
+    height: 46px;
+    font-size: 13px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-secure {
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .checkout-trust {
+    gap: 6px;
+    padding-top: 14px;
+  }
+
+  .checkout-trust li {
+    gap: 6px;
+    font-size: 11px;
   }
 
   /* Order-Received */
   .order-received-page {
+    padding: 26px var(--lateral-spacing);
     gap: 32px;
+    font-size: 13px;
+  }
+
+  .order-product .thumb {
+    width: 36px;
+    height: 36px;
+  }
+
+  .order-stamp {
+    padding: 8px 14px;
+    gap: 2px;
+  }
+
+  .order-stamp .cap {
+    font-size: 9px;
+  }
+
+  .order-stamp .val {
+    font-size: 15px;
+  }
+
+  /* Order-Received Header */
+  .order-masthead {
+    gap: 11px;
+  }
+
+  .order-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-headline {
+    font-size: 32px;
+    line-height: 1.06;
+    letter-spacing: -1px;
+  }
+
+  .order-lede {
+    font-size: 14px;
+  }
+
+  /* Order-Receipt Head */
+  .order-receipt-head {
+    gap: 16px;
+    padding: 22px 24px 20px;
+  }
+
+  .order-amount .cap {
+    font-size: 10px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-amount .val {
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .order-amount .note {
+    font-size: 11px;
+  }
+
+  /* Order-Receipt Body */
+  .order-receipt-body {
+    padding: 24px 24px 28px;
+    gap: 22px;
+  }
+
+  .order-rows {
+    gap: 13px;
+  }
+
+  .order-row {
+    gap: 17px;
+  }
+
+  .order-row + .order-row {
+    padding-top: 11px;
+  }
+
+  .order-row dt {
+    font-size: 12px;
+  }
+
+  .order-row dd {
+    font-size: 12px;
+  }
+
+  /* Order Product */
+  .order-product {
+    gap: 11px;
+  }
+
+  .order-product .name {
+    font-size: 14px;
+  }
+
+  .order-product .sub {
+    font-size: 11px;
+  }
+
+  .order-product-price {
+    font-size: 14px;
+  }
+
+  .order-product-line {
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  /* Order Total Line */
+  .order-total-line {
+    gap: 16px;
+    padding-top: 16px;
+  }
+
+  .order-total-line dt {
+    font-size: 13px;
+  }
+
+  .order-total-line dd {
+    font-size: 18px;
+    letter-spacing: -1px;
+  }
+
+  /* Order Section */
+  .order-section {
+    gap: 13px;
+  }
+
+  .order-section-head {
+    gap: 13px;
+  }
+
+  .order-section-title {
+    font-size: 10px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-section-note {
+    font-size: 11px;
+  }
+
+  /* Order Bankcard */
+  .order-bc-top {
+    gap: 15px;
+  }
+
+  .order-bc-cap {
+    font-size: 9px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-bc-issuer .name {
+    font-size: 16px;
+  }
+
+  .order-bc-chip {
+    width: 36px;
+    height: 26px;
+  }
+
+  .order-bc-chip i {
+    width: 20px;
+    height: 12px;
+  }
+
+  .order-bc-number {
+    gap: 10px;
+    font-size: 18px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-bc-foot {
+    gap: 18px 26px;
+  }
+
+  .order-bc-cell .v {
+    font-size: 13px;
+  }
+
+  /* Order Billing */
+  .order-billing > div {
+    gap: 2px;
+    padding: 13px 15px;
+  }
+
+  .order-billing dt {
+    font-size: 9px;
+    letter-spacing: 1.6px;
+  }
+
+  .order-billing dd {
+    font-size: 13px;
+  }
+
+  /* Order Actions */
+  .order-actions {
+    gap: 10px;
+  }
+
+  .order-btn {
+    height: 44px;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  /* Order Footnote */
+  .order-footnote {
+    gap: 6px;
+    font-size: 11px;
   }
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
   /* Form-Pay */
   .checkout-wrap {
-    padding: 24px 16px 40px;
+    padding: 28px var(--lateral-spacing) 44px;
+    gap: 20px;
   }
 
   .checkout-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .checkout-head {
+    gap: 3px;
+  }
+
+  .checkout-title {
+    font-size: 16px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-subtitle {
+    font-size: 11px;
+  }
+
+  .checkout-section-title {
+    font-size: 13px;
+  }
+
+  .checkout-hint {
+    font-size: 9px;
+  }
+
+  .checkout-panel-main {
+    padding: 22px 20px 22px;
+    gap: 18px;
   }
 
   .checkout-panel-side {
     position: static;
+    padding: 20px 20px 20px;
+    gap: 12px;
   }
 
-  .checkout-panel-main {
-    padding: 20px 16px;
+  .checkout-notice {
+    padding: 10px 12px;
+    font-size: 10px;
+    gap: 8px;
+  }
+
+  .checkout-pay-block {
+    gap: 11px;
+  }
+
+  .checkout-methods {
+    gap: 7px;
+  }
+
+  .checkout-method {
+    gap: 10px;
+    padding: 11px 13px;
+  }
+
+  .checkout-method-top {
+    gap: 9px;
+  }
+
+  .checkout-method input {
+    width: 14px;
+    height: 14px;
+  }
+
+  .checkout-method-name {
+    font-size: 12px;
+  }
+
+  .checkout-method-badge {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+
+  .checkout-method-panel {
+    gap: 4px;
+    padding-top: 10px;
+  }
+
+  .checkout-method-desc {
+    font-size: 10px;
+  }
+
+  .checkout-line-item {
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  .checkout-line-thumb {
+    width: 52px;
+    height: 52px;
+  }
+
+  .checkout-line-info {
+    gap: 2px;
+  }
+
+  .checkout-line-name {
+    font-size: 12px;
+  }
+
+  .checkout-line-meta {
+    font-size: 10px;
+  }
+
+  .checkout-line-price {
+    font-size: 12px;
+  }
+
+  .checkout-totals {
+    gap: 6px;
+  }
+
+  .checkout-totals-row {
+    font-size: 11px;
+  }
+
+  .checkout-total {
+    padding-top: 11px;
+  }
+
+  .checkout-total-label {
+    font-size: 12px;
+  }
+
+  .checkout-total-value {
+    font-size: 18px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-privacy {
+    font-size: 10px;
+  }
+
+  .checkout-btn-pay {
+    height: 44px;
+    font-size: 12px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-secure {
+    gap: 5px;
+    font-size: 9px;
+  }
+
+  .checkout-trust {
+    gap: 5px;
+    padding-top: 12px;
+  }
+
+  .checkout-trust li {
+    gap: 5px;
+    font-size: 10px;
   }
 
   /* Order-Received */
   .order-received-page {
+    padding: 24px var(--lateral-spacing);
     gap: 28px;
+    font-size: 12px;
   }
 
   .order-receipt-head {
-    padding: 22px 20px 20px;
+    padding: 20px 18px 18px;
   }
 
   .order-receipt-body {
-    padding: 20px 20px 24px;
-    gap: 24px;
-  }
-
-  .order-billing {
-    grid-template-columns: 1fr;
-  }
-
-  .order-stamp {
-    align-items: flex-start;
-  }
-
-  .order-btn {
-    flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 479px) {
-  /* Form-Pay */
-  .checkout-wrap {
-    padding: 20px 12px 32px;
-  }
-
-  .checkout-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .checkout-panel-side {
-    position: static;
-  }
-
-  .checkout-panel-main {
-    padding: 16px 12px;
-  }
-
-  /* Order-Received */
-  .order-received-page {
-    gap: 24px;
-    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 24px) 48px;
-  }
-
-  .order-receipt-head {
-    padding: 20px 16px 18px;
-  }
-
-  .order-receipt-body {
-    padding: 18px 16px 20px;
+    padding: 18px 18px 22px;
     gap: 20px;
   }
 
@@ -1064,10 +1871,624 @@
   }
 
   .order-stamp {
+    padding: 7px 12px;
     align-items: flex-start;
+    gap: 2px;
   }
 
   .order-btn {
     flex: 1 1 100%;
+  }
+
+  .order-product .thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .order-stamp .cap {
+    font-size: 8px;
+  }
+
+  .order-stamp .val {
+    font-size: 13px;
+  }
+
+  /* Order-Received Header */
+  .order-masthead {
+    gap: 10px;
+  }
+
+  .order-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-headline {
+    font-size: 30px;
+    line-height: 1.06;
+    letter-spacing: -1px;
+  }
+
+  .order-lede {
+    font-size: 13px;
+  }
+
+  /* Order-Receipt Head */
+  .order-receipt-head {
+    gap: 15px;
+    padding: 20px 22px 18px;
+  }
+
+  .order-amount .cap {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-amount .val {
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .order-amount .note {
+    font-size: 10px;
+  }
+
+  .order-receipt-body {
+    padding: 22px 22px 26px;
+    gap: 20px;
+  }
+
+  .order-rows {
+    gap: 12px;
+  }
+
+  .order-row {
+    gap: 15px;
+  }
+
+  .order-row + .order-row {
+    padding-top: 10px;
+  }
+
+  .order-row dt {
+    font-size: 11px;
+  }
+
+  .order-row dd {
+    font-size: 11px;
+  }
+
+  /* Order Product */
+  .order-product {
+    gap: 10px;
+  }
+
+  .order-product .name {
+    font-size: 13px;
+  }
+
+  .order-product .sub {
+    font-size: 10px;
+  }
+
+  .order-product-price {
+    font-size: 13px;
+  }
+
+  .order-product-line {
+    gap: 15px;
+    padding: 14px 0;
+  }
+
+  /* Order Total Line */
+  .order-total-line {
+    gap: 15px;
+    padding-top: 14px;
+  }
+
+  .order-total-line dt {
+    font-size: 12px;
+  }
+
+  .order-total-line dd {
+    font-size: 16px;
+    letter-spacing: -1px;
+  }
+
+  /* Order Section */
+  .order-section {
+    gap: 12px;
+  }
+
+  .order-section-head {
+    gap: 12px;
+  }
+
+  .order-section-title {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-section-note {
+    font-size: 10px;
+  }
+
+  /* Order Bankcard */
+  .order-bc-top {
+    gap: 14px;
+  }
+
+  .order-bc-cap {
+    font-size: 8px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-bc-issuer .name {
+    font-size: 15px;
+  }
+
+  .order-bc-chip {
+    width: 32px;
+    height: 24px;
+  }
+
+  .order-bc-chip i {
+    width: 18px;
+    height: 11px;
+  }
+
+  .order-bc-number {
+    gap: 9px;
+    font-size: 16px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-bc-foot {
+    gap: 16px 24px;
+  }
+
+  .order-bc-cell .v {
+    font-size: 12px;
+  }
+
+  /* Order Billing */
+  .order-billing > div {
+    gap: 2px;
+    padding: 12px 14px;
+  }
+
+  .order-billing dt {
+    font-size: 8px;
+    letter-spacing: 1.4px;
+  }
+
+  .order-billing dd {
+    font-size: 12px;
+  }
+
+  /* Order Actions */
+  .order-actions {
+    gap: 9px;
+  }
+
+  .order-btn {
+    flex: 1 1 100%;
+    height: 42px;
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  /* Order Footnote */
+  .order-footnote {
+    gap: 5px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Form-Pay */
+  .checkout-wrap {
+    padding: 20px var(--lateral-spacing) 32px;
+    gap: 18px;
+  }
+
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .checkout-head {
+    gap: 2px;
+  }
+
+  .checkout-title {
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-subtitle {
+    font-size: 10px;
+  }
+
+  .checkout-section-title {
+    font-size: 12px;
+  }
+
+  .checkout-hint {
+    font-size: 8px;
+  }
+
+  .checkout-panel-main {
+    padding: 16px 14px 16px;
+    gap: 16px;
+  }
+
+  .checkout-panel-side {
+    position: static;
+    padding: 16px 14px 16px;
+    gap: 10px;
+  }
+
+  .checkout-notice {
+    padding: 9px 11px;
+    font-size: 9px;
+    gap: 7px;
+  }
+
+  .checkout-pay-block {
+    gap: 10px;
+  }
+
+  .checkout-methods {
+    gap: 6px;
+  }
+
+  .checkout-method {
+    gap: 9px;
+    padding: 10px 12px;
+  }
+
+  .checkout-method-top {
+    gap: 8px;
+  }
+
+  .checkout-method input {
+    width: 13px;
+    height: 13px;
+  }
+
+  .checkout-method-name {
+    font-size: 11px;
+  }
+
+  .checkout-method-badge {
+    font-size: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .checkout-method-panel {
+    gap: 3px;
+    padding-top: 9px;
+  }
+
+  .checkout-method-desc {
+    font-size: 9px;
+  }
+
+  .checkout-line-item {
+    gap: 9px;
+    padding-bottom: 11px;
+  }
+
+  .checkout-line-thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .checkout-line-info {
+    gap: 1px;
+  }
+
+  .checkout-line-name {
+    font-size: 11px;
+  }
+
+  .checkout-line-meta {
+    font-size: 9px;
+  }
+
+  .checkout-line-price {
+    font-size: 11px;
+  }
+
+  .checkout-totals {
+    gap: 5px;
+  }
+
+  .checkout-totals-row {
+    font-size: 10px;
+  }
+
+  .checkout-total {
+    padding-top: 10px;
+  }
+
+  .checkout-total-label {
+    font-size: 11px;
+  }
+
+  .checkout-total-value {
+    font-size: 16px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-privacy {
+    font-size: 9px;
+  }
+
+  .checkout-btn-pay {
+    height: 42px;
+    font-size: 11px;
+    letter-spacing: 0px;
+  }
+
+  .checkout-secure {
+    gap: 4px;
+    font-size: 8px;
+  }
+
+  .checkout-trust {
+    gap: 4px;
+    padding-top: 10px;
+  }
+
+  .checkout-trust li {
+    gap: 4px;
+    font-size: 9px;
+  }
+
+  /* Order-Received */
+  .order-received-page {
+    gap: 24px;
+    padding: clamp(20px, 4vw, 40px) var(--lateral-spacing) 48px;
+    font-size: 11px;
+  }
+
+  .order-eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .order-headline {
+    font-size: 18px;
+  }
+
+  .order-lede {
+    font-size: 11px;
+  }
+
+  /* Order-Received Header */
+  .order-masthead {
+    gap: 8px;
+  }
+
+  .order-eyebrow {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-headline {
+    font-size: 28px;
+    line-height: 1.06;
+    letter-spacing: -1px;
+  }
+
+  .order-lede {
+    font-size: 12px;
+  }
+
+  /* Order-Receipt Head */
+  .order-amount {
+    gap: 2px;
+  }
+
+  .order-amount .cap {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-amount .val {
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .order-amount .note {
+    font-size: 9px;
+  }
+
+  .order-receipt-head {
+    padding: 18px 20px 16px;
+    gap: 8px;
+  }
+
+  /* Order-Receipt Body */
+  .order-receipt-body {
+    padding: 20px 20px 24px;
+    gap: 18px;
+  }
+
+  .order-rows {
+    gap: 10px;
+  }
+
+  .order-row {
+    gap: 13px;
+    font-size: 9px;
+  }
+
+  .order-row + .order-row {
+    padding-top: 8px;
+  }
+
+  .order-row dt {
+    font-size: 9px;
+  }
+
+  .order-row dd {
+    font-size: 9px;
+  }
+
+  /* Order Product */
+  .order-product {
+    gap: 8px;
+  }
+
+  .order-product .name {
+    font-size: 11px;
+  }
+
+  .order-product .sub {
+    font-size: 9px;
+  }
+
+  .order-product-price {
+    font-size: 11px;
+  }
+
+  .order-product-line {
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  /* Order Total Line */
+  .order-total-line {
+    gap: 13px;
+    padding-top: 12px;
+    font-size: 12px;
+  }
+
+  .order-total-line dt {
+    font-size: 10px;
+  }
+
+  .order-total-line dd {
+    font-size: 14px;
+    letter-spacing: -1px;
+  }
+
+  /* Order Section */
+  .order-section {
+    gap: 10px;
+  }
+
+  .order-section-head {
+    gap: 10px;
+  }
+
+  .order-section-title {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-section-note {
+    font-size: 9px;
+  }
+
+  /* Order Bankcard */
+  .order-bc-top {
+    gap: 12px;
+  }
+
+  .order-bc-cap {
+    font-size: 7px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-bc-issuer .name {
+    font-size: 14px;
+  }
+
+  .order-bc-chip {
+    width: 28px;
+    height: 20px;
+  }
+
+  .order-bc-chip i {
+    width: 16px;
+    height: 10px;
+  }
+
+  .order-bc-number {
+    gap: 8px;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-bc-foot {
+    gap: 14px 20px;
+  }
+
+  .order-bc-cell .v {
+    font-size: 10px;
+  }
+
+  /* Order Billing */
+  .order-billing {
+    grid-template-columns: 1fr;
+  }
+
+  .order-billing > div {
+    gap: 1px;
+    padding: 10px 12px;
+  }
+
+  .order-billing dt {
+    font-size: 7px;
+    letter-spacing: 1.2px;
+  }
+
+  .order-billing dd {
+    font-size: 10px;
+  }
+
+  /* Order Actions */
+  .order-actions {
+    gap: 8px;
+  }
+
+  .order-btn {
+    flex: 1 1 100%;
+    height: 40px;
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .order-stamp {
+    padding: 6px 10px;
+    align-items: flex-start;
+    gap: 1px;
+  }
+
+  .order-product .thumb {
+    width: 28px;
+    height: 28px;
+  }
+
+  .order-stamp .cap {
+    font-size: 7px;
+  }
+
+  .order-stamp .val {
+    font-size: 11px;
+  }
+
+  /* Order Footnote */
+  .order-footnote {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 9px;
   }
 }

@@ -226,6 +226,7 @@ function showDiagnosticoNotification(message, type = 'error') {
 
 document.addEventListener('DOMContentLoaded', () => {
 	initDiagnosticoElements();
+	renderDiagnosticoQuestion();
 	if (diagnosticoOptionsList) {
 		const buttons = diagnosticoOptionsList.querySelectorAll('[data-answer]');
 		buttons.forEach(btn => {

@@ -34,7 +34,8 @@ class Avance_Agendamiento_Contacto_DB {
 			PRIMARY KEY (id),
 			UNIQUE KEY unique_whatsapp_fecha (whatsapp, fecha),
 			KEY idx_estado (estado),
-			KEY idx_fecha_creacion (fecha_creacion)
+			KEY idx_fecha_creacion (fecha_creacion),
+			INDEX composite_whatsapp_date (whatsapp, fecha_creacion)
 		) $charset_collate;";
 
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');

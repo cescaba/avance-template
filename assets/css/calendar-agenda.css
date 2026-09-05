@@ -1,13 +1,3 @@
-/**
- * Calendar Agenda Template Part Styles
- *
- * Estilos reutilizables para el componente de calendario de agendamiento
- */
-
-/* =====================================================
-   CALENDAR AGENDA - BASE STYLES
-   ===================================================== */
-
 .contacto-agenda__left {
 	display: flex;
 	flex-direction: column;
@@ -26,7 +16,6 @@
 	min-height: 400px;
 }
 
-/* Host Row */
 .contacto-agenda__host-row {
 	display: flex;
 	align-items: center;
@@ -82,7 +71,6 @@
 	text-transform: uppercase;
 }
 
-/* Calendar Header */
 .contacto-agenda__cal-header {
 	display: flex;
 	align-items: center;
@@ -122,7 +110,6 @@
 	color: #2C2629;
 }
 
-/* Calendar Weekdays */
 .contacto-agenda__cal-weekdays {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
@@ -140,14 +127,13 @@
 	text-transform: uppercase;
 }
 
-/* Calendar Grid */
 .contacto-agenda__cal-grid {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	gap: 2px;
+	gap: 8px;
 	text-align: center;
 	flex: 0;
-	row-gap: 3px;
+	row-gap: 10px;
 }
 
 .contacto-agenda__daybtn {
@@ -201,18 +187,6 @@
 	color: #99A1AF;
 }
 
-.contacto-agenda__daybtn .dot {
-	position: absolute;
-	width: 4px;
-	height: 4px;
-	border-radius: 50%;
-	background: #2c4a3e;
-	bottom: 4px;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-/* Time Slots */
 .contacto-agenda__time-slots,
 #contactoAgendaTimeSlots {
 	display: flex;
@@ -290,7 +264,6 @@
 	border-color: #2c4a3e;
 }
 
-/* Summary */
 .contacto-agenda__summary {
 	display: flex;
 	flex-direction: column;
@@ -320,7 +293,6 @@
 	line-height: 21px;
 }
 
-/* Change Button */
 .contacto-agenda__change-btn {
 	width: 100%;
 	padding: 11px 16px;
@@ -368,7 +340,6 @@
 	border-color: #D1D5DB;
 }
 
-/* Timezone Row */
 .contacto-agenda__tz-row {
 	display: flex;
 	align-items: center;
@@ -380,7 +351,6 @@
 	border-top: 1px solid #E5E7EB;
 }
 
-/* Buttons Wrapper */
 .contacto-agenda__buttons-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -389,7 +359,6 @@
 	box-sizing: border-box;
 }
 
-/* Continue Button */
 .contacto-agenda__btn-continue {
 	display: none;
 }
@@ -397,10 +366,6 @@
 .contacto-agenda__btn--back {
 	display: none;
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
-   ===================================================== */
 
 @media (min-width: 1025px) and (max-width: 1440px) {
 	.contacto-agenda__left {
@@ -411,23 +376,19 @@
 		height: auto;
 		min-height: 390px;
 		gap: 18px;
-		padding: 16px;
-	}
-
-	.contacto-agenda__host-row {
-		gap: 10px;
-		padding-bottom: 8px;
+		padding: 17px;
 	}
 
 	.contacto-agenda__avatar {
-		width: 22px;
-		height: 22px;
+		width: 23px;
+		height: 23px;
 		font-size: 8px;
 		flex-shrink: 0;
 	}
 
-	.contacto-agenda__host-info {
-		gap: 2px;
+	.contacto-agenda__host-row {
+		gap: 9px;
+		padding-bottom: 7px;
 	}
 
 	.contacto-agenda__host-title {
@@ -441,33 +402,31 @@
 		line-height: 13px;
 	}
 
+	.contacto-agenda__tag {
+		font-size: 9px;
+	}
+
 	.contacto-agenda__cal-header {
-		gap: 6px;
+		gap: 5px;
 	}
 
 	.contacto-agenda__cal-nav {
-		width: 32px;
-		height: 32px;
+		width: 30px;
+		height: 30px;
 		font-size: 16px;
 	}
 
 	.contacto-agenda__cal-month-label {
 		font-size: 15px;
-		line-height: 18px;
+		line-height: 17px;
 		font-weight: 600;
 	}
 
 	.contacto-agenda__cal-weekday {
 		font-size: 10px;
 		line-height: 12px;
-		padding-bottom: 4px;
+		padding-bottom: 3px;
 		font-weight: 600;
-	}
-
-	.contacto-agenda__cal-grid {
-		gap: 2px;
-		row-gap: 3px;
-		flex: 0;
 	}
 
 	.contacto-agenda__daybtn {
@@ -477,17 +436,14 @@
 	}
 
 	.contacto-agenda__daybtn.selected {
-		width: 36px;
-		height: 36px;
+		width: 35px;
+		height: 35px;
 	}
 
 	.contacto-agenda__time-label {
 		font-size: 12px;
+		gap: 5px;
 		font-weight: 600;
-	}
-
-	.contacto-agenda__time-wrapper {
-		gap: 10px;
 	}
 
 	.contacto-agenda__time-grid {
@@ -495,9 +451,9 @@
 	}
 
 	.contacto-agenda__time-btn {
-		padding: 11px 14px;
+		padding: 10px 13px;
+		font-size: 14px;
 		font-weight: 500;
-		font-size: 13px;
 		height: auto;
 	}
 
@@ -510,34 +466,36 @@
 	}
 
 	.contacto-agenda__summary-label {
-		font-size: 9px;
+		font-size: 10px;
+		font-weight: 600;
 	}
 
 	.contacto-agenda__summary-value {
 		font-size: 17px;
+		font-weight: 600;
 	}
 
 	.contacto-agenda__change-btn {
-		padding: 12px 16px;
+		padding: 10px 15px;
 		font-weight: 500;
 		font-size: 13px;
 		height: auto;
 	}
 
+	.contacto-agenda__time-wrapper {
+		gap: 10px;
+	}
+
 	.contacto-agenda__buttons-wrapper {
-		gap: 12px;
+		gap: 11px;
 	}
 
 	.contacto-agenda__form-btn {
 		height: 36px;
 		font-size: 11px;
-		line-height: 14px;
+		line-height: 13px;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
 
 @media (min-width: 769px) and (max-width: 1024px) {
 	.contacto-agenda__left {
@@ -602,8 +560,8 @@
 	}
 
 	.contacto-agenda__cal-grid {
-		gap: 2px;
-		row-gap: 3px;
+		gap: 8px;
+		row-gap: 10px;
 		flex: 0;
 	}
 
@@ -675,27 +633,16 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
-
 @media (min-width: 480px) and (max-width: 768px) {
 	.contacto-agenda__left {
-		gap: 13px;
+		gap: 15px;
 	}
 
 	.contacto-agenda__card {
 		height: auto;
-		min-height: 350px;
+		min-height: 330px;
 		gap: 15px;
-		padding: 13px;
-	}
-
-	.contacto-agenda__avatar {
-		width: 19px;
-		height: 19px;
-		font-size: 6px;
-		flex-shrink: 0;
+		padding: 14px;
 	}
 
 	.contacto-agenda__host-row {
@@ -703,53 +650,58 @@
 		padding-bottom: 7px;
 	}
 
+	.contacto-agenda__avatar {
+		width: 23px;
+		height: 23px;
+		font-size: 9px;
+		flex-shrink: 0;
+	}
+
 	.contacto-agenda__host-info {
 		gap: 2px;
 	}
 
 	.contacto-agenda__host-title {
-		font-size: 11px;
+		font-size: 10px;
 		line-height: 13px;
 		font-weight: 600;
 	}
 
 	.contacto-agenda__host-meta {
-		font-size: 9px;
+		font-size: 8px;
 		line-height: 11px;
 	}
 
+	.contacto-agenda__tag {
+		font-size: 9px;
+	}
+
 	.contacto-agenda__cal-header {
-		gap: 4px;
+		gap: 5px;
 	}
 
 	.contacto-agenda__cal-nav {
 		width: 27px;
 		height: 27px;
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.contacto-agenda__cal-month-label {
-		font-size: 12px;
-		line-height: 14px;
+		font-size: 13px;
+		line-height: 15px;
 		font-weight: 600;
 	}
 
 	.contacto-agenda__cal-weekday {
 		font-size: 8px;
 		line-height: 10px;
-		padding-bottom: 2px;
+		padding-bottom: 3px;
 		font-weight: 600;
-	}
-
-	.contacto-agenda__cal-grid {
-		gap: 2px;
-		row-gap: 3px;
-		flex: 0;
 	}
 
 	.contacto-agenda__daybtn {
 		font-size: 13px;
-		line-height: 14px;
+		line-height: 15px;
 		font-weight: 500;
 	}
 
@@ -765,18 +717,18 @@
 	}
 
 	.contacto-agenda__time-grid {
-		gap: 5px;
+		gap: 6px;
 	}
 
 	.contacto-agenda__time-btn {
 		padding: 9px 11px;
-		font-size: 12px;
+		font-size: 11px;
 		font-weight: 500;
 		height: auto;
 	}
 
 	.contacto-agenda__summary {
-		gap: 10px;
+		gap: 11px;
 	}
 
 	.contacto-agenda__summary-row {
@@ -784,40 +736,53 @@
 	}
 
 	.contacto-agenda__summary-label {
-		font-size: 10px;
+		font-size: 9px;
 		font-weight: 600;
 	}
 
 	.contacto-agenda__summary-value {
-		font-size: 14px;
+		font-size: 13px;
 		font-weight: 600;
 	}
 
 	.contacto-agenda__change-btn {
-		padding: 10px 12px;
-		font-weight: 500;
-		font-size: 11px;
-		height: auto;
+		height: 48px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 0;
+	}
+
+	.contacto-agenda__tz-row {
+		font-size: 9px;
+		margin-top: auto;
+		padding-top: 8px;
 	}
 
 	.contacto-agenda__time-wrapper {
-		gap: 10px;
+		gap: 11px;
 	}
 
 	.contacto-agenda__buttons-wrapper {
-		gap: 10px;
+		gap: 11px;
 	}
 
 	.contacto-agenda__form-btn {
-		height: 40px;
-		font-size: 12px;
-		line-height: 16px;
+		display: block;
+		height: 48px;
+		flex: 0 0 auto;
+		font-weight: 700;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: 0px;
+		padding: 0;
+		border-radius: 0;
+		background-color: #466060;
+		color: #FFFFFF;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
-   ===================================================== */
 
 @media (max-width: 479px) {
 	.contacto-agenda__left {
@@ -882,8 +847,8 @@
 	}
 
 	.contacto-agenda__cal-grid {
-		gap: 2px;
-		row-gap: 3px;
+		gap: 8px;
+		row-gap: 10px;
 		flex: 0;
 	}
 

@@ -1,16 +1,11 @@
-/**
- * Page Contacto Styles
+/*
+
  *
- * @package Avance_Template
+
  */
 
 .contacto-main {
-	/* Page specific styles here */
 }
-
-/* =====================================================
-   HERO SECTION
-   ===================================================== */
 
 .contacto-hero {
 	background-size: cover;
@@ -124,26 +119,13 @@
 	color: #FFFFFF;
 }
 
-/* =====================================================
-   SCHEDULING SECTION - Moved to scheduling-section.css
-   ===================================================== */
-
 .contacto-scheduling {
 	width: 100%;
 }
 
-/* =====================================================
-   FORM SECTION
-   ===================================================== */
-
 .contacto-form-section {
 	width: 100%;
 }
-
-
-/* =====================================================
-   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
-   ===================================================== */
 
 @media (min-width: 1025px) and (max-width: 1440px) {
 	.contacto-hero__bg {
@@ -182,10 +164,6 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
-
 @media (min-width: 769px) and (max-width: 1024px) {
 	.contacto-hero__bg {
 		height: 200px;
@@ -222,10 +200,6 @@
 		height: 34px;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
 
 @media (min-width: 480px) and (max-width: 768px) {
 	.contacto-hero__bg {
@@ -264,9 +238,6 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
-   ===================================================== */
 @media (max-width: 479px) {
 	.contacto-hero {
 		position: relative;

@@ -1,20 +1,17 @@
-/**
- * Sesiones Styles - Scheduling Section & Form Section
+/*
+
  *
- * Componentes unificados:
- * - template-parts/scheduling-section.php (Avance_Scheduling_Component)
+
+
  * - template-parts/form-section.php (Avance_Form_Component)
  *
  * @package Avance_Template
  */
 
-/* =====================================================
-   FORM SECTION - DESKTOP (1440px+)
-   ===================================================== */
-
 .home-form {
-	background-color: var(--bg-light);
-	border: 1px solid var(--bg-light);
+
+	background-color: #F9FAFB;
+	border: 1px solid #F9FAFB;
 	padding: 80px var(--lateral-spacing);
 	display: flex;
 	justify-content: center;
@@ -94,8 +91,8 @@
 	width: 100%;
 	font-family: 'Inter', sans-serif;
 	font-weight: 400;
-	font-size: var(--font-size-base);
-	color: var(--text-secondary);
+	font-size: 14px;
+	color: #000;
 	line-height: 1.5;
 	height: 46px;
 	padding: 12px 16px;
@@ -114,6 +111,136 @@
 	outline: none;
 	border-color: #D0D5E0;
 	box-shadow: none;
+}
+
+/* =====================================================
+   AVANCE SELECT COMPONENT - INDEPENDIENTE
+   ===================================================== */
+
+.avance-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.avance-select-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 46px;
+	padding: 12px 14px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.5;
+	letter-spacing: 0px;
+	color: #99A1AF;
+	border: 1px solid #D0D5E0;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	user-select: none;
+}
+
+.avance-select-trigger:hover {
+	border-color: #D1D5DB;
+}
+
+.avance-select-trigger.is-open {
+	border-color: #D1D5DB;
+}
+
+.avance-select-trigger.has-value .avance-select-value {
+	color: #2C2629;
+}
+
+.avance-select-value {
+	flex: 1;
+	text-align: left;
+	transition: color 0.2s;
+}
+
+.avance-select-icon {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	margin-left: 10px;
+	color: #466060;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avance-select-trigger.is-open .avance-select-icon {
+	transform: scaleY(-1);
+}
+
+.avance-select-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	margin-top: 4px;
+	border: 1px solid #E5E7EB;
+	border-radius: 8px;
+	background: #FFFFFF;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+	z-index: 1000;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	pointer-events: none;
+}
+
+.avance-select-dropdown.is-open {
+	max-height: 280px;
+	opacity: 1;
+	pointer-events: auto;
+	overflow-y: auto;
+}
+
+.avance-select-option {
+	padding: 12px 14px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 0px;
+	color: #2C2629;
+	cursor: pointer;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #F2F4F6;
+}
+
+.avance-select-option:last-child {
+	border-bottom: none;
+}
+
+.avance-select-option:first-child {
+	color: #99A1AF;
+}
+
+.avance-select-option:hover {
+	background: #F9FAFB;
+	color: #466060;
+}
+
+.avance-select-option.is-selected {
+	background: #F0F4EF;
+	color: #466060;
+	font-weight: 500;
+}
+
+.avance-select-option.is-selected::before {
+	content: "✓";
+	margin-right: 8px;
+	color: #466060;
+	font-weight: 600;
+}
+
+.avance-select-hidden {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .home-form__select-wrapper {
@@ -193,7 +320,7 @@
 .home-form__textarea {
 	width: 100%;
 	height: 80px;
-	resize: none;
+	resize: vertical;
 	padding: 12px 16px;
 	font-family: 'Inter', sans-serif;
 	font-weight: 400;
@@ -228,10 +355,9 @@
 	height: 48px;
 	background-color: #466060;
 	font-family: 'Inter', sans-serif;
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 14px;
 	line-height: 20px;
-	text-align: center;
 	color: #FFFFFF;
 	box-sizing: border-box;
 	border: none;
@@ -239,6 +365,10 @@
 	margin: 0;
 	cursor: pointer;
 	transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
 }
 
 .home-form__button:hover {
@@ -276,14 +406,12 @@
 	width: 16px;
 	height: 16px;
 	display: block;
+	flex-shrink: 0;
 }
-
-/* =====================================================
-   SCHEDULING SECTION - CONTACTO AGENDA
-   ===================================================== */
 
 .contacto-agenda {
 	padding: 60px var(--lateral-spacing);
+	border:1px solid #D9D9D9;
 }
 
 .contacto-agenda__container {
@@ -462,7 +590,6 @@ select.contacto-agenda__input:valid {
 	color: #000000;
 }
 
-
 .contacto-agenda__input:focus,
 .contacto-agenda__input:hover,
 .contacto-agenda__select-trigger:focus {
@@ -523,7 +650,7 @@ select.contacto-agenda__input:valid {
 .contacto-agenda__btn {
 	width: 100%;
 	max-width: 100%;
-	height: 44px;
+	height: 48px;
 	padding: 14px 24px;
 	border: none;
 	font-family: 'Inter', sans-serif;
@@ -611,10 +738,6 @@ select.contacto-agenda__input:valid {
 	color: #99A1AF;
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - HOME-FORM DESKTOP XL (1025px - 1439px)
-   ===================================================== */
-
 @media (min-width: 1025px) and (max-width: 1440px) {
 
 	.home-form {
@@ -651,6 +774,12 @@ select.contacto-agenda__input:valid {
 		gap: 6px;
 	}
 
+	.home-form__label {
+		font-size: 15px;
+		line-height: 16px;
+		letter-spacing: 1px;
+	}
+
 	.home-form__label-field {
 		font-size: 14px;
 		line-height: 1.3;
@@ -660,6 +789,11 @@ select.contacto-agenda__input:valid {
 		height: 44px;
 		padding: 11px 15px;
 		font-size: 13px;
+	}
+
+	.home-form__field--full {
+		grid-column: 1 / -1;
+		flex: 0;
 	}
 
 	.home-form__textarea {
@@ -694,6 +828,26 @@ select.contacto-agenda__input:valid {
 	.home-form__select-option {
 		padding: 12px 16px;
 		font-size: 14px;
+	}
+
+	.avance-select-trigger {
+		height: 44px;
+		padding: 11px 13px;
+		font-size: 13px;
+	}
+
+	.avance-select-icon {
+		width: 15px;
+		height: 15px;
+	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 260px;
+	}
+
+	.avance-select-option {
+		padding: 11px 13px;
+		font-size: 12px;
 	}
 
 	.contacto-agenda {
@@ -802,7 +956,7 @@ select.contacto-agenda__input:valid {
 	}
 
 	.contacto-agenda__btn {
-		height: 42px;
+		height: 44px;
 		padding: 12px 20px;
 		font-weight: 500;
 		font-size: 12px;
@@ -837,10 +991,6 @@ select.contacto-agenda__input:valid {
 		display: none;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
 
 @media (min-width: 769px) and (max-width: 1024px) {
 
@@ -1012,6 +1162,11 @@ select.contacto-agenda__input:valid {
 		padding: 10px 12px;
 	}
 
+	.home-form__field--full {
+		grid-column: 1 / -1;
+		flex: 0;
+	}
+
 	.home-form__textarea {
 		height: 70px;
 		font-size: 13px;
@@ -1047,14 +1202,30 @@ select.contacto-agenda__input:valid {
 		font-size: 12px;
 	}
 
+	.avance-select-trigger {
+		height: 40px;
+		padding: 10px 11px;
+		font-size: 12px;
+	}
+
+	.avance-select-icon {
+		width: 14px;
+		height: 14px;
+	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 240px;
+	}
+
+	.avance-select-option {
+		padding: 10px 11px;
+		font-size: 11px;
+	}
+
 	.contacto-agenda__btn--back {
 		display: none;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
 
 @media (min-width: 480px) and (max-width: 768px) {
 
@@ -1095,6 +1266,18 @@ select.contacto-agenda__input:valid {
 		font-size: 11px;
 		line-height: 16px;
 		letter-spacing: 0;
+	}
+
+	.contacto-agenda__header {
+		gap: 8px;
+	}
+
+	.contacto-agenda__header-content {
+		gap: 10px;
+	}
+
+	.contacto-agenda__section-header {
+		gap: 6px;
 	}
 
 	.contacto-agenda__form-fields {
@@ -1157,6 +1340,11 @@ select.contacto-agenda__input:valid {
 		padding: 8px 10px;
 	}
 
+	.home-form__field--full {
+		grid-column: 1 / -1;
+		flex: 0;
+	}
+
 	.home-form__textarea {
 		height: 60px;
 		font-size: 12px;
@@ -1190,6 +1378,31 @@ select.contacto-agenda__input:valid {
 	.home-form__select-option {
 		padding: 8px 10px;
 		font-size: 11px;
+	}
+
+	.avance-select-trigger {
+		height: 36px;
+		padding: 8px 10px;
+		font-size: 11px;
+	}
+
+	.avance-select-icon {
+		width: 13px;
+		height: 13px;
+		margin-left: 8px;
+	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 220px;
+	}
+
+	.avance-select-option {
+		padding: 8px 10px;
+		font-size: 10px;
+	}
+
+	.avance-select-option.is-selected::before {
+		margin-right: 6px;
 	}
 
 	.contacto-agenda__select-option {
@@ -1261,10 +1474,6 @@ select.contacto-agenda__input:valid {
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
-   ===================================================== */
-
 @media (max-width: 479px) {
 
 	.contacto-agenda {
@@ -1323,8 +1532,34 @@ select.contacto-agenda__input:valid {
 
 	.contacto-agenda__input,
 	.contacto-agenda__select-trigger {
-		padding: 10px 12px;
+		height: 46px;
+		padding: 14px 16px;
 		font-size: 12px;
+	}
+
+	.avance-select-trigger {
+		height: 46px;
+		padding: 14px 16px;
+		font-size: 14px;
+	}
+
+	.avance-select-icon {
+		width: 13px;
+		height: 13px;
+		margin-left: 8px;
+	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 200px;
+	}
+
+	.avance-select-option {
+		padding: 14px 16px;
+		font-size: 14px;
+	}
+
+	.avance-select-option.is-selected::before {
+		margin-right: 6px;
 	}
 
 	.contacto-agenda__select-menu {
@@ -1368,6 +1603,18 @@ select.contacto-agenda__input:valid {
 		font-size: 13px;
 		line-height: 1;
 		letter-spacing: 0;
+	}
+
+	.contacto-agenda__header {
+		gap: 8px;
+	}
+
+	.contacto-agenda__header-content {
+		gap: 10px;
+	}
+
+	.contacto-agenda__section-header {
+		gap: 6px;
 	}
 
 	.contacto-agenda__feature-grid {
@@ -1438,8 +1685,6 @@ select.contacto-agenda__input:valid {
 
 	.contacto-agenda__btn--back {
 		display: block;
-		margin-top: 12px;
-		margin-bottom: 8px;
 		background-color: #FFFFFF;
 		color: #364153;
 		border: 1px solid #E5E7EB;
@@ -1496,7 +1741,7 @@ select.contacto-agenda__input:valid {
 	}
 
 	.home-form__field {
-		gap: 4px;
+		gap: 10px;
 	}
 
 	.home-form__label-field {
@@ -1504,6 +1749,11 @@ select.contacto-agenda__input:valid {
 		font-size: 12px;
 		line-height: 1;
 		letter-spacing: 0px;
+	}
+
+	.home-form__field--full {
+		grid-column: 1 / -1;
+		flex: 0;
 	}
 
 	.home-form__input {

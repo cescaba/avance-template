@@ -86,7 +86,119 @@ class FormHandler {
 }
 
 /**
- * ProposalFormHandler
+ * ServicioEmpresaHandler - Para formulario de servicios empresas
+ */
+class ServicioEmpresaHandler extends FormHandler {
+	constructor() {
+		super({
+			formId: 'proposal-form',
+			ajaxUrl: '/wp-admin/admin-ajax.php',
+			nonce: '',
+		});
+		this.getNonce();
+	}
+
+	getNonce() {
+		const form = document.getElementById(this.config.formId);
+		if (form) {
+			const nonceField = form.querySelector('input[name="nonce"]');
+			if (nonceField) {
+				this.config.nonce = nonceField.value;
+			}
+		}
+	}
+
+	getFormData() {
+		const form = document.getElementById(this.config.formId);
+		return {
+			nombre: form.querySelector('input[name="nombre"]')?.value.trim() || '',
+			cargo: form.querySelector('input[name="cargo"]')?.value.trim() || '',
+			empresa: form.querySelector('input[name="empresa"]')?.value.trim() || '',
+			tamaño_equipo: form.querySelector('input[name="tamaño_equipo"]')?.value.trim() || '',
+			email: form.querySelector('input[name="email"]')?.value.trim() || '',
+			whatsapp: form.querySelector('input[name="whatsapp"]')?.value.trim() || '',
+			servicio_interes: form.querySelector('input[name="servicio_interes"]')?.value.trim() || '',
+			desafio_comercial: form.querySelector('textarea[name="desafio_comercial"]')?.value.trim() || '',
+			nonce: this.config.nonce,
+		};
+	}
+
+	validateFormData(data) {
+		const errors = [];
+
+		if (!data.nombre || data.nombre.length < 3) errors.push('Nombre debe tener al menos 3 caracteres');
+		if (!data.empresa || data.empresa.length < 2) errors.push('Empresa es requerida');
+		if (!data.email || !this.isValidEmail(data.email)) errors.push('Email válido es requerido');
+		if (!data.servicio_interes || data.servicio_interes.length < 3) errors.push('Servicio de interés es requerido');
+		if (!data.desafio_comercial || data.desafio_comercial.length < 10) errors.push('Describe tu desafío con más detalle');
+
+		if (errors.length > 0) {
+			this.showError('Errores en el formulario:\n\n' + errors.join('\n'));
+			return false;
+		}
+
+		return true;
+	}
+
+	submitFormViaAjax(formData) {
+		const form = document.getElementById(this.config.formId);
+		const submitBtn = form.querySelector('button[type="submit"]');
+
+		const ajaxData = new FormData();
+		ajaxData.append('action', 'avance_submit_servicio_empresa');
+		ajaxData.append('nonce', formData.nonce);
+
+		Object.keys(formData).forEach(key => {
+			if (key !== 'nonce') {
+				ajaxData.append(key, formData[key]);
+			}
+		});
+
+		submitBtn.disabled = true;
+		submitBtn.textContent = 'Procesando...';
+
+		fetch(this.config.ajaxUrl, {
+			method: 'POST',
+			body: ajaxData,
+		})
+			.then((response) => {
+				if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+				return response.json();
+			})
+			.then((result) => {
+				this.config.isSubmitting = false;
+
+				if (result.success) {
+					submitBtn.textContent = '¡Propuesta enviada!';
+					submitBtn.style.backgroundColor = '#28a745';
+
+					if (result.data?.url) {
+						this.openWhatsApp(result.data.url);
+					}
+
+					setTimeout(() => {
+						this.resetForm();
+						submitBtn.textContent = 'Solicitar propuesta personalizada';
+						submitBtn.style.backgroundColor = '';
+						submitBtn.disabled = false;
+					}, 3000);
+				} else {
+					submitBtn.textContent = 'Error al enviar';
+					submitBtn.disabled = false;
+					this.showError('Error: ' + (result.data?.message || result.message || 'Error desconocido'));
+				}
+			})
+			.catch((error) => {
+				this.config.isSubmitting = false;
+				submitBtn.textContent = 'Error al procesar';
+				submitBtn.disabled = false;
+				this.showError('Error al procesar la solicitud: ' + error.message);
+			});
+	}
+}
+
+/**
+ * ProposalFormHandler (DEPRECATED - usar ServicioEmpresaHandler)
  */
 class ProposalFormHandler extends FormHandler {
 	constructor() {
@@ -198,9 +310,19 @@ class DiagnosticoSubmitHandler {
 	}
 
 	submitDiagnostico(formData, button) {
+		// Obtener nonce del formulario o del config
+		let nonce = this.config.nonce;
+		const quizView = document.getElementById('diagnosticoQuizView');
+		if (quizView) {
+			const nonceField = quizView.querySelector('input[name="nonce"]');
+			if (nonceField) {
+				nonce = nonceField.value;
+			}
+		}
+
 		const ajaxData = new FormData();
 		ajaxData.append('action', 'avance_submit_diagnostico');
-		ajaxData.append('nonce', this.config.nonce);
+		ajaxData.append('nonce', nonce);
 		ajaxData.append('nombreCompleto', formData.nombreCompleto);
 		ajaxData.append('email', formData.email);
 		ajaxData.append('whatsapp', formData.whatsapp);
@@ -311,8 +433,12 @@ class ContactWhatsAppHandler extends FormHandler {
 			body: ajaxData,
 		})
 			.then(response => {
-				if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-				return response.json();
+				return response.json().then(data => {
+					if (!response.ok) {
+						throw { status: response.status, data: data };
+					}
+					return data;
+				});
 			})
 			.then(response => {
 				this.config.isSubmitting = false;
@@ -327,11 +453,32 @@ class ContactWhatsAppHandler extends FormHandler {
 			})
 			.catch(error => {
 				this.config.isSubmitting = false;
-				this.showError('Error de conexión. Intenta de nuevo.');
+
+				let errorMessage = 'Error de conexión. Intenta de nuevo.';
+
+				if (error.status === 409) {
+					errorMessage = error.data?.data?.message || 'Este email o número ya fue registrado en las últimas 24 horas.';
+				} else if (error.status === 429) {
+					errorMessage = error.data?.data?.message || 'Demasiados intentos. Por favor, espera antes de intentar de nuevo.';
+				} else if (error.status === 403) {
+					errorMessage = error.data?.data?.message || 'Tu IP ha sido bloqueada.';
+				} else if (error.status === 400) {
+					errorMessage = error.data?.data?.message || 'Datos inválidos. Por favor, verifica tu información.';
+				} else if (error.status === 500) {
+					errorMessage = error.data?.data?.message || 'Error del servidor. Por favor, intenta más tarde.';
+				}
+
+				console.error('Error:', error);
+				this.showError(errorMessage);
 			});
 	}
 
 	getNonce() {
+		// Primero intentar obtener del config localizado (avanceFormConfig)
+		if (typeof avanceFormConfig !== 'undefined' && avanceFormConfig.nonce) {
+			return avanceFormConfig.nonce;
+		}
+		// Si no está disponible, buscar en el formulario HTML
 		const form = document.getElementById(this.config.formId);
 		const nonceField = form ? form.querySelector('input[name="nonce"]') : null;
 		return nonceField ? nonceField.value : '';
@@ -340,22 +487,14 @@ class ContactWhatsAppHandler extends FormHandler {
 	showSuccessMessage(message) {
 		const form = document.getElementById(this.config.formId);
 		if (form) {
-			const successDiv = document.createElement('div');
-			successDiv.style.cssText = 'background-color: #efe; border: 1px solid #cfc; color: #3c3; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;';
-			successDiv.textContent = message;
-			form.insertAdjacentElement('afterbegin', successDiv);
-			setTimeout(() => successDiv.remove(), 4000);
+			NotificationManager.success(message, form);
 		}
 	}
 
 	showError(message) {
 		const form = document.getElementById(this.config.formId);
 		if (form) {
-			const errorDiv = document.createElement('div');
-			errorDiv.style.cssText = 'background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 12px; border-radius: 4px; margin-bottom: 16px; font-size: 14px;';
-			errorDiv.textContent = message;
-			form.insertAdjacentElement('afterbegin', errorDiv);
-			setTimeout(() => errorDiv.remove(), 4000);
+			NotificationManager.error(message, form);
 		}
 	}
 }
@@ -443,9 +582,9 @@ class AppointmentHandler extends FormHandler {
  * Inicializar todos los formularios cuando el DOM esté listo
  */
 function initForms() {
-	// Proposal Form - Opcional (solo si existe)
+	// Servicio Empresa Form - Opcional (solo si existe)
 	if (document.getElementById('proposal-form')) {
-		new ProposalFormHandler().init();
+		new ServicioEmpresaHandler().init();
 	}
 
 	// Diagnostico Handler - Siempre inicializar (define función global)

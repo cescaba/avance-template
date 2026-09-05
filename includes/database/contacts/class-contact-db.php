@@ -40,7 +40,8 @@ class Avance_Contact_DB {
 			PRIMARY KEY (id),
 			INDEX status_idx (status),
 			INDEX created_idx (created_at),
-			INDEX email_idx (email)
+			INDEX email_idx (email),
+			INDEX composite_email_date (email, created_at)
 		) {$charset_collate};";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';

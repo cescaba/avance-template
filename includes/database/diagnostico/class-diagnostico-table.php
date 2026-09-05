@@ -33,7 +33,9 @@ class Avance_Diagnostico_Table {
 				fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 				PRIMARY KEY (id),
 				KEY email (email),
-				KEY whatsapp (whatsapp)
+				KEY whatsapp (whatsapp),
+				KEY fecha_creacion (fecha_creacion),
+				KEY email_fecha (email, fecha_creacion)
 			) {$this->charset_collate};";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';

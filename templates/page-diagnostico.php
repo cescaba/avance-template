@@ -80,7 +80,7 @@ get_header();
 			<!-- CTA Buttons -->
 			<div class="diagnostico-cta">
 				<p class="diagnostico-cta__text"><?php esc_html_e('¿Prefieres hablar directamente?', 'avance-template'); ?></p>
-				<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="diagnostico-cta__btn diagnostico-cta__btn--secondary">
+				<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="diagnostico-cta__btn diagnostico-cta__btn--secondary" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 					<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">
 					<?php esc_html_e('Escribir ahora', 'avance-template'); ?>
 				</a>

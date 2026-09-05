@@ -1,9 +1,7 @@
 <?php
 /**
- * Appointments Manager - Orquestador Principal
- *
- * Gestiona la inicialización del sistema de agendamiento
- * incluyendo clases, hooks y admin panel.
+ * Appointments Admin - Gestor independiente de citas
+ * Cada admin es responsable de su propia tabla y lógica
  *
  * @package Avance_Template
  */
@@ -14,197 +12,254 @@ if (!defined('ABSPATH')) {
 
 class Avance_Appointments_Manager {
 
-	/**
-	 * Inicializar sistema de agendamiento
-	 */
-	public static function init() {
-		// Cargar clases
-		self::load_classes();
+	private $table_name;
 
-		// Crear tabla en BD
-		self::create_tables();
+	public function __construct() {
+		global $wpdb;
+		$this->table_name = $wpdb->prefix . 'avance_agendamiento_contacto';
 
-		// Registrar AJAX handlers
-		self::register_ajax_handlers();
+		add_action('admin_menu', [$this, 'register_menu']);
+		add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
 
-		// Registrar admin panel
-		self::register_admin_panel();
+		// AJAX handlers específicos de citas
+		add_action('wp_ajax_appointments_get_record', [$this, 'ajax_get_record']);
+		add_action('wp_ajax_appointments_download_record', [$this, 'ajax_download_record']);
+		add_action('wp_ajax_appointments_download_all', [$this, 'ajax_download_all']);
+		add_action('wp_ajax_appointments_delete_record', [$this, 'ajax_delete_record']);
+
+		// Cargar clases de citas para el frontend
+		$this->load_appointment_classes();
+
+		// Crear tabla en BD con prioridad alta
+		add_action('init', [$this, 'maybe_create_table'], 0);
+		add_action('admin_init', [$this, 'maybe_create_table'], 0);
 	}
 
-	/**
-	 * Cargar clases del sistema
-	 */
-	private static function load_classes() {
-		$appointments_dir = get_template_directory() . '/includes/appointments/';
-
-		require_once $appointments_dir . 'class-appointment-validator.php';
-		require_once $appointments_dir . 'class-appointment-db.php';
-		require_once $appointments_dir . 'class-appointment-handler.php';
+	private function load_appointment_classes() {
+		// Cargar clase de contacto agendamiento para el admin
+		require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
 	}
 
-	/**
-	 * Crear tablas en la BD
-	 */
-	private static function create_tables() {
-		if (class_exists('Avance_Appointment_DB')) {
-			Avance_Appointment_DB::create_table();
+	public function maybe_create_table() {
+		// Crear tabla de agendamientos contacto
+		if (class_exists('Avance_Agendamiento_Contacto_DB')) {
+			Avance_Agendamiento_Contacto_DB::create_table();
 		}
 	}
 
-	/**
-	 * Registrar AJAX handlers
-	 */
-	private static function register_ajax_handlers() {
-		if (class_exists('Avance_Appointment_Handler')) {
-			new Avance_Appointment_Handler();
-		}
-	}
-
-	/**
-	 * Registrar panel de admin
-	 */
-	private static function register_admin_panel() {
-		add_action('admin_menu', array(__CLASS__, 'add_admin_menu'));
-		add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_admin_styles'));
-	}
-
-	/**
-	 * Enqueue de estilos del admin
-	 */
-	public static function enqueue_admin_styles($hook) {
-		if ($hook !== 'toplevel_page_avance-appointments') {
-			return;
-		}
-
-		wp_enqueue_style('wp-admin');
-		wp_enqueue_style(
-			'avance-admin-premium',
-			get_template_directory_uri() . '/assets/css/admin-premium.css',
-			array(),
-			wp_get_theme()->get('Version')
-		);
-	}
-
-	/**
-	 * Agregar menú en admin
-	 */
-	public static function add_admin_menu() {
+	public function register_menu() {
 		add_menu_page(
 			'Citas Agendadas',
 			'Citas',
 			'manage_options',
-			'avance-appointments',
-			array(__CLASS__, 'render_admin_page'),
+			'appointments-admin',
+			[$this, 'render_admin_page'],
 			'dashicons-calendar-alt',
 			30
 		);
 	}
 
-	/**
-	 * Renderizar página admin
-	 */
-	public static function render_admin_page() {
+	public function enqueue_admin_assets($hook) {
+		if (strpos($hook, 'appointments-admin') === false) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'avance-admin-premium',
+			get_template_directory_uri() . '/assets/css/admin-premium.css',
+			['wp-admin'],
+			wp_get_theme()->get('Version')
+		);
+	}
+
+	public function render_admin_page() {
+		global $wpdb;
+
+		// Asegurar que la tabla existe
+		$this->maybe_create_table();
+
+		// Traer datos de la tabla
+		$records = $wpdb->get_results("SELECT * FROM {$this->table_name} ORDER BY fecha_creacion DESC LIMIT 50");
+		if ($records === null) {
+			$records = array();
+		}
+		$total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->table_name}"));
+
+		require_once get_template_directory() . '/includes/admin/class-admin-table-builder.php';
+
+		$config = array(
+			'title' => 'Citas Agendadas',
+			'subtitle' => 'Gestiona todas las citas y agendamientos',
+
+			'columns' => array(
+				array('label' => 'ID', 'field' => 'id'),
+				array('label' => 'Nombre', 'field' => 'nombre'),
+				array('label' => 'WhatsApp', 'field' => 'whatsapp', 'type' => 'whatsapp'),
+				array('label' => 'Tema', 'field' => 'tema'),
+				array('label' => 'Fecha', 'field' => 'fecha'),
+				array('label' => 'Hora', 'field' => 'hora'),
+				array('label' => 'Estado', 'field' => 'estado'),
+			),
+
+			'filters' => array('search' => true),
+
+			'stats' => array(
+				array(
+					'label' => 'Total Citas',
+					'value' => $total,
+					'icon' => '📊',
+					'class' => 'total'
+				),
+			),
+
+			'data' => $records,
+			'total' => $total,
+
+			// Acciones AJAX específicas de este admin
+			'ajax_actions' => array(
+				'get_record' => 'appointments_get_record',
+				'download_record' => 'appointments_download_record',
+				'download_all' => 'appointments_download_all',
+				'delete_record' => 'appointments_delete_record',
+			),
+
+			'nonce_action' => 'appointments_admin',
+		);
+
+		$builder = new Admin_Table_Builder($config);
+		echo $builder->render();
+	}
+
+	// ========================================
+	// AJAX HANDLERS - Independientes de citas
+	// ========================================
+
+	public function ajax_get_record() {
+		check_ajax_referer('appointments_admin', 'nonce');
+
 		if (!current_user_can('manage_options')) {
-			wp_die('No tienes permiso');
+			wp_send_json_error(['message' => 'Sin permiso']);
 		}
 
-		$template_path = get_template_directory() . '/includes/admin/appointments/admin-appointments.php';
+		global $wpdb;
+		$id = intval($_POST['id'] ?? 0);
 
-		if (file_exists($template_path)) {
-			include $template_path;
+		$record = $wpdb->get_row($wpdb->prepare(
+			"SELECT * FROM {$this->table_name} WHERE id = %d",
+			$id
+		));
+
+		if (!$record) {
+			wp_send_json_error(['message' => 'Cita no encontrada']);
 		}
+
+		$clean_whatsapp = preg_replace('/[^0-9]/', '', $record->whatsapp);
+
+		$html = '<div class="avance-detail-view">';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">ID</div><div class="avance-detail-value">#' . esc_html($record->id) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Nombre</div><div class="avance-detail-value">' . esc_html($record->nombre) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">WhatsApp</div><div class="avance-detail-value"><a href="https://wa.me/' . esc_attr($clean_whatsapp) . '" target="_blank">' . esc_html($record->whatsapp) . '</a></div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Tema</div><div class="avance-detail-value">' . esc_html($record->tema) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Fecha</div><div class="avance-detail-value">' . esc_html(wp_date('d/m/Y', strtotime($record->fecha))) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Hora</div><div class="avance-detail-value">' . esc_html($record->hora) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Estado</div><div class="avance-detail-value">' . esc_html(ucfirst($record->estado)) . '</div></div>';
+		$html .= '<div class="avance-detail-row"><div class="avance-detail-label">Fecha Registro</div><div class="avance-detail-value">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div></div>';
+		$html .= '</div>';
+
+		wp_send_json_success(['html' => $html]);
+	}
+
+	public function ajax_download_record() {
+		check_ajax_referer('appointments_admin', 'nonce');
+
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(['message' => 'Sin permiso']);
+		}
+
+		global $wpdb;
+		$id = intval($_POST['id'] ?? 0);
+
+		$record = $wpdb->get_row($wpdb->prepare(
+			"SELECT * FROM {$this->table_name} WHERE id = %d",
+			$id
+		));
+
+		if (!$record) {
+			wp_send_json_error(['message' => 'Cita no encontrada']);
+		}
+
+		$csv = "ID,Nombre,WhatsApp,Tema,Fecha,Hora,Estado,Fecha Registro\n";
+		$csv .= sprintf(
+			'"%d","%s","%s","%s","%s","%s","%s","%s"' . "\n",
+			$record->id,
+			str_replace('"', '""', $record->nombre),
+			str_replace('"', '""', $record->whatsapp),
+			str_replace('"', '""', $record->tema),
+			$record->fecha,
+			$record->hora,
+			$record->estado,
+			$record->fecha_creacion
+		);
+
+		$filename = 'cita-' . $id . '-' . gmdate('Y-m-d-His') . '.csv';
+		wp_send_json_success(['csv' => $csv, 'filename' => $filename]);
+	}
+
+	public function ajax_download_all() {
+		check_ajax_referer('appointments_admin', 'nonce');
+
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(['message' => 'Sin permiso']);
+		}
+
+		global $wpdb;
+		$records = $wpdb->get_results("SELECT * FROM {$this->table_name} ORDER BY fecha_creacion DESC");
+
+		if (empty($records)) {
+			wp_send_json_error(['message' => 'No hay citas para descargar']);
+		}
+
+		$csv = "ID,Nombre,WhatsApp,Tema,Fecha,Hora,Estado,Fecha Registro\n";
+		foreach ($records as $record) {
+			$csv .= sprintf(
+				'"%d","%s","%s","%s","%s","%s","%s","%s"' . "\n",
+				$record->id,
+				str_replace('"', '""', $record->nombre),
+				str_replace('"', '""', $record->whatsapp),
+				str_replace('"', '""', $record->tema),
+				$record->fecha,
+				$record->hora,
+				$record->estado,
+				$record->fecha_creacion
+			);
+		}
+
+		$filename = 'citas-' . gmdate('Y-m-d-His') . '.csv';
+		wp_send_json_success(['csv' => $csv, 'filename' => $filename]);
+	}
+
+	public function ajax_delete_record() {
+		check_ajax_referer('appointments_admin', 'nonce');
+
+		if (!current_user_can('manage_options')) {
+			wp_send_json_error(['message' => 'Sin permiso']);
+		}
+
+		global $wpdb;
+		$id = intval($_POST['id'] ?? 0);
+
+		if (!$id) {
+			wp_send_json_error(['message' => 'ID inválido']);
+		}
+
+		$result = $wpdb->delete($this->table_name, ['id' => $id], ['%d']);
+
+		if ($result === false) {
+			wp_send_json_error(['message' => 'Error al eliminar: ' . $wpdb->last_error]);
+		}
+
+		wp_send_json_success(['message' => 'Cita eliminada correctamente']);
 	}
 }
 
-// Inicializar al cargar WordPress
-add_action('wp_loaded', array('Avance_Appointments_Manager', 'init'));
-
-/**
- * AJAX handler para obtener detalles de la cita
- */
-add_action('wp_ajax_avance_get_appointment', function() {
-	if (!current_user_can('manage_options')) {
-		wp_send_json_error('No tienes permiso');
-	}
-
-	if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'avance_admin')) {
-		wp_send_json_error('Nonce inválido');
-	}
-
-	global $wpdb;
-
-	$appointment_id = intval($_POST['id'] ?? 0);
-	$appointment = $wpdb->get_row($wpdb->prepare(
-		"SELECT * FROM {$wpdb->prefix}avance_appointments WHERE id = %d",
-		$appointment_id
-	));
-
-	if (!$appointment) {
-		wp_send_json_error('Cita no encontrada');
-	}
-
-	ob_start();
-	?>
-	<div class="avance-modal-header">
-		<h2>Cita #<?php echo esc_html($appointment->id); ?></h2>
-	</div>
-
-	<div class="avance-modal-body">
-		<div class="avance-detail-grid">
-			<div class="avance-detail-field">
-				<label>Nombre</label>
-				<p class="avance-detail-value"><?php echo esc_html($appointment->nombre); ?></p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>WhatsApp</label>
-				<p class="avance-detail-value">
-					<a href="https://wa.me/<?php echo esc_attr($appointment->whatsapp); ?>" target="_blank" rel="noopener" class="avance-link">
-						<?php echo esc_html($appointment->whatsapp); ?>
-					</a>
-				</p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>Servicio</label>
-				<p class="avance-detail-value"><?php echo esc_html($appointment->servicio); ?></p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>Fecha</label>
-				<p class="avance-detail-value"><strong><?php echo esc_html(wp_date('d/m/Y', strtotime($appointment->fecha))); ?></strong></p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>Hora</label>
-				<p class="avance-detail-value"><?php echo esc_html($appointment->hora); ?></p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>Estado</label>
-				<p class="avance-detail-value">
-					<?php if ($appointment->status === 'confirmada') : ?>
-						<span class="avance-badge avance-badge-success">✓ Confirmada</span>
-					<?php else : ?>
-						<span class="avance-badge avance-badge-secondary">⏳ Pendiente</span>
-					<?php endif; ?>
-				</p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>IP</label>
-				<p class="avance-detail-value"><code><?php echo esc_html($appointment->ip_address); ?></code></p>
-			</div>
-
-			<div class="avance-detail-field">
-				<label>Fecha y Hora de Registro</label>
-				<p class="avance-detail-value"><?php echo esc_html(wp_date('d/m/Y H:i:s', strtotime($appointment->created_at))); ?></p>
-			</div>
-		</div>
-	</div>
-	<?php
-
-	$html = ob_get_clean();
-
-	wp_send_json_success(array('html' => $html));
-});
+new Avance_Appointments_Manager();

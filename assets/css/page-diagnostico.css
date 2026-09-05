@@ -1,10 +1,7 @@
 /**
- * Page Diagnóstico Styles
- *
- * @package Avance_Template
+
  */
 
-/* Hero Section */
 .diagnostico-hero__bg {
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -18,10 +15,9 @@
 }
 
 .diagnostico-hero__container {
-	width: 520px;
+	width: 750px;
 	display: grid;
 	gap: 12px;
-	padding: 0;
 	box-sizing: border-box;
 }
 
@@ -34,11 +30,10 @@
 	box-sizing: border-box;
 }
 
-
 .diagnostico-hero__label {
 	font-weight: 400;
-	font-size: 16px;
-	line-height: 17px;
+	font-size: 25px;
+	line-height: 25px;
 	letter-spacing: 1.1px;
 	text-transform: uppercase;
 	color: #466060;
@@ -46,21 +41,20 @@
 
 .diagnostico-hero__title {
 	font-weight: 300;
-	font-size: 36px;
-	line-height: 36px;
+	font-size: 55px;
+	line-height: 55px;
 	letter-spacing: 0px;
-	color: #2C2629;
+	color: #466060;
 }
 
 .diagnostico-hero__description {
 	font-weight: 300;
-	font-size: 14px;
-	line-height: 23px;
+	font-size: 21px;
+	line-height: 34px;
 	padding-bottom: 12px;
 	color: #466060;
 }
 
-/* Quiz Section */
 .diagnostico-quiz {
 	padding: 60px var(--lateral-spacing);
 	background-color: var(--bg-white);
@@ -187,8 +181,6 @@
 	transform: none;
 }
 
-
-
 .diagnostico-quiz__form-field label {
 	font-weight: 500;
 	font-size: 12px;
@@ -294,7 +286,6 @@
 	animation: var(--button-animation);
 }
 
-/* CTA Buttons */
 .diagnostico-cta {
 	display: flex;
 	align-items: center;
@@ -356,18 +347,13 @@
 	border: 1px solid #E5E7EB;
 }
 
-
 .diagnostico-cta__btn--secondary:hover {
 	animation: var(--button-animation);
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - DESKTOP XL (1440px+)
-   ===================================================== */
 @media (min-width: 1025px) and (max-width: 1440px) {
-	/* HERO SECTION */
 	.diagnostico-hero__bg {
-		height: 450px;
+		height: 480px;
 		background-position: left center;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -375,35 +361,33 @@
 
 	.diagnostico-hero__container {
 		width: 100%;
-		max-width: 468px;
-		gap: 10px;
+		max-width: 600px;
+		gap: 12px;
 	}
 
 	.diagnostico-hero__label {
-		font-size: 14px;
-		line-height: 16px;
-		letter-spacing: 0.9px;
+		font-size: 20px;
+		line-height: 20px;
+		letter-spacing: 1px;
 	}
 
 	.diagnostico-hero__title {
-		font-size: 32px;
-		line-height: 36px;
+		font-size: 48px;
+		line-height: 48px;
 	}
 
 	.diagnostico-hero__description {
-		font-size: 13px;
-		line-height: 20px;
+		font-size: 18px;
+		line-height: 28px;
 		padding-bottom: 10px;
 	}
 
 	.diagnostico-hero__content {
-		height: 40px;
-		gap: 10px;
-		padding-top: 10px;
+		height: 44px;
+		gap: 12px;
+		padding-top: 12px;
 	}
 
-
-	/* QUIZ SECTION */
 	.diagnostico-quiz {
 		padding: 50px var(--lateral-spacing);
 	}
@@ -473,141 +457,6 @@
 		gap: 9px;
 	}
 
-	/* FORMULARIO - 1440px */
-	.diagnostico-quiz__form {
-		gap: 12px;
-	}
-
-	.diagnostico-quiz__form-field {
-		gap: 6px;
-	}
-
-	.diagnostico-quiz__form-field label {
-		font-size: 12px;
-		line-height: 18px;
-	}
-
-	.diagnostico-quiz__form-input {
-		height: 40px !important;
-		font-size: 13px;
-		padding: 10px 13px !important;
-	}
-
-	.diagnostico-quiz__form-submit {
-		height: 40px;
-		font-size: 14px;
-		padding: 0 22px;
-		margin-top: 10px;
-	}
-
-}
-
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
-@media (min-width: 769px) and (max-width: 1024px) {
-	/* HERO SECTION */
-	.diagnostico-hero__bg {
-		height: 400px;
-		background-position: 75% center;
-	}
-
-	.diagnostico-hero__container {
-		width: 100%;
-		max-width: 421px;
-		gap: 8px;
-	}
-
-	.diagnostico-hero__label {
-		font-size: 11px;
-		line-height: 14px;
-		letter-spacing: 0.8px;
-	}
-
-	.diagnostico-hero__title {
-		font-size: 28px;
-		line-height: 32px;
-	}
-
-	.diagnostico-hero__description {
-		font-size: 12px;
-		line-height: 18px;
-		padding-bottom: 8px;
-	}
-
-	.diagnostico-hero__content {
-		height: 36px;
-		gap: 8px;
-		padding-top: 8px;
-	}
-
-
-	/* QUIZ SECTION */
-	.diagnostico-quiz {
-		padding: 40px var(--lateral-spacing);
-	}
-
-	.diagnostico-quiz__progress-track {
-		margin-bottom: 32px;
-	}
-
-	.diagnostico-quiz__tag {
-		font-size: 13px;
-		line-height: 14px;
-		letter-spacing: 0.8px;
-	}
-
-	.diagnostico-quiz__title {
-		font-size: 27px;
-		line-height: 32px;
-	}
-
-	.diagnostico-quiz__description {
-		font-size: 13px;
-		line-height: 18px;
-	}
-
-	.diagnostico-quiz__options {
-		gap: 6px;
-	}
-
-	.diagnostico-quiz__option-btn {
-		padding: 12px 16px;
-		font-size: 13px;
-		line-height: 18px;
-	}
-
-	.diagnostico-quiz__btn {
-		padding: 10px 20px;
-		font-size: 12px;
-		line-height: 14px;
-	}
-
-	.diagnostico-quiz__actions {
-		gap: 12px;
-	}
-
-	.diagnostico-cta {
-		margin-top: 32px;
-		padding-top: 16px;
-		gap: 16px;
-	}
-
-	.diagnostico-cta__text {
-		font-size: 10px;
-		line-height: 14px;
-	}
-
-	.diagnostico-cta__btn {
-		height: 36px;
-		width: 135px;
-		padding: 10px 20px;
-		font-size: 10px;
-		line-height: 14px;
-		gap: 8px;
-	}
-
-	/* FORMULARIO - 1024px */
 	.diagnostico-quiz__form {
 		gap: 10px;
 	}
@@ -636,46 +485,40 @@
 
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
 @media (min-width: 480px) and (max-width: 768px) {
-	/* HERO SECTION */
 	.diagnostico-hero__bg {
-		height: 350px;
+		height: 380px;
 	}
 
 	.diagnostico-hero__container {
 		width: 100%;
-		max-width: 379px;
-		gap: 7px;
+		max-width: 460px;
+		gap: 10px;
 	}
 
 	.diagnostico-hero__label {
-		font-size: 10px;
-		line-height: 14px;
-		letter-spacing: 0.8px;
+		font-size: 16px;
+		line-height: 16px;
+		letter-spacing: 0.9px;
 	}
 
 	.diagnostico-hero__title {
-		font-size: 24px;
-		line-height: 28px;
+		font-size: 36px;
+		line-height: 36px;
 	}
 
 	.diagnostico-hero__description {
-		font-size: 11px;
-		line-height: 16px;
-		padding-bottom: 6px;
+		font-size: 14px;
+		line-height: 20px;
+		padding-bottom: 8px;
 	}
 
 	.diagnostico-hero__content {
-		height: 32px;
-		gap: 7px;
-		padding-top: 7px;
+		height: 36px;
+		gap: 10px;
+		padding-top: 10px;
 	}
 
-
-	/* QUIZ SECTION */
 	.diagnostico-quiz {
 		padding: 35px var(--lateral-spacing);
 	}
@@ -741,132 +584,4 @@
 		gap: 7px;
 	}
 
-	/* FORMULARIO - 768px */
-	.diagnostico-quiz__form {
-		gap: 10px;
-	}
-
-	.diagnostico-quiz__form-field {
-		gap: 5px;
-	}
-
-	.diagnostico-quiz__form-field label {
-		font-size: 11px;
-		line-height: 16px;
-	}
-
-	.diagnostico-quiz__form-input {
-		height: 32px !important;
-		font-size: 11px;
-		padding: 7px 10px !important;
-	}
-
-	.diagnostico-quiz__form-submit {
-		height: 32px;
-		font-size: 12px;
-		padding: 0 18px;
-		margin-top: 8px;
-	}
-}
-
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
-   ===================================================== */
-@media (max-width: 479px) {
-	.diagnostico-hero__bg {
-		padding: 0 var(--lateral-spacing);
-		background: #E5F0EB !important;
-		background-image: none !important;
-		height: 280px;
-	}
-
-	.diagnostico-hero__label {
-		font-weight: 700;
-		font-size: 11px;
-		line-height: 1.2;
-		letter-spacing: 0.06em;
-	}
-
-	.diagnostico-hero__title {
-		font-weight: 700;
-		font-size: 26px;
-		line-height: 1.15;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-hero__description {
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-hero__content {
-		padding-top: 0;
-	}
-
-
-	.diagnostico-quiz__tag {
-		font-weight: 700;
-		font-size: 12px;
-		line-height: 1.2;
-		letter-spacing: 0.06em;
-	}
-
-	.diagnostico-quiz__title {
-		font-weight: 300;
-		font-size: 22px;
-		line-height: 1.25;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-quiz__option-btn {
-		padding: 16px 18px;
-		height: 49px;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-cta {
-		flex-direction: column;
-	}
-
-	.diagnostico-cta__btn,
-	.diagnostico-cta__btn--secondary {
-		width: 100%;
-		height: 44px;
-		font-weight: 600;
-		font-size: 13px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-quiz {
-		padding: 40px var(--lateral-spacing);
-	}
-
-	.diagnostico-quiz__form-field label {
-		font-weight: 400;
-		font-size: 12px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-quiz__form-input {
-		height: 45px;
-		font-weight: 400;
-		font-size: 14px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
-
-	.diagnostico-quiz__form-submit {
-		height: 49px;
-		font-weight: 700;
-		font-size: 13px;
-		line-height: 1.2;
-		letter-spacing: 0;
-	}
 }

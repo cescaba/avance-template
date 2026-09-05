@@ -4,6 +4,24 @@
 
 @import url('./base.css');
 
+@keyframes lineFlow {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 8px 0;
+	}
+}
+
+@keyframes arrowBounce {
+	0%, 100% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(2px);
+	}
+}
+
 /* =====================================================
    ROOT VARIABLES
    ===================================================== */
@@ -201,7 +219,6 @@
 
 .avance-btn--ghost:hover {
 	animation: var(--button-animation);
-	background: rgba(145, 132, 217, 0.1);
 }
 
 /* ---------- menu toggle (hamburguesa) ---------- */
@@ -863,6 +880,7 @@
 	background-image: radial-gradient(circle, #a9cabf 1.2px, transparent 1.2px);
 	background-size: 8px 2px;
 	background-repeat: repeat-x;
+	animation: lineFlow 1.5s linear infinite;
 }
 
 .home-process__arrow {
@@ -872,6 +890,7 @@
 	display: flex;
 	align-items: center;
 	margin-left: 2px;
+	animation: arrowBounce 1s ease-in-out infinite;
 }
 
 .home-process__arrow svg {
@@ -1005,7 +1024,6 @@
 }
 
 .home-testimonials__item {
-	height: 250px;
 	padding: 30px;
 	border: 1px solid #F0F4EF;
 	background-color: #F0F4EF;
@@ -1673,13 +1691,11 @@
 
 	.home-testimonials__item {
 		padding: 24px;
-		height: 240px;
 	}
 
 	.home-testimonials__text {
 		font-size: 13px;
 		line-height: 22px;
-		padding-bottom: 20px;
 		color: #466060;
 	}
 
@@ -2144,7 +2160,6 @@
 
 	.home-testimonials__item {
 		padding: 16px;
-		height: 220px;
 	}
 
 	.home-testimonials__text {
@@ -3065,6 +3080,7 @@
 	.home-services__badge {
 		font-weight: 300;
 		font-size: 22px;
+		padding-bottom: 0px;
 		line-height: 1;
 		letter-spacing: 0;
 	}
@@ -3101,6 +3117,9 @@
 		gap: 24px;
 	}
 
+	.home-services__item {
+		gap: 15px;
+	}
 
 	/* PROCESS - 480px */
 	.home-process__container {
@@ -3374,6 +3393,7 @@
 		line-height: 1;
 		letter-spacing: 0;
 	}
+
 
 	.home-form__row {
 		flex-direction: column;

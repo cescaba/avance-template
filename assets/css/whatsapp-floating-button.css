@@ -1,0 +1,379 @@
+/* CSS Styles */
+ *
+.wsp-floating-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #00C950;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 201, 80, 0.35);
+  transition: all 0.3s ease;
+  z-index: 999;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+body.wsp-modal-open .wsp-floating-btn {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.wsp-floating-btn:hover {
+  background: #00B346;
+  box-shadow: 0 8px 24px rgba(0, 201, 80, 0.45);
+  transform: translateY(-2px);
+}
+
+.wsp-floating-btn:active {
+  transform: translateY(0);
+}
+
+.wsp-floating-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.wsp-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: flex-end;
+  z-index: 1000;
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+.wsp-modal[style*="display: flex"] {
+  display: flex;
+}
+
+.wsp-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.wsp-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15),
+              0 16px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: wspSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+@keyframes wspSlideUp {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.wsp-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.wsp-modal-header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.wsp-modal-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.wsp-modal-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F1F1F;
+  line-height: 1.2;
+}
+
+.wsp-modal-header p {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.wsp-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: -8px -8px -8px 8px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.wsp-modal-close:hover {
+  color: #666;
+}
+
+.wsp-modal-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.wsp-modal-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1F1F1F;
+  margin-bottom: 8px;
+}
+
+.wsp-modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #E5E5E5;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1F1F1F;
+  resize: none;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.wsp-modal-input:focus {
+  outline: none;
+  border-color: #00C950;
+  box-shadow: 0 0 0 3px rgba(0, 201, 80, 0.08);
+}
+
+.wsp-modal-input::placeholder {
+  color: #BBB;
+}
+
+.wsp-modal-footer {
+  padding: 16px 20px 20px;
+  background: #FFFFFF;
+  border-top: 1px solid #F0F0F0;
+}
+
+.wsp-modal-btn-send {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: inherit;
+  background: #00C950;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.wsp-modal-btn-send:hover {
+  background: #00B346;
+  box-shadow: 0 4px 12px rgba(0, 201, 80, 0.2);
+}
+
+.wsp-modal-btn-send:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .wsp-floating-btn {
+    width: 56px;
+    height: 56px;
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .wsp-floating-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .wsp-modal {
+    padding: 20px;
+    padding-bottom: 40px;
+  }
+
+  .wsp-modal-content {
+    max-width: 360px;
+    max-height: 90vh;
+  }
+
+  .wsp-modal-header {
+    padding: 20px 20px 16px;
+  }
+
+  .wsp-modal-body {
+    padding: 20px;
+    max-height: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .wsp-floating-btn {
+    width: 52px;
+    height: 52px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .wsp-floating-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .wsp-modal {
+    padding: 18px;
+    padding-bottom: 36px;
+  }
+
+  .wsp-modal-content {
+    max-width: 85%;
+    max-height: 85vh;
+  }
+
+  .wsp-modal-header {
+    padding: 18px 18px 14px;
+  }
+
+  .wsp-modal-body {
+    padding: 18px;
+    max-height: auto;
+  }
+
+  .wsp-modal-footer {
+    padding: 14px 18px 18px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .wsp-floating-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .wsp-floating-btn svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .wsp-modal {
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 16px;
+    padding-bottom: 32px;
+  }
+
+  .wsp-modal-content {
+    max-width: 95%;
+    max-height: 80vh;
+  }
+
+  .wsp-modal-header {
+    padding: 16px 16px 12px;
+  }
+
+  .wsp-modal-header h2 {
+    font-size: 15px;
+  }
+
+  .wsp-modal-header p {
+    font-size: 11px;
+  }
+
+  .wsp-modal-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .wsp-modal-body {
+    padding: 16px;
+    max-height: 60vh;
+  }
+
+  .wsp-modal-label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .wsp-modal-input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .wsp-modal-footer {
+    padding: 12px 16px 16px;
+  }
+
+  .wsp-modal-btn-send {
+    height: 40px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 479px) {
+  .wsp-floating-btn {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wsp-floating-btn {
+    transition: none;
+  }
+
+  .wsp-modal-content {
+    animation: none;
+  }
+}

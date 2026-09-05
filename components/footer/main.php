@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 			<p class="home-final-cta__subtitle-text"><?php esc_html_e('Primera sesión sin costo · Sin compromiso', 'avance-template'); ?></p>
 		</div>
 		<div class="home-final-cta__actions">
-			<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-final-cta__btn-whatsapp">
+			<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-final-cta__btn-whatsapp" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 				<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-final-cta__icon" aria-hidden="true">
 				<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
 			</a>

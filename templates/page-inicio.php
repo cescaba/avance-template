@@ -24,9 +24,8 @@ get_header();
 					<div class="home-hero__content">
 						<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico'))); ?>" class="home-hero__btn-diag"><?php esc_html_e('Diagnóstico gratuito', 'avance-template'); ?></a>
 						<a href="#scheduling-section" class="home-hero__btn-consul"><?php esc_html_e('Agendar consulta', 'avance-template'); ?></a>
-						<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-hero__btn-link">
-							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-hero__btn-link-icon" aria-hidden="true">
-							<?php esc_html_e('Escribir ahora', 'avance-template'); ?>
+						<a href="<?php echo esc_url(get_template_directory_uri() . '/assets/ebooks/Las 7 claves para transformar su gestión comercial.pdf'); ?>" class="home-hero__btn-link" target="_blank" rel="noopener noreferrer">
+							<?php esc_html_e('Descargar ebook', 'avance-template'); ?>
 						</a>
 					</div>
 				</div>
@@ -153,9 +152,6 @@ get_header();
 				<article class="home-testimonials__item">
 					<p class="home-testimonials__text"><?php esc_html_e('“Este libro presenta una visión práctica y estructurada de la gestión comercial, integrando cultura, estrategia, procesos y ejecución. Una guía valiosa para líderes que buscan construir equipos comerciales sólidos, medibles y orientados a resultados sostenibles.”"', 'avance-template'); ?></p>
 					<div class="home-testimonials__author">
-						<div class="home-testimonials__author-icon">
-							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/iconohumano.webp'); ?>" alt="" class="home-testimonials__icon" aria-hidden="true">
-						</div>
 						<div class="home-testimonials__author-content">
 							<h4 class="home-testimonials__name"><?php esc_html_e('Oscar Lobatón Soragastua', 'avance-template'); ?></h4>
 							<p class="home-testimonials__role"><?php esc_html_e('Gerente General — B. Braun Medical Perú S.A.', 'avance-template'); ?></p>
@@ -165,10 +161,7 @@ get_header();
 				<article class="home-testimonials__item">
 					<p class="home-testimonials__text"><?php esc_html_e('“Luis Bailly transforma la estrategia comercial en un sistema claro, práctico y aplicable. Su enfoque conecta estrategia y ejecución para construir organizaciones comerciales más sólidas, coherentes y capaces de generar resultados sostenibles.”', 'avance-template'); ?></p>
 					<div class="home-testimonials__author">
-						<div class="home-testimonials__author-icon">
-							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/iconohumano.webp'); ?>" alt="" class="home-testimonials__icon" aria-hidden="true">
-						</div>
-						<div class="home-testimonials__author-content"> 
+						<div class="home-testimonials__author-content">
 							<h4 class="home-testimonials__name"><?php esc_html_e('Lewonardo Morales', 'avance-template'); ?></h4>
 							<p class="home-testimonials__role"><?php esc_html_e('Gerente General de Carmar', 'avance-template'); ?></p>
 						</div>
@@ -193,7 +186,7 @@ get_header();
 				<h2 class="home-dark-band__title"><?php esc_html_e('¿Sabes cuánto puede estar perdiendo tu empresa por no tener estrategia comercial?', 'avance-template'); ?></h2>
 				<div class="home-dark-band__actions">
 					<a href="#" class="home-dark-band__btn-primary"><?php esc_html_e('Hacer el diagnóstico ahora es gratis', 'avance-template'); ?></a>
-					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-dark-band__btn-secondary">
+					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-dark-band__btn-secondary" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-dark-band__icon" aria-hidden="true">
 						<?php esc_html_e('Hablar por WhatsApp ahora', 'avance-template'); ?>
 					</a>

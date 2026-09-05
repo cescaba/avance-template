@@ -25,9 +25,9 @@ class Avance_WhatsApp_Service {
 	}
 
 	private function build_message($data) {
-		$nombre = sanitize_text_field($data['nombreCompleto']);
-		$email = sanitize_email($data['email']);
-		$respuestas = is_array($data['respuestas']) ? array_values($data['respuestas']) : array();
+		$nombre = $data['nombre_completo'];
+		$email = $data['email'];
+		$respuestas = (array)($data['respuestas'] ?? []);
 
 		// Usar texto simple en lugar de emojis para mejor compatibilidad
 		$message = "*[NUEVO DIAGNOSTICO COMPLETADO]*\n\n";
@@ -39,14 +39,10 @@ class Avance_WhatsApp_Service {
 		$message .= "═════════════════════════\n\n";
 
 		foreach ($respuestas as $index => $respuesta) {
-			$numero_pregunta = $index + 1;
-			$pregunta = $this->questions[$numero_pregunta] ?? '';
-
-			if (!empty($pregunta)) {
-				$message .= "*P$numero_pregunta:* $pregunta\n";
-				// Asegurar que respuesta es string
-				$respuesta_texto = is_string($respuesta) ? $respuesta : '';
-				$message .= "→ $respuesta_texto\n\n";
+			$pregunta = $this->questions[$index + 1] ?? '';
+			if ($pregunta) {
+				$message .= "*P" . ($index + 1) . ":* $pregunta\n";
+				$message .= "→ $respuesta\n\n";
 			}
 		}
 
@@ -55,25 +51,23 @@ class Avance_WhatsApp_Service {
 		return $message;
 	}
 
+	/**
+	 * Encodificar mensaje para URL (ya hace rawurlencode internamente)
+	 */
 	private function encode_message($message) {
-		return urlencode($message);
+		// Ya viene formateado, solo retornar
+		return $message;
 	}
 
 	public function generate_whatsapp_url($encoded_message) {
-		// Formatear número para WhatsApp (sin +, solo dígitos)
 		$phone = preg_replace('/[^0-9]/', '', $this->phone_number);
-
-		// Si el número no tiene el código de país (51), agregarlo
 		if (strlen($phone) === 9) {
-			// Solo 9 dígitos = número sin código de país
 			$phone = '51' . $phone;
 		}
-
-		// Asegurar que tiene el formato correcto para WhatsApp API
-		if (substr($phone, 0, 1) === '0') {
+		if ($phone[0] === '0') {
 			$phone = substr($phone, 1);
 		}
-		return "https://wa.me/$phone?text=$encoded_message";
+		return "https://wa.me/$phone?text=" . rawurlencode($encoded_message);
 	}
 
 	public function get_phone_number() {

@@ -10,23 +10,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		return;
 	}
 
-	function updateSubmitButtonState() {
-		const isValid = nameInput.value.trim() &&
-			phoneInput.value.trim() &&
-			topicInput.value &&
-			window.contactoSelectedDate &&
-			window.contactoSelectedTime;
-		submitBtn.disabled = !isValid;
+	function showNotification(msg) {
+		const form = document.getElementById('contacto-agenda-form');
+		NotificationManager.error(msg, form);
 	}
 
-	window.updateSubmitButtonState = updateSubmitButtonState;
+	const form = document.getElementById('contacto-agenda-form');
 
-	nameInput.addEventListener('input', updateSubmitButtonState);
-	phoneInput.addEventListener('input', updateSubmitButtonState);
-	topicInput.addEventListener('change', updateSubmitButtonState);
-
-	submitBtn.addEventListener('click', async (e) => {
+	form.addEventListener('submit', async (e) => {
 		e.preventDefault();
+
+		// Validar que fecha y hora estén seleccionadas
+		if (!window.contactoSelectedDate || !window.contactoSelectedTime) {
+			showNotification('Falta seleccionar la fecha y hora en el calendario');
+			return;
+		}
 
 		if (!window.avanceAgendamientoContactoConfig) {
 			alert('Error de seguridad. Recarga la página.');
@@ -34,16 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const data = {
-			action: 'avance_agendamiento_contacto',
+			action: 'avance_submit_agendamiento',
 			nonce: window.avanceAgendamientoContactoConfig.nonce,
 			nombre: nameInput.value.trim(),
+			email: 'agendamiento@temp.local',
 			whatsapp: phoneInput.value.trim(),
 			tema: topicInput.value,
-			fecha: window.contactoSelectedDate?.year + '-' + (window.contactoSelectedDate?.month + 1) + '-' + window.contactoSelectedDate?.day,
+			fecha: String(window.contactoSelectedDate?.year).padStart(4, '0') + '-' +
+				   String(window.contactoSelectedDate?.month + 1).padStart(2, '0') + '-' +
+				   String(window.contactoSelectedDate?.day).padStart(2, '0'),
 			hora: window.contactoSelectedTime
 		};
 
-		submitBtn.disabled = true;
 		submitBtn.textContent = 'Agendando...';
 
 		try {
@@ -71,17 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
 				topicInput.value = '';
 				window.contactoSelectedDate = null;
 				window.contactoSelectedTime = null;
-				updateSubmitButtonState();
 
-				alert('¡Agendamiento confirmado! Se abrirá WhatsApp para enviar los detalles.');
+				// Resetear calendario visualmente
+				if (window.resetContactoCalendar) {
+					window.resetContactoCalendar();
+				}
 			} else {
-				alert(result.data.mensaje || 'Error al agendar. Intenta de nuevo.');
+				showNotification(result.data?.message || result.data?.mensaje || 'Error al agendar. Intenta de nuevo.');
 			}
 		} catch (error) {
-			alert('Error de conexión. Intenta de nuevo.');
+			showNotification('Error de conexión. Intenta de nuevo.');
 			console.error(error);
 		} finally {
-			updateSubmitButtonState();
 			submitBtn.textContent = 'Agendar Reunión';
 		}
 	});

@@ -1,8 +1,11 @@
 <?php
 /**
- * Contact Form Handler
+ * Contact Form Handler - USA GLOBAL_FORM_HANDLER
  *
- * Maneja el flujo completo del formulario
+ * 1. Global_Form_Handler::process() - Validaciones globales
+ * 2. Form_Validators::validate_contact() - Validaciones custom
+ * 3. Guardar en BD
+ * 4. Generar URL WhatsApp
  *
  * @package Avance_Template
  */
@@ -22,78 +25,57 @@ class Avance_Contact_Form_Handler {
 	 * Manejar envío del formulario via AJAX
 	 */
 	public function handle_ajax_submit() {
-		// Verificar nonce
-		if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'avance_contact_form')) {
-			wp_send_json_error(
-				array(
-					'message' => 'Error de seguridad. Por favor, recarga la página.',
-				),
-				400
-			);
-		}
+		// 1. OBTENER DATOS DEL POST
+		$post_data = $this->get_form_data($_POST);
 
-		// Obtener datos del formulario
-		$data = $this->get_form_data($_POST);
+		// 2. PREPARAR PARA GLOBAL_FORM_HANDLER (mapear numero → whatsapp, dividir nombre)
+		$nombre_completo = $post_data['nombre'] ?? '';
+		$partes = explode(' ', trim($nombre_completo), 2);
+		$data_for_global = array(
+			'nombre' => $partes[0] ?? '',
+			'apellido' => $partes[1] ?? $partes[0] ?? '',
+			'email' => $post_data['email'] ?? '',
+			'whatsapp' => $post_data['numero'] ?? '',
+			'asunto' => $post_data['asunto'] ?? '',
+			'mensaje' => $post_data['mensaje'] ?? '',
+			'nonce' => $post_data['nonce'] ?? '',
+		);
 
-		// Sanitizar
-		$data = Avance_Contact_Validator::sanitize($data);
+		// 3. GLOBAL_FORM_HANDLER::PROCESS()
+		$validated = Global_Form_Handler::process('contact', $data_for_global);
 
-		// Validar
-		$validation = Avance_Contact_Validator::validate($data);
+		// 4. FORM_VALIDATORS::VALIDATE_CONTACT()
+		Form_Validators::validate_contact($validated);
 
-		if (!$validation['valid']) {
-			wp_send_json_error(
-				array(
-					'message' => implode(', ', $validation['errors']),
-					'reason' => $validation['reason'],
-				),
-				400
-			);
-		}
+		// 5. PREPARAR DATOS PARA BD (mapear whatsapp → numero)
+		$data_for_db = array(
+			'nombre' => $validated['nombre'],
+			'email' => $validated['email'],
+			'numero' => $validated['whatsapp'],
+			'asunto' => $validated['asunto'],
+			'mensaje' => $validated['mensaje'],
+			'whatsapp' => $validated['whatsapp'],  // Para build_whatsapp_message()
+		);
 
-		// Guardar en BD (estado: pendiente)
-		$contact_id = Avance_Contact_DB::save_contact($data);
-
+		// 6. GUARDAR EN BD
+		$contact_id = Avance_Contact_DB::save_contact($data_for_db);
 		if (!$contact_id) {
-			wp_send_json_error(
-				array(
-					'message' => 'Error al guardar el contacto. Intenta de nuevo.',
-				),
-				500
-			);
+			error_log('Error: No se pudo guardar en BD');
+			wp_send_json_error(['message' => 'Error al guardar el contacto. Intenta de nuevo.'], 500);
 		}
 
-		// Enviar a WhatsApp
-		$whatsapp_result = $this->send_to_whatsapp($data, $contact_id);
+		// 7. GENERAR URL WHATSAPP
+		$whatsapp_url = $this->build_whatsapp_url($data_for_db);
+		error_log('Paso 4: ✅ OK');
 
-		if ($whatsapp_result['success']) {
-			// Marcar como enviado
-			Avance_Contact_DB::update_status($contact_id, 'enviado');
-
-			wp_send_json_success(
-				array(
-					'message' => 'Mensaje enviado correctamente. Te contactaremos pronto.',
-					'contact_id' => $contact_id,
-					'url' => $whatsapp_result['url'],
-				)
-			);
-		} else {
-			// Marcar como error
-			Avance_Contact_DB::update_status($contact_id, 'error', $whatsapp_result['reason']);
-
-			wp_send_json_error(
-				array(
-					'message' => 'Ocurrió un error al enviar el mensaje. Intenta de nuevo.',
-					'reason' => 'whatsapp_error',
-				),
-				500
-			);
-		}
+		// 8. RESPUESTA
+		wp_send_json_success([
+			'message' => 'Mensaje guardado correctamente. Abriendo WhatsApp...',
+			'contact_id' => $contact_id,
+			'url' => $whatsapp_url,
+		]);
 	}
 
-	/**
-	 * Obtener datos del formulario
-	 */
 	private function get_form_data($post_data) {
 		return array(
 			'nombre' => $post_data['nombre'] ?? '',
@@ -101,44 +83,27 @@ class Avance_Contact_Form_Handler {
 			'numero' => $post_data['numero'] ?? '',
 			'asunto' => $post_data['asunto'] ?? '',
 			'mensaje' => $post_data['mensaje'] ?? '',
+			'nonce' => $post_data['nonce'] ?? '',
 		);
 	}
 
 	/**
-	 * Enviar mensaje a WhatsApp
+	 * Construir URL de WhatsApp
 	 */
-	private function send_to_whatsapp($data, $contact_id) {
+	private function build_whatsapp_url($data) {
 		if (!defined('AVANCE_WHATSAPP_OWNER') || empty(AVANCE_WHATSAPP_OWNER)) {
-			error_log('Error: AVANCE_WHATSAPP_OWNER no está definido en config/theme-config.php');
-			return array(
-				'success' => false,
-				'reason' => 'whatsapp_config_missing',
-			);
+			return '';
 		}
 
 		$owner_phone = AVANCE_WHATSAPP_OWNER;
-
-		// Construir mensaje
 		$message = $this->build_whatsapp_message($data);
 
-		// Normalizar número para WhatsApp (agregar +51 si falta)
 		$phone = preg_replace('/[^0-9]/', '', $owner_phone);
 		if (strlen($phone) === 9) {
 			$phone = '51' . $phone;
 		}
 
-		// Construir URL de wa.me
-		$url = 'https://wa.me/' . $phone . '?text=' . rawurlencode($message);
-
-		// Intentar abrir WhatsApp (esto se hace desde el cliente, no desde el servidor)
-		// El servidor solo construye el URL y lo retorna
-		// El cliente será el que abra el link
-
-		return array(
-			'success' => true,
-			'url' => $url,
-			'reason' => 'whatsapp_ready',
-		);
+		return 'https://wa.me/' . $phone . '?text=' . rawurlencode($message);
 	}
 
 	/**
@@ -149,7 +114,7 @@ class Avance_Contact_Form_Handler {
 			'Nuevo contacto web:',
 			'Nombre: ' . $data['nombre'],
 			'Email: ' . $data['email'],
-			'WhatsApp: ' . $data['numero'],
+			'WhatsApp: ' . $data['whatsapp'],
 			'Asunto: ' . $data['asunto'],
 		);
 
@@ -161,5 +126,4 @@ class Avance_Contact_Form_Handler {
 	}
 }
 
-// Inicializar handler
 new Avance_Contact_Form_Handler();

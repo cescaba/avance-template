@@ -169,6 +169,8 @@
 							}, 350);
 						}
 						continueBtn.style.display = 'none';
+					} else {
+						showError('Selecciona un plan para continuar');
 					}
 				});
 			}
@@ -383,8 +385,13 @@
 		const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
 		const selectedDate = window.mentoriaSelectedDate || state;
 		const selectedTime = window.mentoriaSelectedTime || state.selectedTime;
+		const firstName = getFieldValue('mentoriaFirstName');
+		const lastName = getFieldValue('mentoriaLastName');
+
 		return {
-			nombre: getFieldValue('mentoriaName'),
+			nombre: `${firstName} ${lastName}`.trim(), // Combinar para compatibilidad
+			first_name: firstName,
+			last_name: lastName,
 			whatsapp: getFieldValue('mentoriaWhatsapp'),
 			email: getFieldValue('mentoriaEmail'),
 			desafio: getFieldValue('mentoriaDesafio'),
@@ -438,18 +445,23 @@
 	}
 
 	function submitFormViaAjax(formData) {
+		// Primero guardar datos de mentoría en sesión para rellenar checkout
+		saveMentoriaCheckoutData(formData);
+	}
+
+	function saveMentoriaCheckoutData(formData) {
 		const ajaxData = new FormData();
 
-		ajaxData.append('action', 'avance_mentoria_booking');
+		ajaxData.append('action', 'avance_save_mentoria_checkout_data');
 		ajaxData.append('nonce', config.nonce);
-		ajaxData.append('nombre', formData.nombre);
-		ajaxData.append('whatsapp', formData.whatsapp);
+		ajaxData.append('first_name', formData.first_name);
+		ajaxData.append('last_name', formData.last_name);
 		ajaxData.append('email', formData.email);
-		ajaxData.append('desafio', formData.desafio);
+		ajaxData.append('whatsapp', formData.whatsapp);
 		ajaxData.append('plan', formData.plan);
 		ajaxData.append('fecha', formData.fecha);
 		ajaxData.append('hora', formData.hora);
-		ajaxData.append('payment_method', formData.payment_method);
+		ajaxData.append('desafio', formData.desafio);
 
 		fetch(config.ajaxUrl, {
 			method: 'POST',
@@ -465,14 +477,11 @@
 				config.isSubmitting = false;
 
 				if (response.success && response.data) {
-					if (!response.data.checkout_url || typeof response.data.checkout_url !== 'string' || response.data.checkout_url.trim() === '') {
-						showError('No se pudo obtener la URL de pago. Intenta de nuevo.');
-						return;
-					}
-					showSuccess(response.data.message || 'Redirigiendo a pago...');
+					// Redirigir al checkout después de guardar datos
+					showSuccess('Redirigiendo a checkout...');
 					setTimeout(() => {
-						window.location.href = response.data.checkout_url;
-					}, 1500);
+						window.location.href = response.data.redirect || '/checkout/';
+					}, 800);
 				} else {
 					showError(response.data?.message || 'Ocurrió un error. Intenta de nuevo.');
 				}
@@ -505,24 +514,12 @@
 		renderCalendar();
 	}
 
-	function showMessage(message, type = 'error') {
-		const container = getElement(DOM_SELECTORS.sidebar);
-		if (!container) return;
-
-		const messageDiv = document.createElement('div');
-		messageDiv.className = `mentoria-reserva__message mentoria-reserva__message--${type}`;
-		messageDiv.textContent = message;
-		messageDiv.setAttribute('role', 'alert');
-		container.insertBefore(messageDiv, container.firstChild);
-		setTimeout(() => messageDiv.remove(), 4000);
-	}
-
 	function showError(message) {
-		showMessage(message, 'error');
+		MentoriaAlerts.showError(message);
 	}
 
 	function showSuccess(message) {
-		showMessage(message, 'success');
+		MentoriaAlerts.showSuccess(message);
 	}
 
 	if (document.readyState === 'loading') {

@@ -28,7 +28,7 @@ get_header();
 				<h1 class="contacto-hero__title"><?php esc_html_e('Hablemos', 'avance-template'); ?></h1>
 				<p class="contacto-hero__description"><?php esc_html_e('Elige cómo prefieres conectar. Respondo en menos de 1 hora.', 'avance-template'); ?></p>
 				<div class="contacto-hero__content">
-					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="contacto-hero__btn-secondary">
+					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="contacto-hero__btn-secondary" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="contacto-hero__btn-icon" aria-hidden="true">
 						<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
 					</a>

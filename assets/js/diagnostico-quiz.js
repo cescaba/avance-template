@@ -65,15 +65,9 @@ function saveDiagnosticoState() {
 	localStorage.setItem(DIAGNOSTICO_STORAGE_KEY, JSON.stringify(state));
 }
 
-function loadDiagnosticoState() {
-	// Siempre comenzar desde la primera pregunta
-	clearDiagnosticoState();
-	return false;
-}
 
 function clearDiagnosticoState() {
 	localStorage.removeItem(DIAGNOSTICO_STORAGE_KEY);
-	localStorage.removeItem(DIAGNOSTICO_STORAGE_KEY); // Doble limpieza para asegurar
 	diagnosticoCurrentIndex = 0;
 	diagnosticoAnswers = [];
 }
@@ -113,6 +107,13 @@ function renderDiagnosticoForm(q) {
 	const form = document.createElement('form');
 	form.className = 'diagnostico-quiz__form';
 	form.style.cssText = 'display: flex; flex-direction: column; gap: 12px;';
+
+	// Agregar nonce oculto
+	const nonceInput = document.createElement('input');
+	nonceInput.type = 'hidden';
+	nonceInput.name = 'nonce';
+	nonceInput.value = typeof avanceDiagnosticoConfig !== 'undefined' ? avanceDiagnosticoConfig.nonce : '';
+	form.appendChild(nonceInput);
 
 	q.formFields.forEach(field => {
 		const fieldDiv = document.createElement('div');
@@ -166,8 +167,6 @@ function renderDiagnosticoForm(q) {
 			avanceDiagnosticoSubmit(submissionData, submitBtn);
 		}
 
-		// Reiniciar después de que se complete todo (solo si fue exitoso)
-		// El estado se limpiará desde diagnostico-submit.js cuando sea exitoso
 		setTimeout(() => {
 			resetDiagnosticoOnSuccess();
 		}, 5000);

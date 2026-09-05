@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			const isToday = key === todayKey;
 			const isPast = currentDate < today;
 
-			const canSelect = !isPast && !isSunday;
+			const canSelect = !isPast && !isSunday && !isToday;
 
 			const btn = document.createElement('button');
 			btn.className = 'contacto-agenda__daybtn' + (isSunday ? ' sunday' : '') + (isSelected ? ' selected' : '') + (canSelect ? ' enabled-day' : ' disabled-day');
@@ -87,10 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					renderTimeSlots();
 					if (window.updateSubmitButtonState) window.updateSubmitButtonState();
 				});
-			} else if (isToday && !isSelected) {
-				const dot = document.createElement('span');
-				dot.className = 'dot';
-				btn.appendChild(dot);
 			}
 			frag.appendChild(btn);
 		}
@@ -308,6 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 	}
+
+	// Función global para resetear calendario desde otros scripts
+	window.resetContactoCalendar = function() {
+		if (calendarType === 'contacto') {
+			state.selectedKey = null;
+			state.selectedTime = null;
+			window.contactoSelectedDate = null;
+			window.contactoSelectedTime = null;
+			renderCalendar();
+			renderTimeSlots();
+		}
+	};
 
 	initializeMobileState();
 	renderCalendar();

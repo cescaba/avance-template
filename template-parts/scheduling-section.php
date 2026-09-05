@@ -41,7 +41,7 @@ $args = wp_parse_args($args ?? array(), array());
 
 			<div class="contacto-agenda__right">
 				<form id="contacto-agenda-form" class="contacto-agenda__form" aria-label="<?php esc_attr_e('Formulario de agendamiento', 'avance-template'); ?>">
-					<?php wp_nonce_field('avance_scheduling_form', 'nonce', false); ?>
+					<?php wp_nonce_field('form_agendamiento', 'nonce', false); ?>
 
 					<div class="contacto-agenda__section-header">
 					<div class="contacto-agenda__section-kicker"><?php esc_html_e('¿Qué te gustaría tratar en la sesión?', 'avance-template'); ?></div>
@@ -62,13 +62,22 @@ $args = wp_parse_args($args ?? array(), array());
 
 					<div class="contacto-agenda__field">
 						<label for="contacto-agenda-topic"><?php esc_html_e('Tema de interés *', 'avance-template'); ?></label>
-						<select
-							id="contacto-agenda-topic"
-							name="contacto-agenda-topic"
-							class="contacto-agenda__input"
-							required
-							aria-required="true">
-							<option value=""><?php esc_html_e('Selecciona un servicio o tema...', 'avance-template'); ?></option>
+						<div class="avance-select-wrapper">
+							<div class="avance-select-trigger" id="scheduling-select-trigger" data-select="contacto-agenda-topic">
+								<span class="avance-select-value"><?php esc_html_e('Selecciona un servicio o tema', 'avance-template'); ?></span>
+								<svg class="avance-select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+							</div>
+							<div class="avance-select-dropdown" id="scheduling-select-dropdown">
+								<div class="avance-select-option" data-value=""><?php esc_html_e('Selecciona un servicio o tema', 'avance-template'); ?></div>
+								<div class="avance-select-option" data-value="Diagnóstico de negocio"><?php esc_html_e('Diagnóstico de negocio', 'avance-template'); ?></div>
+								<div class="avance-select-option" data-value="Estrategia comercial"><?php esc_html_e('Estrategia comercial', 'avance-template'); ?></div>
+								<div class="avance-select-option" data-value="Capacitación ejecutiva"><?php esc_html_e('Capacitación ejecutiva', 'avance-template'); ?></div>
+								<div class="avance-select-option" data-value="Mentoría 1:1"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></div>
+								<div class="avance-select-option" data-value="Otro tema"><?php esc_html_e('Otro tema', 'avance-template'); ?></div>
+							</div>
+						</div>
+						<select id="contacto-agenda-topic" name="contacto-agenda-topic" class="avance-select-hidden" required aria-required="true" style="display: none;">
+							<option value=""><?php esc_html_e('Selecciona un servicio o tema', 'avance-template'); ?></option>
 							<option value="Diagnóstico de negocio"><?php esc_html_e('Diagnóstico de negocio', 'avance-template'); ?></option>
 							<option value="Estrategia comercial"><?php esc_html_e('Estrategia comercial', 'avance-template'); ?></option>
 							<option value="Capacitación ejecutiva"><?php esc_html_e('Capacitación ejecutiva', 'avance-template'); ?></option>
@@ -78,7 +87,7 @@ $args = wp_parse_args($args ?? array(), array());
 					</div>
 				</div>
 
-				<button type="submit" class="contacto-agenda__btn contacto-agenda__btn--primary contacto-agenda__btn--block" id="contacto-agenda-submit" disabled><?php esc_html_e('Agendar Reunión', 'avance-template'); ?></button>
+				<button type="submit" class="contacto-agenda__btn contacto-agenda__btn--primary contacto-agenda__btn--block" id="contacto-agenda-submit"><?php esc_html_e('Agendar Reunión', 'avance-template'); ?></button>
 
 					<button type="button" class="contacto-agenda__btn contacto-agenda__btn--back" id="contacto-agenda-back"><?php esc_html_e('Volver al calendario', 'avance-template'); ?></button>
 				</form>

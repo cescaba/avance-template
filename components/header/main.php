@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
 
 				<!-- Action Buttons -->
 				<div class="avance-header__actions">
-					<a class="avance-btn avance-btn--ghost" href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" aria-label="Contactar por WhatsApp">
+					<a class="avance-btn avance-btn--ghost" href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" aria-label="Contactar por WhatsApp" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 						<img class="avance-btn__icon" src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="15" height="15" aria-hidden="true">
 						<span>WhatsApp</span>
 					</a>
@@ -80,7 +80,7 @@ if (!defined('ABSPATH')) {
 
 			<div class="avance-menu-panel__actions">
 				<a class="avance-btn avance-btn--primary" href="#scheduling-section">Agendar sesión</a>
-				<a class="avance-btn avance-btn--secondary" href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>">
+				<a class="avance-btn avance-btn--secondary" href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 					<img class="avance-btn__icon" src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="15" height="15" aria-hidden="true">
 					<span>Escribir por WhatsApp</span>
 				</a>

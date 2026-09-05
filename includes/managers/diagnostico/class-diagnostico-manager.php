@@ -26,8 +26,6 @@ class Avance_Diagnostico_Manager {
 
 	private function init() {
 		require_once get_template_directory() . '/includes/database/diagnostico/class-diagnostico-table.php';
-		require_once get_template_directory() . '/includes/validators/class-diagnostico-validator.php';
-		require_once get_template_directory() . '/includes/whatsapp/class-whatsapp-service.php';
 		require_once get_template_directory() . '/includes/api/class-diagnostico-handler.php';
 		require_once get_template_directory() . '/includes/admin/diagnostico/class-diagnostico-admin.php';
 
@@ -43,7 +41,7 @@ class Avance_Diagnostico_Manager {
 	}
 
 	public function maybe_create_table() {
-		if (!function_exists('Avance_Diagnostico_Table')) {
+		if (class_exists('Avance_Diagnostico_Table')) {
 			$table = new Avance_Diagnostico_Table();
 			$table->create_table_if_not_exists();
 		}
@@ -55,20 +53,8 @@ class Avance_Diagnostico_Manager {
 	}
 
 	public function enqueue_diagnostico_scripts() {
-		if (is_page_template('templates/page-diagnostico.php')) {
-			wp_enqueue_script(
-				'avance-diagnostico-submit',
-				get_template_directory_uri() . '/assets/js/diagnostico-submit.js',
-				array(),
-				wp_get_theme()->get('Version'),
-				true
-			);
-
-			wp_localize_script('avance-diagnostico-submit', 'avanceDiagnosticoConfig', array(
-				'ajaxUrl' => admin_url('admin-ajax.php'),
-				'nonce'   => wp_create_nonce('avance_diagnostico_nonce'),
-			));
-		}
+		// forms.js ya está enqueue globalmente en class-core-service.php
+		// con avanceDiagnosticoConfig y nonce 'form_diagnostico'
 	}
 }
 

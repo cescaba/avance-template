@@ -1,109 +1,137 @@
 <?php
 /**
- * Pay for order form
+ * Pay for order form - Checkout
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/form-pay.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 10.9.0
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-$totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+// Obtener el order ID - WooCommerce lo pasa como variable de contexto
+// Si no está disponible, buscar en URL
+if ( ! isset( $order_id ) ) {
+	$order_id = isset( $_GET['order_id'] ) ? absint( $_GET['order_id'] ) : 0;
+}
+
+// Si aún no tenemos order_id, intentar obtenerlo de la URL de pago
+if ( ! $order_id && isset( $_GET['pay_for_order'] ) ) {
+	// Extraer order_id de la URL
+	global $wp;
+	if ( isset( $wp->query_vars['order-pay'] ) ) {
+		$order_id = absint( $wp->query_vars['order-pay'] );
+	}
+}
+
+$order = $order_id ? wc_get_order( $order_id ) : false;
+
+if ( ! $order ) {
+	echo '<p>Error: No se encontró la orden. ID: ' . esc_html( $order_id ) . '</p>';
+	return;
+}
+
 ?>
-<form id="order_review" method="post">
 
-	<table class="shop_table">
-		<thead>
-			<tr>
-				<th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
-				<th class="product-quantity"><?php esc_html_e( 'Qty', 'woocommerce' ); ?></th>
-				<th class="product-total"><?php esc_html_e( 'Totals', 'woocommerce' ); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if ( count( $order->get_items() ) > 0 ) : ?>
-				<?php foreach ( $order->get_items() as $item_id => $item ) : ?>
-					<?php
-					if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
-						continue;
-					}
-					?>
-					<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_order_item_class', 'order_item', $item, $order ) ); ?>">
-						<td class="product-name">
-							<?php
-								echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
+<div class="checkout-wrap">
 
-								do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, false );
+  <form method="post" class="checkout woocommerce-checkout checkout-grid" name="post_data" action="" enctype="multipart/form-data" id="payForm">
 
-								wc_display_item_meta( $item );
+    <!-- Pago -->
+    <div class="checkout-panel checkout-panel-main">
+      <div class="checkout-head">
+        <h1 class="checkout-title">Pagar el pedido</h1>
+        <p class="checkout-subtitle">Elige cómo quieres pagar. Tu pedido queda confirmado en cuanto validemos el pago.</p>
+      </div>
 
-								do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, false );
-							?>
-						</td>
-						<td class="product-quantity"><?php echo apply_filters( 'woocommerce_order_item_quantity_html', ' <strong class="product-quantity">' . sprintf( '&times;&nbsp;%s', esc_html( $item->get_quantity() ) ) . '</strong>', $item ); ?></td><?php // @codingStandardsIgnoreLine ?>
-						<td class="product-subtotal"><?php echo $order->get_formatted_line_subtotal( $item ); ?></td><?php // @codingStandardsIgnoreLine ?>
-					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</tbody>
-		<tfoot>
-			<?php if ( $totals ) : ?>
-				<?php foreach ( $totals as $total ) : ?>
-					<tr>
-						<th scope="row" colspan="2"><?php echo $total['label']; ?></th><?php // @codingStandardsIgnoreLine ?>
-						<td class="product-total"><?php echo $total['value']; ?></td><?php // @codingStandardsIgnoreLine ?>
-					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</tfoot>
-	</table>
+      <hr class="checkout-rule">
 
-	<?php
-	/**
-	 * Triggered from within the checkout/form-pay.php template, immediately before the payment section.
-	 *
-	 * @since 8.2.0
-	 */
-	do_action( 'woocommerce_pay_order_before_payment' ); 
-	?>
+      <!-- Métodos de pago -->
+      <div class="checkout-pay-block">
+        <h2 class="checkout-section-title">Método de pago</h2>
+        <div class="checkout-methods">
+          <?php
+          if ( WC()->payment_gateways()->get_available_payment_gateways() ) :
+            foreach ( WC()->payment_gateways()->get_available_payment_gateways() as $gateway ) :
+              ?>
+              <label class="checkout-method">
+                <span class="checkout-method-top">
+                  <input type="radio" name="payment_method" id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" class="input-radio" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> />
+                  <span class="checkout-method-name"><?php echo esc_html( $gateway->get_title() ); ?></span>
+                  <span class="checkout-method-badge"><?php echo esc_html( apply_filters( 'woocommerce_payment_gateway_label', $gateway->get_title(), $gateway ) ); ?></span>
+                </span>
+                <?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>
+                <span class="checkout-method-panel">
+                  <?php $gateway->payment_fields(); ?>
+                  <span class="checkout-method-desc"><?php echo wp_kses_post( $gateway->get_description() ); ?></span>
+                </span>
+                <?php endif; ?>
+              </label>
+              <?php
+            endforeach;
+          endif;
+          ?>
+        </div>
+      </div>
 
-	<div id="payment">
-		<?php if ( $order->needs_payment() ) : ?>
-			<ul class="wc_payment_methods payment_methods methods" aria-label="<?php esc_attr_e( 'Payment methods', 'woocommerce' ); ?>">
-				<?php
-				if ( ! empty( $available_gateways ) ) {
-					foreach ( $available_gateways as $gateway ) {
-						wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
-					}
-				} else {
-					echo '<li>';
-					wc_print_notice( apply_filters( 'woocommerce_no_available_payment_methods_message', esc_html__( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) ), 'notice' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
-					echo '</li>';
-				}
-				?>
-			</ul>
-		<?php endif; ?>
-		<div class="form-row">
-			<input type="hidden" name="woocommerce_pay" value="1" />
+      <p class="checkout-privacy">Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en esta web y otros propósitos descritos en nuestra <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">política de privacidad</a>.</p>
 
-			<?php wc_get_template( 'checkout/terms.php' ); ?>
+    </div>
 
-			<?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
+    <!-- Resumen -->
+    <aside class="checkout-panel checkout-panel-side">
+      <h2 class="checkout-section-title">Resumen del pedido</h2>
 
-			<?php echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt' . esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ) . '" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+      <?php foreach ( $order->get_items() as $item_id => $item ) : ?>
+        <?php
+          $product_id = intval( $item['product_id'] );
+          $product = $product_id ? wc_get_product( $product_id ) : false;
+        ?>
+      <div class="checkout-line-item">
+        <div class="checkout-line-thumb">
+          <?php if ( $product && $product->get_image() ) : ?>
+            <?php echo wp_kses_post( $product->get_image( array( 66, 66 ) ) ); ?>
+          <?php else : ?>
+            <svg width="26" height="26" viewBox="0 0 256 256" fill="#7C9086" aria-hidden="true"><path d="M232 104a8 8 0 0 0 8-8V64a16 16 0 0 0-16-16H32a16 16 0 0 0-16 16v32a8 8 0 0 0 8 8 24 24 0 0 1 0 48 8 8 0 0 0-8 8v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a8 8 0 0 0-8-8 24 24 0 0 1 0-48Zm-8 15.3V152a40 40 0 0 0 0 76.7V192H32v-39.3a40 40 0 0 0 0-76.7V64h192Z"/></svg>
+          <?php endif; ?>
+        </div>
+        <div class="checkout-line-info">
+          <p class="checkout-line-name"><?php echo esc_html( $item->get_name() ); ?></p>
+          <p class="checkout-line-meta">Cantidad: × <?php echo esc_html( $item->get_quantity() ); ?></p>
+        </div>
+        <div class="checkout-line-price"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $item ) ); ?></div>
+      </div>
+      <?php endforeach; ?>
 
-			<?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
+      <div class="checkout-totals">
+        <div class="checkout-totals-row"><span>Subtotal</span><strong><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></strong></div>
+      </div>
 
-			<?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
-		</div>
-	</div>
-</form>
+      <div class="checkout-total">
+        <span class="checkout-total-label">Total</span>
+        <span class="checkout-total-value"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></span>
+      </div>
+
+      <div class="checkout-actions">
+        <?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
+        <input type="hidden" name="woocommerce_pay" value="1" />
+        <button type="submit" class="checkout-btn-pay" id="place_order">
+          Pagar por el pedido · <?php echo wp_kses_post( $order->get_formatted_order_total() ); ?>
+        </button>
+
+        <p class="checkout-secure">
+          <svg width="14" height="14" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="M208 80h-32V56a48 48 0 0 0-96 0v24H48a16 16 0 0 0-16 16v112a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16ZM96 56a32 32 0 0 1 64 0v24H96Zm112 152H48V96h160v112Z"/></svg>
+          <span>Pago seguro con cifrado SSL</span>
+        </p>
+      </div>
+
+      <ul class="checkout-trust">
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Confirmación y acceso por correo</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Boleta o factura electrónica</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Soporte en soporte@aulanova.com</span></li>
+      </ul>
+    </aside>
+
+  </form>
+
+</div>

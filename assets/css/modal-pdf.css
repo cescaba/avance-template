@@ -1,7 +1,5 @@
-/* =====================================================
-   MODAL PDF DOWNLOAD
-   ===================================================== */
-
+/* CSS Styles */
+ *
 .pf-overlay {
 	position: fixed;
 	top: 0;
@@ -93,7 +91,6 @@
 	cursor: pointer;
 	transition: color 0.15s ease, background 0.15s ease;
 }
-
 
 .pf-titles {
 	display: flex;
@@ -257,10 +254,6 @@
 	text-align: center;
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
-   ===================================================== */
-
 @media (min-width: 1025px) and (max-width: 1440px) {
 	.pf-overlay {
 		padding: 40px 20px;
@@ -324,10 +317,6 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
-
 @media (min-width: 769px) and (max-width: 1024px) {
 	.pf-overlay {
 		padding: 32px 20px;
@@ -390,10 +379,6 @@
 		font-size: 9px;
 	}
 }
-
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
 
 @media (min-width: 480px) and (max-width: 768px) {
 	.pf-overlay {

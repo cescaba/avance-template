@@ -100,7 +100,6 @@ get_header();
 				<div class="mentoria-reserva__testimonial">
 					<p class="mentoria-reserva__quote"><?php esc_html_e('"La mentoría fue un antes y un después. En 3 meses reorganicé mi equipo, redefiní mi propuesta de valor y cerré los mejores contratos de mi carrera."', 'avance-template'); ?></p>
 					<div class="mentoria-reserva__who">
-						<div class="mentoria-reserva__avatar"></div>
 						<div class="mentoria-reserva__who-info">
 							<div class="mentoria-reserva__name"><?php esc_html_e('Ana P.', 'avance-template'); ?></div>
 							<div class="mentoria-reserva__role"><?php esc_html_e('Directora Comercial, Lima', 'avance-template'); ?></div>
@@ -135,12 +134,12 @@ get_header();
 						<form class="mentoria-reserva__form">
 							<div class="mentoria-reserva__form-row">
 								<div class="mentoria-reserva__field">
-									<label for="mentoriaName"><?php esc_html_e('Nombre *', 'avance-template'); ?></label>
-									<input type="text" id="mentoriaName" name="mentoria_name" placeholder="<?php esc_attr_e('Ej. Juan García Rodríguez', 'avance-template'); ?>" required>
+									<label for="mentoriaFirstName"><?php esc_html_e('Nombre Completo *', 'avance-template'); ?></label>
+									<input type="text" id="mentoriaFirstName" name="mentoria_first_name" placeholder="<?php esc_attr_e('Ej. Juan', 'avance-template'); ?>" required>
 								</div>
 								<div class="mentoria-reserva__field">
-									<label for="mentoriaWhatsapp"><?php esc_html_e('WhatsApp *', 'avance-template'); ?></label>
-									<input type="tel" id="mentoriaWhatsapp" name="mentoria_whatsapp" placeholder="<?php esc_attr_e('Ej. +51 987 654 321', 'avance-template'); ?>" required>
+									<label for="mentoriaLastName"><?php esc_html_e('Apellido Completo *', 'avance-template'); ?></label>
+									<input type="text" id="mentoriaLastName" name="mentoria_last_name" placeholder="<?php esc_attr_e('Ej. García Rodríguez', 'avance-template'); ?>" required>
 								</div>
 							</div>
 
@@ -148,6 +147,10 @@ get_header();
 								<div class="mentoria-reserva__field">
 									<label for="mentoriaEmail"><?php esc_html_e('Email *', 'avance-template'); ?></label>
 									<input type="email" id="mentoriaEmail" name="mentoria_email" placeholder="<?php esc_attr_e('Ej. juan@empresa.com', 'avance-template'); ?>" required>
+								</div>
+								<div class="mentoria-reserva__field">
+									<label for="mentoriaWhatsapp"><?php esc_html_e('WhatsApp *', 'avance-template'); ?></label>
+									<input type="tel" id="mentoriaWhatsapp" name="mentoria_whatsapp" placeholder="<?php esc_attr_e('Ej. +51 987 654 321', 'avance-template'); ?>" required>
 								</div>
 							</div>
 

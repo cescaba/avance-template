@@ -1,14 +1,11 @@
-/**
- * Page Servicios Empresa Styles
+/*
+
  *
- * Estilos específicos para la plantilla de servicios empresariales
+
  *
  * @package Avance_Template
  */
 
-/* =====================================================
-   SECTION 1: INTRO
-   ===================================================== */
 .servicio-intro {
 	height: 524px;
 	background-color: var(--bg-white);
@@ -102,7 +99,6 @@
 	color: #FFFFFF;
 }
 
-
 .servicio-intro__btn--whatsapp {
 	background-color: #FFFFFF;
 	color: #034732;
@@ -150,9 +146,6 @@
 	background-position: center;
 }
 
-/* =====================================================
-   SECTION 2: OFFERS
-   ===================================================== */
 .servicio-offers {
 	padding: 50px var(--lateral-spacing);
 	background-color: #FFFFFF;
@@ -213,7 +206,8 @@
 
 .servicio-offers__item {
 	padding: 25px;
-	background-color: var(--bg-white);
+	background-color: #FFFFFF;
+	border: 1px solid #D1D5DC;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -271,7 +265,6 @@
 	box-sizing: border-box;
 }
 
-
 .servicio-offers__item-title {
 	font-weight: 600;
 	font-size: 10px;
@@ -301,7 +294,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-	border-top: 1px solid #99A1AF;
+	border-top: 1px solid #F2F4F6;
 	padding-top: 15px;
 	flex-shrink: 0;
 }
@@ -424,12 +417,9 @@
 	outline-offset: 2px;
 }
 
-/* =====================================================
-   SECTION 3: PROCESS
-   ===================================================== */
 .servicio-process {
 	padding: 50px var(--lateral-spacing);
-	background-color: #FFFFFF;
+	background-color: #E5E8EB;
 	display: flex;
 	justify-content: center;
 }
@@ -464,7 +454,7 @@
 	background-color: #FFFFFF;
 	padding: 20px 16px;
 	height: 160px;
-	border: 1px solid #E5E7EB;
+	border: 1px solid #D1D5DC;
 	box-sizing: border-box;
 	cursor: pointer;
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -522,9 +512,6 @@
 	color: #FFFFFF;
 }
 
-/* =====================================================
-   SECTION 4: CONTACT & FORM
-   ===================================================== */
 .servicio-contact {
 	padding: 80px var(--lateral-spacing);
 	background-color: #F9FAFB;
@@ -621,7 +608,7 @@
 .servicio-contact__input {
 	height: 46px;
 	padding: 12px 14px;
-	border: 1px solid #E5E7EB;
+	border: 1px solid #D0D5E0;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 1.4;
@@ -642,8 +629,133 @@
 .servicio-contact__input:hover,
 .servicio-contact__input:focus {
 	outline: none;
-	box-shadow: 0 0 0 2px rgba(70, 96, 96, 0.15);
-	border-color: #466060;
+}
+
+.avance-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.avance-select-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 46px;
+	padding: 12px 14px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 0px;
+	color: #99A1AF;
+	border: 1px solid #E5E7EB;
+	background: #FFFFFF;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	user-select: none;
+}
+
+.avance-select-trigger:hover {
+	border-color: #D1D5DB;
+}
+
+.avance-select-trigger.is-open {
+	border-color: #D1D5DB;
+}
+
+.avance-select-trigger.has-value .avance-select-value {
+	color: #2C2629;
+}
+
+.avance-select-value {
+	flex: 1;
+	text-align: left;
+	transition: color 0.2s;
+}
+
+.avance-select-icon {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	margin-left: 10px;
+	color: #466060;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.avance-select-trigger.is-open .avance-select-icon {
+	transform: scaleY(-1);
+}
+
+.avance-select-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	margin-top: 4px;
+	border: 1px solid #E5E7EB;
+	border-radius: 8px;
+	background: #FFFFFF;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+	z-index: 1000;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	pointer-events: none;
+}
+
+.avance-select-dropdown.is-open {
+	max-height: 280px;
+	opacity: 1;
+	pointer-events: auto;
+	overflow-y: auto;
+}
+
+.avance-select-option {
+	padding: 12px 14px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 0px;
+	color: #2C2629;
+	cursor: pointer;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #F2F4F6;
+}
+
+.avance-select-option:last-child {
+	border-bottom: none;
+}
+
+.avance-select-option:first-child {
+	color: #99A1AF;
+}
+
+.avance-select-option:hover {
+	background: #F9FAFB;
+	color: #466060;
+}
+
+.avance-select-option.is-selected {
+	background: #F0F4EF;
+	color: #466060;
+	font-weight: 500;
+}
+
+.avance-select-option.is-selected::before {
+	content: "✓";
+	margin-right: 8px;
+	color: #466060;
+	font-weight: 600;
+}
+
+.avance-select-hidden {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .servicio-contact__textarea {
@@ -672,10 +784,7 @@
 .servicio-contact__textarea:hover,
 .servicio-contact__textarea:focus {
 	outline: none;
-	box-shadow: 0 0 0 2px rgba(70, 96, 96, 0.15);
-	border-color: #466060;
 }
-
 
 .servicio-contact__btn {
 	width: 100%;
@@ -845,75 +954,8 @@
 	outline-offset: 2px;
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - DESKTOP XL (1440px+)
-   ===================================================== */
 @media (min-width: 1025px) and (max-width: 1440px) {
 
-	/* SECTION 1: INTRO SERVICIOS */
-	.servicio-intro {
-		height: 420px;
-	}
-
-	.servicio-intro__features {
-		grid-template-columns: 1fr 1fr;
-		gap: 50px;
-	}
-
-	.servicio-intro__content {
-		gap: 16px;
-		max-width: 500px;
-	}
-
-	.servicio-intro__title {
-		font-size: 14px;
-		line-height: 14px;
-	}
-
-	.servicio-intro__subtitle {
-		font-size: 32px;
-		line-height: 32px;
-	}
-
-	.servicio-intro__description {
-		font-size: 13px;
-		line-height: 20px;
-	}
-
-	.servicio-intro__actions {
-		gap: 12px;
-	}
-
-	.servicio-intro__btn {
-		padding: 11px 20px;
-		font-size: 11px;
-		line-height: 16px;
-		gap: 8px;
-	}
-
-	.servicio-intro__stats {
-		gap: 24px;
-	}
-
-	.servicio-intro__stat-number {
-		font-size: 28px;
-	}
-
-	.servicio-intro__stat-label {
-		font-size: 9px;
-		line-height: 14px;
-	}
-
-	.servicio-intro__stat {
-		flex: 1;
-	}
-
-	.servicio-intro__img {
-		width: 100%;
-		height: 100%;
-	}
-
-	/* SECTION 2: NUESTROS SERVICIOS */
 	.servicio-offers {
 		padding: 50px var(--lateral-spacing);
 	}
@@ -1045,63 +1087,6 @@
 		line-height: 14px;
 	}
 
-	/* SECTION 3: PROCESO DE TRABAJO */
-	.servicio-process {
-		padding: 50px var(--lateral-spacing);
-	}
-
-	.servicio-process__container {
-		gap: 20px;
-	}
-
-	.servicio-process__title {
-		font-size: 30px;
-		line-height: 30px;
-	}
-
-	.servicio-process__steps {
-		grid-template-columns: repeat(4, 1fr);
-		gap: 12px;
-	}
-
-	.servicio-process__step {
-		padding: 18px 14px;
-		height: 135px;
-	}
-
-	.servicio-process__step-number {
-		font-size: 22px;
-	}
-
-	.servicio-process__step-title {
-		font-size: 16px;
-		line-height: 24px;
-	}
-
-	.servicio-process__step-description {
-		font-size: 12px;
-		line-height: 18px;
-	}
-
-	.servicio-process__step:hover {
-		background-color: #466060;
-		transform: scale(1.02);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	}
-
-	.servicio-process__step:hover .servicio-process__step-number {
-		color: #FFFFFF;
-	}
-
-	.servicio-process__step:hover .servicio-process__step-title {
-		color: #FFFFFF;
-	}
-
-	.servicio-process__step:hover .servicio-process__step-description {
-		color: #FFFFFF;
-	}
-
-	/* SECTION 4: SOLICITAR PROPUESTA */
 	.servicio-contact {
 		padding: 70px var(--lateral-spacing);
 	}
@@ -1151,6 +1136,17 @@
 		height: 41px;
 		font-size: 13px;
 		padding: 11px 13px;
+	}
+
+	.avance-select-trigger {
+		height: 41px;
+		padding: 11px 13px;
+		font-size: 13px;
+	}
+
+	.avance-select-icon {
+		width: 14px;
+		height: 14px;
 	}
 
 	.servicio-contact__textarea {
@@ -1231,68 +1227,8 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - TABLET (769px - 1024px)
-   ===================================================== */
 @media (min-width: 769px) and (max-width: 1024px) {
 
-	/* SECTION 1: INTRO SERVICIOS */
-	.servicio-intro {
-		height: 380px;
-	}
-
-	.servicio-intro__features {
-
-		grid-template-columns: 1fr 1fr;
-		gap: 40px;
-	}
-
-	.servicio-intro__content {
-		gap: 14px;
-		max-width: 450px;
-	}
-
-	.servicio-intro__title {
-		font-size: 13px;
-		line-height: 13px;
-	}
-
-	.servicio-intro__subtitle {
-		font-size: 28px;
-		line-height: 32px;
-	}
-
-	.servicio-intro__description {
-		font-size: 12px;
-		line-height: 20px;
-	}
-
-	.servicio-intro__actions {
-		gap: 11px;
-	}
-
-	.servicio-intro__btn {
-		padding: 10px 18px;
-		font-size: 10px;
-		line-height: 14px;
-		gap: 6px;
-	}
-
-	.servicio-intro__stats {
-		gap: 20px;
-	}
-
-	.servicio-intro__stat-number {
-		font-size: 24px;
-		line-height: 24px;
-	}
-
-	.servicio-intro__stat-label {
-		font-size: 8px;
-		line-height: 12px;
-	}
-
-	/* SECTION 2: NUESTROS SERVICIOS */
 	.servicio-offers {
 		padding: 40px var(--lateral-spacing);
 	}
@@ -1424,45 +1360,6 @@
 		line-height: 12px;
 	}
 
-	/* SECTION 3: PROCESO DE TRABAJO */
-	.servicio-process {
-		padding: 40px var(--lateral-spacing);
-	}
-
-	.servicio-process__container {
-		gap: 20px;
-	}
-
-	.servicio-process__title {
-		font-size: 28px;
-		line-height: 32px;
-	}
-
-	.servicio-process__steps {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-	}
-
-	.servicio-process__step {
-		padding: 14px 12px;
-		height: 120px;
-	}
-
-	.servicio-process__step-number {
-		font-size: 20px;
-	}
-
-	.servicio-process__step-title {
-		font-size: 15px;
-		line-height: 20px;
-	}
-
-	.servicio-process__step-description {
-		font-size: 11px;
-		line-height: 16px;
-	}
-
-	/* SECTION 4: SOLICITAR PROPUESTA */
 	.servicio-contact {
 		padding: 60px var(--lateral-spacing);
 	}
@@ -1512,6 +1409,17 @@
 		height: 37px;
 		font-size: 12px;
 		padding: 10px 12px;
+	}
+
+	.avance-select-trigger {
+		height: 37px;
+		padding: 10px 12px;
+		font-size: 12px;
+	}
+
+	.avance-select-icon {
+		width: 13px;
+		height: 13px;
 	}
 
 	.servicio-contact__textarea {
@@ -1614,9 +1522,6 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
-   ===================================================== */
 @media (min-width: 480px) and (max-width: 768px) {
 	.servicio-intro {
 		height: auto;
@@ -1870,6 +1775,17 @@
 		line-height: 1.4;
 	}
 
+	.avance-select-trigger {
+		height: 33px;
+		padding: 8px 10px;
+		font-size: 11px;
+	}
+
+	.avance-select-icon {
+		width: 12px;
+		height: 12px;
+	}
+
 	.servicio-contact__textarea {
 		min-height: 69px;
 		font-size: 11px;
@@ -2063,9 +1979,6 @@
 	}
 }
 
-/* =====================================================
-   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
-   ===================================================== */
 @media (max-width: 479px) {
 	.servicio-intro {
 		height: auto;
@@ -2274,6 +2187,17 @@
 		font-size: 14px;
 		line-height: 1;
 		letter-spacing: 0;
+	}
+
+	.avance-select-trigger {
+		height: 45px;
+		padding: 14px 16px;
+		font-size: 14px;
+	}
+
+	.avance-select-icon {
+		width: 14px;
+		height: 14px;
 	}
 
 	.servicio-contact__content {

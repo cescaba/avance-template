@@ -30,7 +30,7 @@ $args = wp_parse_args($args ?? array(), array(
 		</header>
 
 		<form id="contacto-wsp-form" class="home-form__form" aria-label="<?php esc_attr_e('Formulario de contacto por WhatsApp', 'avance-template'); ?>">
-			<?php wp_nonce_field('avance_contact_form', 'nonce', false); ?>
+			<?php wp_nonce_field('form_contact', 'nonce', false); ?>
 
 			<div class="home-form__row">
 				<div class="home-form__field">
@@ -83,14 +83,30 @@ $args = wp_parse_args($args ?? array(), array(
 						<?php esc_html_e('Servicio de interés', 'avance-template'); ?>
 						<span aria-label="<?php esc_attr_e('requerido', 'avance-template'); ?>">*</span>
 					</label>
-					<input
-						type="text"
-						id="contacto_wsp_asunto"
-						name="contacto_wsp_asunto"
-						class="home-form__input"
-						placeholder="<?php esc_attr_e('Ej: Capacitación, Mentoría', 'avance-template'); ?>"
-						required
-						aria-required="true">
+					<div class="avance-select-wrapper">
+						<div class="avance-select-trigger" id="form-section-select-trigger" data-select="contacto_wsp_asunto">
+							<span class="avance-select-value"><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></span>
+							<svg class="avance-select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+						</div>
+						<div class="avance-select-dropdown" id="form-section-select-dropdown">
+							<div class="avance-select-option" data-value=""><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Mentoría"><?php esc_html_e('Mentoría', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Servicio Empresa"><?php esc_html_e('Servicio Empresa', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Diagnóstico"><?php esc_html_e('Diagnóstico', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Consultoría"><?php esc_html_e('Consultoría', 'avance-template'); ?></div>
+							<div class="avance-select-option" data-value="Otro"><?php esc_html_e('Otro', 'avance-template'); ?></div>
+						</div>
+					</div>
+					<select id="contacto_wsp_asunto" name="contacto_wsp_asunto" class="avance-select-hidden" required aria-required="true" style="display: none;">
+						<option value=""><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></option>
+						<option value="Mentoría"><?php esc_html_e('Mentoría', 'avance-template'); ?></option>
+						<option value="Servicio Empresa"><?php esc_html_e('Servicio Empresa', 'avance-template'); ?></option>
+						<option value="Diagnóstico"><?php esc_html_e('Diagnóstico', 'avance-template'); ?></option>
+						<option value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></option>
+						<option value="Consultoría"><?php esc_html_e('Consultoría', 'avance-template'); ?></option>
+						<option value="Otro"><?php esc_html_e('Otro', 'avance-template'); ?></option>
+					</select>
 				</div>
 			</div>
 
@@ -106,11 +122,13 @@ $args = wp_parse_args($args ?? array(), array(
 					placeholder="<?php esc_attr_e('Cuéntame brevemente tu situación...', 'avance-template'); ?>"></textarea>
 			</div>
 
-			<div class="home-form__buttons ">
-				<button type="submit" class="home-form__button">
-					<?php echo esc_html($args['button_text']); ?>
-				</button>
+			<div class="home-form__buttons">
+				<button type="submit" class="home-form__button"><img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-form__button-icon" aria-hidden="true"><span><?php echo esc_html($args['button_text']); ?></span></button>
 			</div>
 		</form>
 	</div>
 </section>
+
+<?php
+wp_enqueue_script('form-section-select', get_template_directory_uri() . '/assets/js/form-section-select.js', [], '1.0.0', true);
+?>

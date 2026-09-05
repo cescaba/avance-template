@@ -39,7 +39,8 @@ class Avance_Agendamiento_DB {
 			PRIMARY KEY (id),
 			INDEX status_idx (status),
 			INDEX created_idx (created_at),
-			INDEX fecha_idx (fecha_agendada)
+			INDEX fecha_idx (fecha_agendada),
+			INDEX composite_fecha_created (fecha_agendada, created_at)
 		) {$charset_collate};";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';

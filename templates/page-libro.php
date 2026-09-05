@@ -24,6 +24,10 @@ get_header();
 			<img class="libro-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg2.png'); ?>" alt="<?php esc_attr_e('Portada del libro Avance Comercial', 'avance-template'); ?>">
 			<a href="#" class="libro-btn-primary"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
 
+			<p class="libro-cover-caption"><?php esc_html_e('Enlace directo: Compra por Amazon', 'avance-template'); ?></p>
+			<p class="libro-cover-author"><?php esc_html_e('¿Quieres aplicar el método?', 'avance-template'); ?></p>
+
+
 			<a href="#scheduling-section" class="libro-btn-secondary"><?php esc_html_e('Ir a agendar reunión', 'avance-template'); ?></a>
 
 			<div class="libro-rating-section">

@@ -63,8 +63,13 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6,
-p {
-	margin: 0;
+p, ul, ol, dl, dd, dt {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+ul, ol {
+	list-style: none !important;
 }
 
 a {
@@ -76,6 +81,37 @@ textarea,
 select,
 button {
 	font-family: 'Inter', sans-serif;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+/* WordPress específico */
+.wp-block-heading {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.wp-block-paragraph {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+figure {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+table {
+	margin: 0 !important;
+	padding: 0 !important;
+	border-collapse: collapse;
+}
+
+th, td {
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 /* =====================================================
@@ -99,6 +135,25 @@ button {
    5. GLOBAL COMPONENTS
    ===================================================== */
 
+/* Alerts */
+.mentoria-alert,
+.notification {
+	padding: 12px;
+	border-radius: 4px;
+	margin-bottom: 16px;
+	font-size: 14px;
+}
 
+.mentoria-alert--error,
+.notification--error {
+	background-color: #fee;
+	border: 1px solid #fcc;
+	color: #c33;
+}
 
-
+.mentoria-alert--success,
+.notification--success {
+	background-color: #efe;
+	border: 1px solid #cfc;
+	color: #3c3;
+}

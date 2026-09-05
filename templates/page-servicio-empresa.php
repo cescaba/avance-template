@@ -29,7 +29,7 @@ get_header();
                     <p class="servicio-intro__description">Programas de formación ejecutiva, seminarios Top Class, consultoría comercial y educación especializada. Modalidad presencial, online o blended — diseñado a medida para tu empresa.</p>
                     <div class="servicio-intro__actions">
                         <a href="#servicio-contact" class="servicio-intro__btn servicio-intro__btn--primary">Solicitar propuesta</a>
-                        <a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="servicio-intro__btn servicio-intro__btn--whatsapp">
+                        <a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="servicio-intro__btn servicio-intro__btn--whatsapp" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/wsp.svg" alt="Icono de WhatsApp" width="16" height="16">
                             Hablar por WhatsApp
                         </a>
@@ -190,7 +190,7 @@ get_header();
             </header>
             <div class="servicio-contact__content">
                 <form id="proposal-form" class="servicio-contact__form">
-                    <?php wp_nonce_field('avance_proposal_form', 'nonce'); ?>
+                    <?php wp_nonce_field('form_servicio_empresa', 'nonce', false); ?>
 
                     <div class="servicio-contact__form-row">
                         <div class="servicio-contact__form-group">
@@ -225,7 +225,28 @@ get_header();
                     <div class="servicio-contact__form-row servicio-contact__form-row--full">
                         <div class="servicio-contact__form-group">
                             <label for="proposal-servicio" class="servicio-contact__label-text">Servicio de interés *</label>
-                            <input type="text" id="proposal-servicio" name="servicio_interes" class="servicio-contact__input" placeholder="Ej. Mentoría empresarial" required aria-required="true">
+                            <div class="avance-select-wrapper">
+                                <div class="avance-select-trigger" id="avance-select-trigger" data-select="proposal-servicio">
+                                    <span class="avance-select-value"><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></span>
+                                    <svg class="avance-select-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+                                </div>
+                                <div class="avance-select-dropdown" id="avance-select-dropdown">
+                                    <div class="avance-select-option" data-value=""><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></div>
+                                    <div class="avance-select-option" data-value="Mentoría"><?php esc_html_e('Mentoría', 'avance-template'); ?></div>
+                                    <div class="avance-select-option" data-value="Servicio Empresa"><?php esc_html_e('Servicio Empresa', 'avance-template'); ?></div>
+                                    <div class="avance-select-option" data-value="Diagnóstico"><?php esc_html_e('Diagnóstico', 'avance-template'); ?></div>
+                                    <div class="avance-select-option" data-value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></div>
+                                    <div class="avance-select-option" data-value="Consultoría"><?php esc_html_e('Consultoría', 'avance-template'); ?></div>
+                                </div>
+                            </div>
+                            <select id="proposal-servicio" name="servicio_interes" class="avance-select-hidden" required aria-required="true" style="display: none;">
+                                <option value=""><?php esc_html_e('Selecciona un servicio', 'avance-template'); ?></option>
+                                <option value="Mentoría"><?php esc_html_e('Mentoría', 'avance-template'); ?></option>
+                                <option value="Servicio Empresa"><?php esc_html_e('Servicio Empresa', 'avance-template'); ?></option>
+                                <option value="Diagnóstico"><?php esc_html_e('Diagnóstico', 'avance-template'); ?></option>
+                                <option value="Capacitación"><?php esc_html_e('Capacitación', 'avance-template'); ?></option>
+                                <option value="Consultoría"><?php esc_html_e('Consultoría', 'avance-template'); ?></option>
+                            </select>
                         </div>
                     </div>
                     <div class="servicio-contact__form-row servicio-contact__form-row--full">
@@ -274,7 +295,7 @@ get_header();
                             <p class="servicio-contact__direct-title">Contacto directo</p>
                             <p class="servicio-contact__direct-text">+51 991 908 301 · <?php echo antispambot('informacion@avance-empresarial.com'); ?></p>
                         </div>
-                        <a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="servicio-contact__direct-btn">
+                        <a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="servicio-contact__direct-btn" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/wsp.svg" alt="Icono de WhatsApp" width="16" height="16">
                             WhatsApp
                         </a>
@@ -286,4 +307,5 @@ get_header();
 </main>
 
 <?php
+wp_enqueue_script('avance-select', get_template_directory_uri() . '/assets/js/avance-select.js', [], '1.0.0', true);
 get_footer();

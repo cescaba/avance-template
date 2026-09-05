@@ -43,38 +43,6 @@ get_header();
 				<div class="diagnostico-quiz__options" id="diagnosticoOptionsList"></div>
 			</div>
 
-			<script>
-				// Script síncrono para cargar primer pregunta instantáneamente (sin esperar DOMContentLoaded)
-				(function() {
-					const DIAGNOSTICO_QUESTIONS = [
-						{
-							text: "¿Cuál es tu mayor desafío comercial ahora mismo?",
-							options: [
-								"No genero suficientes leads",
-								"Bajo porcentaje de cierre",
-								"No tengo proceso comercial definido",
-								"Equipo de ventas poco efectivo"
-							]
-						}
-					];
-
-					const questionText = document.getElementById('diagnosticoQuestionText');
-					const optionsList = document.getElementById('diagnosticoOptionsList');
-
-					if (questionText && optionsList) {
-						const q = DIAGNOSTICO_QUESTIONS[0];
-						questionText.textContent = q.text;
-
-						q.options.forEach(label => {
-							const btn = document.createElement('button');
-							btn.className = 'diagnostico-quiz__option-btn';
-							btn.setAttribute('data-answer', label);
-							btn.textContent = label;
-							optionsList.appendChild(btn);
-						});
-					}
-				})();
-			</script>
 
 
 			<!-- CTA Buttons -->

@@ -240,22 +240,9 @@ function showDiagnosticoNotification(message, type = 'error') {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('DEBUG: DOMContentLoaded disparado');
-	console.log('DEBUG: DIAGNOSTICO_QUESTIONS definido?', typeof DIAGNOSTICO_QUESTIONS !== 'undefined');
-	console.log('DEBUG: diagnosticoQuestionText existe?', document.getElementById('diagnosticoQuestionText') !== null);
-	console.log('DEBUG: diagnosticoOptionsList existe?', document.getElementById('diagnosticoOptionsList') !== null);
-
 	clearDiagnosticoState();
 	initDiagnosticoElements();
-
-	console.log('DEBUG: Después de init - diagnosticoQuestionText es null?', diagnosticoQuestionText === null);
-	console.log('DEBUG: Después de init - diagnosticoOptionsList es null?', diagnosticoOptionsList === null);
-
 	renderDiagnosticoQuestion();
-
-	console.log('DEBUG: diagnosticoQuestionText.textContent:', diagnosticoQuestionText?.textContent);
-	console.log('DEBUG: diagnosticoOptionsList.innerHTML:', diagnosticoOptionsList?.innerHTML);
-
 	if (diagnosticoOptionsList) {
 		const buttons = diagnosticoOptionsList.querySelectorAll('[data-answer]');
 		buttons.forEach(btn => {

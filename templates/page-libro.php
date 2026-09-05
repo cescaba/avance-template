@@ -22,7 +22,7 @@ get_header();
 		<!-- Sidebar -->
 		<aside class="libro-sidebar">
 			<img class="libro-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg2.png'); ?>" alt="<?php esc_attr_e('Portada del libro Avance Comercial', 'avance-template'); ?>">
-			<a href="#" class="libro-btn-primary"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
+			<a href="#" class="libro-btn-primary"><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
 
 			<p class="libro-cover-caption"><?php esc_html_e('Enlace directo: Compra por Amazon', 'avance-template'); ?></p>
 			<p class="libro-cover-author"><?php esc_html_e('¿Quieres aplicar el método?', 'avance-template'); ?></p>
@@ -116,8 +116,8 @@ get_header();
 			<div class="libro-cta-band">
 				<div class="libro-cta-title"><?php esc_html_e('¿Quieres implementar el método en tu empresa?', 'avance-template'); ?></div>
 				<div class="libro-cta-actions">
-					<a href="#scheduling-section" class="libro-btn libro-btn--primary"><?php esc_html_e('Agendar consultoría', 'avance-template'); ?></a>
-					<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico')) . '#diagnosticoQuizView'); ?>" class="libro-btn libro-btn--secondary"><?php esc_html_e('Ir al Diagnóstico Gratuito', 'avance-template'); ?></a>
+					<a href="#scheduling-section" class="libro-btn-primary"><?php esc_html_e('Agendar consultoría', 'avance-template'); ?></a>
+					<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico')) . '#diagnosticoQuizView'); ?>" class="libro-btn-secondary"><?php esc_html_e('Ir al Diagnóstico Gratuito', 'avance-template'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -159,7 +159,7 @@ get_header();
 		<!-- Full Width Below: Description + CTA -->
 		<p class="libro-description"><?php esc_html_e('Una guía práctica para ejecutivos y emprendedores que quieren construir un proceso comercial sólido, escalable y orientado a resultados. Sin teoría vacía: cada capítulo incluye herramientas aplicables desde el primer día.', 'avance-template'); ?></p>
 
-		<a href="#" class="libro-btn-primary-mobile"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
+		<a href="#" class="libro-btn-primary-mobile"><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
 
 		<!-- Buttons & Rating Section -->
 		<div class="libro-rating-section">
@@ -177,8 +177,9 @@ get_header();
 			<p class="libro-route-description-mobile"><?php esc_html_e('Imagina este libro como un mapa de navegación comercial. Cada capítulo es una etapa del recorrido, diseñada para llevarte desde la identificación precisa del problema hasta la implementación de un sistema comercial integral.', 'avance-template'); ?></p>
 		</div>
 
+		<!-- Chapters Section Mobile -->
 		<div class="libro-chapters-section-mobile">
-			<div class="libro-section-label-mobile"><?php esc_html_e('QUÉ ENCONTRARÁS', 'avance-template'); ?></div>
+			<div class="libro-section-label-mobile"><?php esc_html_e('Este es el itinerario del viaje:', 'avance-template'); ?></div>
 			<div class="libro-chapters-mobile">
 				<div class="libro-chapter-mobile">
 					<h3 class="libro-chapter-title-mobile"><?php esc_html_e('Diagnóstico de tu situación comercial actual', 'avance-template'); ?></h3>

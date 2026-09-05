@@ -1,72 +1,94 @@
-/**
- * Avance Menu Handler
- * Gestiona el menú móvil con animaciones elegantes
- *
- * @package Avance_Template
- */
+(function () {
+	'use strict';
 
-class AvanceMenu {
-	constructor() {
-		this.menuToggle = document.querySelector('.avance-menu-toggle');
-		this.header = document.querySelector('.avance-header');
-		this.menuPanel = document.querySelector('.avance-menu-panel');
-		this.menuLinks = document.querySelectorAll('.avance-menu-panel__link');
+	const headerEl = document.getElementById('avance-header');
+	const toggleBtn = document.getElementById('avance-menu-toggle');
+	const menuPanel = document.getElementById('avance-menu-panel');
 
-		if (this.menuToggle && this.header && this.menuPanel) {
-			this.init();
+	if (!headerEl || !toggleBtn || !menuPanel) {
+		return;
+	}
+
+	/**
+	 * Update header height CSS variable for responsive calculations
+	 */
+	function updateHeaderHeight() {
+		const container = headerEl.querySelector('.avance-header__container');
+		if (container) {
+			const height = Math.round(container.getBoundingClientRect().height);
+			document.documentElement.style.setProperty('--header-h', height + 'px');
 		}
 	}
 
-	init() {
-		// Toggle al hacer click en hamburguesa
-		this.menuToggle.addEventListener('click', () => this.toggle());
-
-		// Cerrar al hacer click en un link
-		this.menuLinks.forEach(link => {
-			link.addEventListener('click', () => this.close());
-		});
-
-		// Cerrar al hacer click fuera del menú
-		document.addEventListener('click', (e) => {
-			if (!this.header.contains(e.target) && this.header.classList.contains('is-open')) {
-				this.close();
-			}
-		});
-	}
-
-	toggle() {
-		if (this.header.classList.contains('is-open')) {
-			this.close();
+	/**
+	 * Toggle menu open/closed state
+	 * @param {boolean} isOpen - Whether menu should be open
+	 */
+	function setMenuOpen(isOpen) {
+		if (isOpen) {
+			// Abriendo: agregar is-open y remover closing
+			headerEl.classList.add('is-open');
+			menuPanel.classList.remove('closing');
+			document.body.classList.add('is-locked');
+			menuPanel.setAttribute('aria-hidden', 'false');
+			toggleBtn.setAttribute('aria-expanded', 'true');
+			toggleBtn.setAttribute('aria-label', 'Cerrar menú');
+			updateHeaderHeight();
 		} else {
-			this.open();
+			// Cerrando: agregar closing y esperar animación
+			menuPanel.classList.add('closing');
+
+			// Esperar a que termine la animación panelOut (200ms)
+			setTimeout(function() {
+				headerEl.classList.remove('is-open');
+				document.body.classList.remove('is-locked');
+				menuPanel.setAttribute('aria-hidden', 'true');
+				toggleBtn.setAttribute('aria-expanded', 'false');
+				toggleBtn.setAttribute('aria-label', 'Menú');
+			}, 200);
 		}
 	}
 
-	open() {
-		this.header.classList.add('is-open');
-		this.menuPanel.classList.remove('closing');
-	}
+	/**
+	 * Toggle menu on button click
+	 */
+	toggleBtn.addEventListener('click', function () {
+		const isCurrentlyOpen = headerEl.classList.contains('is-open');
+		setMenuOpen(!isCurrentlyOpen);
+	});
 
-	close() {
-		// Agregar clase closing para la animación panelOut
-		this.menuPanel.classList.add('closing');
+	/**
+	 * Close menu when a link is clicked
+	 */
+	menuPanel.querySelectorAll('a').forEach(function (link) {
+		link.addEventListener('click', function () {
+			setMenuOpen(false);
+		});
+	});
 
-		// Esperar a que termine la animación (0.2s) antes de quitar is-open
-		setTimeout(() => {
-			this.header.classList.remove('is-open');
-		}, 200);
-	}
-}
+	/**
+	 * Close menu on Escape key
+	 */
+	document.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') {
+			setMenuOpen(false);
+		}
+	});
 
-// Inicializar cuando el DOM esté listo
-function initAvanceMenu() {
-	if (document.querySelector('.avance-menu-toggle')) {
-		new AvanceMenu();
-	}
-}
+	/**
+	 * Close menu when viewport transitions to desktop
+	 */
+	window.matchMedia('(min-width: 1025px)').addEventListener('change', function (event) {
+		if (event.matches) {
+			setMenuOpen(false);
+		}
+	});
 
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', initAvanceMenu);
-} else {
-	initAvanceMenu();
-}
+	/**
+	 * Update header height on window resize
+	 */
+	window.addEventListener('resize', updateHeaderHeight);
+
+	// Initial setup
+	updateHeaderHeight();
+})();

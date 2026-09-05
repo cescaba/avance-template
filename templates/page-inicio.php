@@ -13,7 +13,7 @@ get_header();
 <main class="site-main">
 	<!-- Hero Section -->
 	<section class="home-hero" aria-label="<?php esc_attr_e('Sección Hero', 'avance-template'); ?>">
-		<div class="home-hero__bg" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/Rectangle 3.png'); ?>')">
+		<div class="home-hero__bg">
 			<div class="home-hero__container">
 				<div class="home-hero__top">
 					<p class="home-hero__label"><?php esc_html_e('Consultoría · Capacitación · Mentoría', 'avance-template'); ?></p>

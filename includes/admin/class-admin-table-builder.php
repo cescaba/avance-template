@@ -41,31 +41,36 @@ class Admin_Table_Builder {
 	}
 
 	public function render() {
-		// Sanitizar datos para evitar problemas de JSON
-		$sanitized_data = array_map(function($row) {
-			if (!is_object($row)) return $row;
-			$arr = (array)$row;
-			foreach ($arr as $key => &$value) {
-				if (is_string($value)) {
-					$value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+		// Convertir datos a array simple (sin objetos complejos)
+		$simple_data = [];
+		if (is_array($this->config['data']) || is_object($this->config['data'])) {
+			foreach ((array)$this->config['data'] as $row) {
+				$simple_row = [];
+				if (is_object($row)) {
+					foreach ((array)$row as $key => $value) {
+						// Convertir a string simple para evitar problemas de encoding
+						$simple_row[$key] = is_scalar($value) ? $value : (string)$value;
+					}
+				} else {
+					$simple_row = (array)$row;
 				}
+				$simple_data[] = $simple_row;
 			}
-			return (object)$arr;
-		}, (array)$this->config['data']);
+		}
 
+		// Codificar SOLO lo necesario, sin 'config'
 		$data_json = wp_json_encode([
-			'title' => $this->config['title'],
-			'subtitle' => $this->config['subtitle'],
-			'columns' => $this->config['columns'],
-			'data' => $sanitized_data,
-			'total' => $this->config['total'],
-			'stats' => $this->config['stats'],
-			'config' => $this->config
+			'title' => (string)$this->config['title'],
+			'subtitle' => (string)$this->config['subtitle'],
+			'columns' => (array)$this->config['columns'],
+			'data' => $simple_data,
+			'total' => intval($this->config['total']),
+			'stats' => (array)$this->config['stats']
 		]);
 
 		if ($data_json === false) {
 			error_log('Admin Table Builder: JSON encoding failed for ' . $this->config['title']);
-			$data_json = '{"data":[],"title":"","error":"JSON encoding failed"}';
+			$data_json = '{"data":[],"title":"Error","subtitle":"No se pudieron cargar los datos","columns":[],"stats":[],"total":0}';
 		}
 
 		$nonce = wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin');
@@ -128,16 +133,31 @@ class Admin_Table_Builder {
   </div>
 </div>
 
+<script type="application/json" id="admin-data-json"><?php echo $data_json; ?></script>
+<script type="application/json" id="admin-config-json"><?php echo wp_json_encode($this->config['ajax_actions'] ?? []); ?></script>
 <script>
 // Datos del panel admin inyectados desde PHP
-window.adminData = <?php echo $data_json; ?>;
+try {
+	const dataEl = document.getElementById('admin-data-json');
+	window.adminData = dataEl ? JSON.parse(dataEl.textContent) : { data: [], columns: [] };
+} catch (e) {
+	console.error('Error parsing admin data:', e);
+	window.adminData = { data: [], columns: [] };
+}
 
 // Configuración de AJAX y seguridad
-window.adminConfig = {
-	ajaxUrl: '<?php echo esc_url($ajax_url); ?>',
-	nonce: '<?php echo esc_attr($nonce); ?>',
-	actions: <?php echo wp_json_encode($this->config['ajax_actions'] ?? []); ?>
-};
+try {
+	const configEl = document.getElementById('admin-config-json');
+	const actions = configEl ? JSON.parse(configEl.textContent) : {};
+	window.adminConfig = {
+		ajaxUrl: '<?php echo esc_url($ajax_url); ?>',
+		nonce: '<?php echo esc_attr($nonce); ?>',
+		actions: actions
+	};
+} catch (e) {
+	console.error('Error parsing admin config:', e);
+	window.adminConfig = { ajaxUrl: '', nonce: '', actions: {} };
+}
 
 // Manejadores de acciones AJAX
 window.adminActions = {

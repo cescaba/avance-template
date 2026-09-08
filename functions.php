@@ -19,6 +19,15 @@ if (!defined('AVANCE_MAX_BOOKING_DAYS')) {
 	define('AVANCE_MAX_BOOKING_DAYS', 180);
 }
 
+// Fix: Corregir scripts de WordPress que no terminen con salto de línea
+add_filter('script_loader_tag', function($tag, $handle) {
+	// Si el tag termina con un comentario sin salto de línea, agregar salto
+	if (preg_match('~//\s*#sourceURL=\w+$~', trim($tag, "\n"))) {
+		$tag = rtrim($tag, "\n") . "\n";
+	}
+	return $tag;
+}, 10, 2);
+
 // Invalidar caché de calendario cuando se completa una reserva
 add_action('wp_footer', function() {
 	?>

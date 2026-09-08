@@ -22,6 +22,8 @@ class Avance_Handler_Agendamiento_Contacto {
 		add_action('wp_ajax_avance_submit_agendamiento', [$this, 'handle_request']);
 		add_action('wp_ajax_nopriv_avance_get_available_hours', [$this, 'get_available_hours']);
 		add_action('wp_ajax_avance_get_available_hours', [$this, 'get_available_hours']);
+		add_action('wp_ajax_nopriv_avance_get_booked_hours_batch', [$this, 'get_booked_hours_batch']);
+		add_action('wp_ajax_avance_get_booked_hours_batch', [$this, 'get_booked_hours_batch']);
 	}
 
 	public function handle_request() {
@@ -111,14 +113,14 @@ class Avance_Handler_Agendamiento_Contacto {
 			wp_send_json_error(['message' => 'Esta hora ya no está disponible. Selecciona otra.'], 409);
 		}
 
-		// Guardar en calendario_reservas
+		// 1. Guardar en calendario_reservas
 		$cal_result = Avance_Calendario_Reservas_DB::insert($fecha, $hora);
 		if (!$cal_result) {
 			wp_send_json_error(['message' => 'Error al guardar fecha/hora. Intenta de nuevo.'], 500);
 		}
 		$calendario_reserva_id = $GLOBALS['wpdb']->insert_id;
 
-		// Preparar datos para agendamiento_contacto
+		// 2. Guardar en agendamiento_contacto
 		$data_for_db = array(
 			'nombre' => $nombre,
 			'whatsapp' => $whatsapp,
@@ -127,20 +129,27 @@ class Avance_Handler_Agendamiento_Contacto {
 			'estado' => 'pendiente'
 		);
 
-		// Guardar en agendamiento_contacto
 		$result = Avance_Agendamiento_Contacto_DB::insert($data_for_db);
 		if (!$result) {
+			// Si falla agendamiento, borrar la hora que se guardó
+			Avance_Calendario_Reservas_DB::delete_reserva($fecha, $hora);
 			wp_send_json_error(['message' => 'Error al guardar. Intenta de nuevo.'], 500);
 		}
+
+		$inserted_id = $GLOBALS['wpdb']->insert_id;
 
 		// Marcar como enviado y obtener ID
 		$inserted_id = $GLOBALS['wpdb']->insert_id;
 		Avance_Agendamiento_Contacto_DB::mark_wsp_sent($inserted_id);
 
+		// Invalidar caché de horas ocupadas (nueva reserva agregada)
+		Avance_Calendario_Reservas_DB::invalidate_cache($fecha);
+
 		// Respuesta exitosa
 		wp_send_json_success([
 			'message' => 'Mensaje guardado correctamente. Abriendo WhatsApp...',
-			'id' => $inserted_id
+			'id' => $inserted_id,
+			'invalidate_cache' => true
 		]);
 	}
 
@@ -179,17 +188,71 @@ class Avance_Handler_Agendamiento_Contacto {
 	}
 
 	public function get_available_hours() {
-		$fecha = $_GET['fecha'] ?? '';
+		$fecha = isset($_GET['fecha']) ? sanitize_text_field($_GET['fecha']) : '';
 
 		if (empty($fecha) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
 			wp_send_json_error(['message' => 'Fecha inválida'], 400);
+			return;
+		}
+
+		// Validar fecha no sea pasada
+		$fecha_timestamp = strtotime($fecha);
+		$today_timestamp = strtotime(current_time('Y-m-d'));
+
+		if ($fecha_timestamp < $today_timestamp) {
+			wp_send_json_error(['message' => 'Fecha pasada'], 400);
+			return;
 		}
 
 		$booked_hours = Avance_Calendario_Reservas_DB::get_booked_hours($fecha);
 
+		// Si hay error en BD, retornar error explícito
+		if ($booked_hours === null) {
+			wp_send_json_error(['message' => 'Error al cargar disponibilidad'], 500);
+			return;
+		}
+
+		// Respuesta con caché info (para debugging)
 		wp_send_json_success([
 			'fecha' => $fecha,
-			'booked_hours' => $booked_hours
+			'booked_hours' => $booked_hours,
+			'cached' => true,
+			'timestamp' => current_time('timestamp')
+		]);
+	}
+
+	public function get_booked_hours_batch() {
+		// Batch prefetch: obtener horas de múltiples fechas en una sola query
+		$fechas_param = isset($_GET['fechas']) ? sanitize_text_field($_GET['fechas']) : '';
+
+		if (empty($fechas_param)) {
+			wp_send_json_error(['message' => 'Fechas requeridas'], 400);
+			return;
+		}
+
+		// Parsear fechas (ej: "2025-09-01,2025-09-02,2025-09-03")
+		$fechas = array_filter(array_map('trim', explode(',', $fechas_param)));
+
+		if (empty($fechas) || count($fechas) > 60) {
+			wp_send_json_error(['message' => 'Cantidad de fechas inválida'], 400);
+			return;
+		}
+
+		// Validar formato de fechas
+		foreach ($fechas as $fecha) {
+			if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
+				wp_send_json_error(['message' => 'Formato de fecha inválido'], 400);
+				return;
+			}
+		}
+
+		// Obtener horas de múltiples fechas (con caché)
+		$booked_hours_by_fecha = Avance_Calendario_Reservas_DB::get_booked_hours_batch($fechas);
+
+		wp_send_json_success([
+			'booked_hours' => $booked_hours_by_fecha,
+			'count' => count($booked_hours_by_fecha),
+			'timestamp' => current_time('timestamp')
 		]);
 	}
 }

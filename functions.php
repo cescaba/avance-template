@@ -19,6 +19,31 @@ if (!defined('AVANCE_MAX_BOOKING_DAYS')) {
 	define('AVANCE_MAX_BOOKING_DAYS', 180);
 }
 
+// Invalidar caché de calendario cuando se completa una reserva
+add_action('wp_footer', function() {
+	?>
+	<script>
+	(function() {
+		const originalFetch = window.fetch;
+		window.fetch = function(...args) {
+			return originalFetch.apply(this, args).then(response => {
+				const clonedResponse = response.clone();
+
+				clonedResponse.json().then(data => {
+					// Si la respuesta tiene invalidate_cache, limpiar caché
+					if (data.success && data.invalidate_cache && window.invalidateAllHoursCache) {
+						window.invalidateAllHoursCache();
+					}
+				}).catch(() => {}); // Ignorar errores de parsing
+
+				return response;
+			});
+		};
+	})();
+	</script>
+	<?php
+});
+
 // Registrar admin CSS una sola vez para todos los admins
 add_action('admin_enqueue_scripts', function($hook) {
 	// DEBUG: Ver exactamente qué hook está siendo pasado

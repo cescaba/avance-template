@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 		viewMonth: new Date().getMonth(),
 		selectedKey: null,
 		selectedTime: null,
-		hoursCache: {} // Caché local para horas booked
+		hoursCache: {}, // {fecha: [horas]}
+		cacheTTL: {}, // {fecha: timestamp} - cuándo se cacheó
+		CACHE_DURATION: 5 * 60 * 1000 // 5 minutos
 	};
 
 	function formatDateKey(year, month, day) {
@@ -135,64 +137,75 @@ document.addEventListener('DOMContentLoaded', async () => {
 		if (calDays) calDays.style.display = 'none';
 
 		if (!state.selectedTime) {
-			// Renderizar horas INMEDIATAMENTE (sin esperar AJAX)
+			// Función manejadora para selección de hora (definida primero)
+			const handleTimeSelect = function() {
+				state.selectedTime = this.dataset.time;
+				if (calendarType === 'mentoria') {
+					window.mentoriaSelectedTime = this.dataset.time;
+				} else {
+					window.contactoSelectedTime = this.dataset.time;
+				}
+				renderTimeSlots();
+			};
+
+			// Renderizar SOLO estado de carga (sin botones aún)
 			tc.innerHTML = `<div class="contacto-agenda__time-wrapper">
 				<div class="contacto-agenda__time-label">
 					<svg class="contacto-agenda__time-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M15 19l-7-7 7-7"></path>
 					</svg>
-					<span>Elige una hora</span>
+					<span>Cargando disponibilidad...</span>
 				</div>
-				<div class="contacto-agenda__time-grid">
-					${TIME_SLOTS.map(time => {
-						const hour = parseInt(time.split(':')[0]);
-						const minute = time.split(':')[1];
-						const endHour = parseInt(minute) === 30 ? (hour + 1).toString().padStart(2, '0') + ':00' : hour.toString().padStart(2, '0') + ':30';
-						return `
-							<button class="contacto-agenda__time-btn"
-									data-time="${time}">
-								${time} - ${endHour}
-							</button>
-						`;
-					}).join('')}
-				</div>
+				<div class="contacto-agenda__time-grid"></div>
 			</div>`;
 
-			// Obtener horas booked en BACKGROUND (sin bloquear UI)
-			getBookedHours(state.selectedKey).then(bookedHours => {
-				if (bookedHours.length > 0) {
-					// Remover del DOM las horas ocupadas
-					bookedHours.forEach(time => {
-						const btn = tc.querySelector(`[data-time="${time}"]`);
-						if (btn) btn.remove();
-					});
+			// Obtener horas booked ANTES de renderizar botones
+			const result = await getBookedHours(state.selectedKey);
+			const label = tc.querySelector('.contacto-agenda__time-label span');
 
-					// Si no hay horas disponibles
-					if (tc.querySelectorAll('.contacto-agenda__time-btn').length === 0) {
-						const label = tc.querySelector('.contacto-agenda__time-label span');
-						if (label) label.textContent = 'No hay disponibilidad este día';
-					}
+			if (!result.success) {
+				// Error: no renderizar botones
+				if (label) {
+					label.textContent = `Error al cargar disponibilidad: ${result.error}`;
 				}
+				console.error('Failed to load booked hours:', result.error);
+				return;
+			}
+
+			// Éxito: AHORA renderizar solo botones disponibles
+			const bookedHours = result.data || [];
+			const bookedSet = new Set(bookedHours);
+			const timeGrid = tc.querySelector('.contacto-agenda__time-grid');
+
+			if (bookedHours.length === TIME_SLOTS.length) {
+				label.textContent = 'No hay disponibilidad este día';
+				return;
+			}
+
+			label.textContent = 'Elige una hora';
+
+			// Renderizar solo horas DISPONIBLES (no las ocupadas)
+			const availableSlotsHTML = TIME_SLOTS.filter(time => !bookedSet.has(time))
+				.map(time => {
+					const hour = parseInt(time.split(':')[0]);
+					const minute = time.split(':')[1];
+					const endHour = parseInt(minute) === 30 ? (hour + 1).toString().padStart(2, '0') + ':00' : hour.toString().padStart(2, '0') + ':30';
+					return `
+						<button class="contacto-agenda__time-btn" data-time="${time}">
+							${time} - ${endHour}
+						</button>
+					`;
+				})
+				.join('');
+
+			timeGrid.innerHTML = availableSlotsHTML;
+
+			// Agregar listeners a botones disponibles
+			tc.querySelectorAll('.contacto-agenda__time-btn').forEach(btn => {
+				btn.addEventListener('click', handleTimeSelect);
 			});
 
-			// Función para agregar event listeners a botones
-			const attachButtonListeners = () => {
-				tc.querySelectorAll('.contacto-agenda__time-btn').forEach(btn => {
-					btn.addEventListener('click', () => {
-						state.selectedTime = btn.dataset.time;
-						if (calendarType === 'mentoria') {
-							window.mentoriaSelectedTime = btn.dataset.time;
-						} else {
-							window.contactoSelectedTime = btn.dataset.time;
-						}
-						renderTimeSlots();
-					});
-				});
-			};
-
-			// Agregar listeners inmediatamente
-			attachButtonListeners();
-
+			// Agregar listener al label para volver atrás
 			const timeLabel = tc.querySelector('.contacto-agenda__time-label');
 			if (timeLabel) {
 				timeLabel.addEventListener('click', () => {
@@ -314,29 +327,135 @@ document.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	async function getBookedHours(fecha) {
-		// Retornar del caché si ya existe
-		if (state.hoursCache[fecha]) {
-			return state.hoursCache[fecha];
+		const now = Date.now();
+
+		// L1: localStorage (persiste entre páginas)
+		try {
+			const localStored = localStorage.getItem('avance_booked_' + fecha);
+			if (localStored) {
+				const parsed = JSON.parse(localStored);
+				if (parsed.expiry > now) {
+					return {
+						success: true,
+						data: parsed.hours,
+						cached: true,
+						source: 'localStorage'
+					};
+				} else {
+					localStorage.removeItem('avance_booked_' + fecha);
+				}
+			}
+		} catch (e) {
+			// localStorage no disponible o error
+		}
+
+		// L2: estado local del script
+		const cachedTime = state.cacheTTL[fecha];
+		const isCacheValid = cachedTime && (now - cachedTime) < state.CACHE_DURATION;
+
+		if (isCacheValid && state.hoursCache[fecha]) {
+			return {
+				success: true,
+				data: state.hoursCache[fecha],
+				cached: true,
+				source: 'memory'
+			};
 		}
 
 		try {
 			const action = calendarType === 'mentoria' ? 'avance_get_mentoria_hours' : 'avance_get_available_hours';
-			const timestamp = new Date().getTime();
-			const response = await fetch(`${AJAX_URL}?action=${action}&fecha=${fecha}&t=${timestamp}`, {
+			const response = await fetch(`${AJAX_URL}?action=${action}&fecha=${fecha}&t=${now}`, {
 				cache: 'no-store'
 			});
-			const data = await response.json();
-			const booked = data.success ? (data.data?.booked_hours || []) : [];
 
-			// Guardar en caché
+			// Validar HTTP status
+			if (!response.ok) {
+				console.error(`HTTP ${response.status} fetching booked hours for ${fecha}`);
+				return {
+					success: false,
+					error: `HTTP ${response.status}`,
+					data: []
+				};
+			}
+
+			// Validar JSON
+			let responseData;
+			try {
+				responseData = await response.json();
+			} catch (parseError) {
+				console.error('JSON parse error for booked hours:', parseError);
+				return {
+					success: false,
+					error: 'Respuesta inválida del servidor',
+					data: []
+				};
+			}
+
+			// Validar estructura de respuesta
+			if (!responseData || typeof responseData !== 'object') {
+				console.error('Invalid response structure for booked hours:', responseData);
+				return {
+					success: false,
+					error: 'Estructura de respuesta inválida',
+					data: []
+				};
+			}
+
+			// Si el backend reporta éxito
+			if (responseData.success !== true) {
+				const errorMsg = responseData.message || 'Error desconocido del servidor';
+				console.warn(`Backend error for booked hours (${fecha}):`, errorMsg);
+				return {
+					success: false,
+					error: errorMsg,
+					data: []
+				};
+			}
+
+			// Validar que booked_hours sea un array
+			const booked = Array.isArray(responseData.data?.booked_hours) ? responseData.data.booked_hours : [];
+
+			// Guardar en localStorage (30 minutos) - persiste entre recargas
+			try {
+				localStorage.setItem('avance_booked_' + fecha, JSON.stringify({
+					hours: booked,
+					expiry: now + (30 * 60 * 1000)
+				}));
+			} catch (e) {
+				// localStorage lleno o no disponible
+			}
+
+			// Guardar en caché local (10 minutos)
 			state.hoursCache[fecha] = booked;
+			state.cacheTTL[fecha] = now;
 
-			return booked;
+			return {
+				success: true,
+				data: booked,
+				cached: false,
+				source: 'api'
+			};
 		} catch (error) {
-			console.error('Error fetching booked hours:', error);
-			return [];
+			console.error('Network error fetching booked hours:', error);
+			return {
+				success: false,
+				error: error.message || 'Error de conexión',
+				data: []
+			};
 		}
 	}
+
+	// Invalidar caché para una fecha específica
+	window.invalidateHoursCache = function(fecha) {
+		delete state.hoursCache[fecha];
+		delete state.cacheTTL[fecha];
+	};
+
+	// Invalidar TODO el caché (después de completar reserva)
+	window.invalidateAllHoursCache = function() {
+		state.hoursCache = {};
+		state.cacheTTL = {};
+	};
 
 	function updateGridHeightMobile() {
 		if (window.innerWidth <= 479 && calendarType === 'contacto') {
@@ -377,6 +496,66 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	};
 
+	// Función para prefetch horas del mes (batch - una query para 30 fechas)
+	async function prefetchMonthHours() {
+		const { viewYear: y, viewMonth: m } = state;
+		const total = daysInMonth(y, m);
+		const today = new Date();
+		const todayKey = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+
+		// Recopilar fechas disponibles para prefetch (próximos 30 días)
+		const fechasToPrefetch = [];
+		for (let d = 1; d <= total; d++) {
+			const key = formatDateKey(y, m, d);
+			const currentDate = new Date(y, m, d);
+			const canSelect = !currentDate < today && key !== todayKey;
+
+			if (canSelect && fechasToPrefetch.length < 30) {
+				fechasToPrefetch.push(key);
+			}
+		}
+
+		if (fechasToPrefetch.length === 0) return;
+
+		// Batch prefetch: UNA query para 30 fechas (10x más rápido)
+		try {
+			const fechasParam = fechasToPrefetch.join(',');
+			const response = await fetch(`${AJAX_URL}?action=avance_get_booked_hours_batch&fechas=${encodeURIComponent(fechasParam)}`, {
+				cache: 'no-store'
+			});
+
+			if (!response.ok) return;
+
+			const result = await response.json();
+			if (!result.success || !result.data?.booked_hours) return;
+
+			// Guardar cada fecha en caché (localStorage + memoria)
+			const bookedHours = result.data.booked_hours;
+			const now = Date.now();
+
+			Object.keys(bookedHours).forEach(fecha => {
+				const hours = bookedHours[fecha];
+
+				// localStorage (30 minutos, persiste recargas)
+				try {
+					localStorage.setItem('avance_booked_' + fecha, JSON.stringify({
+						hours: hours,
+						expiry: now + (30 * 60 * 1000)
+					}));
+				} catch (e) {}
+
+				// Estado local (10 minutos)
+				state.hoursCache[fecha] = hours;
+				state.cacheTTL[fecha] = now;
+			});
+
+			console.debug('✓ Prefetch completado:', fechasToPrefetch.length, 'fechas en 1 query');
+		} catch (err) {
+			console.debug('Prefetch error:', err);
+		}
+	}
+
 	initializeMobileState();
 	await renderCalendar();
+	prefetchMonthHours();
 });

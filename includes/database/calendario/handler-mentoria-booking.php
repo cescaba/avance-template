@@ -111,7 +111,8 @@ class Avance_Handler_Mentoria_Booking {
 
 		wp_send_json_success([
 			'message' => 'Datos guardados. Redirigiendo a checkout...',
-			'redirect' => '/checkout/'
+			'redirect' => '/checkout/',
+			'invalidate_cache' => true
 		]);
 	}
 

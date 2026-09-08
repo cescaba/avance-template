@@ -30,6 +30,16 @@ class Avance_Handler_Agendamiento_Contacto {
 		// Log de inicio para debugging
 		error_log('Agendamiento POST recibido: ' . json_encode($_POST));
 
+		// Asegurar que las tablas existan (fail-safe para producción)
+		try {
+			Avance_Calendario_Reservas_DB::create_table();
+			Avance_Agendamiento_Contacto_DB::create_table();
+		} catch (Exception $e) {
+			error_log('Error creando tablas en handle_request: ' . $e->getMessage());
+			wp_send_json_error(['message' => 'Error de configuración del servidor. Contacta al administrador.'], 500);
+			return;
+		}
+
 		// Obtener datos del POST
 		$post_data = array(
 			'nombre' => $_POST['nombre'] ?? '',

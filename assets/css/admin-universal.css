@@ -1,0 +1,342 @@
+/* Admin Universal Styles */
+/* Diseño profesional y responsive para cualquier tabla de datos */
+
+:root {
+	--admin-bg: #ffffff;
+	--admin-border: #e0e0e0;
+	--admin-text: #333333;
+	--admin-text-secondary: #666666;
+	--admin-bg-alt: #f5f5f5;
+	--admin-primary: #0073aa;
+	--admin-danger: #d32f2f;
+	--admin-hover: #f9f9f9;
+	--admin-spacing: 12px;
+	--admin-border-radius: 4px;
+	--admin-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Container */
+.admin-container {
+	max-width: 1400px;
+	margin: 20px 0;
+	background: var(--admin-bg);
+	border-radius: var(--admin-border-radius);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	font-family: var(--admin-font);
+	color: var(--admin-text);
+}
+
+/* Header */
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px;
+	border-bottom: 1px solid var(--admin-border);
+	gap: 30px;
+	flex-wrap: wrap;
+}
+
+.admin-header-content {
+	flex: 1;
+	min-width: 250px;
+}
+
+.admin-title {
+	margin: 0 0 8px 0;
+	font-size: 28px;
+	font-weight: 600;
+	color: var(--admin-text);
+}
+
+.admin-subtitle {
+	margin: 0;
+	font-size: 14px;
+	color: var(--admin-text-secondary);
+}
+
+/* Stats */
+.admin-stats {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.admin-stat {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	background: var(--admin-bg-alt);
+	border-radius: var(--admin-border-radius);
+	border: 1px solid var(--admin-border);
+}
+
+.admin-stat-icon {
+	font-size: 24px;
+	line-height: 1;
+}
+
+.admin-stat-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.admin-stat-label {
+	font-size: 12px;
+	color: var(--admin-text-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.admin-stat-value {
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--admin-primary);
+}
+
+/* Search */
+.admin-search-section {
+	padding: 20px 30px;
+	border-bottom: 1px solid var(--admin-border);
+	display: flex;
+	gap: 15px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.admin-search-input {
+	flex: 1;
+	min-width: 200px;
+	padding: 10px 15px;
+	border: 1px solid var(--admin-border);
+	border-radius: var(--admin-border-radius);
+	font-size: 14px;
+	font-family: var(--admin-font);
+	color: var(--admin-text);
+	transition: border-color 0.2s;
+}
+
+.admin-search-input:focus {
+	outline: none;
+	border-color: var(--admin-primary);
+	box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.1);
+}
+
+.admin-search-results {
+	font-size: 12px;
+	color: var(--admin-text-secondary);
+}
+
+/* Table */
+.admin-table-section {
+	position: relative;
+	overflow: hidden;
+}
+
+.admin-table-wrapper {
+	overflow-x: auto;
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--admin-bg);
+}
+
+.admin-table thead {
+	background: var(--admin-bg-alt);
+	border-top: 1px solid var(--admin-border);
+	border-bottom: 2px solid var(--admin-border);
+}
+
+.admin-table th {
+	padding: var(--admin-spacing);
+	text-align: left;
+	font-weight: 600;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: var(--admin-text);
+	white-space: nowrap;
+}
+
+.admin-table td {
+	padding: var(--admin-spacing);
+	border-bottom: 1px solid var(--admin-border);
+	font-size: 13px;
+	color: var(--admin-text);
+	word-break: break-word;
+}
+
+.admin-table tbody tr:hover {
+	background: var(--admin-hover);
+}
+
+.admin-col-actions {
+	width: 120px;
+	text-align: center;
+}
+
+/* Empty State */
+.admin-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 60px 30px;
+	text-align: center;
+	color: var(--admin-text-secondary);
+}
+
+.admin-empty-state[hidden] {
+	display: none;
+}
+
+.admin-empty-icon {
+	font-size: 48px;
+	margin-bottom: 16px;
+	opacity: 0.5;
+}
+
+.admin-empty-title {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.admin-empty-message {
+	font-size: 13px;
+}
+
+/* Actions */
+.admin-btn {
+	padding: 6px 12px;
+	border: 1px solid var(--admin-border);
+	background: var(--admin-bg);
+	color: var(--admin-text);
+	border-radius: var(--admin-border-radius);
+	cursor: pointer;
+	font-size: 12px;
+	font-family: var(--admin-font);
+	transition: all 0.2s;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	white-space: nowrap;
+}
+
+.admin-btn:hover {
+	background: var(--admin-bg-alt);
+	border-color: var(--admin-text);
+}
+
+.admin-btn-view {
+	color: var(--admin-primary);
+	border-color: var(--admin-primary);
+}
+
+.admin-btn-view:hover {
+	background: rgba(0, 115, 170, 0.05);
+}
+
+.admin-btn-delete {
+	color: var(--admin-danger);
+	border-color: var(--admin-danger);
+}
+
+.admin-btn-delete:hover {
+	background: rgba(211, 47, 47, 0.05);
+}
+
+.admin-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Pagination */
+.admin-pagination {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 30px;
+	border-top: 1px solid var(--admin-border);
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.admin-pagination-info {
+	font-size: 13px;
+	color: var(--admin-text-secondary);
+}
+
+.admin-pagination-buttons {
+	display: flex;
+	gap: 10px;
+}
+
+.admin-btn-pagination {
+	padding: 8px 16px;
+	border: 1px solid var(--admin-border);
+	background: var(--admin-bg);
+	color: var(--admin-text);
+	border-radius: var(--admin-border-radius);
+	cursor: pointer;
+	font-size: 12px;
+	font-family: var(--admin-font);
+	transition: all 0.2s;
+}
+
+.admin-btn-pagination:hover:not(:disabled) {
+	background: var(--admin-bg-alt);
+	border-color: var(--admin-primary);
+	color: var(--admin-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.admin-header {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 20px;
+	}
+
+	.admin-stats {
+		width: 100%;
+	}
+
+	.admin-table th,
+	.admin-table td {
+		padding: 8px;
+		font-size: 12px;
+	}
+
+	.admin-pagination {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.admin-pagination-info {
+		text-align: center;
+	}
+
+	.admin-pagination-buttons {
+		width: 100%;
+	}
+
+	.admin-btn-pagination {
+		flex: 1;
+	}
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--admin-bg: #1e1e1e;
+		--admin-border: #333333;
+		--admin-text: #e0e0e0;
+		--admin-text-secondary: #999999;
+		--admin-bg-alt: #2a2a2a;
+		--admin-hover: #252525;
+	}
+}

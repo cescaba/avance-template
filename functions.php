@@ -130,6 +130,12 @@ require_once get_template_directory() . '/includes/mentoria/class-mentoria-check
 // Incluir WhatsApp
 require_once get_template_directory() . '/includes/whatsapp/floating-button.php';
 
+// Admin Template - Base reutilizable
+require_once get_template_directory() . '/includes/admin/class-admin-template.php';
+
+// Admin de Contactos
+require_once get_template_directory() . '/includes/admin/contacts/class-contacts-admin.php';
+
 
 // ============================================================
 // COMPRA DE LIBRO - OBTENER POR CATEGORÍA "LIBRO" + NOMBRE "B2B"

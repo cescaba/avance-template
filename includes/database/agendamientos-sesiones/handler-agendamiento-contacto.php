@@ -186,22 +186,42 @@ class Avance_Handler_Agendamiento_Contacto {
 		global $wpdb;
 		$table = $wpdb->prefix . 'avance_form_attempts';
 
-		$attempts = $wpdb->get_var($wpdb->prepare(
-			"SELECT COUNT(*) FROM $table WHERE ip_address = %s AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)",
-			$ip
-		));
+		try {
+			// Verificar si la tabla existe
+			$table_exists = $wpdb->get_var($wpdb->prepare(
+				"SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s",
+				DB_NAME,
+				'avance_form_attempts'
+			));
 
-		if ($attempts >= 5) {
-			return false;
+			if (!$table_exists) {
+				// Tabla no existe, permitir sin rate limiting
+				error_log('Tabla avance_form_attempts no existe, rate limiting deshabilitado');
+				return true;
+			}
+
+			$attempts = $wpdb->get_var($wpdb->prepare(
+				"SELECT COUNT(*) FROM $table WHERE ip_address = %s AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)",
+				$ip
+			));
+
+			if ($attempts >= 5) {
+				error_log('Rate limit excedido para IP: ' . $ip . ' - Intentos: ' . $attempts);
+				return false;
+			}
+
+			$wpdb->insert($table, [
+				'ip_address' => $ip,
+				'created_at' => current_time('mysql'),
+				'last_attempt' => current_time('mysql'),
+			], ['%s', '%s', '%s']);
+
+			return true;
+		} catch (Exception $e) {
+			// Si hay error en rate limiting, permitir (no bloquear por error en tabla)
+			error_log('Error en check_rate_limit: ' . $e->getMessage());
+			return true;
 		}
-
-		$wpdb->insert($table, [
-			'ip_address' => $ip,
-			'created_at' => current_time('mysql'),
-			'last_attempt' => current_time('mysql'),
-		], ['%s', '%s', '%s']);
-
-		return true;
 	}
 
 	public function get_available_hours() {

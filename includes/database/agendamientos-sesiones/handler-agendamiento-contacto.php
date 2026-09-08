@@ -27,6 +27,9 @@ class Avance_Handler_Agendamiento_Contacto {
 	}
 
 	public function handle_request() {
+		// Log de inicio para debugging
+		error_log('Agendamiento POST recibido: ' . json_encode($_POST));
+
 		// Obtener datos del POST
 		$post_data = array(
 			'nombre' => $_POST['nombre'] ?? '',
@@ -116,9 +119,12 @@ class Avance_Handler_Agendamiento_Contacto {
 		// 1. Guardar en calendario_reservas
 		$cal_result = Avance_Calendario_Reservas_DB::insert($fecha, $hora);
 		if (!$cal_result) {
+			error_log('Error inserting calendario_reservas: ' . $GLOBALS['wpdb']->last_error);
 			wp_send_json_error(['message' => 'Error al guardar fecha/hora. Intenta de nuevo.'], 500);
+			return;
 		}
 		$calendario_reserva_id = $GLOBALS['wpdb']->insert_id;
+		error_log('Calendario reserva insertada: ID ' . $calendario_reserva_id);
 
 		// 2. Guardar en agendamiento_contacto
 		$data_for_db = array(
@@ -129,21 +135,32 @@ class Avance_Handler_Agendamiento_Contacto {
 			'estado' => 'pendiente'
 		);
 
+		error_log('Intentando insertar agendamiento: ' . json_encode($data_for_db));
+
 		$result = Avance_Agendamiento_Contacto_DB::insert($data_for_db);
 		if (!$result) {
+			error_log('Error inserting agendamiento_contacto: ' . $GLOBALS['wpdb']->last_error);
 			// Si falla agendamiento, borrar la hora que se guardó
 			Avance_Calendario_Reservas_DB::delete_reserva($fecha, $hora);
 			wp_send_json_error(['message' => 'Error al guardar. Intenta de nuevo.'], 500);
+			return;
 		}
 
 		$inserted_id = $GLOBALS['wpdb']->insert_id;
+		error_log('Agendamiento insertado: ID ' . $inserted_id);
 
-		// Marcar como enviado y obtener ID
-		$inserted_id = $GLOBALS['wpdb']->insert_id;
-		Avance_Agendamiento_Contacto_DB::mark_wsp_sent($inserted_id);
+		try {
+			Avance_Agendamiento_Contacto_DB::mark_wsp_sent($inserted_id);
+		} catch (Exception $e) {
+			error_log('Error marking wsp sent: ' . $e->getMessage());
+		}
 
 		// Invalidar caché de horas ocupadas (nueva reserva agregada)
-		Avance_Calendario_Reservas_DB::invalidate_cache($fecha);
+		try {
+			Avance_Calendario_Reservas_DB::invalidate_cache($fecha);
+		} catch (Exception $e) {
+			error_log('Error invalidating cache: ' . $e->getMessage());
+		}
 
 		// Respuesta exitosa
 		wp_send_json_success([

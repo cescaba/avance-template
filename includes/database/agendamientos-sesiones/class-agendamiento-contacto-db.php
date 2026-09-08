@@ -45,7 +45,8 @@ class Avance_Agendamiento_Contacto_DB {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::$table_name;
 
-		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%d', '%s', '%d']);
+		// Tipos: nombre(%s), whatsapp(%s), tema(%s), calendario_reserva_id(%d), estado(%s)
+		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%d', '%s']);
 	}
 
 	public static function get_all($limit = 50, $offset = 0) {

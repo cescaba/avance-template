@@ -520,7 +520,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 		// Batch prefetch: UNA query para 30 fechas (10x más rápido)
 		try {
 			const fechasParam = fechasToPrefetch.join(',');
-			const response = await fetch(`${AJAX_URL}?action=avance_get_booked_hours_batch&fechas=${encodeURIComponent(fechasParam)}`, {
+			const url = `${AJAX_URL}?action=avance_get_booked_hours_batch&fechas=${encodeURIComponent(fechasParam)}`;
+			const response = await fetch(url, {
 				cache: 'no-store'
 			});
 

@@ -30,12 +30,12 @@ class Avance_Diagnostico_Table {
 				email VARCHAR(255) NOT NULL,
 				whatsapp VARCHAR(20) NOT NULL,
 				respuestas LONGTEXT NOT NULL,
-				created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+				fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 				PRIMARY KEY (id),
 				KEY email (email),
 				KEY whatsapp (whatsapp),
-				KEY created_at (created_at),
-				KEY email_created (email, created_at)
+				KEY fecha_creacion (fecha_creacion),
+				KEY email_fecha (email, fecha_creacion)
 			) {$this->charset_collate};";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';

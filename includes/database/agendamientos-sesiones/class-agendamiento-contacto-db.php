@@ -25,13 +25,13 @@ class Avance_Agendamiento_Contacto_DB {
 			`nombre` varchar(255) NOT NULL,
 			`whatsapp` varchar(20) NOT NULL,
 			`tema` varchar(255) NOT NULL,
-			`calendario_reserva_id` bigint(20) NOT NULL,
+			`fecha` date NOT NULL,
+			`hora` time NOT NULL,
 			`estado` varchar(50) DEFAULT 'pendiente',
-			`mensaje_wsp_enviado` int(1) DEFAULT 0,
 			`fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
 			`fecha_actualizacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY (`id`),
-			UNIQUE KEY `unique_calendario_reserva` (`calendario_reserva_id`),
+			UNIQUE KEY `unique_fecha_hora` (`fecha`, `hora`),
 			KEY `idx_estado` (`estado`),
 			KEY `idx_whatsapp` (`whatsapp`),
 			KEY `idx_fecha_creacion` (`fecha_creacion`)
@@ -45,8 +45,7 @@ class Avance_Agendamiento_Contacto_DB {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::$table_name;
 
-		// Tipos: nombre(%s), whatsapp(%s), tema(%s), calendario_reserva_id(%d), estado(%s)
-		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%d', '%s']);
+		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%s', '%s', '%s']);
 	}
 
 	public static function get_all($limit = 50, $offset = 0) {
@@ -77,13 +76,6 @@ class Avance_Agendamiento_Contacto_DB {
 		return $wpdb->update($table_name, ['estado' => $status], ['id' => $id], ['%s'], ['%d']);
 	}
 
-	public static function mark_wsp_sent($id) {
-		global $wpdb;
-		$table_name = $wpdb->prefix . self::$table_name;
-
-		return $wpdb->update($table_name, ['mensaje_wsp_enviado' => 1], ['id' => $id], ['%d'], ['%d']);
-	}
-
 	public static function check_duplicate_whatsapp_today($whatsapp) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::$table_name;
@@ -97,12 +89,5 @@ class Avance_Agendamiento_Contacto_DB {
 	public static function table_name() {
 		global $wpdb;
 		return $wpdb->prefix . self::$table_name;
-	}
-
-	public static function get_available_hours($fecha) {
-		if (class_exists('Avance_Calendario_Reservas_DB')) {
-			return Avance_Calendario_Reservas_DB::get_booked_hours($fecha, 'agendamiento');
-		}
-		return [];
 	}
 }

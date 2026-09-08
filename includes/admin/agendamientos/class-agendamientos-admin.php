@@ -1,7 +1,7 @@
 <?php
 /**
  * Agendamientos Admin - Gestor de agendamientos de contacto
- * Muestra agendamientos con fecha y hora desde calendario
+ * Muestra agendamientos con fecha y hora directamente desde tabla
  *
  * @package Avance_Template
  */
@@ -13,12 +13,10 @@ if (!defined('ABSPATH')) {
 class Avance_Agendamientos_Admin {
 
 	private $agendamientos_table;
-	private $calendario_table;
 
 	public function __construct() {
 		global $wpdb;
 		$this->agendamientos_table = $wpdb->prefix . 'avance_agendamiento_contacto';
-		$this->calendario_table = $wpdb->prefix . 'avance_calendario_reservas';
 
 		add_action('admin_menu', [$this, 'register_menu']);
 		add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
@@ -49,20 +47,18 @@ class Avance_Agendamientos_Admin {
 	public function render_admin_page() {
 		global $wpdb;
 
-		// JOIN con la tabla de calendario para traer fecha y hora
 		$query = $wpdb->prepare("
 			SELECT
-				a.id,
-				a.nombre,
-				a.whatsapp,
-				a.tema,
-				a.estado,
-				c.fecha,
-				c.hora,
-				a.fecha_creacion
-			FROM {$this->agendamientos_table} a
-			LEFT JOIN {$this->calendario_table} c ON a.calendario_reserva_id = c.id
-			ORDER BY a.fecha_creacion DESC
+				id,
+				nombre,
+				whatsapp,
+				tema,
+				estado,
+				fecha,
+				hora,
+				fecha_creacion
+			FROM {$this->agendamientos_table}
+			ORDER BY fecha_creacion DESC
 			LIMIT 100
 		");
 
@@ -126,17 +122,16 @@ class Avance_Agendamientos_Admin {
 
 		$record = $wpdb->get_row($wpdb->prepare("
 			SELECT
-				a.id,
-				a.nombre,
-				a.whatsapp,
-				a.tema,
-				a.estado,
-				c.fecha,
-				c.hora,
-				a.fecha_creacion
-			FROM {$this->agendamientos_table} a
-			LEFT JOIN {$this->calendario_table} c ON a.calendario_reserva_id = c.id
-			WHERE a.id = %d
+				id,
+				nombre,
+				whatsapp,
+				tema,
+				estado,
+				fecha,
+				hora,
+				fecha_creacion
+			FROM {$this->agendamientos_table}
+			WHERE id = %d
 		", $id));
 
 		if (!$record) {
@@ -205,17 +200,16 @@ class Avance_Agendamientos_Admin {
 
 		$record = $wpdb->get_row($wpdb->prepare("
 			SELECT
-				a.id,
-				a.nombre,
-				a.whatsapp,
-				a.tema,
-				a.estado,
-				c.fecha,
-				c.hora,
-				a.fecha_creacion
-			FROM {$this->agendamientos_table} a
-			LEFT JOIN {$this->calendario_table} c ON a.calendario_reserva_id = c.id
-			WHERE a.id = %d
+				id,
+				nombre,
+				whatsapp,
+				tema,
+				estado,
+				fecha,
+				hora,
+				fecha_creacion
+			FROM {$this->agendamientos_table}
+			WHERE id = %d
 		", $id));
 
 		if (!$record) {
@@ -249,17 +243,16 @@ class Avance_Agendamientos_Admin {
 		global $wpdb;
 		$records = $wpdb->get_results("
 			SELECT
-				a.id,
-				a.nombre,
-				a.whatsapp,
-				a.tema,
-				a.estado,
-				c.fecha,
-				c.hora,
-				a.fecha_creacion
-			FROM {$this->agendamientos_table} a
-			LEFT JOIN {$this->calendario_table} c ON a.calendario_reserva_id = c.id
-			ORDER BY a.fecha_creacion DESC
+				id,
+				nombre,
+				whatsapp,
+				tema,
+				estado,
+				fecha,
+				hora,
+				fecha_creacion
+			FROM {$this->agendamientos_table}
+			ORDER BY fecha_creacion DESC
 		");
 
 		if (empty($records)) {

@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 // Versión de base de datos (aumentar cuando cambien tablas)
 if (!defined('AVANCE_DB_VERSION')) {
-	define('AVANCE_DB_VERSION', '1.0.7');
+	define('AVANCE_DB_VERSION', '1.0.8');
 }
 
 // Configuración de límites de agendamiento (Issue 15)
@@ -28,30 +28,6 @@ add_filter('script_loader_tag', function($tag, $handle) {
 	return $tag;
 }, 10, 2);
 
-// Invalidar caché de calendario cuando se completa una reserva
-add_action('wp_footer', function() {
-	?>
-	<script>
-	(function() {
-		const originalFetch = window.fetch;
-		window.fetch = function(...args) {
-			return originalFetch.apply(this, args).then(response => {
-				const clonedResponse = response.clone();
-
-				clonedResponse.json().then(data => {
-					// Si la respuesta tiene invalidate_cache, limpiar caché
-					if (data.success && data.invalidate_cache && window.invalidateAllHoursCache) {
-						window.invalidateAllHoursCache();
-					}
-				}).catch(() => {}); // Ignorar errores de parsing
-
-				return response;
-			});
-		};
-	})();
-	</script>
-	<?php
-});
 
 // Registrar admin CSS una sola vez para todos los admins
 add_action('admin_enqueue_scripts', function($hook) {
@@ -171,11 +147,6 @@ require_once get_template_directory() . '/includes/managers/servicios/class-serv
 // Incluir clases de AGENDAMIENTO DE SESIONES
 require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
 
-// Incluir clases de CALENDARIO (disponibilidad)
-require_once get_template_directory() . '/includes/database/calendario/class-calendario-reservas-db.php';
-require_once get_template_directory() . '/includes/database/calendario/class-calendario-reservas-mentoria-db.php';
-require_once get_template_directory() . '/includes/database/calendario/handler-mentoria.php';
-require_once get_template_directory() . '/includes/database/calendario/handler-mentoria-booking.php';
 
 // Incluir clases de PROPUESTAS
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-db.php';
@@ -190,8 +161,6 @@ require_once get_template_directory() . '/includes/mentoria/class-mentoria-check
 // Incluir WhatsApp
 require_once get_template_directory() . '/includes/whatsapp/floating-button.php';
 
-// Incluir COMPONENTES REUTILIZABLES
-require_once get_template_directory() . '/includes/database/form-sesiones/class-form-component.php';
 
 // ============================================================
 // COMPRA DE LIBRO - OBTENER POR CATEGORÍA "LIBRO" + NOMBRE "B2B"

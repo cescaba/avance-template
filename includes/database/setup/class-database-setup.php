@@ -35,16 +35,6 @@ class Avance_Database_Setup {
 			Avance_Agendamiento_Contacto_DB::create_table();
 		}
 
-		// Tabla de calendario - agendamiento
-		if (class_exists('Avance_Calendario_Reservas_DB')) {
-			Avance_Calendario_Reservas_DB::create_table();
-		}
-
-		// Tabla de calendario - mentoría
-		if (class_exists('Avance_Calendario_Reservas_Mentoria_DB')) {
-			Avance_Calendario_Reservas_Mentoria_DB::create_table();
-		}
-
 		// Guardar versión
 		update_option('avance_db_version', AVANCE_DB_VERSION);
 		Avance_Logger::info('Avance DB: Esquema actualizado a ' . AVANCE_DB_VERSION);

@@ -124,33 +124,6 @@ class Avance_Core_Service {
             'nonce' => wp_create_nonce('form_agendamiento'),
         ]);
 
-        /**
-         * OPCIÓN 2 (ROADMAP - PRÓXIMO REFACTOR)
-         * Conditional Loading: Cargar scripts SOLO si página los necesita
-         *
-         * ¿Qué es?
-         * - Mantener array de templates que usan cada script
-         * - Enqueue condicionalmente según página actual
-         * - Elimina carga innecesaria si solo entras en 1 página
-         *
-         * Beneficio: 15-20% más eficiente que Opción 1 si usuario no navega
-         * Complejidad: Baja (refactor de 30 líneas)
-         *
-         * Implementación:
-         * ```
-         * $calendar_templates = ['page-mentoria.php', 'page-inicio.php', 'page-contacto.php'];
-         * if (is_front_page() || $this->is_template_in_list($calendar_templates)) {
-         *     wp_enqueue_script('avance-calendar-agenda', ...);
-         * }
-         * ```
-         *
-         * TODO en próximo sprint:
-         * [ ] Crear método is_template_in_list()
-         * [ ] Definir arrays de templates por script
-         * [ ] Reemplazar Opción 1 con Opción 2
-         * [ ] Validar en staging que ningún script falta
-         */
-
         // Modal PDF Download
         wp_enqueue_style('avance-modal-pdf', $theme_uri . '/assets/css/modal-pdf.css', ['avance-base'], $version);
         wp_enqueue_script('avance-modal-pdf', $theme_uri . '/assets/js/modal-pdf.js', [], $version, true);
@@ -196,16 +169,6 @@ class Avance_Core_Service {
     public function load_handlers() {
         require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
         require_once get_template_directory() . '/includes/database/agendamientos-sesiones/handler-agendamiento-contacto.php';
-
-        // Mentoria checkout prefill - DESACTIVADO
-        // require_once get_template_directory() . '/includes/mentoria/handler-checkout-prefill.php';
-
-        // WooCommerce handlers - DESACTIVADOS TEMPORALMENTE
-        // require_once get_template_directory() . '/includes/woocommerce/handler-create-pages.php';
-
-        if (is_admin()) {
-            // require_once get_template_directory() . '/includes/admin/class-admin-agendamiento-contacto.php';
-        }
     }
 
     /**

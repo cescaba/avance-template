@@ -42,6 +42,11 @@ class Avance_Contact_Form_Handler {
 		$validated = Global_Form_Handler::process('contact', $data_for_global);
 		Form_Validators::validate_contact($validated);
 
+		// Validar duplicados por WhatsApp en últimas 24 horas
+		if ($this->is_whatsapp_duplicate($validated['whatsapp'])) {
+			wp_send_json_error(['message' => 'Este número de WhatsApp ya fue registrado en las últimas 24 horas. Intenta mañana.'], 409);
+		}
+
 		$data_for_db = array(
 			'nombre' => $validated['nombre'],
 			'email' => $validated['email'],
@@ -117,6 +122,22 @@ class Avance_Contact_Form_Handler {
 		}
 
 		return implode("\n", $lines);
+	}
+
+	/**
+	 * Verificar si WhatsApp ya fue usado en últimas 24 horas
+	 */
+	private function is_whatsapp_duplicate($whatsapp) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'avance_contacts';
+
+		$count = $wpdb->get_var($wpdb->prepare(
+			"SELECT COUNT(*) FROM $table_name
+			 WHERE numero = %s AND created_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)",
+			$whatsapp
+		));
+
+		return $count > 0;
 	}
 }
 

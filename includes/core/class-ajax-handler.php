@@ -159,23 +159,6 @@ class Avance_Ajax_Handler {
             }
         }
 
-        // GUARDAR en tabla de mentoría PRIMERO
-        $fecha_db = $this->parse_fecha_db($data['fecha']);
-        if (!$fecha_db) {
-            wp_send_json_error(['message' => 'Formato de fecha inválido']);
-        }
-
-        if (class_exists('Avance_Calendario_Reservas_Mentoria_DB')) {
-            $hora_disponible = Avance_Calendario_Reservas_Mentoria_DB::is_hora_disponible($fecha_db, $data['hora']);
-            if (!$hora_disponible) {
-                wp_send_json_error(['message' => 'Esta hora ya no está disponible'], 409);
-            }
-
-            $insert_result = Avance_Calendario_Reservas_Mentoria_DB::insert($fecha_db, $data['hora']);
-            if (!$insert_result) {
-                wp_send_json_error(['message' => 'Error al guardar la reserva en calendario']);
-            }
-        }
 
         // CREAR ORDEN (Flujo WooCommerce)
         $result = Avance_Mentoria_Checkout::create_order($data);

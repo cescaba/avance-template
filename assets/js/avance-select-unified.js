@@ -1,9 +1,10 @@
 /**
- * Scheduling Select Component
- * Custom select para scheduling-section.php
+ * Unified Select Component
+ * Reemplaza: form-section-select.js, scheduling-select.js, proposal-select.js
+ * Generic select handler para todos los .avance-select-wrapper
  */
 
-class SchedulingSelect {
+class AvanceSelect {
 	constructor(triggerId, dropdownId, hiddenSelectId) {
 		this.trigger = document.getElementById(triggerId);
 		this.dropdown = document.getElementById(dropdownId);
@@ -136,16 +137,42 @@ class SchedulingSelect {
 	reset() {
 		const valueSpan = this.trigger.querySelector('.avance-select-value');
 		if (valueSpan) {
-			valueSpan.textContent = 'Selecciona un servicio o tema';
+			valueSpan.textContent = valueSpan.dataset.placeholder || 'Selecciona una opción';
 		}
 		this.trigger.classList.remove('has-value');
 		this.hiddenSelect.value = '';
 		this.value = '';
 		this.options.forEach(opt => opt.classList.remove('is-selected'));
 	}
+
+	// Alias methods para compatibilidad con nombres viejos
+	static FormSectionSelect(triggerId, dropdownId, hiddenSelectId) {
+		return new AvanceSelect(triggerId, dropdownId, hiddenSelectId);
+	}
+
+	static SchedulingSelect(triggerId, dropdownId, hiddenSelectId) {
+		return new AvanceSelect(triggerId, dropdownId, hiddenSelectId);
+	}
+
+	static ProposalSelect(triggerId, dropdownId, hiddenSelectId) {
+		return new AvanceSelect(triggerId, dropdownId, hiddenSelectId);
+	}
 }
 
-// Initialize when DOM is ready
+// Initialize selects when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-	new SchedulingSelect('scheduling-select-trigger', 'scheduling-select-dropdown', 'contacto-agenda-topic');
+	// Scheduling select (scheduling-section.php)
+	if (document.getElementById('scheduling-select-trigger')) {
+		new AvanceSelect('scheduling-select-trigger', 'scheduling-select-dropdown', 'contacto-agenda-topic');
+	}
+
+	// Form section select (form-section.php)
+	if (document.getElementById('form-section-select-trigger')) {
+		new AvanceSelect('form-section-select-trigger', 'form-section-select-dropdown', 'contacto_wsp_asunto');
+	}
+
+	// Proposal select (page-servicio-empresa.php)
+	if (document.getElementById('proposal-select-trigger')) {
+		new AvanceSelect('proposal-select-trigger', 'proposal-select-dropdown', 'proposal-servicio');
+	}
 });

@@ -307,5 +307,5 @@ get_header();
 </main>
 
 <?php
-wp_enqueue_script('proposal-select', get_template_directory_uri() . '/assets/js/proposal-select.js', [], '1.0.0', true);
+// El script avance-select-unified.js se encolca en core-service.php
 get_footer();

@@ -130,5 +130,5 @@ $args = wp_parse_args($args ?? array(), array(
 </section>
 
 <?php
-wp_enqueue_script('form-section-select', get_template_directory_uri() . '/assets/js/form-section-select.js', [], '1.0.0', true);
+// El script avance-select-unified.js se encolca en core-service.php
 ?>

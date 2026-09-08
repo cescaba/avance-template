@@ -97,6 +97,7 @@ class Avance_Core_Service {
 
         if (is_page_template('templates/page-libro.php')) {
             wp_enqueue_style('avance-page-libro', $theme_uri . '/assets/css/page-libro.css', ['avance-base'], $version);
+            wp_enqueue_script('avance-libro', $theme_uri . '/assets/js/libro.js', [], $version, true);
         }
 
         // WooCommerce - CSS personalizado
@@ -105,6 +106,7 @@ class Avance_Core_Service {
         }
 
         // Scripts globales (realmente necesarios)
+        wp_enqueue_script('avance-menu', $theme_uri . '/assets/js/avance-menu.js', [], $version, true);
         wp_enqueue_script('notification-manager', $theme_uri . '/assets/js/notification-manager.js', [], $version, true);
         wp_enqueue_script('mentoria-alerts', $theme_uri . '/assets/js/mentoria-alerts.js', [], $version, true);
         wp_enqueue_script('avance-animations', $theme_uri . '/assets/js/animations.js', [], $version, true);
@@ -161,7 +163,8 @@ class Avance_Core_Service {
         ]);
 
         // Custom selects
-        wp_enqueue_script('scheduling-select', $theme_uri . '/assets/js/scheduling-select.js', [], $version, true);
+        // Unified select component (reemplaza: scheduling-select, form-section-select, proposal-select)
+        wp_enqueue_script('avance-select', $theme_uri . '/assets/js/avance-select-unified.js', [], $version, true);
 
         // Smooth scroll to center for internal links
         wp_enqueue_script('avance-scroll-center', $theme_uri . '/assets/js/scroll-to-center.js', [], $version, true);

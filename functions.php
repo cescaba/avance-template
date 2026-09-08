@@ -145,18 +145,42 @@ require_once get_template_directory() . '/includes/whatsapp/floating-button.php'
 require_once get_template_directory() . '/includes/database/form-sesiones/class-form-component.php';
 
 // ============================================================
-// COMPRA DE LIBRO - LIMPIAR Y AÑADIR AL CARRITO
+// COMPRA DE LIBRO - OBTENER POR CATEGORÍA "LIBRO" + NOMBRE "B2B"
 // ============================================================
 
 add_action('wp_ajax_nopriv_comprar_libro', function() {
+	$productos = wc_get_products([
+		'category' => 'libro',
+		's' => 'B2B',
+		'limit' => 1
+	]);
+
+	if (empty($productos)) {
+		wp_send_json_error(['message' => 'Producto B2B no encontrado en categoría Libro']);
+		return;
+	}
+
+	$producto_id = $productos[0]->get_id();
 	WC()->cart->empty_cart();
-	WC()->cart->add_to_cart(46, 1);
+	WC()->cart->add_to_cart($producto_id, 1);
 	wp_send_json_success(['message' => 'Producto añadido']);
 });
 
 add_action('wp_ajax_comprar_libro', function() {
+	$productos = wc_get_products([
+		'category' => 'libro',
+		's' => 'B2B',
+		'limit' => 1
+	]);
+
+	if (empty($productos)) {
+		wp_send_json_error(['message' => 'Producto B2B no encontrado en categoría Libro']);
+		return;
+	}
+
+	$producto_id = $productos[0]->get_id();
 	WC()->cart->empty_cart();
-	WC()->cart->add_to_cart(46, 1);
+	WC()->cart->add_to_cart($producto_id, 1);
 	wp_send_json_success(['message' => 'Producto añadido']);
 });
 

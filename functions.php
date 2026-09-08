@@ -29,20 +29,6 @@ add_filter('script_loader_tag', function($tag, $handle) {
 }, 10, 2);
 
 
-// Registrar admin CSS una sola vez para todos los admins
-add_action('admin_enqueue_scripts', function($hook) {
-	// Encolada CSS admin en TODAS las páginas del tema (simple y seguro)
-	wp_register_style(
-		'avanem-admin-premium',
-		get_template_directory_uri() . '/assets/css/admin-premium.css',
-		['wp-admin'],
-		wp_get_theme()->get('Version')
-	);
-
-	// Encolada siempre - el CSS manejará qué páginas lo necesitan
-	wp_enqueue_style('avanem-admin-premium');
-	error_log('CSS admin-premium encolado en: ' . $hook);
-}, 1);
 
 // Incluir configuración centralizada
 require_once get_template_directory() . '/config/settings.php';
@@ -126,23 +112,6 @@ require_once get_template_directory() . '/includes/validators/pdf-downloads/clas
 require_once get_template_directory() . '/includes/database/pdf-downloads/class-pdf-download-db.php';
 require_once get_template_directory() . '/includes/database/pdf-downloads/class-pdf-download-handler.php';
 
-// ============================================================
-// ADMIN SYSTEM
-// ============================================================
-
-require_once get_template_directory() . '/includes/admin/class-admin-table-builder.php';
-
-// Admin - Form Section, Diagnósticos, Servicios
-require_once get_template_directory() . '/includes/admin/form-section/class-form-section-admin.php';
-require_once get_template_directory() . '/includes/admin/diagnostico/class-diagnostico-admin.php';
-require_once get_template_directory() . '/includes/admin/servicios/class-servicios-empresas-admin.php';
-require_once get_template_directory() . '/includes/admin/agendamientos/class-agendamientos-admin.php';
-
-// Incluir orquestador de DIAGNÓSTICO
-require_once get_template_directory() . '/includes/managers/diagnostico/class-diagnostico-manager.php';
-
-// Incluir orquestador de SERVICIOS EMPRESAS
-require_once get_template_directory() . '/includes/managers/servicios/class-servicios-empresas-manager.php';
 
 // Incluir clases de AGENDAMIENTO DE SESIONES
 require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';

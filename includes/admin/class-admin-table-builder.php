@@ -47,13 +47,6 @@ class Admin_Table_Builder {
 		$paged = isset($_GET['paged']) ? intval($_GET['paged']) : 1;
 		$limit = 50;
 
-		// Localizar script con datos correctos (URL relativa para evitar CORS en Local by Flywheel)
-		wp_localize_script('jquery', 'avanceAdminConfig_' . uniqid(), array(
-			'ajaxUrl' => '/wp-admin/admin-ajax.php',
-			'nonce' => wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin'),
-			'actions' => $this->config['ajax_actions'] ?? array(),
-		));
-
 		ob_start();
 		?>
 		<div class="avance-admin-container">
@@ -162,17 +155,10 @@ class Admin_Table_Builder {
 		<script>
 			const adminTableBuilder = {
 				getConfig: function() {
-					// Buscar en objetos localizados (wp_localize_script)
-					for (let key in window) {
-						if (key.startsWith('avanceAdminConfig_') && window[key].ajaxUrl) {
-							return window[key];
-						}
-					}
-					// Fallback a valores inline (para compatibilidad)
 					return {
 						ajaxUrl: '/wp-admin/admin-ajax.php',
-						nonce: '<?php echo esc_attr(wp_create_nonce($this->config['nonce_action'])); ?>',
-						actions: <?php echo wp_json_encode($this->config['ajax_actions'] ?? []); ?>
+						nonce: '<?php echo esc_attr(wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin')); ?>',
+						actions: <?php echo json_encode($this->config['ajax_actions'] ?? array(), JSON_UNESCAPED_UNICODE); ?>
 					};
 				},
 

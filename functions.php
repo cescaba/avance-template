@@ -19,6 +19,32 @@ if (!defined('AVANCE_MAX_BOOKING_DAYS')) {
 	define('AVANCE_MAX_BOOKING_DAYS', 180);
 }
 
+// Registrar admin CSS una sola vez para todos los admins
+add_action('admin_enqueue_scripts', function($hook) {
+	// DEBUG: Ver exactamente qué hook está siendo pasado
+	error_log('=== Admin Enqueue Hook: ' . $hook);
+
+	wp_register_style(
+		'avanem-admin-premium',
+		get_template_directory_uri() . '/assets/css/admin-premium.css',
+		['wp-admin'],
+		wp_get_theme()->get('Version')
+	);
+
+	error_log('CSS Registrado: avanem-admin-premium');
+
+	// Enqueue en todos los admins del tema
+	if (strpos($hook, 'toplevel_page_form-section-admin') !== false ||
+		strpos($hook, 'toplevel_page_appointments-admin') !== false ||
+		strpos($hook, 'toplevel_page_diagnostico-admin') !== false ||
+		strpos($hook, 'toplevel_page_servicios-admin') !== false) {
+		error_log('Encolando CSS para: ' . $hook);
+		wp_enqueue_style('avanem-admin-premium');
+	} else {
+		error_log('Screen no coincide. Hook: ' . $hook);
+	}
+}, 1);
+
 // Incluir configuración centralizada
 require_once get_template_directory() . '/config/settings.php';
 require_once get_template_directory() . '/config/theme-config.php';
@@ -107,8 +133,10 @@ require_once get_template_directory() . '/includes/database/pdf-downloads/class-
 
 require_once get_template_directory() . '/includes/admin/class-admin-table-builder.php';
 
-// Admin de Form Section
+// Admin - Form Section, Diagnósticos, Servicios
 require_once get_template_directory() . '/includes/admin/form-section/class-form-section-admin.php';
+require_once get_template_directory() . '/includes/admin/diagnostico/class-diagnostico-admin.php';
+require_once get_template_directory() . '/includes/admin/servicios/class-servicios-empresas-admin.php';
 
 // Incluir orquestador de AGENDAMIENTO
 require_once get_template_directory() . '/includes/appointments/class-appointments-manager.php';

@@ -41,16 +41,7 @@ class Avance_Servicios_Empresas_Admin {
 	}
 
 	public function enqueue_admin_assets($hook) {
-		if (strpos($hook, 'servicios-admin') === false) {
-			return;
-		}
-
-		wp_enqueue_style(
-			'avance-admin-premium',
-			get_template_directory_uri() . '/assets/css/admin-premium.css',
-			['wp-admin'],
-			wp_get_theme()->get('Version')
-		);
+		// CSS encolado desde functions.php
 	}
 
 	public function render_admin_page() {
@@ -102,7 +93,9 @@ class Avance_Servicios_Empresas_Admin {
 		);
 
 		$builder = new Admin_Table_Builder($config);
+		echo '<div class="avance-admin-container">';
 		echo $builder->render();
+		echo '</div>';
 	}
 
 	// ========================================

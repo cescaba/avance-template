@@ -159,7 +159,7 @@ get_header();
 		<!-- Full Width Below: Description + CTA -->
 		<p class="libro-description"><?php esc_html_e('Una guía práctica para ejecutivos y emprendedores que quieren construir un proceso comercial sólido, escalable y orientado a resultados. Sin teoría vacía: cada capítulo incluye herramientas aplicables desde el primer día.', 'avance-template'); ?></p>
 
-		<a href="<?php echo esc_url(wc_get_checkout_url() . '?add-to-cart=46'); ?>" class="libro-btn-primary-mobile"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
+		<a href="#" class="libro-btn-primary-mobile" onclick="comprarLibro(); return false;"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
 
 		<!-- Buttons & Rating Section -->
 		<div class="libro-rating-section">
@@ -229,21 +229,16 @@ get_header();
 
 <?php
 get_footer();
+
+// Definir configuración de compra de libro
+$ajax_url = admin_url('admin-ajax.php');
+$checkout_url = wc_get_checkout_url();
 ?>
 
 <script>
-function comprarLibro() {
-	// Limpiar carrito y añadir producto
-	fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: 'action=comprar_libro'
-	})
-	.then(() => {
-		window.location.href = '<?php echo esc_url(wc_get_checkout_url()); ?>';
-	})
-	.catch(() => {
-		window.location.href = '<?php echo esc_url(wc_get_checkout_url()); ?>';
-	});
-}
+window.LIBRO_CONFIG = {
+	ajaxUrl: <?php echo wp_json_encode($ajax_url); ?>,
+	checkoutUrl: <?php echo wp_json_encode($checkout_url); ?>
+};
 </script>
+<script src="<?php echo esc_url(get_template_directory_uri() . '/assets/js/libro.js'); ?>" defer></script>

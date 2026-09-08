@@ -46,9 +46,7 @@ add_action('wp_footer', function() {
 
 // Registrar admin CSS una sola vez para todos los admins
 add_action('admin_enqueue_scripts', function($hook) {
-	// DEBUG: Ver exactamente qué hook está siendo pasado
-	error_log('=== Admin Enqueue Hook: ' . $hook);
-
+	// Encolada CSS admin en TODAS las páginas del tema (simple y seguro)
 	wp_register_style(
 		'avanem-admin-premium',
 		get_template_directory_uri() . '/assets/css/admin-premium.css',
@@ -56,18 +54,9 @@ add_action('admin_enqueue_scripts', function($hook) {
 		wp_get_theme()->get('Version')
 	);
 
-	error_log('CSS Registrado: avanem-admin-premium');
-
-	// Enqueue en todos los admins del tema
-	if (strpos($hook, 'toplevel_page_form-section-admin') !== false ||
-		strpos($hook, 'toplevel_page_appointments-admin') !== false ||
-		strpos($hook, 'toplevel_page_diagnostico-admin') !== false ||
-		strpos($hook, 'toplevel_page_servicios-admin') !== false) {
-		error_log('Encolando CSS para: ' . $hook);
-		wp_enqueue_style('avanem-admin-premium');
-	} else {
-		error_log('Screen no coincide. Hook: ' . $hook);
-	}
+	// Encolada siempre - el CSS manejará qué páginas lo necesitan
+	wp_enqueue_style('avanem-admin-premium');
+	error_log('CSS admin-premium encolado en: ' . $hook);
 }, 1);
 
 // Incluir configuración centralizada
@@ -162,9 +151,7 @@ require_once get_template_directory() . '/includes/admin/class-admin-table-build
 require_once get_template_directory() . '/includes/admin/form-section/class-form-section-admin.php';
 require_once get_template_directory() . '/includes/admin/diagnostico/class-diagnostico-admin.php';
 require_once get_template_directory() . '/includes/admin/servicios/class-servicios-empresas-admin.php';
-
-// Incluir orquestador de AGENDAMIENTO
-require_once get_template_directory() . '/includes/appointments/class-appointments-manager.php';
+require_once get_template_directory() . '/includes/admin/agendamientos/class-agendamientos-admin.php';
 
 // Incluir orquestador de DIAGNÓSTICO
 require_once get_template_directory() . '/includes/managers/diagnostico/class-diagnostico-manager.php';

@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin Table Builder - Constructor genérico de tablas de admin
- * Proporciona estructura HTML/CSS unificada para todos los admin
+ * Renderiza tabla con datos dinámicos
  *
  * @package Avance_Template
  */
@@ -41,274 +41,132 @@ class Admin_Table_Builder {
 	}
 
 	public function render() {
-		global $wpdb;
+		$data_json = json_encode([
+			'title' => $this->config['title'],
+			'subtitle' => $this->config['subtitle'],
+			'columns' => $this->config['columns'],
+			'data' => $this->config['data'],
+			'total' => $this->config['total'],
+			'stats' => $this->config['stats'],
+			'config' => $this->config
+		], JSON_UNESCAPED_UNICODE);
 
-		$this->config['total'] = isset($this->config['total']) ? $this->config['total'] : count($this->config['data']);
-		$paged = isset($_GET['paged']) ? intval($_GET['paged']) : 1;
-		$limit = 50;
+		$nonce = wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin');
+		$ajax_url = admin_url('admin-ajax.php');
 
+		// Encolada CSS desde functions.php
 		ob_start();
 		?>
-		<div class="avance-admin-container">
-			<!-- HEADER -->
-			<div class="avance-admin-header">
-				<div class="avance-admin-title-section">
-					<h1 class="avance-admin-title"><?php echo esc_html($this->config['title']); ?></h1>
-					<p class="avance-admin-subtitle"><?php echo esc_html($this->config['subtitle']); ?></p>
-				</div>
-			</div>
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/admin-premium.css">
 
-			<!-- ESTADÍSTICAS -->
-			<?php if (!empty($this->config['stats'])): ?>
-				<div class="avance-stats-grid">
-					<?php foreach ($this->config['stats'] as $stat): ?>
-						<div class="avance-stat-card avance-stat-<?php echo esc_attr($stat['class'] ?? 'total'); ?>">
-							<div class="avance-stat-content">
-								<div class="avance-stat-number"><?php echo esc_html($stat['value']); ?></div>
-								<div class="avance-stat-label"><?php echo esc_html($stat['label']); ?></div>
-							</div>
-						</div>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
+<div class="admin-panel">
+  <div class="admin-header">
+    <div class="admin-header-content">
+      <h2 id="admin-title"><?php echo esc_html($this->config['title']); ?></h2>
+      <p id="admin-subtitle"><?php echo esc_html($this->config['subtitle']); ?></p>
+    </div>
+    <div class="admin-header-buttons">
+      <button id="btn-download-all">Descargar todo</button>
+    </div>
+  </div>
 
-			<!-- FILTROS -->
-			<?php if (!empty($this->config['filters'])): ?>
-				<div class="avance-filter-section">
-					<form method="get" class="avance-filter-form">
-						<input type="hidden" name="page" value="<?php echo esc_attr(isset($_GET['page']) ? $_GET['page'] : ''); ?>">
+  <div class="stats-container" id="stats-container">
+    <div class="stat-card">
+      <h3 class="stat-label">Total de datos</h3>
+      <div class="stat-number" id="stat-total">0</div>
+    </div>
+    <div class="stat-card">
+      <h3 class="stat-label">Datos denegado</h3>
+      <div class="stat-number" id="stat-denegado">0</div>
+    </div>
+    <div class="stat-card">
+      <h3 class="stat-label">Datos en proceso</h3>
+      <div class="stat-number" id="stat-proceso">0</div>
+    </div>
+  </div>
 
-						<?php if (isset($this->config['filters']['search'])): ?>
-							<div class="avance-filter-group">
-								<input type="search" name="s" placeholder="<?php echo esc_attr($this->config['search_placeholder']); ?>" value="<?php echo esc_attr(isset($_GET['s']) ? $_GET['s'] : ''); ?>" class="avance-search-input">
-							</div>
-						<?php endif; ?>
+  <div class="admin-search">
+    <input type="search" id="search-input" placeholder="Buscar por cualquier campo...">
+  </div>
 
-						<?php if (isset($this->config['filters']['custom'])): ?>
-							<?php foreach ($this->config['filters']['custom'] as $filter): ?>
-								<div class="avance-filter-group">
-									<select name="<?php echo esc_attr($filter['name']); ?>" class="avance-select-input">
-										<option value=""><?php echo esc_html($filter['label']); ?></option>
-										<?php foreach ($filter['options'] as $value => $label): ?>
-											<option value="<?php echo esc_attr($value); ?>" <?php selected(isset($_GET[$filter['name']]) ? $_GET[$filter['name']] : '', $value); ?>>
-												<?php echo esc_html($label); ?>
-											</option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							<?php endforeach; ?>
-						<?php endif; ?>
+  <div class="admin-table-wrap">
+    <table id="admin-table">
+      <thead id="admin-thead"></thead>
+      <tbody id="admin-tbody"></tbody>
+    </table>
+    <div id="admin-empty" class="empty-state" hidden>Sin datos</div>
+  </div>
+</div>
 
-						<div class="avance-filter-group">
-							<button type="submit" class="avance-btn-primary">Filtrar</button>
-						</div>
+<!-- Modal de detalles -->
+<div id="modal-overlay" class="modal-overlay" hidden>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Detalles del Registro</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- Los detalles se cargan aquí -->
+    </div>
+  </div>
+</div>
 
-						<div class="avance-filter-group">
-							<button type="button" class="avance-btn-primary" onclick="adminTableBuilder.downloadAll(); return false;">Descargar Todo</button>
-						</div>
-					</form>
-				</div>
-			<?php endif; ?>
+<script>
+// Datos del panel admin inyectados desde PHP
+window.adminData = <?php echo $data_json; ?>;
 
-			<!-- TABLA -->
-			<div class="avance-table-wrapper">
-				<table class="avance-contacts-table">
-					<thead>
-						<tr>
-							<?php foreach ($this->config['columns'] as $column): ?>
-								<th class="col-<?php echo esc_attr($column['field']); ?>"><?php echo esc_html($column['label']); ?></th>
-							<?php endforeach; ?>
-							<th class="col-accion">Acción</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php if (empty($this->config['data'])): ?>
-							<tr class="avance-empty-row">
-								<td colspan="<?php echo esc_attr(count($this->config['columns']) + 1); ?>">
-									<div class="avance-empty-state">
-										<div style="font-size: 48px; margin-bottom: 10px;">📭</div>
-										<p>Sin registros</p>
-									</div>
-								</td>
-							</tr>
-						<?php else: ?>
-							<?php foreach ($this->config['data'] as $row): ?>
-								<tr class="avance-table-row">
-									<?php foreach ($this->config['columns'] as $column): ?>
-										<td class="col-<?php echo esc_attr($column['field']); ?>">
-											<?php echo $this->render_cell($row, $column); ?>
-										</td>
-									<?php endforeach; ?>
-									<td class="col-accion">
-										<button class="avance-btn-view" onclick="adminTableBuilder.view(<?php echo esc_attr($row->id); ?>); return false;">Ver</button>
-										<button class="avance-btn-view" onclick="adminTableBuilder.download(<?php echo esc_attr($row->id); ?>); return false;">Descargar</button>
-										<button class="avance-btn-view avance-btn-danger" onclick="adminTableBuilder.delete(<?php echo esc_attr($row->id); ?>); return false;">Eliminar</button>
-									</td>
-								</tr>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</tbody>
-				</table>
-			</div>
-		</div>
+// Configuración de AJAX y seguridad
+window.adminConfig = {
+	ajaxUrl: '<?php echo esc_url($ajax_url); ?>',
+	nonce: '<?php echo esc_attr($nonce); ?>',
+	actions: <?php echo json_encode($this->config['ajax_actions'] ?? [], JSON_UNESCAPED_UNICODE); ?>
+};
 
-		<script>
-			const adminTableBuilder = {
-				getConfig: function() {
-					return {
-						ajaxUrl: '/wp-admin/admin-ajax.php',
-						nonce: '<?php echo esc_attr(wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin')); ?>',
-						actions: <?php echo json_encode($this->config['ajax_actions'] ?? array(), JSON_UNESCAPED_UNICODE); ?>
-					};
-				},
+// Manejadores de acciones AJAX
+window.adminActions = {
+	async view(id) {
+		const params = new URLSearchParams({
+			action: window.adminConfig.actions.get_record,
+			id: id,
+			nonce: window.adminConfig.nonce
+		});
+		const res = await fetch(window.adminConfig.ajaxUrl, { method: 'POST', body: params });
+		const json = await res.json();
+		return json.success ? json.data : null;
+	},
 
-				ensureModalExists: function() {
-					if (!document.getElementById('avance-admin-modal')) {
-						const modal = document.createElement('div');
-						modal.id = 'avance-admin-modal';
-						modal.className = 'avance-modal';
-						modal.innerHTML = '<div class="avance-modal-content"><div class="avance-modal-header"><h2>Detalles del Registro</h2><button class="avance-modal-close" onclick="document.getElementById(\'avance-admin-modal\').style.display=\'none\'">×</button></div><div id="avance-admin-detail"><p style="text-align: center; padding: 40px; color: #999;">Cargando...</p></div></div>';
-						document.body.appendChild(modal);
+	async download(id) {
+		const params = new URLSearchParams({
+			action: window.adminConfig.actions.download_record,
+			id: id,
+			nonce: window.adminConfig.nonce
+		});
+		const res = await fetch(window.adminConfig.ajaxUrl, { method: 'POST', body: params });
+		return await res.json();
+	},
 
-						// Cerrar al hacer click fuera
-						modal.addEventListener('click', function(e) {
-							if (e.target === this) this.style.display = 'none';
-						});
-					}
-				},
+	async downloadAll() {
+		const params = new URLSearchParams({
+			action: window.adminConfig.actions.download_all,
+			nonce: window.adminConfig.nonce
+		});
+		const res = await fetch(window.adminConfig.ajaxUrl, { method: 'POST', body: params });
+		return await res.json();
+	},
 
-				view: function(id) {
-					const cfg = this.getConfig();
-					this.ensureModalExists();
-					const modal = document.getElementById('avance-admin-modal');
-					const content = document.getElementById('avance-admin-detail');
-					modal.style.display = 'flex';
-
-					const params = new URLSearchParams();
-					params.append('action', cfg.actions.get_record);
-					params.append('id', id);
-					params.append('nonce', cfg.nonce);
-
-					fetch(cfg.ajaxUrl, {
-						method: 'POST',
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						body: params.toString(),
-					})
-						.then(r => r.json())
-						.then(r => {
-							content.innerHTML = r.success ? r.data.html : '<p style="color: red;">Error al cargar</p>';
-						})
-						.catch(() => { content.innerHTML = '<p style="color: red;">Error</p>'; });
-				},
-
-				download: function(id) {
-					const cfg = this.getConfig();
-					const params = new URLSearchParams();
-					params.append('action', cfg.actions.download_record);
-					params.append('id', id);
-					params.append('nonce', cfg.nonce);
-
-					fetch(cfg.ajaxUrl, {
-						method: 'POST',
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						body: params.toString(),
-					})
-						.then(r => r.json())
-						.then(r => {
-							if (r.success) this.downloadCSV(r.data.csv, r.data.filename);
-							else alert('Error: ' + (r.data?.message || 'Desconocido'));
-						})
-						.catch(() => alert('Error de conexión'));
-				},
-
-				downloadAll: function() {
-					const cfg = this.getConfig();
-					const params = new URLSearchParams();
-					params.append('action', cfg.actions.download_all);
-					params.append('nonce', cfg.nonce);
-
-					fetch(cfg.ajaxUrl, {
-						method: 'POST',
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						body: params.toString(),
-					})
-						.then(r => r.json())
-						.then(r => {
-							if (r.success) this.downloadCSV(r.data.csv, r.data.filename);
-							else alert('Error: ' + (r.data?.message || 'Desconocido'));
-						})
-						.catch(() => alert('Error de conexión'));
-				},
-
-				delete: function(id) {
-					if (!confirm('¿Estás seguro de que deseas eliminar este registro?')) return;
-
-					const cfg = this.getConfig();
-					const params = new URLSearchParams();
-					params.append('action', cfg.actions.delete_record);
-					params.append('id', id);
-					params.append('nonce', cfg.nonce);
-
-					fetch(cfg.ajaxUrl, {
-						method: 'POST',
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						body: params.toString(),
-					})
-						.then(r => r.json())
-						.then(r => {
-							if (r.success) {
-								alert('Registro eliminado');
-								location.reload();
-							} else {
-								alert('Error: ' + (r.data?.message || 'Desconocido'));
-							}
-						})
-						.catch(() => alert('Error de conexión'));
-				},
-
-				downloadCSV: function(csv, filename) {
-					const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-					const link = document.createElement('a');
-					const url = URL.createObjectURL(blob);
-					link.setAttribute('href', url);
-					link.setAttribute('download', filename);
-					link.click();
-					URL.revokeObjectURL(url);
-				}
-			};
-		</script>
+	async delete(id) {
+		const params = new URLSearchParams({
+			action: window.adminConfig.actions.delete_record,
+			id: id,
+			nonce: window.adminConfig.nonce
+		});
+		const res = await fetch(window.adminConfig.ajaxUrl, { method: 'POST', body: params });
+		return await res.json();
+	}
+};
+</script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/admin-table.js"></script>
 		<?php
 		return ob_get_clean();
-	}
-
-	private function render_cell($row, $column) {
-		$value = $row->{$column['field']} ?? '';
-
-		if (isset($column['type'])) {
-			switch ($column['type']) {
-				case 'email':
-					return '<a href="mailto:' . esc_attr($value) . '" class="avance-link">' . esc_html($value) . '</a>';
-
-				case 'whatsapp':
-					if ($value) {
-						$clean = preg_replace('/[^0-9]/', '', $value);
-						return '<a href="https://wa.me/' . esc_attr($clean) . '" target="_blank" rel="noopener" class="avance-link">' . esc_html($value) . '</a>';
-					}
-					return '—';
-
-				case 'badge':
-					$badges = $column['badges'] ?? array();
-					$badge = $badges[$value] ?? array('Desconocido', '');
-					return '<span class="avance-badge ' . esc_attr($badge[1]) . '">' . esc_html($badge[0]) . '</span>';
-
-				case 'date':
-					return esc_html(wp_date('d/m/Y H:i', strtotime($value)));
-
-				default:
-					return esc_html($value);
-			}
-		}
-
-		return esc_html($value);
 	}
 }

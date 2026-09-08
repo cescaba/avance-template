@@ -1,451 +1,722 @@
-/* CSS Styles */
- *
-:root {
-	--primary-color: #0073aa;
-	--success-color: #28a745;
-	--danger-color: #dc3545;
-	--warning-color: #ffc107;
-	--dark: #000000;
-	--gray: #333333;
-	--border: #2a2a2a;
-	--shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
-	--radius: 8px;
+/* Admin Panel Styles */
+
+.admin-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.avance-admin-container {
-	max-width: 1400px;
-	background: #fff;
-	padding: 30px;
-	margin: 20px auto;
-	border-radius: var(--radius);
-	box-shadow: var(--shadow);
-	clear: both;
+* {
+  box-sizing: border-box;
 }
 
-.avance-admin-container .avance-admin-header {
-	margin-bottom: 40px;
-	border-bottom: 2px solid var(--border);
-	padding-bottom: 20px;
+/* Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
 }
 
-.avance-admin-container .avance-admin-title-section h1 {
-	margin: 0 0 8px 0;
-	font-size: 32px;
-	color: var(--dark);
-	font-weight: 700;
+.admin-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.avance-admin-container .avance-admin-subtitle {
-	margin: 0;
-	color: var(--gray);
-	font-size: 14px;
+.admin-header-buttons {
+  display: flex;
+  gap: 8px;
 }
 
-.avance-detail-view {
-	font-size: 14px;
-	line-height: 1.8;
+.admin-header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
 }
 
-.avance-detail-row {
-	display: grid;
-	grid-template-columns: 180px 1fr;
-	gap: 20px;
-	padding: 18px 0;
-	border-bottom: 1px solid #E8EAF6;
-	align-items: start;
+.admin-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
 }
 
-.avance-detail-row:last-child {
-	border-bottom: none;
+#btn-download-all {
+  padding: 10px 20px;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.avance-detail-label {
-	font-weight: 700;
-	color: #1a237e;
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-	display: flex;
-	align-items: center;
-	height: 36px;
+#btn-download-all:hover {
+  background: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.avance-detail-value {
-	color: #424242;
-	word-break: break-word;
-	padding: 10px 14px;
-	background: #f5f5f5;
-	border-radius: 6px;
-	border-left: 3px solid var(--primary-color);
-	line-height: 1.6;
+#btn-download-all:active {
+  transform: scale(0.98);
 }
 
-.avance-detail-value a {
-	color: var(--primary-color);
-	text-decoration: none;
-	font-weight: 600;
-	transition: color 0.2s ease;
+/* Estadísticas */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
 
-.avance-detail-value a:hover {
-	color: #0059b3;
-	text-decoration: underline;
+.stat-card {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
-.avance-detail-value div {
-	margin: 8px 0;
+.stat-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-color: #999;
 }
 
-.avance-detail-value div:first-child {
-	margin-top: 0;
+.stat-label {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.avance-detail-value code {
-	background: #1a1a1a;
-	color: #999;
-	padding: 4px 8px;
-	border-radius: 4px;
-	font-size: 12px;
-	font-family: 'Courier New', monospace;
+.stat-number {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
 }
 
+/* Buscador */
+.admin-search {
+  width: 100%;
+}
+
+#search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: #5d5294;
+  box-shadow: 0 0 0 3px rgba(93, 82, 148, 0.1);
+}
+
+#search-input::placeholder {
+  color: #999;
+}
+
+/* Tabla */
+.admin-table-wrap {
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table-wrap .scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f5f5f5;
+}
+
+th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #ddd;
+}
+
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #666;
+  font-size: 14px;
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #fafafa;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Estado vacío */
+.empty-state {
+  padding: 60px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.empty-state::before {
+  content: '📭';
+  display: block;
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+/* Modal de Detalles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-overlay[hidden] {
+  display: none !important;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  max-width: 650px;
+  width: 95%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f9f9f9;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #5d5294;
+}
+
+.modal-body {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  background: #ffffff;
+}
+
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #333;
+  transition: all 0.2s ease;
+}
+
+.modal-field:hover {
+  background: #f9f9f9;
+  border-left-color: #1a1a1a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.modal-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.modal-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 400;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.modal-value.empty {
+  color: #999;
+}
+
+.modal-value a {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.modal-value a:hover {
+  color: #333;
+  border-bottom-color: #333;
+}
+
+/* Acciones en Tabla */
+.table-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Botones de Acciones */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 4px;
+}
+
+.btn-action {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-view,
+.btn-download {
+  background: #1a1a1a;
+  color: white;
+}
+
+.btn-view:hover,
+.btn-download:hover {
+  background: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN - DESKTOP XL (1025px - 1440px)
+   ===================================================== */
 @media (min-width: 1025px) and (max-width: 1440px) {
-	.avance-admin-container {
-		max-width: 1200px;
-		padding: 28px;
-	}
+  .admin-panel {
+    padding: 20px;
+    gap: 20px;
+  }
 
-	.avance-admin-container .avance-admin-title-section h1 {
-		font-size: 28px;
-	}
+  .admin-header h2 {
+    font-size: 26px;
+  }
 
-	.avance-admin-container .avance-contacts-table {
-		font-size: 13px;
-	}
+  .stats-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .stat-card .number {
+    font-size: 36px;
+  }
 }
 
+/* =====================================================
+   RESPONSIVE DESIGN - TABLET (769px - 1024px)
+   ===================================================== */
 @media (min-width: 769px) and (max-width: 1024px) {
-	.avance-admin-container {
-		max-width: 95%;
-		padding: 24px;
-	}
+  .admin-panel {
+    padding: 16px;
+    gap: 16px;
+  }
 
-	.avance-admin-container .avance-stats-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 18px;
-	}
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-	.avance-admin-container .avance-stat-card {
-		padding: 18px;
-	}
+  .admin-header h2 {
+    font-size: 22px;
+  }
 
-	.avance-admin-container .avance-stat-number {
-		font-size: 32px;
-	}
+  .stats-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
 
-	.avance-admin-container .avance-admin-title-section h1 {
-		font-size: 26px;
-	}
+  .stat-card {
+    padding: 16px;
+  }
 
-	.avance-admin-container .avance-filter-form {
-		grid-template-columns: 1.5fr 1fr auto auto;
-		gap: 10px;
-	}
+  .stat-card .number {
+    font-size: 32px;
+  }
 
-	.avance-admin-container .avance-btn-primary {
-		padding: 10px 18px;
-		font-size: 13px;
-		min-width: 110px;
-		height: 42px;
-	}
+  th {
+    padding: 12px 14px;
+    font-size: 11px;
+  }
 
-	.avance-admin-container .avance-contacts-table {
-		font-size: 12px;
-	}
+  td {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
 
-	.avance-admin-container .avance-contacts-table th,
-	.avance-admin-container .avance-contacts-table td {
-		padding: 12px 8px;
-	}
+  .modal-content {
+    max-width: 95%;
+    max-height: 80vh;
+  }
 
-	.avance-admin-container .col-accion {
-		gap: 5px;
-	}
+  .modal-header {
+    padding: 24px 28px;
+  }
 
-	.avance-admin-container .avance-btn-view {
-		padding: 6px 10px;
-		font-size: 11px;
-		height: 34px;
-	}
+  .modal-title {
+    font-size: 20px;
+  }
 
-	.avance-modal-content {
-		max-width: 90%;
-	}
+  .modal-body {
+    padding: 28px;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-field {
+    padding: 16px;
+  }
+
+  .modal-label {
+    font-size: 10px;
+  }
+
+  .modal-value {
+    font-size: 14px;
+  }
 }
 
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE MEDIUM (480px - 768px)
+   ===================================================== */
 @media (min-width: 480px) and (max-width: 768px) {
-	.avance-admin-container {
-		max-width: 100%;
-		padding: 16px;
-		margin: 10px;
-	}
+  .admin-panel {
+    padding: 12px;
+    gap: 12px;
+  }
 
-	.avance-admin-container .avance-stats-grid {
-		grid-template-columns: 1fr;
-		gap: 12px;
-	}
+  .admin-header {
+    flex-direction: column;
+    gap: 12px;
+  }
 
-	.avance-admin-container .avance-stat-card {
-		padding: 14px;
-	}
+  .admin-header h2 {
+    font-size: 18px;
+  }
 
-	.avance-admin-container .avance-stat-number {
-		font-size: 26px;
-	}
+  .admin-header p {
+    font-size: 12px;
+  }
 
-	.avance-admin-container .avance-admin-title-section h1 {
-		font-size: 22px;
-		margin-bottom: 4px;
-	}
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 
-	.avance-admin-container .avance-subtitle {
-		font-size: 13px;
-	}
+  .stat-card {
+    padding: 14px;
+  }
 
-	.avance-admin-container .avance-filter-section {
-		padding: 14px;
-	}
+  .stat-card h3 {
+    font-size: 10px;
+  }
 
-	.avance-admin-container .avance-filter-form {
-		grid-template-columns: 1fr;
-		gap: 10px;
-	}
+  .stat-card .number {
+    font-size: 28px;
+  }
 
-	.avance-admin-container .avance-filter-group {
-		width: 100%;
-		min-width: unset;
-	}
+  #search-input {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
 
-	.avance-admin-container .avance-search-input,
-	.avance-admin-container .avance-select-input {
-		padding: 10px 12px;
-		font-size: 13px;
-	}
+  th {
+    padding: 10px 12px;
+    font-size: 10px;
+  }
 
-	.avance-admin-container .avance-btn-primary {
-		width: 100%;
-		height: 40px;
-		padding: 0 16px;
-		font-size: 13px;
-		min-width: unset;
-	}
+  td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
 
-	.avance-admin-container .avance-contacts-table {
-		font-size: 11px;
-	}
+  button {
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+  }
 
-	.avance-admin-container .avance-contacts-table th,
-	.avance-admin-container .avance-contacts-table td {
-		padding: 8px 6px;
-	}
+  .modal-content {
+    max-width: 95%;
+    max-height: 75vh;
+  }
 
-	.avance-admin-container .col-id,
-	.avance-admin-container .col-servicio,
-	.avance-admin-container .col-estado {
-		display: none;
-	}
+  .modal-header {
+    padding: 20px 24px;
+  }
 
-	.avance-admin-container .col-accion {
-		gap: 4px;
-	}
+  .modal-title {
+    font-size: 18px;
+  }
 
-	.avance-admin-container .avance-btn-view {
-		padding: 6px 8px;
-		font-size: 10px;
-		height: 32px;
-		flex: 1;
-		min-width: 60px;
-	}
+  .modal-body {
+    padding: 24px;
+    gap: 18px;
+    grid-template-columns: 1fr;
+  }
 
-	.avance-modal-content {
-		max-width: 95%;
-		max-height: 90vh;
-	}
+  .modal-field {
+    padding: 14px;
+  }
 
-	#avance-admin-detail {
-		padding: 20px;
-	}
+  .modal-label {
+    font-size: 9px;
+  }
 
-	.avance-detail-row {
-		grid-template-columns: 120px 1fr;
-		gap: 12px;
-		padding: 10px 0;
-	}
+  .modal-value {
+    font-size: 13px;
+  }
 }
 
+/* =====================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 479px)
+   ===================================================== */
 @media (max-width: 479px) {
-	.avance-admin-container {
-		max-width: 100%;
-		padding: 12px;
-		margin: 0;
-		border-radius: 0;
-	}
+  .admin-panel {
+    padding: 8px;
+    gap: 8px;
+  }
 
-	.avance-admin-container .avance-admin-header {
-		margin-bottom: 16px;
-		padding-bottom: 12px;
-	}
+  .admin-header {
+    flex-direction: column;
+    gap: 8px;
+  }
 
-	.avance-admin-container .avance-admin-title-section h1 {
-		font-size: 18px;
-		margin-bottom: 2px;
-	}
+  .admin-header h2 {
+    font-size: 16px;
+  }
 
-	.avance-admin-container .avance-subtitle {
-		font-size: 12px;
-		margin: 0;
-	}
+  .admin-header-content {
+    flex: 1;
+  }
 
-	.avance-admin-container .avance-stats-grid {
-		grid-template-columns: 1fr;
-		gap: 10px;
-		margin-bottom: 16px;
-	}
+  .admin-header-buttons {
+    width: 100%;
+  }
 
-	.avance-admin-container .avance-stat-card {
-		padding: 12px;
-	}
+  .admin-header p {
+    font-size: 11px;
+  }
 
-	.avance-admin-container .avance-stat-number {
-		font-size: 22px;
-	}
+  #btn-download-all {
+    padding: 10px 16px;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+  }
 
-	.avance-admin-container .avance-stat-label {
-		font-size: 11px;
-		margin-top: 4px;
-	}
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 
-	.avance-admin-container .avance-filter-section {
-		padding: 12px;
-		margin-bottom: 16px;
-		border-radius: 6px;
-	}
+  .stat-card {
+    padding: 12px;
+  }
 
-	.avance-admin-container .avance-filter-form {
-		grid-template-columns: 1fr;
-		gap: 8px;
-	}
+  .stat-card h3 {
+    font-size: 9px;
+  }
 
-	.avance-admin-container .avance-filter-group {
-		width: 100%;
-		min-width: unset;
-	}
+  .stat-card .number {
+    font-size: 24px;
+  }
 
-	.avance-admin-container .avance-search-input,
-	.avance-admin-container .avance-select-input {
-		padding: 10px 12px;
-		font-size: 13px;
-		height: 38px;
-	}
+  #search-input {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
 
-	.avance-admin-container .avance-btn-primary {
-		width: 100%;
-		height: 38px;
-		padding: 0 12px;
-		font-size: 12px;
-		min-width: unset;
-		margin: 0;
-	}
+  th {
+    padding: 10px 8px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
 
-	.avance-admin-container .avance-contacts-table {
-		font-size: 10px;
-	}
+  td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
 
-	.avance-admin-container .avance-contacts-table th {
-		padding: 8px 4px;
-		font-size: 9px;
-		font-weight: 600;
-	}
+  button {
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+  }
 
-	.avance-admin-container .avance-contacts-table td {
-		padding: 6px 4px;
-	}
+  .table-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 
-	.avance-admin-container .col-id,
-	.avance-admin-container .col-whatsapp,
-	.avance-admin-container .col-servicio,
-	.avance-admin-container .col-estado,
-	.avance-admin-container .col-tema,
-	.avance-admin-container .col-fecha {
-		display: none;
-	}
+  .btn-action {
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+  }
 
-	.avance-admin-container .col-accion {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-		min-width: 100%;
-	}
+  .modal-overlay {
+    padding: 10px;
+  }
 
-	.avance-admin-container .avance-btn-view {
-		width: 100%;
-		height: 32px;
-		padding: 0 8px;
-		font-size: 11px;
-		flex: 1;
-		min-width: unset;
-	}
+  .modal-content {
+    width: 100%;
+    max-height: 80vh;
+    max-width: none;
+  }
 
-	.avance-modal {
-		padding: 8px;
-	}
+  .modal-header {
+    padding: 16px;
+  }
 
-	.avance-modal-content {
-		max-width: 100%;
-		max-height: 95vh;
-		border-radius: 8px;
-	}
+  .modal-title {
+    font-size: 16px;
+  }
 
-	.avance-modal-header {
-		padding: 14px;
-	}
+  .modal-body {
+    padding: 16px;
+    gap: 12px;
+    grid-template-columns: 1fr;
+  }
 
-	.avance-modal-header h2 {
-		font-size: 16px;
-	}
+  .modal-field {
+    padding: 12px;
+    gap: 6px;
+  }
 
-	.avance-modal-close {
-		width: 34px;
-		height: 34px;
-		font-size: 26px;
-	}
+  .modal-label {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
 
-	#avance-admin-detail {
-		padding: 14px;
-	}
+  .modal-value {
+    font-size: 13px;
+    line-height: 1.4;
+  }
 
-	.avance-detail-row {
-		display: block;
-		padding: 10px 0;
-		border-bottom: 1px solid #E8EAF6;
-	}
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
 
-	.avance-detail-row:last-child {
-		border-bottom: none;
-	}
+  .admin-table-wrap .scroll {
+    overflow-x: auto;
+  }
 
-	.avance-detail-label {
-		display: block;
-		font-size: 11px;
-		margin-bottom: 6px;
-		height: auto;
-		color: #1a237e;
-	}
-
-	.avance-detail-value {
-		padding: 8px 10px;
-		font-size: 12px;
-		border-radius: 4px;
-	}
+  table {
+    font-size: 12px;
+  }
 }

@@ -92,9 +92,7 @@ class Avance_Form_Section_Admin {
 		);
 
 		$builder = new Admin_Table_Builder($config);
-		echo '<div class="avance-admin-container">';
 		echo $builder->render();
-		echo '</div>';
 	}
 
 	// ========================================
@@ -120,46 +118,50 @@ class Avance_Form_Section_Admin {
 			wp_send_json_error(['message' => 'Contacto no encontrado']);
 		}
 
-		$html = '<div class="avance-detail-view">';
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">ID</div>';
-		$html .= '<div class="avance-detail-value">#' . esc_html($record->id) . '</div>';
+		$html = '';
+
+		// ID
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">ID</div>';
+		$html .= '<div class="modal-value">#' . esc_html($record->id) . '</div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Nombre</div>';
-		$html .= '<div class="avance-detail-value">' . esc_html($record->nombre) . '</div>';
+		// Nombre y Email en fila
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Nombre</div>';
+		$html .= '<div class="modal-value">' . esc_html($record->nombre) . '</div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Email</div>';
-		$html .= '<div class="avance-detail-value"><a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email) . '</a></div>';
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Email</div>';
+		$html .= '<div class="modal-value"><a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email) . '</a></div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">WhatsApp</div>';
+		// WhatsApp y Asunto en fila
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">WhatsApp</div>';
 		$clean_numero = preg_replace('/[^0-9]/', '', $record->numero);
-		$html .= '<div class="avance-detail-value"><a href="https://wa.me/' . esc_attr($clean_numero) . '" target="_blank">' . esc_html($record->numero) . '</a></div>';
+		$html .= '<div class="modal-value"><a href="https://wa.me/' . esc_attr($clean_numero) . '" target="_blank">' . esc_html($record->numero) . '</a></div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Asunto</div>';
-		$html .= '<div class="avance-detail-value">' . esc_html($record->asunto) . '</div>';
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Asunto</div>';
+		$html .= '<div class="modal-value">' . esc_html($record->asunto) . '</div>';
 		$html .= '</div>';
 
+		// Fecha
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Fecha</div>';
+		$html .= '<div class="modal-value">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->created_at))) . '</div>';
+		$html .= '</div>';
+
+		// Mensaje ancho completo
 		if (!empty($record->mensaje)) {
-			$html .= '<div class="avance-detail-row">';
-			$html .= '<div class="avance-detail-label">Mensaje</div>';
-			$html .= '<div class="avance-detail-value">' . nl2br(esc_html($record->mensaje)) . '</div>';
+			$html .= '<div class="modal-field full-width">';
+			$html .= '<div class="modal-label">Mensaje</div>';
+			$html .= '<div class="modal-value">' . nl2br(esc_html($record->mensaje)) . '</div>';
 			$html .= '</div>';
 		}
-
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Fecha</div>';
-		$html .= '<div class="avance-detail-value">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->created_at))) . '</div>';
-		$html .= '</div>';
-
-		$html .= '</div>';
 
 		wp_send_json_success(['html' => $html]);
 	}

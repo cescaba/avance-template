@@ -121,44 +121,48 @@ class Avance_Diagnostico_Admin {
 
 		$respuestas = json_decode($record->respuestas, true) ?? [];
 
-		$html = '<div class="avance-detail-view">';
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">ID</div>';
-		$html .= '<div class="avance-detail-value">#' . esc_html($record->id) . '</div>';
+		$html = '';
+
+		// ID
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">ID</div>';
+		$html .= '<div class="modal-value">#' . esc_html($record->id) . '</div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Nombre</div>';
-		$html .= '<div class="avance-detail-value">' . esc_html($record->nombre_completo) . '</div>';
+		// Nombre y Email en fila
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Nombre</div>';
+		$html .= '<div class="modal-value">' . esc_html($record->nombre_completo) . '</div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Email</div>';
-		$html .= '<div class="avance-detail-value"><a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email) . '</a></div>';
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Email</div>';
+		$html .= '<div class="modal-value"><a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email) . '</a></div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">WhatsApp</div>';
+		// WhatsApp y Fecha en fila
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">WhatsApp</div>';
 		$clean_whatsapp = preg_replace('/[^0-9]/', '', $record->whatsapp);
-		$html .= '<div class="avance-detail-value"><a href="https://wa.me/' . esc_attr($clean_whatsapp) . '" target="_blank">' . esc_html($record->whatsapp) . '</a></div>';
+		$html .= '<div class="modal-value"><a href="https://wa.me/' . esc_attr($clean_whatsapp) . '" target="_blank">' . esc_html($record->whatsapp) . '</a></div>';
 		$html .= '</div>';
 
-		$html .= '<div class="avance-detail-row">';
-		$html .= '<div class="avance-detail-label">Fecha</div>';
-		$html .= '<div class="avance-detail-value">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div>';
+		$html .= '<div class="modal-field">';
+		$html .= '<div class="modal-label">Fecha</div>';
+		$html .= '<div class="modal-value">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div>';
 		$html .= '</div>';
 
+		// Respuestas ancho completo
 		if (!empty($respuestas)) {
-			$html .= '<div class="avance-detail-row">';
-			$html .= '<div class="avance-detail-label">Respuestas</div>';
-			$html .= '<div class="avance-detail-value">';
+			$html .= '<div class="modal-field full-width">';
+			$html .= '<div class="modal-label">Respuestas del Diagnóstico</div>';
+			$html .= '<div class="modal-value">';
 			foreach ($respuestas as $idx => $resp) {
-				$html .= '<div>P' . ($idx + 1) . ': ' . esc_html($resp) . '</div>';
+				$html .= '<div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;"><strong>P' . ($idx + 1) . ':</strong> ' . esc_html($resp) . '</div>';
 			}
-			$html .= '</div></div>';
+			$html .= '</div>';
+			$html .= '</div>';
 		}
-
-		$html .= '</div>';
 
 		wp_send_json_success(['html' => $html]);
 	}

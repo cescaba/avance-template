@@ -98,7 +98,7 @@ class Avance_Mi_Admin {
             <input type="hidden" class="admin-nonce" value="<?php echo esc_attr($nonce); ?>">
         </div>
         
-        <script src="<?php echo get_template_directory_uri(); ?>/assets/js/admin-simple.js"></script>
+        <script src="<?php echo get_template_directory_uri(); ?>/assets/js/admin.js"></script>
         <?php
     }
 }

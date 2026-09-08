@@ -76,6 +76,11 @@ class Avance_Admin_Template {
 				<span class="admin-search-results"></span>
 			</div>
 
+			<!-- Downloads Section -->
+			<div class="admin-downloads-section">
+				<button class="admin-btn admin-btn-download-all" title="Descargar todos los datos">Descargar Todo (CSV)</button>
+			</div>
+
 			<!-- Table -->
 			<div class="admin-table-section">
 				<div class="admin-table-wrapper">
@@ -108,7 +113,7 @@ class Avance_Admin_Template {
 			<input type="hidden" class="admin-table-name" value="<?php echo esc_attr($this->table_name); ?>">
 		</div>
 
-		<script src="<?php echo esc_url(get_template_directory_uri() . '/assets/js/admin-simple.js'); ?>"></script>
+		<script src="<?php echo esc_url(get_template_directory_uri() . '/assets/js/admin.js'); ?>"></script>
 		<?php
 	}
 
@@ -145,17 +150,27 @@ class Avance_Admin_Template {
 			<tr class="admin-row" data-id="<?php echo esc_attr($record->id); ?>">
 				<?php foreach ($this->columns as $col) {
 					$field = $col['field'];
-					$value = $record->$field ?? '—';
+					$value = $this->format_field($field, $record);
 					$class = 'admin-col-' . sanitize_html_class($field);
-					echo '<td class="' . esc_attr($class) . '">' . esc_html($value) . '</td>';
+					echo '<td class="' . esc_attr($class) . '">' . $value . '</td>';
 				} ?>
 				<td class="admin-col-actions">
 					<button class="admin-btn admin-btn-view" data-id="<?php echo esc_attr($record->id); ?>" title="Ver">Ver</button>
+					<button class="admin-btn admin-btn-download" data-id="<?php echo esc_attr($record->id); ?>" title="Descargar">Descargar</button>
 					<button class="admin-btn admin-btn-delete" data-id="<?php echo esc_attr($record->id); ?>" title="Eliminar">Eliminar</button>
 				</td>
 			</tr>
 			<?php
 		}
+	}
+
+	/**
+	 * Formatea el valor de un campo - puede ser sobrescrito en subclases
+	 * para personalizar ciertos campos sin duplicar render_rows()
+	 */
+	protected function format_field($field, $record) {
+		$value = $record->$field ?? '—';
+		return esc_html($value);
 	}
 
 	protected function get_records() {
@@ -176,5 +191,64 @@ class Avance_Admin_Template {
 
 	protected function get_table_name() {
 		return $this->table_name;
+	}
+
+	/**
+	 * Genera archivo CSV de un registro
+	 */
+	protected function generate_csv_record($record) {
+		$csv = '';
+		$csv .= "ID,Campo,Valor\n";
+
+		foreach ($this->columns as $col) {
+			$field = $col['field'];
+			$label = $col['label'];
+			$value = $record->$field ?? '';
+			$value = str_replace('"', '""', $value);
+			$csv .= '"' . $record->id . '","' . $label . '","' . $value . "\"\n";
+		}
+
+		return $csv;
+	}
+
+	/**
+	 * Genera archivo CSV de todos los registros
+	 */
+	protected function generate_csv_all($records) {
+		$csv = '';
+		$headers = ['ID'];
+
+		foreach ($this->columns as $col) {
+			$headers[] = $col['label'];
+		}
+
+		$csv .= implode(',', array_map(function($h) {
+			return '"' . str_replace('"', '""', $h) . '"';
+		}, $headers)) . "\n";
+
+		foreach ($records as $record) {
+			$row = ['"' . $record->id . '"'];
+			foreach ($this->columns as $col) {
+				$field = $col['field'];
+				$value = $record->$field ?? '';
+				$value = str_replace('"', '""', $value);
+				$row[] = '"' . $value . '"';
+			}
+			$csv .= implode(',', $row) . "\n";
+		}
+
+		return $csv;
+	}
+
+	/**
+	 * Descarga archivo CSV
+	 */
+	protected function send_csv_download($csv, $filename) {
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=' . $filename);
+		header('Pragma: no-cache');
+		header('Expires: 0');
+		echo $csv;
+		exit;
 	}
 }

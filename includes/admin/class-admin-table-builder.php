@@ -41,15 +41,32 @@ class Admin_Table_Builder {
 	}
 
 	public function render() {
-		$data_json = json_encode([
+		// Sanitizar datos para evitar problemas de JSON
+		$sanitized_data = array_map(function($row) {
+			if (!is_object($row)) return $row;
+			$arr = (array)$row;
+			foreach ($arr as $key => &$value) {
+				if (is_string($value)) {
+					$value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+				}
+			}
+			return (object)$arr;
+		}, (array)$this->config['data']);
+
+		$data_json = wp_json_encode([
 			'title' => $this->config['title'],
 			'subtitle' => $this->config['subtitle'],
 			'columns' => $this->config['columns'],
-			'data' => $this->config['data'],
+			'data' => $sanitized_data,
 			'total' => $this->config['total'],
 			'stats' => $this->config['stats'],
 			'config' => $this->config
-		], JSON_UNESCAPED_UNICODE);
+		]);
+
+		if ($data_json === false) {
+			error_log('Admin Table Builder: JSON encoding failed for ' . $this->config['title']);
+			$data_json = '{"data":[],"title":"","error":"JSON encoding failed"}';
+		}
 
 		$nonce = wp_create_nonce($this->config['nonce_action'] ?? 'avance_admin');
 		$ajax_url = admin_url('admin-ajax.php');
@@ -119,7 +136,7 @@ window.adminData = <?php echo $data_json; ?>;
 window.adminConfig = {
 	ajaxUrl: '<?php echo esc_url($ajax_url); ?>',
 	nonce: '<?php echo esc_attr($nonce); ?>',
-	actions: <?php echo json_encode($this->config['ajax_actions'] ?? [], JSON_UNESCAPED_UNICODE); ?>
+	actions: <?php echo wp_json_encode($this->config['ajax_actions'] ?? []); ?>
 };
 
 // Manejadores de acciones AJAX

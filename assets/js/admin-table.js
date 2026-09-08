@@ -1,6 +1,12 @@
 // Sincronizar con datos de PHP (window.adminData)
 console.log('adminData:', window.adminData);
 
+// Validar que adminData existe y es válido
+if (!window.adminData) {
+  console.error('❌ ERROR: window.adminData no está definido. Posible error de JSON encoding en PHP.');
+  window.adminData = { columns: [], data: [], title: 'Error', subtitle: 'No se pudieron cargar los datos' };
+}
+
 const SCHEMA = (window.adminData?.columns || []).map(col => ({
   key: col.field || col.key,
   label: col.label,
@@ -12,12 +18,11 @@ let DATA = window.adminData?.data || [];
 let FILTERED_DATA = DATA;
 let SEARCH_QUERY = '';
 
-// Fallback: si no hay datos, usar ejemplos
-if (!DATA || DATA.length === 0) {
-  DATA = [
-    { id: 1, nombre: 'Test User', email: 'test@example.com', numero: '1234567890', asunto: 'Test', created_at: new Date().toISOString() }
-  ];
-  FILTERED_DATA = DATA;
+// Si DATA no es un array, convertir
+if (!Array.isArray(DATA)) {
+  console.warn('⚠️ DATA no es array, inicializando vacío');
+  DATA = [];
+  FILTERED_DATA = [];
 }
 
 console.log('SCHEMA:', SCHEMA);

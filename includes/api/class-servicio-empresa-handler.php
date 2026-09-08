@@ -74,18 +74,23 @@ class Avance_Servicio_Empresa_Handler {
 		}
 
 		// Construir mensaje para WhatsApp
-		$mensaje = "*[NUEVA SOLICITUD DE SERVICIO]*\n\n";
-		$mensaje .= "*Nombre:* " . $data['nombre'] . "\n";
-		$mensaje .= "*Cargo:* " . ($data['cargo'] ?: '—') . "\n";
-		$mensaje .= "*Empresa:* " . $data['empresa'] . "\n";
-		$mensaje .= "*Tamaño Equipo:* " . ($data['tamaño_equipo'] ?: '—') . "\n";
-		$mensaje .= "*Email:* " . $data['email'] . "\n";
-		$mensaje .= "*WhatsApp:* " . $data['whatsapp'] . "\n";
-		$mensaje .= "\n═════════════════════════\n";
-		$mensaje .= "*SOLICITUD*\n";
-		$mensaje .= "═════════════════════════\n\n";
-		$mensaje .= "*Servicio de Interés:*\n" . $data['servicio_interes'] . "\n\n";
-		$mensaje .= "*Desafío Comercial:*\n" . $data['desafio_comercial'] . "\n";
+		$mensaje = "Hola, buenos días.\n";
+		$mensaje .= "He completado el formulario de solicitud de propuesta y les comparto mis datos:\n\n";
+		$mensaje .= "Nombre: " . $data['nombre'] . "\n";
+		if ($data['cargo']) {
+			$mensaje .= "Cargo: " . $data['cargo'] . "\n";
+		}
+		$mensaje .= "Empresa: " . $data['empresa'] . "\n";
+		if ($data['tamaño_equipo']) {
+			$mensaje .= "Tamaño Equipo: " . $data['tamaño_equipo'] . "\n";
+		}
+		$mensaje .= "Email: " . $data['email'] . "\n";
+		if ($data['whatsapp']) {
+			$mensaje .= "WhatsApp: " . $data['whatsapp'] . "\n";
+		}
+		$mensaje .= "\nServicio de Interés:\n" . $data['servicio_interes'] . "\n\n";
+		$mensaje .= "Desafío Comercial:\n" . $data['desafio_comercial'] . "\n\n";
+		$mensaje .= "Quedo atento a sus comentarios.";
 
 		// Normalizar número de WhatsApp del usuario
 		$whatsapp_normalizado = preg_replace('/[^0-9]/', '', $data['whatsapp']);

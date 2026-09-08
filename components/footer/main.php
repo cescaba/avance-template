@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 				<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-final-cta__icon" aria-hidden="true">
 				<?php esc_html_e('Hablar por WhatsApp', 'avance-template'); ?>
 			</a>
-			<a href="#" class="home-final-cta__btn-primary"><?php esc_html_e('Ir a contacto', 'avance-template'); ?></a>
+			<a href="<?php echo esc_url(get_permalink(get_page_by_path('contacto'))); ?>" class="home-final-cta__btn-primary"><?php esc_html_e('Ir a contacto', 'avance-template'); ?></a>
 		</div>
 	</div>
 </section>

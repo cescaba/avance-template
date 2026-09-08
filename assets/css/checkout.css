@@ -12,7 +12,9 @@
 .checkout-wrap ul.woocommerce-error,
 .checkout-wrap div.woocommerce-error,
 .woocommerce-error,
-.woocommerce-error li {
+.woocommerce-error li,
+.woocommerce-notices-wrapper,
+.woocommerce-form-coupon-toggle {
   display: none !important;
 }
 
@@ -61,6 +63,75 @@
   grid-template-columns: 1fr 400px;
   gap: 32px;
   align-items: start;
+}
+
+.checkout-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.checkout-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 14px;
+}
+
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.checkout-field-wide {
+  grid-column: span 2;
+}
+
+.checkout-form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #466060;
+}
+
+.checkout-form-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  background: #FFFFFF;
+  border: 1px solid #D3DED0;
+  border-radius: 8px;
+  color: #2E4141;
+  font-family: inherit;
+  font-size: 14.5px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.checkout-form-input::placeholder {
+  color: #9DAFA2;
+}
+
+.checkout-form-input:hover {
+  border-color: #B7C7B4;
+}
+
+.checkout-form-input:focus {
+  border-color: #466060;
+  box-shadow: 0 0 0 3px rgba(70, 96, 96, 0.12);
+  outline: none;
+}
+
+select.checkout-form-input {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 256 256' fill='%23466060'><path d='M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80A8 8 0 0 1 48 88h160a8 8 0 0 1 5.66 13.66z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+}
+
+.checkout-req {
+  color: #B4664F;
 }
 
 .checkout-panel {

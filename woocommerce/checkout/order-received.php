@@ -35,11 +35,55 @@ if ( ! $order ) {
 	return;
 }
 
+// Cargar clases de métodos de pago
+require_once get_template_directory() . '/woocommerce/checkout/class-yape-payment.php';
+require_once get_template_directory() . '/woocommerce/checkout/class-plin-payment.php';
+$yape_payment = new Avance_Yape_Payment( $order );
+$plin_payment = new Avance_Plin_Payment( $order );
+
 $order_items = $order->get_items();
 
-// Obtener información bancaria - usar ACF si está disponible, sino valores por defecto
+// Obtener información bancaria desde WooCommerce
 $bank_info = array();
-if ( function_exists( 'get_field' ) ) {
+$payment_method = $order->get_payment_method();
+
+// Intentar obtener datos de diferentes métodos de transferencia bancaria
+$transfer_methods = array( 'bacs', 'woocommerce_transfer', 'transfer', 'bank_transfer' );
+
+foreach ( $transfer_methods as $method ) {
+	if ( $payment_method === $method ) {
+		$option_key = 'woocommerce_' . $method . '_accounts';
+		$accounts = get_option( $option_key );
+
+		if ( is_array( $accounts ) && ! empty( $accounts ) ) {
+			$account = $accounts[0];
+			$bank_info = array(
+				'banco' => $account['bank_name'] ?? '',
+				'numero_cuenta' => $account['account_number'] ?? '',
+				'titular' => $account['account_holder'] ?? '',
+				'swift' => $account['sort_code'] ?? '',
+			);
+			break;
+		}
+	}
+}
+
+// Si aún no hay datos, intentar con opción genérica de WooCommerce
+if ( empty( $bank_info ) ) {
+	$all_gateways = WC()->payment_gateways->get_available_payment_gateways();
+	if ( isset( $all_gateways[ $payment_method ] ) ) {
+		$gateway = $all_gateways[ $payment_method ];
+		$bank_info = array(
+			'banco' => $gateway->get_option( 'banco', '[Tu Banco]' ),
+			'numero_cuenta' => $gateway->get_option( 'numero_cuenta', '[Tu Número]' ),
+			'titular' => $gateway->get_option( 'titular', '[Tu Nombre]' ),
+			'swift' => $gateway->get_option( 'swift', '[SWIFT Code]' ),
+		);
+	}
+}
+
+// Fallback final a ACF
+if ( empty( $bank_info ) && function_exists( 'get_field' ) ) {
 	$bank_info = get_field( 'informacion_bancaria', 'option' ) ?: array();
 }
 
@@ -103,6 +147,18 @@ if ( function_exists( 'get_field' ) ) {
     </div>
   </section>
 
+  <!-- Sección de pago (Yape, Plin o Transferencia Bancaria) -->
+  <?php
+  // Si es Yape, mostrar tarjeta Yape
+  if ( $yape_payment->is_yape_payment() ) {
+    echo $yape_payment->render();
+  } elseif ( $plin_payment->is_plin_payment() ) {
+    // Si es Plin, mostrar tarjeta Plin
+    echo $plin_payment->render();
+  } else {
+    // Si no es Yape ni Plin, mostrar datos bancarios
+  ?>
+
   <!-- Datos bancarios -->
   <section class="order-section">
     <div class="order-section-head">
@@ -110,27 +166,91 @@ if ( function_exists( 'get_field' ) ) {
       <span class="order-section-note">Validación en 1–2 días hábiles</span>
     </div>
 
+    <?php
+    // Obtener todas las cuentas bancarias
+    $bank_accounts = array();
+    $payment_method = $order->get_payment_method();
+
+    // Intentar obtener de diferentes opciones de WooCommerce
+    $transfer_methods = array( 'bacs', 'woocommerce_transfer', 'transfer', 'bank_transfer' );
+    foreach ( $transfer_methods as $method ) {
+      if ( $payment_method === $method ) {
+        $option_key = 'woocommerce_' . $method . '_accounts';
+        $accounts = get_option( $option_key );
+        if ( is_array( $accounts ) && ! empty( $accounts ) ) {
+          $bank_accounts = $accounts;
+          break;
+        }
+      }
+    }
+
+    // Si no hay cuentas, usar la información genérica
+    if ( empty( $bank_accounts ) && ! empty( $bank_info ) ) {
+      $bank_accounts = array( $bank_info );
+    }
+
+    // Mostrar todas las tarjetas bancarias
+    if ( ! empty( $bank_accounts ) ) {
+      foreach ( $bank_accounts as $account ) :
+        $banco = $account['bank_name'] ?? $account['banco'] ?? '[Tu Banco]';
+        $numero = $account['account_number'] ?? $account['numero_cuenta'] ?? '[Tu Número]';
+        $titular = $account['account_name'] ?? $account['account_holder'] ?? $account['titular'] ?? '[Tu Nombre]';
+        $swift = $account['sort_code'] ?? $account['swift'] ?? '[SWIFT Code]';
+    ?>
+
     <div class="order-bankcard">
       <div class="order-bc-top">
         <div class="order-bc-issuer">
           <span class="order-bc-cap">Banco</span>
-          <span class="name"><?php echo esc_html( $bank_info['banco'] ?? '[Tu Banco]' ); ?></span>
+          <span class="name"><?php echo esc_html( $banco ); ?></span>
         </div>
         <span class="order-bc-chip" aria-hidden="true"><i></i></span>
       </div>
 
       <p class="order-bc-number">
         <span class="order-bc-cap">N.º de cuenta</span>
-        <span><?php echo esc_html( $bank_info['numero_cuenta'] ?? '[Tu Número]' ); ?></span>
+        <span><?php echo esc_html( $numero ); ?></span>
       </p>
 
       <dl class="order-bc-foot">
-        <div class="order-bc-cell"><dt class="order-bc-cap">Titular</dt><dd class="v"><?php echo esc_html( $bank_info['titular'] ?? '[Tu Nombre]' ); ?></dd></div>
-        <div class="order-bc-cell"><dt class="order-bc-cap">Código SWIFT</dt><dd class="v"><?php echo esc_html( $bank_info['swift'] ?? '[SWIFT Code]' ); ?></dd></div>
+        <div class="order-bc-cell"><dt class="order-bc-cap">Titular</dt><dd class="v"><?php echo esc_html( $titular ); ?></dd></div>
+        <div class="order-bc-cell"><dt class="order-bc-cap">Código SWIFT</dt><dd class="v"><?php echo esc_html( $swift ); ?></dd></div>
         <div class="order-bc-cell"><dt class="order-bc-cap">Importe</dt><dd class="v"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></dd></div>
       </dl>
     </div>
+
+    <?php
+      endforeach;
+    } else {
+      // Fallback si no hay datos
+    ?>
+    <div class="order-bankcard">
+      <div class="order-bc-top">
+        <div class="order-bc-issuer">
+          <span class="order-bc-cap">Banco</span>
+          <span class="name">[Tu Banco]</span>
+        </div>
+        <span class="order-bc-chip" aria-hidden="true"><i></i></span>
+      </div>
+
+      <p class="order-bc-number">
+        <span class="order-bc-cap">N.º de cuenta</span>
+        <span>[Tu Número]</span>
+      </p>
+
+      <dl class="order-bc-foot">
+        <div class="order-bc-cell"><dt class="order-bc-cap">Titular</dt><dd class="v">[Tu Nombre]</dd></div>
+        <div class="order-bc-cell"><dt class="order-bc-cap">Código SWIFT</dt><dd class="v">[SWIFT Code]</dd></div>
+        <div class="order-bc-cell"><dt class="order-bc-cap">Importe</dt><dd class="v"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></dd></div>
+      </dl>
+    </div>
+    <?php } ?>
   </section>
+
+  <?php
+  }
+  // Cierra el else (si NO es Yape)
+  ?>
 
   <!-- Dirección de facturación -->
   <section class="order-section">

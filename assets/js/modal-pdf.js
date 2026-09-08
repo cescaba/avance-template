@@ -22,30 +22,42 @@
 		modalOverlay.setAttribute('aria-hidden', 'true');
 	}
 
-	bannerLink.addEventListener('click', function(e) {
+	bannerLink.addEventListener('click', (e) => {
 		e.preventDefault();
 		openModal();
 	});
 
 	closeBtn.addEventListener('click', closeModal);
 
-	modalOverlay.addEventListener('click', function(e) {
+	modalOverlay.addEventListener('click', (e) => {
 		if (e.target === modalOverlay) {
 			closeModal();
 		}
 	});
 
-	document.addEventListener('keydown', function(e) {
+	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Escape' && !modalOverlay.classList.contains('pf-overlay--hidden')) {
 			closeModal();
 		}
 	});
 
-	modalForm.addEventListener('submit', function(e) {
+	modalForm.addEventListener('submit', (e) => {
 		e.preventDefault();
+
+		if (!modalForm.checkValidity()) {
+			modalForm.reportValidity();
+			return;
+		}
+
+		const submitBtn = modalForm.querySelector('button[type="submit"]');
+		const originalText = submitBtn.innerHTML;
+		submitBtn.disabled = true;
+		submitBtn.innerHTML = '<span>Descargando...</span>';
 
 		const formData = new FormData(modalForm);
 		const data = {
+			action: 'avance_submit_pdf_download',
+			nonce: formData.get('nonce') || '',
 			email: formData.get('email'),
 			nombre: formData.get('nombre'),
 			telefono: formData.get('telefono'),
@@ -54,13 +66,35 @@
 			industria: formData.get('industria')
 		};
 
-		console.log('Formulario enviado:', data);
+		fetch(window.ajaxurl || '/wp-admin/admin-ajax.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: new URLSearchParams(data)
+		})
+		.then(response => response.json())
+		.then(result => {
+			submitBtn.disabled = false;
+			submitBtn.innerHTML = originalText;
 
-		if (typeof avancePdfSubmit === 'function') {
-			avancePdfSubmit(data);
-		}
-
-		closeModal();
-		modalForm.reset();
+			if (result.success) {
+				NotificationManager.success('PDF descargando...', document.getElementById('pf-notifications'));
+				setTimeout(() => {
+					window.location.href = result.data.download_url;
+					closeModal();
+					modalForm.reset();
+				}, 300);
+			} else {
+				const errors = result.data?.errors || {};
+				const errorMessage = Object.values(errors).join('\n') || result.data?.message || 'Error al descargar el PDF';
+				NotificationManager.error(errorMessage, document.getElementById('pf-notifications'));
+			}
+		})
+		.catch(() => {
+			submitBtn.disabled = false;
+			submitBtn.innerHTML = originalText;
+			NotificationManager.error('Error al procesar la solicitud', document.getElementById('pf-notifications'));
+		});
 	});
 })();

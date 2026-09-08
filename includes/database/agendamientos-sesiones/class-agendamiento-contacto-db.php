@@ -21,21 +21,20 @@ class Avance_Agendamiento_Contacto_DB {
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
-			id bigint(20) NOT NULL AUTO_INCREMENT,
-			nombre varchar(255) NOT NULL,
-			whatsapp varchar(20) NOT NULL,
-			tema varchar(255) NOT NULL,
-			fecha varchar(20) NOT NULL,
-			hora varchar(10) NOT NULL,
-			estado varchar(50) DEFAULT 'pendiente',
-			mensaje_wsp_enviado int(1) DEFAULT 0,
-			fecha_creacion datetime DEFAULT CURRENT_TIMESTAMP,
-			fecha_actualizacion datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (id),
-			UNIQUE KEY unique_whatsapp_fecha (whatsapp, fecha),
-			KEY idx_estado (estado),
-			KEY idx_fecha_creacion (fecha_creacion),
-			INDEX composite_whatsapp_date (whatsapp, fecha_creacion)
+			`id` bigint(20) NOT NULL AUTO_INCREMENT,
+			`nombre` varchar(255) NOT NULL,
+			`whatsapp` varchar(20) NOT NULL,
+			`tema` varchar(255) NOT NULL,
+			`calendario_reserva_id` bigint(20) NOT NULL,
+			`estado` varchar(50) DEFAULT 'pendiente',
+			`mensaje_wsp_enviado` int(1) DEFAULT 0,
+			`fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
+			`fecha_actualizacion` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			PRIMARY KEY (`id`),
+			UNIQUE KEY `unique_calendario_reserva` (`calendario_reserva_id`),
+			KEY `idx_estado` (`estado`),
+			KEY `idx_whatsapp` (`whatsapp`),
+			KEY `idx_fecha_creacion` (`fecha_creacion`)
 		) $charset_collate;";
 
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -46,7 +45,7 @@ class Avance_Agendamiento_Contacto_DB {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::$table_name;
 
-		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s']);
+		return $wpdb->insert($table_name, $data, ['%s', '%s', '%s', '%d', '%s', '%d']);
 	}
 
 	public static function get_all($limit = 50, $offset = 0) {
@@ -84,18 +83,7 @@ class Avance_Agendamiento_Contacto_DB {
 		return $wpdb->update($table_name, ['mensaje_wsp_enviado' => 1], ['id' => $id], ['%d'], ['%d']);
 	}
 
-	public static function check_duplicate($whatsapp, $fecha) {
-		global $wpdb;
-		$table_name = $wpdb->prefix . self::$table_name;
-
-		return $wpdb->get_var($wpdb->prepare(
-			"SELECT id FROM $table_name WHERE whatsapp = %s AND fecha = %s LIMIT 1",
-			$whatsapp,
-			$fecha
-		));
-	}
-
-	public static function get_by_whatsapp_today($whatsapp) {
+	public static function check_duplicate_whatsapp_today($whatsapp) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::$table_name;
 
@@ -108,5 +96,12 @@ class Avance_Agendamiento_Contacto_DB {
 	public static function table_name() {
 		global $wpdb;
 		return $wpdb->prefix . self::$table_name;
+	}
+
+	public static function get_available_hours($fecha) {
+		if (class_exists('Avance_Calendario_Reservas_DB')) {
+			return Avance_Calendario_Reservas_DB::get_booked_hours($fecha, 'agendamiento');
+		}
+		return [];
 	}
 }

@@ -44,19 +44,20 @@ class Avance_Diagnostico_Handler {
 		];
 
 		$nombre_completo = $validated['nombre'] . ' ' . $validated['apellido'];
-		$mensaje = "*[NUEVO DIAGNÓSTICO COMPLETADO]*\n\n";
-		$mensaje .= "*Nombre:* " . $nombre_completo . "\n";
-		$mensaje .= "*Email:* " . $validated['email'] . "\n";
-		$mensaje .= "*WhatsApp:* " . $validated['whatsapp'] . "\n";
-		$mensaje .= "\n═════════════════════════\n";
-		$mensaje .= "*RESPUESTAS DEL DIAGNÓSTICO*\n";
-		$mensaje .= "═════════════════════════\n\n";
+		$mensaje = "Hola, buenos días.\n";
+		$mensaje .= "He completado el diagnóstico y les comparto mis datos y respuestas:\n\n";
+		$mensaje .= "Nombre: " . $nombre_completo . "\n";
+		$mensaje .= "Email: " . $validated['email'] . "\n";
+		$mensaje .= "WhatsApp: " . $validated['whatsapp'] . "\n";
+		$mensaje .= "\nEstas son mis respuestas:\n\n";
 
 		foreach ($respuestas as $idx => $respuesta) {
 			$num = $idx + 1;
-			$mensaje .= "*P$num:* " . ($preguntas[$num] ?? '') . "\n";
-			$mensaje .= "→ $respuesta\n\n";
+			$mensaje .= ($preguntas[$num] ?? '') . "\n";
+			$mensaje .= $respuesta . "\n";
 		}
+
+		$mensaje .= "\nQuedo atento a sus comentarios, gracias!";
 
 		$url = avance_get_whatsapp_link($mensaje);
 		header('Content-Type: application/json');

@@ -103,7 +103,9 @@ class Avance_Contact_Form_Handler {
 	 */
 	private function build_whatsapp_message($data) {
 		$lines = array(
-			'Nuevo contacto web:',
+			'Hola, buenos días.',
+			'Acabo de completar el formulario multiservicio y te comparto mis datos:',
+			'',
 			'Nombre: ' . $data['nombre'],
 			'Email: ' . $data['email'],
 			'WhatsApp: ' . $data['whatsapp'],

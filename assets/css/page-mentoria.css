@@ -249,7 +249,6 @@
 }
 
 .mentoria-faq__container {
-	max-width: 800px;
 	display: grid;
 	width: 100%;
 	gap: 44px;
@@ -318,13 +317,13 @@
 	font-weight: 400;
 	font-size: 16px;
 	color: #466060;
-	line-height: 1.5;
+	line-height: 1.6;
 	transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
 .mentoria-faq__item.is-active .mentoria-faq__answer {
-	max-height: 500px;
-	padding: 20px 24px 24px 24px;
+	max-height: 600px;
+	padding: 28px 24px 28px 24px !important;
 }
 
 .mentoria-faq__item.is-active .mentoria-faq__toggle {
@@ -1141,7 +1140,7 @@
 	}
 
 	.mentoria-faq__item.is-active .mentoria-faq__answer {
-		padding: 14px 18px 18px 18px;
+		padding: 28px 24px 28px 24px !important;
 	}
 
 	.mentoria-reserva {
@@ -1489,7 +1488,7 @@
 	}
 
 	.mentoria-faq__item.is-active .mentoria-faq__answer {
-		padding: 12px 16px 16px 16px;
+		padding: 28px 24px 28px 24px !important;
 	}
 
 	.mentoria-reserva {

@@ -31,7 +31,7 @@ get_header();
 	</section>
 
 	<!-- Quiz Section -->
-	<section class="diagnostico-quiz" aria-label="<?php esc_attr_e('Quiz Diagnóstico', 'avance-template'); ?>">
+	<section id="diagnostico-quiz" class="diagnostico-quiz" aria-label="<?php esc_attr_e('Quiz Diagnóstico', 'avance-template'); ?>">
 		<div class="diagnostico-quiz__container">
 			<div class="diagnostico-quiz__progress-track">
 				<div class="diagnostico-quiz__progress-fill" id="diagnosticoProgressFill"></div>

@@ -22,11 +22,11 @@ get_header();
 				<div class="home-hero__bottom">
 					<p class="home-hero__description"><?php esc_html_e('Capacitación ejecutiva, consultoría comercial y mentoría para líderes que quieren resultados concretos en Lima y el Perú.', 'avance-template'); ?></p>
 					<div class="home-hero__content">
-						<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico'))); ?>" class="home-hero__btn-diag"><?php esc_html_e('Diagnóstico gratuito', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico')) . '#diagnostico-quiz'); ?>" class="home-hero__btn-diag"><?php esc_html_e('Diagnóstico gratuito', 'avance-template'); ?></a>
 						<a href="#scheduling-section" class="home-hero__btn-consul"><?php esc_html_e('Agendar consulta', 'avance-template'); ?></a>
-						<a href="<?php echo esc_url(get_template_directory_uri() . '/assets/ebooks/Las 7 claves para transformar su gestión comercial.pdf'); ?>" class="home-hero__btn-link" target="_blank" rel="noopener noreferrer">
+						<button type="button" class="home-hero__btn-link" id="open-pdf-modal" onclick="document.getElementById('pf-modal-overlay').classList.remove('pf-overlay--hidden'); document.body.style.overflow = 'hidden';">
 							<?php esc_html_e('Descargar ebook', 'avance-template'); ?>
-						</a>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -62,7 +62,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Capacitación', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Programas ejecutivos y seminarios de alto impacto. In-company o formato abierto. Metodología experiencial.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 				<div class="home-services__item">
@@ -70,7 +70,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Diagnóstico y estrategia orientada a resultados. Acompañamiento en la implementación del proceso comercial.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 				<div class="home-services__item">
@@ -78,7 +78,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Mentoría personalizada para ejecutivos y emprendedores en búsqueda de crecimiento.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="#" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 			</div>
@@ -185,7 +185,7 @@ get_header();
 			<div class="home-dark-band__container">
 				<h2 class="home-dark-band__title"><?php esc_html_e('¿Sabes cuánto puede estar perdiendo tu empresa por no tener estrategia comercial?', 'avance-template'); ?></h2>
 				<div class="home-dark-band__actions">
-					<a href="#" class="home-dark-band__btn-primary"><?php esc_html_e('Hacer el diagnóstico ahora es gratis', 'avance-template'); ?></a>
+					<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico')) . '#diagnostico-quiz'); ?>" class="home-dark-band__btn-primary"><?php esc_html_e('Hacer el diagnóstico ahora es gratis', 'avance-template'); ?></a>
 					<a href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" class="home-dark-band__btn-secondary" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 						<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" class="home-dark-band__icon" aria-hidden="true">
 						<?php esc_html_e('Hablar por WhatsApp ahora', 'avance-template'); ?>

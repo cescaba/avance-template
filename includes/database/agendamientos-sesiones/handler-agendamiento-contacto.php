@@ -13,12 +13,15 @@ if (!defined('ABSPATH')) {
 }
 
 require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
+require_once get_template_directory() . '/includes/database/calendario/class-calendario-reservas-db.php';
 
 class Avance_Handler_Agendamiento_Contacto {
 
 	public function __construct() {
 		add_action('wp_ajax_nopriv_avance_submit_agendamiento', [$this, 'handle_request']);
 		add_action('wp_ajax_avance_submit_agendamiento', [$this, 'handle_request']);
+		add_action('wp_ajax_nopriv_avance_get_available_hours', [$this, 'get_available_hours']);
+		add_action('wp_ajax_avance_get_available_hours', [$this, 'get_available_hours']);
 	}
 
 	public function handle_request() {
@@ -84,6 +87,11 @@ class Avance_Handler_Agendamiento_Contacto {
 			wp_send_json_error(['message' => 'La hora es requerida.'], 400);
 		}
 
+		// Validar duplicados por WhatsApp (máximo 1 agendamiento activo por número)
+		if (Avance_Agendamiento_Contacto_DB::check_duplicate_whatsapp_today($whatsapp) > 0) {
+			wp_send_json_error(['message' => 'Este número de WhatsApp ya tiene un agendamiento registrado hoy. Intenta mañana.'], 409);
+		}
+
 		// Rate limiting (5 por hora por IP)
 		$ip = $this->get_client_ip();
 		if (!$this->check_rate_limit($ip)) {
@@ -98,17 +106,28 @@ class Avance_Handler_Agendamiento_Contacto {
 			}
 		}
 
-		// Preparar datos para BD
+		// Verificar disponibilidad en calendario
+		if (!Avance_Calendario_Reservas_DB::is_hora_disponible($fecha, $hora)) {
+			wp_send_json_error(['message' => 'Esta hora ya no está disponible. Selecciona otra.'], 409);
+		}
+
+		// Guardar en calendario_reservas
+		$cal_result = Avance_Calendario_Reservas_DB::insert($fecha, $hora);
+		if (!$cal_result) {
+			wp_send_json_error(['message' => 'Error al guardar fecha/hora. Intenta de nuevo.'], 500);
+		}
+		$calendario_reserva_id = $GLOBALS['wpdb']->insert_id;
+
+		// Preparar datos para agendamiento_contacto
 		$data_for_db = array(
 			'nombre' => $nombre,
 			'whatsapp' => $whatsapp,
 			'tema' => $tema,
-			'fecha' => $fecha,
-			'hora' => $hora,
+			'calendario_reserva_id' => $calendario_reserva_id,
 			'estado' => 'pendiente'
 		);
 
-		// Guardar en BD
+		// Guardar en agendamiento_contacto
 		$result = Avance_Agendamiento_Contacto_DB::insert($data_for_db);
 		if (!$result) {
 			wp_send_json_error(['message' => 'Error al guardar. Intenta de nuevo.'], 500);
@@ -136,36 +155,20 @@ class Avance_Handler_Agendamiento_Contacto {
 		return sanitize_text_field($ip);
 	}
 
-	private function check_duplicate_whatsapp($whatsapp) {
-		global $wpdb;
-		$table = $wpdb->prefix . 'avance_agendamientos_contacto';
-
-		// Verificar si el WhatsApp fue registrado en las últimas 24 horas
-		$count = $wpdb->get_var($wpdb->prepare(
-			"SELECT COUNT(*) FROM $table WHERE whatsapp = %s AND created_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)",
-			$whatsapp
-		));
-
-		// Si existe, devolver false (no permitir)
-		return $count === 0 || $count === '0';
-	}
 
 	private function check_rate_limit($ip) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'avance_form_attempts';
 
-		// Verificar intentos en la última hora
 		$attempts = $wpdb->get_var($wpdb->prepare(
 			"SELECT COUNT(*) FROM $table WHERE ip_address = %s AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)",
 			$ip
 		));
 
-		// Máximo 5 intentos por hora
 		if ($attempts >= 5) {
 			return false;
 		}
 
-		// Registrar intento
 		$wpdb->insert($table, [
 			'ip_address' => $ip,
 			'created_at' => current_time('mysql'),
@@ -173,6 +176,21 @@ class Avance_Handler_Agendamiento_Contacto {
 		], ['%s', '%s', '%s']);
 
 		return true;
+	}
+
+	public function get_available_hours() {
+		$fecha = $_GET['fecha'] ?? '';
+
+		if (empty($fecha) || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
+			wp_send_json_error(['message' => 'Fecha inválida'], 400);
+		}
+
+		$booked_hours = Avance_Calendario_Reservas_DB::get_booked_hours($fecha);
+
+		wp_send_json_success([
+			'fecha' => $fecha,
+			'booked_hours' => $booked_hours
+		]);
 	}
 }
 

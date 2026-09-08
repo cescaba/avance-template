@@ -113,7 +113,7 @@ get_header();
 					</div>
 
 					<div class="sobremi-intro__achievement-buttons">
-						<a href="<?php echo esc_url(home_url('/agendar-sesion')); ?>" class="sobremi-intro__achievement-btn sobremi-intro__achievement-btn--primary"><?php esc_html_e('Agendar sesión', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('contacto')) . '#scheduling-section'); ?>" class="sobremi-intro__achievement-btn sobremi-intro__achievement-btn--primary"><?php esc_html_e('Agendar sesión', 'avance-template'); ?></a>
 						<a href="<?php echo esc_url(defined('AVANCE_WHATSAPP_URL') ? AVANCE_WHATSAPP_URL : 'https://api.whatsapp.com/send?phone='); ?>" class="sobremi-intro__achievement-btn sobremi-intro__achievement-btn--secondary" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>
 							<img src="<?php echo esc_url(get_template_directory_uri() . '/assets/icons/wsp.svg'); ?>" alt="" width="16" height="16" aria-hidden="true">
 							<?php esc_html_e('WhatsApp', 'avance-template'); ?>

@@ -145,7 +145,7 @@ get_header();
                     <p class="servicio-offers__cta-description">Adaptamos el contenido a tu sector y nivel.</p>
                 </div>
                 <div class="servicio-offers__cta-actions">
-                    <a href="#servicio-contact" class="servicio-offers__cta-btn--primary">Solicitar cotización</a>
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('contacto')) . '#home-form'); ?>" class="servicio-offers__cta-btn--primary">Solicitar cotización</a>
                 </div>
             </section>
         </div>

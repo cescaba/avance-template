@@ -12,6 +12,8 @@ if (!defined('ABSPATH')) {
 
 <div id="pf-modal-overlay" class="pf-overlay pf-overlay--hidden" aria-hidden="true" role="dialog" aria-labelledby="pf-modal-title">
 	<form id="pf-modal-form" class="pf-modal" novalidate>
+		<div id="pf-notifications"></div>
+		<?php wp_nonce_field('form_pdf_download', 'nonce'); ?>
 		<div class="pf-head">
 			<div class="pf-topbar">
 				<span class="pf-kicker"><?php esc_html_e('Formulario de descarga', 'avance-template'); ?></span>
@@ -26,13 +28,13 @@ if (!defined('ABSPATH')) {
 
 		<div class="pf-grid">
 			<div class="pf-field">
-				<label for="pf-email"><?php esc_html_e('Correo electrónico *', 'avance-template'); ?></label>
-				<input id="pf-email" class="pf-input" type="email" name="email" placeholder="<?php esc_attr_e('juan@empresa.com', 'avance-template'); ?>" required aria-required="true">
+				<label for="pf-name"><?php esc_html_e('Nombre completo *', 'avance-template'); ?></label>
+				<input id="pf-name" class="pf-input" type="text" name="nombre" placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>" required aria-required="true">
 			</div>
 
 			<div class="pf-field">
-				<label for="pf-name"><?php esc_html_e('Nombre completo *', 'avance-template'); ?></label>
-				<input id="pf-name" class="pf-input" type="text" name="nombre" placeholder="<?php esc_attr_e('Juan Pérez', 'avance-template'); ?>" required aria-required="true">
+				<label for="pf-email"><?php esc_html_e('Correo electrónico *', 'avance-template'); ?></label>
+				<input id="pf-email" class="pf-input" type="email" name="email" placeholder="<?php esc_attr_e('juan@empresa.com', 'avance-template'); ?>" required aria-required="true">
 			</div>
 
 			<div class="pf-field">
@@ -83,7 +85,7 @@ if (!defined('ABSPATH')) {
 				<span><?php esc_html_e('Descargar PDF', 'avance-template'); ?></span>
 				<span class="pf-arrow">&#8594;</span>
 			</button>
-			<p class="pf-note"><?php esc_html_e('Recibirás el enlace también por correo electrónico.', 'avance-template'); ?></p>
+			<p class="pf-note"><?php esc_html_e('La descarga comienza inmediatamente.', 'avance-template'); ?></p>
 		</div>
 
 	</form>

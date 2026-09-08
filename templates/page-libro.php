@@ -22,9 +22,9 @@ get_header();
 		<!-- Sidebar -->
 		<aside class="libro-sidebar">
 			<img class="libro-cover" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/PlaceholderImg2.png'); ?>" alt="<?php esc_attr_e('Portada del libro Avance Comercial', 'avance-template'); ?>">
-			<a href="#" class="libro-btn-primary"><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
+			<a href="#" class="libro-btn-primary" onclick="comprarLibro(); return false;"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
 
-			<p class="libro-cover-caption"><?php esc_html_e('Enlace directo: Compra por Amazon', 'avance-template'); ?></p>
+			<a href="https://www.amazon.com/dp/B0H484PHWQ?&linkCode=sl2&tag=marcelverand-20&linkId=0bda5222a60d182f2fc6dd2bd5a4f33d&language=es_US&ref_=as_li_ss_tl" class="libro-cover-caption" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Enlace directo: Compra por Amazon', 'avance-template'); ?></a>
 			<p class="libro-cover-author"><?php esc_html_e('¿Quieres aplicar el método?', 'avance-template'); ?></p>
 
 
@@ -116,8 +116,8 @@ get_header();
 			<div class="libro-cta-band">
 				<div class="libro-cta-title"><?php esc_html_e('¿Quieres implementar el método en tu empresa?', 'avance-template'); ?></div>
 				<div class="libro-cta-actions">
-					<a href="#scheduling-section" class="libro-btn-primary"><?php esc_html_e('Agendar consultoría', 'avance-template'); ?></a>
-					<a href="<?php echo esc_url(get_permalink(get_page_by_path('diagnostico')) . '#diagnosticoQuizView'); ?>" class="libro-btn-secondary"><?php esc_html_e('Ir al Diagnóstico Gratuito', 'avance-template'); ?></a>
+					<a href="<?php echo esc_url(get_permalink(get_page_by_path('contacto')) . '#home-form'); ?>" class="libro-btn-primary"><?php esc_html_e('Agendar consultoría', 'avance-template'); ?></a>
+					<a href="<?php echo esc_url(get_permalink(get_page_by_path('contacto')) . '#scheduling-section'); ?>" class="libro-btn-secondary"><?php esc_html_e('Ir al Diagnóstico Gratuito', 'avance-template'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -159,7 +159,7 @@ get_header();
 		<!-- Full Width Below: Description + CTA -->
 		<p class="libro-description"><?php esc_html_e('Una guía práctica para ejecutivos y emprendedores que quieren construir un proceso comercial sólido, escalable y orientado a resultados. Sin teoría vacía: cada capítulo incluye herramientas aplicables desde el primer día.', 'avance-template'); ?></p>
 
-		<a href="#" class="libro-btn-primary-mobile"><?php esc_html_e('Comprar en Amazon', 'avance-template'); ?></a>
+		<a href="<?php echo esc_url(wc_get_checkout_url() . '?add-to-cart=46'); ?>" class="libro-btn-primary-mobile"><?php esc_html_e('Comprar Libro', 'avance-template'); ?></a>
 
 		<!-- Buttons & Rating Section -->
 		<div class="libro-rating-section">
@@ -229,3 +229,21 @@ get_header();
 
 <?php
 get_footer();
+?>
+
+<script>
+function comprarLibro() {
+	// Limpiar carrito y añadir producto
+	fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		body: 'action=comprar_libro'
+	})
+	.then(() => {
+		window.location.href = '<?php echo esc_url(wc_get_checkout_url()); ?>';
+	})
+	.catch(() => {
+		window.location.href = '<?php echo esc_url(wc_get_checkout_url()); ?>';
+	});
+}
+</script>

@@ -101,7 +101,7 @@ class Avance_Core_Service {
 
         // WooCommerce - CSS personalizado
         if (is_checkout()) {
-            wp_enqueue_style('avance-checkout-premium', $theme_uri . '/assets/css/checkout-premium.css', [], $version);
+            wp_enqueue_style('avance-checkout', $theme_uri . '/assets/css/checkout.css', [], $version);
         }
 
         // Scripts globales (realmente necesarios)
@@ -163,6 +163,9 @@ class Avance_Core_Service {
         // Custom selects
         wp_enqueue_script('scheduling-select', $theme_uri . '/assets/js/scheduling-select.js', [], $version, true);
 
+        // Smooth scroll to center for internal links
+        wp_enqueue_script('avance-scroll-center', $theme_uri . '/assets/js/scroll-to-center.js', [], $version, true);
+
         wp_enqueue_style('wp-block-library');
     }
 
@@ -178,6 +181,9 @@ class Avance_Core_Service {
         }
         if (class_exists('Avance_Agendamiento_Contacto_DB')) {
             Avance_Agendamiento_Contacto_DB::create_table();
+        }
+        if (class_exists('Avance_PDF_Download_DB')) {
+            Avance_PDF_Download_DB::create_table();
         }
     }
 

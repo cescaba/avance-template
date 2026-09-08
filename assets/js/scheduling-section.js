@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-	// Form handling para scheduling/contacto
 	const submitBtn = document.getElementById('contacto-agenda-submit');
 	const nameInput = document.getElementById('contacto-agenda-name');
 	const phoneInput = document.getElementById('contacto-agenda-phone');
 	const topicInput = document.getElementById('contacto-agenda-topic');
-	const backBtn = document.getElementById('contacto-agenda-back');
 
-	if (!submitBtn || !nameInput || !phoneInput || !topicInput) {
+	if (!submitBtn || !nameInput || !phoneInput) {
 		return;
 	}
 
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			action: 'avance_submit_agendamiento',
 			nonce: window.avanceAgendamientoContactoConfig.nonce,
 			nombre: nameInput.value.trim(),
-			email: 'agendamiento@temp.local',
 			whatsapp: phoneInput.value.trim(),
 			tema: topicInput.value,
 			fecha: String(window.contactoSelectedDate?.year).padStart(4, '0') + '-' +
@@ -57,11 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			if (result.success) {
 				const whatsappNumber = '51993508652';
-				const agendaMessage = `Hola, acabo de agendar una sesión de diagnóstico:
-📅 Fecha: ${data.fecha}
-🕐 Hora: ${data.hora}
-📋 Tema: ${data.tema}
-👤 Nombre: ${data.nombre}`;
+				const agendaMessage = `Hola, buenos días.
+Acabo de agendar una sesión de diagnóstico a través del sistema.
+
+Datos de la cita:
+Nombre: ${data.nombre}
+Fecha: ${data.fecha}
+Hora: ${data.hora}
+Tema: ${data.tema}`;
 
 				const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(agendaMessage)}`;
 				window.open(whatsappUrl, '_blank');

@@ -87,7 +87,7 @@ get_header();
 	</section>
 
 	<!-- Booking Section: Reserva de Sesión -->
-	<section class="mentoria-reserva" aria-label="<?php esc_attr_e('Reserva tu Primera Sesión', 'avance-template'); ?>">
+	<section id="mentoria-booking" class="mentoria-reserva" aria-label="<?php esc_attr_e('Reserva tu Primera Sesión', 'avance-template'); ?>">
 		<div class="mentoria-reserva__container">
 			<div class="mentoria-reserva__main">
 				<header class="mentoria-reserva__header">
@@ -191,7 +191,7 @@ get_header();
 							<polyline points="6 9 12 15 18 9"></polyline>
 						</svg>
 					</button>
-					<p class="mentoria-faq__answer"><?php esc_html_e('Sí, con 30 días de anticipación puedes cancelar tu mentoría', 'avance-template'); ?></p>
+					<p class="mentoria-faq__answer"><?php esc_html_e('Sí, con 30 días de anticipación. Envía notificación formal a informes@avance-empresarial.com indicando que deseas cancelar tu plan de mentoría. No hay penalización si cancelas dentro de ese plazo. El acceso al sistema se suspenderá inmediatamente.', 'avance-template'); ?></p>
 				</div>
 				<div class="mentoria-faq__item">
 					<button class="mentoria-faq__question">
@@ -200,7 +200,7 @@ get_header();
 							<polyline points="6 9 12 15 18 9"></polyline>
 						</svg>
 					</button>
-					<p class="mentoria-faq__answer"><?php esc_html_e('Flexibles. Adaptamos los horarios a tu disponibilidad', 'avance-template'); ?></p>
+					<p class="mentoria-faq__answer"><?php esc_html_e('Sesiones disponibles de 15:00 a 17:00 (3 PM a 5 PM), lunes a domingo. Reservas confirmadas mediante Calendly con 48 horas de anticipación. Cada sesión dura 30 minutos y se realiza vía Google Meet o presencial en Lima. Adaptamos horarios según tu disponibilidad dentro de este rango.', 'avance-template'); ?></p>
 				</div>
 				<div class="mentoria-faq__item">
 					<button class="mentoria-faq__question">
@@ -209,7 +209,7 @@ get_header();
 							<polyline points="6 9 12 15 18 9"></polyline>
 						</svg>
 					</button>
-					<p class="mentoria-faq__answer"><?php esc_html_e('Ambas opciones disponibles según tu preferencia', 'avance-template'); ?></p>
+					<p class="mentoria-faq__answer"><?php esc_html_e('Principalmente virtual vía Google Meet (15:00-17:00). Disponible lunes a domingo, 30 minutos por sesión. Presencial en Santiago de Surco es opcional: consulta disponibilidad escribiendo a informes@avance-empresarial.com. La mayoría de clientes elige online por flexibilidad y acceso inmediato.', 'avance-template'); ?></p>
 				</div>
 				<div class="mentoria-faq__item">
 					<button class="mentoria-faq__question">
@@ -218,7 +218,7 @@ get_header();
 							<polyline points="6 9 12 15 18 9"></polyline>
 						</svg>
 					</button>
-					<p class="mentoria-faq__answer"><?php esc_html_e('Podemos reprogramar con 48 horas de anticipación', 'avance-template'); ?></p>
+					<p class="mentoria-faq__answer"><?php esc_html_e('Reprogramamos sin costo si notificas con mínimo 48 horas de anticipación. Contacta a informes@avance-empresarial.com o ajusta directamente en Calendly. Si cancelas con menos de 48 horas, la sesión se considera utilizada. Contamos con disponibilidad en horarios 15:00-17:00 (3 PM-5 PM), lunes a domingo.', 'avance-template'); ?></p>
 				</div>
 			</div>
 		</div>

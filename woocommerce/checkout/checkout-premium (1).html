@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagar el pedido — Entrada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   1. Tokens
+   ============================================================ */
+:root{
+  --bg:#F0F4EF;
+  --surface:#FFFFFF;
+  --brand:#466060;
+  --brand-dark:#2E4141;
+  --text:#466060;
+  --text-strong:#2E4141;
+  --text-muted:#5C7268;
+  --text-soft:#6B8177;
+  --border:#E1E9DE;
+  --border-strong:#D3DED0;
+  --border-hover:#B7C7B4;
+  --rule:#E7EEE4;
+  --tint:#F4F8F2;
+  --thumb:#E4EDE1;
+  --warn:#B4664F;
+  --warn-bg:#FBF1EC;
+  --warn-border:#EDD9CF;
+  --radius-sm:8px;
+  --radius-md:10px;
+  --radius-lg:14px;
+  --font:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+
+/* ============================================================
+   2. Base
+   ============================================================ */
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font);font-size:14px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-wrap:pretty;
+}
+h1,h2,h3,p{margin:0}
+a{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--brand-dark)}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+::selection{background:#D8E4D5;color:var(--brand-dark)}
+
+/* ============================================================
+   3. Layout
+   ============================================================ */
+.page{
+  max-width:1120px;margin-inline:auto;padding:44px 40px 64px;
+  display:flex;flex-direction:column;gap:26px;
+}
+.pay-grid{display:grid;grid-template-columns:1fr 400px;gap:32px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.panel-main{padding:30px 32px 32px;display:flex;flex-direction:column;gap:24px}
+.panel-side{
+  padding:26px 26px 28px;position:sticky;top:24px;
+  display:flex;flex-direction:column;gap:18px;
+}
+
+/* ============================================================
+   4. Tipografía de bloque
+   ============================================================ */
+.head{display:flex;flex-direction:column;gap:4px}
+.title{font-size:23px;font-weight:700;letter-spacing:-.02em;color:var(--text-strong)}
+.subtitle{font-size:13.5px;color:var(--text-muted)}
+.section-title{font-size:16px;font-weight:700;color:var(--text-strong)}
+.hint{font-size:11.5px;color:var(--text-soft)}
+.rule{align-self:stretch;height:1px;margin:0;background:var(--rule);border:0}
+
+/* ============================================================
+   5. Aviso de pedido de invitado
+   ============================================================ */
+.notice{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:13px 15px;
+  background:var(--warn-bg);border:1px solid var(--warn-border);
+  border-left:3px solid var(--warn);border-radius:var(--radius-sm);
+  font-size:13px;line-height:1.6;color:#77503F;
+}
+.notice svg{flex:none}
+.notice strong{color:#5E3E30}
+
+/* ============================================================
+   6. Formulario de datos
+   ============================================================ */
+.form-block{display:flex;flex-direction:column;gap:16px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field-wide{grid-column:span 2}
+.label{font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--brand)}
+.req{color:var(--warn)}
+.input{
+  width:100%;height:46px;padding:0 13px;
+  background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+  color:var(--text-strong);font-family:inherit;font-size:14.5px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.input::placeholder{color:var(--text-soft)}
+.input:hover{border-color:var(--border-hover)}
+.input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(70,96,96,.12);outline:none}
+select.input{
+  appearance:none;cursor:pointer;padding-right:34px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 256 256' fill='%23466060'><path d='M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80A8 8 0 0 1 48 88h160a8 8 0 0 1 5.66 13.66z'/></svg>");
+  background-repeat:no-repeat;background-position:right 13px center;
+}
+
+/* ============================================================
+   7. Métodos de pago
+   ============================================================ */
+.pay-block{display:flex;flex-direction:column;gap:14px}
+.methods{display:flex;flex-direction:column;gap:10px}
+.method{
+  display:flex;flex-direction:column;gap:14px;padding:14px 16px;cursor:pointer;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);
+  transition:border-color .15s,background .15s;
+}
+.method:hover{border-color:var(--border-hover)}
+.method:has(input:checked){border-color:var(--brand);background:var(--tint)}
+.method-top{display:flex;align-items:center;gap:12px}
+.method input{margin:0;width:16px;height:16px;flex:none;accent-color:var(--brand);cursor:pointer}
+.method-name{font-size:14.5px;font-weight:600;color:var(--text-strong)}
+.method-badge{
+  margin-left:auto;font-size:11.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--text-soft);
+}
+.method-panel{display:none;flex-direction:column;gap:6px;padding-top:14px;border-top:1px solid var(--rule)}
+.method:has(input:checked) .method-panel{display:flex}
+.method-desc{font-size:13px;line-height:1.6;color:var(--text-muted)}
+
+/* ============================================================
+   8. Resumen lateral
+   ============================================================ */
+.line-item{display:flex;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
+.line-thumb{
+  width:66px;height:66px;flex:none;display:grid;place-items:center;
+  background:var(--thumb);border:1px solid #DAE5D6;border-radius:9px;
+}
+.line-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.line-name{font-size:14.5px;font-weight:600;line-height:1.35;color:var(--text-strong)}
+.line-meta{font-size:12.5px;color:var(--text-muted)}
+.line-price{font-size:14.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.totals{display:flex;flex-direction:column;gap:9px}
+.totals-row{display:flex;justify-content:space-between;font-size:13.5px;color:var(--text-muted)}
+.totals-row strong{font-weight:500;color:var(--text-strong)}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px;border-top:1px solid var(--rule)}
+.total-label{font-size:15px;font-weight:700;color:var(--text-strong)}
+.total-value{font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--text-strong)}
+
+/* ============================================================
+   9. Botones, privacidad y confianza
+   ============================================================ */
+.privacy{font-size:12.5px;line-height:1.65;color:var(--text-muted)}
+.btn-pay{
+  width:100%;height:52px;flex:none;border:none;border-radius:var(--radius-md);
+  background:var(--brand);color:var(--bg);
+  font-size:15px;font-weight:600;letter-spacing:.01em;cursor:pointer;
+  transition:background .15s,transform .08s;
+}
+.btn-pay:hover{background:var(--brand-dark)}
+.btn-pay:active{transform:translateY(1px)}
+.checkout-actions{display:flex;flex-direction:column;gap:14px}
+.secure{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;color:var(--text-muted)}
+.trust{list-style:none;margin:0;padding-top:18px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:8px}
+.trust li{display:flex;gap:8px;font-size:12.5px;color:var(--text-muted)}
+.trust svg{flex:none}
+
+/* ============================================================
+   10. Responsive
+   ============================================================ */
+@media (max-width:960px){
+  .page{padding:28px 20px 48px}
+  .pay-grid{grid-template-columns:1fr}
+  .panel-side{position:static}
+  .panel-main{padding:24px 20px}
+}
+@media (max-width:560px){
+  .fields{grid-template-columns:1fr}
+  .field-wide{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <div class="notice">
+    <svg width="17" height="17" viewBox="0 0 256 256" fill="#B4664F" aria-hidden="true"><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88 88.1 88.1 0 0 1-88 88Zm-8-80V80a8 8 0 0 1 16 0v56a8 8 0 0 1-16 0Zm20 36a12 12 0 1 1-12-12 12 12 0 0 1 12 12Z"/></svg>
+    <span>Estás pagando un <strong>pedido de invitado</strong>. Continúa con el pago solo si reconoces este pedido.</span>
+  </div>
+
+  <div class="pay-grid">
+
+    <!-- Pago -->
+    <form class="panel panel-main" id="payForm" onsubmit="return false">
+      <div class="head">
+        <h1 class="title">Finalizar la compra</h1>
+        <p class="subtitle">Completa tus datos y elige cómo quieres pagar. Tu pedido queda confirmado en cuanto validemos el pago.</p>
+      </div>
+
+      <hr class="rule">
+
+      <div class="form-block">
+        <h2 class="section-title">Datos de facturación</h2>
+        <div class="fields">
+          <div class="field">
+            <label class="label" for="nombre">Nombre <span class="req">*</span></label>
+            <input class="input" id="nombre" name="nombre" placeholder="Alfred" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label class="label" for="apellido">Apellido <span class="req">*</span></label>
+            <input class="input" id="apellido" name="apellido" placeholder="Jerico" autocomplete="family-name" required>
+          </div>
+          <div class="field">
+            <label class="label" for="email">Email <span class="req">*</span></label>
+            <input class="input" id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label class="label" for="telefono">Teléfono <span class="req">*</span></label>
+            <input class="input" id="telefono" name="telefono" type="tel" placeholder="+51 999 999 999" autocomplete="tel" required>
+          </div>
+        </div>
+      </div>
+
+      <hr class="rule">
+
+      <div class="form-block">
+        <h2 class="section-title">Dirección de envío</h2>
+        <div class="fields">
+          <div class="field field-wide">
+            <label class="label" for="direccion">Dirección <span class="req">*</span></label>
+            <input class="input" id="direccion" name="direccion" placeholder="Calle y número" autocomplete="street-address" required>
+          </div>
+          <div class="field">
+            <label class="label" for="ciudad">Ciudad <span class="req">*</span></label>
+            <input class="input" id="ciudad" name="ciudad" placeholder="Lima" autocomplete="address-level2" required>
+          </div>
+          <div class="field">
+            <label class="label" for="cp">Código postal <span class="req">*</span></label>
+            <input class="input" id="cp" name="cp" placeholder="15074" autocomplete="postal-code" required>
+          </div>
+          <div class="field field-wide">
+            <label class="label" for="pais">País <span class="req">*</span></label>
+            <select class="input" id="pais" name="pais" autocomplete="country-name" required>
+              <option value="Perú" selected>Perú</option>
+              <option value="Chile">Chile</option>
+              <option value="Colombia">Colombia</option>
+              <option value="México">México</option>
+              <option value="Argentina">Argentina</option>
+              <option value="España">España</option>
+              <option value="Estados Unidos">Estados Unidos</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <hr class="rule">
+
+      <div class="pay-block">
+        <h2 class="section-title">Método de pago</h2>
+        <div class="methods">
+
+          <label class="method">
+            <span class="method-top">
+              <input type="radio" name="pago" value="transferencia" checked>
+              <span class="method-name">Transferencia bancaria directa</span>
+              <span class="method-badge">Banco</span>
+            </span>
+            <span class="method-panel">
+              <span class="method-desc">Realiza una transferencia bancaria directa a nuestra cuenta. Utiliza el <strong>ID de tu pedido</strong> como referencia de pago.</span>
+              <span class="hint">Te enviaremos los datos de la cuenta y las instrucciones al confirmar el pedido.</span>
+            </span>
+          </label>
+
+          <label class="method">
+            <span class="method-top">
+              <input type="radio" name="pago" value="manual">
+              <span class="method-name">Pago manual / efectivo</span>
+              <span class="method-badge">Presencial</span>
+            </span>
+            <span class="method-panel">
+              <span class="method-desc">Coordina el pago en efectivo con nuestro equipo. Te escribiremos al correo del pedido con el punto de atención y los horarios disponibles.</span>
+            </span>
+          </label>
+
+        </div>
+      </div>
+
+      <p class="privacy">Tus datos personales se utilizarán para procesar tu pedido, mejorar tu experiencia en esta web y otros propósitos descritos en nuestra <a href="#">política de privacidad</a>.</p>
+    </form>
+
+    <!-- Resumen -->
+    <aside class="panel panel-side">
+      <h2 class="section-title">Resumen del pedido</h2>
+
+      <div class="line-item">
+        <div class="line-thumb">
+          <svg width="26" height="26" viewBox="0 0 256 256" fill="#7C9086" aria-hidden="true"><path d="M232 104a8 8 0 0 0 8-8V64a16 16 0 0 0-16-16H32a16 16 0 0 0-16 16v32a8 8 0 0 0 8 8 24 24 0 0 1 0 48 8 8 0 0 0-8 8v32a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16v-32a8 8 0 0 0-8-8 24 24 0 0 1 0-48Zm-8 15.3V152a40 40 0 0 0 0 76.7V192H32v-39.3a40 40 0 0 0 0-76.7V64h192Z"/></svg>
+        </div>
+        <div class="line-info">
+          <p class="line-name">Pro</p>
+          <p class="line-meta">Cantidad: × 1</p>
+        </div>
+        <div class="line-price">S/ 1,200.00</div>
+      </div>
+
+      <div class="totals">
+        <div class="totals-row"><span>Subtotal</span><strong>S/ 1,200.00</strong></div>
+      </div>
+
+      <div class="total">
+        <span class="total-label">Total</span>
+        <span class="total-value">S/ 1,200.00</span>
+      </div>
+
+      <div class="checkout-actions">
+        <button class="btn-pay" type="submit" form="payForm">Pagar por el pedido · S/ 1,200.00</button>
+
+        <p class="secure">
+        <svg width="14" height="14" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="M208 80h-32V56a48 48 0 0 0-96 0v24H48a16 16 0 0 0-16 16v112a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16ZM96 56a32 32 0 0 1 64 0v24H96Zm112 152H48V96h160v112Z"/></svg>
+          <span>Pago seguro con cifrado SSL</span>
+        </p>
+      </div>
+
+      <ul class="trust">
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Confirmación y acceso por correo</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Boleta o factura electrónica</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 256 256" fill="#466060" aria-hidden="true"><path d="m229.66 77.66-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"/></svg><span>Soporte en soporte@aulanova.com</span></li>
+      </ul>
+    </aside>
+
+  </div>
+</main>
+</body>
+</html>

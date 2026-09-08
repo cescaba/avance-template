@@ -80,8 +80,9 @@ class Avance_Ajax_Handler {
 
     /**
      * Handle Mentoria Checkout
+     * 1. Guarda fecha/hora en tabla de mentoría
+     * 2. Crea orden en WooCommerce
      * Seguridad: Rate limiting + Spam detection
-     * SIN MODIFICAR flujo de WooCommerce
      */
     public function handle_mentoria_checkout() {
         check_ajax_referer('avance_mentoria_booking', 'nonce');
@@ -158,7 +159,25 @@ class Avance_Ajax_Handler {
             }
         }
 
-        // CREAR ORDEN (Flujo WooCommerce - INTACTO)
+        // GUARDAR en tabla de mentoría PRIMERO
+        $fecha_db = $this->parse_fecha_db($data['fecha']);
+        if (!$fecha_db) {
+            wp_send_json_error(['message' => 'Formato de fecha inválido']);
+        }
+
+        if (class_exists('Avance_Calendario_Reservas_Mentoria_DB')) {
+            $hora_disponible = Avance_Calendario_Reservas_Mentoria_DB::is_hora_disponible($fecha_db, $data['hora']);
+            if (!$hora_disponible) {
+                wp_send_json_error(['message' => 'Esta hora ya no está disponible'], 409);
+            }
+
+            $insert_result = Avance_Calendario_Reservas_Mentoria_DB::insert($fecha_db, $data['hora']);
+            if (!$insert_result) {
+                wp_send_json_error(['message' => 'Error al guardar la reserva en calendario']);
+            }
+        }
+
+        // CREAR ORDEN (Flujo WooCommerce)
         $result = Avance_Mentoria_Checkout::create_order($data);
 
         if (!$result['success']) {
@@ -169,6 +188,22 @@ class Avance_Ajax_Handler {
             'order_id' => $result['order_id'],
             'redirect' => $result['checkout_url'],
         ]);
+    }
+
+    private function parse_fecha_db($fecha_str) {
+        $parts = explode('/', $fecha_str);
+        if (count($parts) !== 3) {
+            return false;
+        }
+        $day = intval($parts[0]);
+        $month = intval($parts[1]);
+        $year = intval($parts[2]);
+
+        if (!checkdate($month, $day, $year)) {
+            return false;
+        }
+
+        return sprintf('%04d-%02d-%02d', $year, $month, $day);
     }
 
     private function get_client_ip() {

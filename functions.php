@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 // Versión de base de datos (aumentar cuando cambien tablas)
 if (!defined('AVANCE_DB_VERSION')) {
-	define('AVANCE_DB_VERSION', '1.0.0');
+	define('AVANCE_DB_VERSION', '1.0.7');
 }
 
 // Configuración de límites de agendamiento (Issue 15)
@@ -94,6 +94,13 @@ require_once get_template_directory() . '/includes/validators/contact/class-cont
 require_once get_template_directory() . '/includes/database/contacts/class-contact-db.php';
 require_once get_template_directory() . '/includes/database/contacts/class-contact-form-handler.php';
 
+// CLASES DE PDF DOWNLOADS
+// ============================================================
+
+require_once get_template_directory() . '/includes/validators/pdf-downloads/class-pdf-download-validator.php';
+require_once get_template_directory() . '/includes/database/pdf-downloads/class-pdf-download-db.php';
+require_once get_template_directory() . '/includes/database/pdf-downloads/class-pdf-download-handler.php';
+
 // ============================================================
 // ADMIN SYSTEM
 // ============================================================
@@ -115,6 +122,12 @@ require_once get_template_directory() . '/includes/managers/servicios/class-serv
 // Incluir clases de AGENDAMIENTO DE SESIONES
 require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
 
+// Incluir clases de CALENDARIO (disponibilidad)
+require_once get_template_directory() . '/includes/database/calendario/class-calendario-reservas-db.php';
+require_once get_template_directory() . '/includes/database/calendario/class-calendario-reservas-mentoria-db.php';
+require_once get_template_directory() . '/includes/database/calendario/handler-mentoria.php';
+require_once get_template_directory() . '/includes/database/calendario/handler-mentoria-booking.php';
+
 // Incluir clases de PROPUESTAS
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-db.php';
 require_once get_template_directory() . '/includes/database/proposals/class-proposal-handler.php';
@@ -130,3 +143,20 @@ require_once get_template_directory() . '/includes/whatsapp/floating-button.php'
 
 // Incluir COMPONENTES REUTILIZABLES
 require_once get_template_directory() . '/includes/database/form-sesiones/class-form-component.php';
+
+// ============================================================
+// COMPRA DE LIBRO - LIMPIAR Y AÑADIR AL CARRITO
+// ============================================================
+
+add_action('wp_ajax_nopriv_comprar_libro', function() {
+	WC()->cart->empty_cart();
+	WC()->cart->add_to_cart(46, 1);
+	wp_send_json_success(['message' => 'Producto añadido']);
+});
+
+add_action('wp_ajax_comprar_libro', function() {
+	WC()->cart->empty_cart();
+	WC()->cart->add_to_cart(46, 1);
+	wp_send_json_success(['message' => 'Producto añadido']);
+});
+

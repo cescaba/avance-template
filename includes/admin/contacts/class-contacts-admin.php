@@ -19,6 +19,28 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$this->wpdb_table = $wpdb->prefix . 'avance_contacts';
 
+		$columns = [
+			['field' => 'id', 'label' => 'ID'],
+			['field' => 'nombre', 'label' => 'Nombre'],
+			['field' => 'email', 'label' => 'Email'],
+			['field' => 'numero', 'label' => 'WhatsApp'],
+			['field' => 'asunto', 'label' => 'Asunto'],
+			['field' => 'created_at', 'label' => 'Fecha'],
+		];
+
+		$nonce = wp_create_nonce('contacts_admin');
+
+		parent::__construct(
+			'Formularios Recibidos',
+			'Gestiona los contactos enviados desde el formulario',
+			[],
+			0,
+			$columns,
+			$nonce,
+			$this->wpdb_table,
+			'contacts'
+		);
+
 		add_action('admin_menu', [$this, 'register_menu']);
 		add_action('wp_ajax_contacts_get_record', [$this, 'ajax_get_record']);
 		add_action('wp_ajax_contacts_delete_record', [$this, 'ajax_delete_record']);
@@ -41,28 +63,8 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY created_at DESC LIMIT 50");
-		$total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
-		$nonce = wp_create_nonce('contacts_admin');
-
-		$columns = [
-			['field' => 'id', 'label' => 'ID'],
-			['field' => 'nombre', 'label' => 'Nombre'],
-			['field' => 'email', 'label' => 'Email'],
-			['field' => 'numero', 'label' => 'WhatsApp'],
-			['field' => 'asunto', 'label' => 'Asunto'],
-			['field' => 'created_at', 'label' => 'Fecha'],
-		];
-
-		parent::__construct(
-			'Formularios Recibidos',
-			'Gestiona los contactos enviados desde el formulario',
-			$records,
-			$total,
-			$columns,
-			$nonce,
-			$this->wpdb_table
-		);
+		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY created_at DESC LIMIT 50");
+		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
 
 		$this->render();
 	}
@@ -101,15 +103,7 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 			wp_send_json_error(['message' => 'Contacto no encontrado']);
 		}
 
-		$html = '<div class="modal-content">';
-		$html .= '<div class="modal-field"><strong>ID:</strong> ' . esc_html($record->id) . '</div>';
-		$html .= '<div class="modal-field"><strong>Nombre:</strong> ' . esc_html($record->nombre) . '</div>';
-		$html .= '<div class="modal-field"><strong>Email:</strong> <a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email) . '</a></div>';
-		$html .= '<div class="modal-field"><strong>WhatsApp:</strong> <a href="https://wa.me/' . esc_attr(preg_replace('/[^0-9]/', '', $record->numero)) . '" target="_blank">' . esc_html($record->numero) . '</a></div>';
-		$html .= '<div class="modal-field"><strong>Asunto:</strong> ' . esc_html($record->asunto) . '</div>';
-		$html .= '<div class="modal-field"><strong>Mensaje:</strong> ' . nl2br(esc_html($record->mensaje)) . '</div>';
-		$html .= '<div class="modal-field"><strong>Fecha:</strong> ' . esc_html(wp_date('d/m/Y H:i', strtotime($record->created_at))) . '</div>';
-		$html .= '</div>';
+		$html = $this->generate_modal_html($record);
 
 		wp_send_json_success(['html' => $html]);
 	}

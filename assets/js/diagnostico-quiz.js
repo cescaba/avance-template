@@ -46,6 +46,8 @@ const DIAGNOSTICO_QUESTIONS = [
 	}
 ];
 
+const DIAGNOSTICO_QUESTIONS_ONLY = DIAGNOSTICO_QUESTIONS.filter((q, i) => i < 4).map(q => q.text);
+
 const DIAGNOSTICO_STORAGE_KEY = 'diagnostico_quiz_state';
 
 let diagnosticoCurrentIndex = 0;
@@ -204,7 +206,8 @@ function updateDiagnosticoProgress(answeredCount) {
 }
 
 function selectDiagnosticoOption(answerText) {
-	diagnosticoAnswers.push(answerText); // Guardar el texto de la respuesta
+	const question = DIAGNOSTICO_QUESTIONS[diagnosticoCurrentIndex].text;
+	diagnosticoAnswers.push({ pregunta: question, respuesta: answerText });
 	saveDiagnosticoState();
 
 	if (diagnosticoCurrentIndex >= DIAGNOSTICO_QUESTIONS.length - 1) {

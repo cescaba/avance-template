@@ -19,6 +19,30 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$this->wpdb_table = $wpdb->prefix . 'avance_agendamiento_contacto';
 
+		$columns = [
+			['field' => 'id', 'label' => 'ID'],
+			['field' => 'nombre', 'label' => 'Nombre'],
+			['field' => 'whatsapp', 'label' => 'WhatsApp'],
+			['field' => 'tema', 'label' => 'Tema'],
+			['field' => 'fecha', 'label' => 'Fecha'],
+			['field' => 'hora', 'label' => 'Hora'],
+			['field' => 'estado', 'label' => 'Estado'],
+			['field' => 'fecha_creacion', 'label' => 'Creado'],
+		];
+
+		$nonce = wp_create_nonce('agendamientos_admin');
+
+		parent::__construct(
+			'Agendamientos Recibidos',
+			'Gestiona los agendamientos de sesiones',
+			[],
+			0,
+			$columns,
+			$nonce,
+			$this->wpdb_table,
+			'agendamientos'
+		);
+
 		add_action('admin_menu', [$this, 'register_menu']);
 		add_action('wp_ajax_agendamientos_get_record', [$this, 'ajax_get_record']);
 		add_action('wp_ajax_agendamientos_delete_record', [$this, 'ajax_delete_record']);
@@ -42,30 +66,8 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha DESC, hora DESC LIMIT 100");
-		$total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
-		$nonce = wp_create_nonce('agendamientos_admin');
-
-		$columns = [
-			['field' => 'id', 'label' => 'ID'],
-			['field' => 'nombre', 'label' => 'Nombre'],
-			['field' => 'whatsapp', 'label' => 'WhatsApp'],
-			['field' => 'tema', 'label' => 'Tema'],
-			['field' => 'fecha', 'label' => 'Fecha'],
-			['field' => 'hora', 'label' => 'Hora'],
-			['field' => 'estado', 'label' => 'Estado'],
-			['field' => 'fecha_creacion', 'label' => 'Creado'],
-		];
-
-		parent::__construct(
-			'Agendamientos Recibidos',
-			'Gestiona los agendamientos de sesiones',
-			$records,
-			$total,
-			$columns,
-			$nonce,
-			$this->wpdb_table
-		);
+		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha DESC, hora DESC LIMIT 100");
+		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
 
 		$this->render();
 	}
@@ -111,17 +113,7 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 			wp_send_json_error(['message' => 'Agendamiento no encontrado']);
 		}
 
-		$html = '<div class="modal-content">';
-		$html .= '<div class="modal-field"><strong>ID:</strong> ' . esc_html($record->id) . '</div>';
-		$html .= '<div class="modal-field"><strong>Nombre:</strong> ' . esc_html($record->nombre) . '</div>';
-		$html .= '<div class="modal-field"><strong>WhatsApp:</strong> <a href="https://wa.me/' . esc_attr(preg_replace('/[^0-9]/', '', $record->whatsapp)) . '" target="_blank">' . esc_html($record->whatsapp) . '</a></div>';
-		$html .= '<div class="modal-field"><strong>Tema:</strong> ' . esc_html($record->tema) . '</div>';
-		$html .= '<div class="modal-field"><strong>Fecha:</strong> ' . esc_html(wp_date('d/m/Y', strtotime($record->fecha))) . '</div>';
-		$html .= '<div class="modal-field"><strong>Hora:</strong> ' . esc_html(wp_date('H:i', strtotime($record->hora))) . '</div>';
-		$html .= '<div class="modal-field"><strong>Estado:</strong> <span class="admin-badge status-' . esc_attr($record->estado) . '">' . esc_html(ucfirst($record->estado)) . '</span></div>';
-		$html .= '<div class="modal-field"><strong>Creado:</strong> ' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div>';
-		$html .= '<div class="modal-field"><strong>Actualizado:</strong> ' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_actualizacion))) . '</div>';
-		$html .= '</div>';
+		$html = $this->generate_modal_html($record);
 
 		wp_send_json_success(['html' => $html]);
 	}

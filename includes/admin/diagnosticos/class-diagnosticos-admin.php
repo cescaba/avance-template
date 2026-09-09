@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+require_once(get_template_directory() . '/includes/core/diagnostico-config.php');
+
 class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 
 	private $wpdb_table;
@@ -18,6 +20,28 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 	public function __construct() {
 		global $wpdb;
 		$this->wpdb_table = $wpdb->prefix . 'avance_diagnosticos';
+
+		$columns = [
+			['field' => 'id', 'label' => 'ID'],
+			['field' => 'nombre_completo', 'label' => 'Nombre'],
+			['field' => 'email', 'label' => 'Email'],
+			['field' => 'whatsapp', 'label' => 'WhatsApp'],
+			['field' => 'respuestas', 'label' => 'Respuestas del Diagnóstico'],
+			['field' => 'fecha_creacion', 'label' => 'Fecha'],
+		];
+
+		$nonce = wp_create_nonce('diagnosticos_admin');
+
+		parent::__construct(
+			'Diagnósticos',
+			'Gestiona todos los diagnósticos completados',
+			[],
+			0,
+			$columns,
+			$nonce,
+			$this->wpdb_table,
+			'diagnosticos'
+		);
 
 		add_action('admin_menu', [$this, 'register_menu']);
 		add_action('wp_ajax_diagnosticos_get_record', [$this, 'ajax_get_record']);
@@ -41,27 +65,8 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha_creacion DESC LIMIT 50");
-		$total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
-		$nonce = wp_create_nonce('diagnosticos_admin');
-
-		$columns = [
-			['field' => 'id', 'label' => 'ID'],
-			['field' => 'nombre_completo', 'label' => 'Nombre'],
-			['field' => 'email', 'label' => 'Email'],
-			['field' => 'whatsapp', 'label' => 'WhatsApp'],
-			['field' => 'fecha_creacion', 'label' => 'Fecha'],
-		];
-
-		parent::__construct(
-			'Diagnósticos',
-			'Gestiona todos los diagnósticos completados',
-			$records,
-			$total,
-			$columns,
-			$nonce,
-			$this->wpdb_table
-		);
+		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha_creacion DESC LIMIT 50");
+		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
 
 		$this->render();
 	}
@@ -76,9 +81,25 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 				return '<a href="https://wa.me/' . esc_attr(preg_replace('/[^0-9]/', '', $record->whatsapp)) . '" target="_blank">' . esc_html($record->whatsapp ?? '—') . '</a>';
 			case 'fecha_creacion':
 				return esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion)));
+			case 'respuestas':
+				return $this->get_respuestas_score($record->respuestas ?? '');
 			default:
 				return esc_html($record->$field ?? '—');
 		}
+	}
+
+	private function get_respuestas_score($respuestas_json) {
+		if (empty($respuestas_json)) {
+			return '—';
+		}
+
+		$respuestas = json_decode($respuestas_json, true);
+		if (!is_array($respuestas)) {
+			return '—';
+		}
+
+		$total = count($respuestas);
+		return '<span class="diagnostico-score">' . $total . '/' . $total . '</span>';
 	}
 
 	public function ajax_get_record() {
@@ -100,15 +121,77 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 			wp_send_json_error(['message' => 'Diagnóstico no encontrado']);
 		}
 
-		$html = '<div class="modal-content">';
-		$html .= '<div class="modal-field"><strong>ID:</strong> ' . esc_html($record->id) . '</div>';
-		$html .= '<div class="modal-field"><strong>Nombre:</strong> ' . esc_html($record->nombre_completo ?? '—') . '</div>';
-		$html .= '<div class="modal-field"><strong>Email:</strong> <a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email ?? '—') . '</a></div>';
-		$html .= '<div class="modal-field"><strong>WhatsApp:</strong> <a href="https://wa.me/' . esc_attr(preg_replace('/[^0-9]/', '', $record->whatsapp)) . '" target="_blank">' . esc_html($record->whatsapp ?? '—') . '</a></div>';
-		$html .= '<div class="modal-field"><strong>Fecha:</strong> ' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div>';
+		$html = $this->generate_diagnostico_modal($record);
+		$preguntas = avance_get_diagnostico_questions();
+
+		wp_send_json_success(['html' => $html, 'preguntas' => $preguntas]);
+	}
+
+	private function generate_diagnostico_modal($record) {
+		$html = '<div class="modal-header">';
+		$html .= '<h2 class="modal-title">Diagnóstico Completo</h2>';
 		$html .= '</div>';
 
-		wp_send_json_success(['html' => $html]);
+		$html .= '<div class="modal-content">';
+
+		$html .= '<div class="modal-section">';
+		$html .= '<h3 class="modal-section-title">Información del Contacto</h3>';
+		$html .= '<div class="modal-row">';
+		$html .= '<div class="modal-field"><div class="modal-label">Nombre</div><div class="modal-value">' . esc_html($record->nombre_completo ?? '—') . '</div></div>';
+		$html .= '<div class="modal-field"><div class="modal-label">Email</div><div class="modal-value"><a href="mailto:' . esc_attr($record->email) . '" class="modal-link">' . esc_html($record->email) . '</a></div></div>';
+		$html .= '</div>';
+		$html .= '<div class="modal-row">';
+		$html .= '<div class="modal-field"><div class="modal-label">WhatsApp</div><div class="modal-value"><a href="https://wa.me/' . esc_attr(preg_replace('/[^0-9]/', '', $record->whatsapp)) . '" target="_blank" class="modal-link">' . esc_html($record->whatsapp) . '</a></div></div>';
+		$html .= '<div class="modal-field"><div class="modal-label">Fecha</div><div class="modal-value modal-date">' . esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion))) . '</div></div>';
+		$html .= '</div>';
+		$html .= '</div>';
+
+		$html .= '<div class="modal-section">';
+		$html .= '<h3 class="modal-section-title">Respuestas del Diagnóstico</h3>';
+		$preguntas = avance_get_diagnostico_questions();
+		$html .= $this->format_respuestas_detailed($record->respuestas ?? '', $preguntas);
+		$html .= '</div>';
+
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	private function format_respuestas_detailed($respuestas_json, $preguntas = []) {
+		if (empty($respuestas_json)) {
+			return '<p>Sin respuestas registradas</p>';
+		}
+
+		$respuestas = json_decode($respuestas_json, true);
+		if (!is_array($respuestas)) {
+			return '<p>Error al procesar respuestas</p>';
+		}
+
+		$html = '<div class="diagnostico-respuestas">';
+		foreach ($respuestas as $index => $item) {
+			$pregunta = '';
+			$respuesta = '';
+
+			if (is_array($item)) {
+				$pregunta = $item['pregunta'] ?? '';
+				$respuesta = $item['respuesta'] ?? '';
+			} else {
+				$respuesta = $item;
+				if (isset($preguntas[$index])) {
+					$pregunta = $preguntas[$index];
+				}
+			}
+
+			$html .= '<div class="diagnostico-respuesta-item">';
+			if ($pregunta) {
+				$html .= '<strong class="diagnostico-pregunta">' . esc_html($pregunta) . '</strong>';
+			}
+			$html .= '<span class="diagnostico-respuesta">' . esc_html($respuesta) . '</span>';
+			$html .= '</div>';
+		}
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	public function ajax_delete_record() {

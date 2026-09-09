@@ -1,6 +1,8 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+require_once(get_template_directory() . '/includes/core/diagnostico-config.php');
+
 class Avance_Diagnostico_Handler {
 	public function process() {
 		$post_data = $this->get_form_data($_POST);
@@ -36,12 +38,6 @@ class Avance_Diagnostico_Handler {
 			$validated['email'],
 			'success'
 		);
-		$preguntas = [
-			1 => '¿Cuál es tu mayor desafío comercial ahora mismo?',
-			2 => '¿Cuántos vendedores tiene tu equipo actualmente?',
-			3 => '¿Tienes definida tu propuesta de valor?',
-			4 => '¿Cuánto inviertes en formación comercial?'
-		];
 
 		$nombre_completo = $validated['nombre'] . ' ' . $validated['apellido'];
 		$mensaje = "Hola, buenos días.\n";
@@ -51,10 +47,17 @@ class Avance_Diagnostico_Handler {
 		$mensaje .= "WhatsApp: " . $validated['whatsapp'] . "\n";
 		$mensaje .= "\nEstas son mis respuestas:\n\n";
 
-		foreach ($respuestas as $idx => $respuesta) {
-			$num = $idx + 1;
-			$mensaje .= ($preguntas[$num] ?? '') . "\n";
-			$mensaje .= $respuesta . "\n";
+		$preguntas = avance_get_diagnostico_questions();
+		foreach ($respuestas as $index => $respuesta) {
+			if (is_array($respuesta)) {
+				$mensaje .= ($respuesta['pregunta'] ?? '') . "\n";
+				$mensaje .= ($respuesta['respuesta'] ?? '') . "\n";
+			} else {
+				if (isset($preguntas[$index])) {
+					$mensaje .= $preguntas[$index] . "\n";
+				}
+				$mensaje .= $respuesta . "\n";
+			}
 		}
 
 		$mensaje .= "\nQuedo atento a sus comentarios, gracias!";

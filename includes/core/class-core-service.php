@@ -74,6 +74,9 @@ class Avance_Core_Service {
         if (is_page_template('templates/page-diagnostico.php')) {
             wp_enqueue_style('avance-page-diagnostico', $theme_uri . '/assets/css/page-diagnostico.css', ['avance-base'], $version);
             wp_enqueue_script('avance-diagnostico-quiz', $theme_uri . '/assets/js/diagnostico-quiz.js', [], $version, true);
+
+            require_once(get_template_directory() . '/includes/core/diagnostico-config.php');
+            wp_localize_script('avance-diagnostico-quiz', 'avanceDiagnosticoQuestions', avance_get_diagnostico_questions());
         }
 
         if (is_front_page() || is_page_template('templates/page-inicio.php')) {

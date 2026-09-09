@@ -14,11 +14,12 @@ class Avance_Admin_Template {
 
 	private $title;
 	private $subtitle;
-	private $records;
-	private $total;
-	private $columns;
+	protected $records;
+	protected $total;
+	protected $columns;
 	private $nonce;
 	private $table_name;
+	private $action_prefix;
 
 	/**
 	 * Constructor
@@ -29,8 +30,10 @@ class Avance_Admin_Template {
 	 * @param int $total Total de registros
 	 * @param array $columns Array de columnas ['field' => 'nombre', 'label' => 'Nombre']
 	 * @param string $nonce Token de seguridad
+	 * @param string $table_name Nombre completo de la tabla
+	 * @param string $action_prefix Prefijo para las acciones AJAX (ej: 'contacts', 'agendamientos')
 	 */
-	public function __construct($title, $subtitle, $records, $total, $columns, $nonce, $table_name = '') {
+	public function __construct($title, $subtitle, $records, $total, $columns, $nonce, $table_name = '', $action_prefix = '') {
 		$this->title = $title;
 		$this->subtitle = $subtitle;
 		$this->records = $records ?? [];
@@ -38,6 +41,7 @@ class Avance_Admin_Template {
 		$this->columns = $columns;
 		$this->nonce = $nonce;
 		$this->table_name = $table_name;
+		$this->action_prefix = $action_prefix;
 	}
 
 	/**
@@ -111,6 +115,7 @@ class Avance_Admin_Template {
 
 			<input type="hidden" class="admin-nonce" value="<?php echo esc_attr($this->nonce); ?>">
 			<input type="hidden" class="admin-table-name" value="<?php echo esc_attr($this->table_name); ?>">
+			<input type="hidden" class="admin-action-prefix" value="<?php echo esc_attr($this->action_prefix); ?>">
 		</div>
 
 		<script src="<?php echo esc_url(get_template_directory_uri() . '/assets/js/admin.js'); ?>"></script>
@@ -238,6 +243,80 @@ class Avance_Admin_Template {
 		}
 
 		return $csv;
+	}
+
+	/**
+	 * Genera HTML del modal para un registro
+	 * Método centralizado para mantener consistencia en todos los admins
+	 */
+	protected function generate_modal_html($record) {
+		if (!$record || !is_object($record)) {
+			return '<div class="modal-content"><p>Error: Datos no válidos</p></div>';
+		}
+
+		if (empty($this->columns)) {
+			return '<div class="modal-content"><p>Error: No hay columnas configuradas</p></div>';
+		}
+
+		$html = '<div class="modal-header">';
+		$html .= '<h2 class="modal-title">Detalles del Registro</h2>';
+		$html .= '</div>';
+
+		$html .= '<div class="modal-content">';
+		$html .= '<div class="modal-section">';
+
+		$col_count = 0;
+		$row_fields = [];
+
+		foreach ($this->columns as $col) {
+			if (!isset($col['field']) || !isset($col['label'])) {
+				continue;
+			}
+
+			$field = $col['field'];
+			$label = $col['label'];
+
+			if (!property_exists($record, $field)) {
+				continue;
+			}
+
+			$formatted_value = $this->format_field($field, $record);
+
+			$row_fields[] = [
+				'label' => $label,
+				'value' => $formatted_value
+			];
+
+			$col_count++;
+
+			if ($col_count % 2 == 0) {
+				$html .= '<div class="modal-row">';
+				$html .= '<div class="modal-field">';
+				$html .= '<div class="modal-label">' . esc_html($row_fields[0]['label']) . '</div>';
+				$html .= '<div class="modal-value">' . $row_fields[0]['value'] . '</div>';
+				$html .= '</div>';
+				$html .= '<div class="modal-field">';
+				$html .= '<div class="modal-label">' . esc_html($row_fields[1]['label']) . '</div>';
+				$html .= '<div class="modal-value">' . $row_fields[1]['value'] . '</div>';
+				$html .= '</div>';
+				$html .= '</div>';
+				$row_fields = [];
+			}
+		}
+
+		if (!empty($row_fields)) {
+			$html .= '<div class="modal-row">';
+			$html .= '<div class="modal-field">';
+			$html .= '<div class="modal-label">' . esc_html($row_fields[0]['label']) . '</div>';
+			$html .= '<div class="modal-value">' . $row_fields[0]['value'] . '</div>';
+			$html .= '</div>';
+			$html .= '</div>';
+		}
+
+		$html .= '</div>';
+		$html .= '</div>';
+
+		return $html;
 	}
 
 	/**

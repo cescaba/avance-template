@@ -63,8 +63,11 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC LIMIT 50");
-		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
+		$query = "SELECT * FROM " . $this->wpdb_table . " ORDER BY id ASC LIMIT 50";
+		$this->records = $wpdb->get_results($query);
+
+		$count_query = "SELECT COUNT(*) FROM " . $this->wpdb_table;
+		$this->total = intval($wpdb->get_var($count_query));
 
 		$this->render();
 	}
@@ -94,10 +97,8 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$id = intval($_POST['id'] ?? 0);
 
-		$record = $wpdb->get_row($wpdb->prepare(
-			"SELECT * FROM {$this->wpdb_table} WHERE id = %d",
-			$id
-		));
+		$query = "SELECT * FROM " . $this->wpdb_table . " WHERE id = %d";
+		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
 			wp_send_json_error(['message' => 'Contacto no encontrado']);
@@ -141,10 +142,8 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$id = intval($_POST['id'] ?? 0);
 
-		$record = $wpdb->get_row($wpdb->prepare(
-			"SELECT * FROM {$this->wpdb_table} WHERE id = %d",
-			$id
-		));
+		$query = "SELECT * FROM " . $this->wpdb_table . " WHERE id = %d";
+		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
 			wp_send_json_error(['message' => 'Contacto no encontrado']);
@@ -162,7 +161,8 @@ class Avance_Contacts_Admin extends Avance_Admin_Template {
 		}
 
 		global $wpdb;
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC");
+		$query = "SELECT * FROM " . $this->wpdb_table . " ORDER BY id ASC";
+		$records = $wpdb->get_results($query);
 
 		if (empty($records)) {
 			wp_send_json_error(['message' => 'No hay contactos para descargar']);

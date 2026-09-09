@@ -66,8 +66,11 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC LIMIT 100");
-		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
+		$query = "SELECT * FROM " . $this->wpdb_table . " ORDER BY id ASC LIMIT 100";
+		$this->records = $wpdb->get_results($query);
+
+		$count_query = "SELECT COUNT(*) FROM " . $this->wpdb_table;
+		$this->total = intval($wpdb->get_var($count_query));
 
 		$this->render();
 	}
@@ -104,10 +107,8 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$id = intval($_POST['id'] ?? 0);
 
-		$record = $wpdb->get_row($wpdb->prepare(
-			"SELECT * FROM {$this->wpdb_table} WHERE id = %d",
-			$id
-		));
+		$query = "SELECT * FROM " . $this->wpdb_table . " WHERE id = %d";
+		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
 			wp_send_json_error(['message' => 'Agendamiento no encontrado']);
@@ -186,10 +187,8 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 		global $wpdb;
 		$id = intval($_POST['id'] ?? 0);
 
-		$record = $wpdb->get_row($wpdb->prepare(
-			"SELECT * FROM {$this->wpdb_table} WHERE id = %d",
-			$id
-		));
+		$query = "SELECT * FROM " . $this->wpdb_table . " WHERE id = %d";
+		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
 			wp_send_json_error(['message' => 'Agendamiento no encontrado']);
@@ -207,7 +206,8 @@ class Avance_Agendamientos_Admin extends Avance_Admin_Template {
 		}
 
 		global $wpdb;
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC");
+		$query = "SELECT * FROM " . $this->wpdb_table . " ORDER BY id ASC";
+		$records = $wpdb->get_results($query);
 
 		if (empty($records)) {
 			wp_send_json_error(['message' => 'No hay agendamientos para descargar']);

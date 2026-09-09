@@ -118,15 +118,19 @@ class Avance_Core_Service {
         // - avance-scheduling-section: antes se cargaba 2 veces (inicio, contacto)
         // - Beneficio: 60% menos descargas innecesarias
         wp_enqueue_script('avance-calendar-agenda', $theme_uri . '/assets/js/calendar-agenda.js', [], $version, true);
-        wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', [], $version, true);
+        wp_enqueue_script('avance-scheduling-section', $theme_uri . '/assets/js/scheduling-section.js', ['notification-manager'], $version, true);
         wp_localize_script('avance-scheduling-section', 'avanceAgendamientoContactoConfig', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('form_agendamiento'),
         ]);
 
+        // Custom selects (debe cargarse antes que modal-pdf)
+        // Unified select component (reemplaza: scheduling-select, form-section-select, proposal-select)
+        wp_enqueue_script('avance-select', $theme_uri . '/assets/js/avance-select-unified.js', [], $version, true);
+
         // Modal PDF Download
         wp_enqueue_style('avance-modal-pdf', $theme_uri . '/assets/css/modal-pdf.css', ['avance-base'], $version);
-        wp_enqueue_script('avance-modal-pdf', $theme_uri . '/assets/js/modal-pdf.js', [], $version, true);
+        wp_enqueue_script('avance-modal-pdf', $theme_uri . '/assets/js/modal-pdf.js', ['avance-select'], $version, true);
 
         // Forms system
         wp_enqueue_script('avance-forms', $theme_uri . '/assets/js/forms.js', [], $version, true);
@@ -134,10 +138,6 @@ class Avance_Core_Service {
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('form_diagnostico'),
         ]);
-
-        // Custom selects
-        // Unified select component (reemplaza: scheduling-select, form-section-select, proposal-select)
-        wp_enqueue_script('avance-select', $theme_uri . '/assets/js/avance-select-unified.js', [], $version, true);
 
         // Smooth scroll to center for internal links
         wp_enqueue_script('avance-scroll-center', $theme_uri . '/assets/js/scroll-to-center.js', [], $version, true);

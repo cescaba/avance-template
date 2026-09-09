@@ -243,6 +243,7 @@
 .avance-menu-toggle__icon {
 	width: 28px;
 	height: 28px;
+	pointer-events: none;
 }
 
 .avance-menu-toggle__line {

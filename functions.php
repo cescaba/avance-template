@@ -139,9 +139,6 @@ require_once get_template_directory() . '/includes/admin/contacts/class-contacts
 // Admin de Propuestas
 require_once get_template_directory() . '/includes/admin/proposals/class-proposals-admin.php';
 
-// Admin de Agendamientos
-require_once get_template_directory() . '/includes/admin/agendamientos/class-agendamientos-admin.php';
-
 // Admin de Diagnósticos
 require_once get_template_directory() . '/includes/admin/diagnosticos/class-diagnosticos-admin.php';
 

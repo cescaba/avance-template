@@ -94,7 +94,6 @@
 
 	function renderAll() {
 		renderPlans();
-		renderAgenda();
 		renderCalendar();
 	}
 
@@ -132,63 +131,8 @@
 			});
 		});
 
-		// Renderizar botón SOLO en mobile
-		if (isMobile480()) {
-			renderContinueButton();
-		}
 	}
 
-	function renderContinueButton() {
-		let continueBtn = document.getElementById('mentoriaContinueBtn');
-		const isMobile = isMobile480();
-
-		if (isMobile) {
-			// Crear botón SOLO en mobile
-			if (!continueBtn) {
-				const container = document.getElementById('mentoriaPlans');
-				if (!container) return;
-
-				continueBtn = document.createElement('button');
-				continueBtn.type = 'button';
-				continueBtn.id = 'mentoriaContinueBtn';
-				continueBtn.className = 'mentoria-reserva__continue-btn';
-				continueBtn.textContent = 'Continuar reserva';
-				container.parentNode.insertBefore(continueBtn, container.nextSibling);
-
-				// Agregar event listener SOLO UNA VEZ
-				continueBtn.addEventListener('click', () => {
-					if (state.selectedPlan) {
-						const calendarCard = document.getElementById('mentoriaCalendarCard');
-						const plansContainer = document.getElementById('mentoriaPlans');
-						if (plansContainer) plansContainer.classList.add('is-hidden');
-						if (calendarCard) {
-							calendarCard.classList.remove('is-hidden');
-							calendarCard.classList.add('is-visible');
-							setTimeout(() => {
-								calendarCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-							}, 350);
-						}
-						continueBtn.style.display = 'none';
-					} else {
-						showError('Selecciona un plan para continuar');
-					}
-				});
-			}
-
-			// Actualizar estado del botón en mobile
-			if (continueBtn) {
-				continueBtn.disabled = !state.selectedPlan;
-				if (state.selectedPlan && !state.selectedDay && !state.selectedTime) {
-					continueBtn.style.display = 'block';
-				}
-			}
-		} else {
-			// En desktop: remover botón si existe
-			if (continueBtn) {
-				continueBtn.remove();
-			}
-		}
-	}
 
 	function handlePlanSelect() {
 		const planId = this.dataset.plan;
@@ -204,17 +148,6 @@
 		return window.innerWidth <= 479;
 	}
 
-	function toggleElement(selector, show) {
-		const el = document.querySelector(selector);
-		if (!el) return;
-		if (show) {
-			el.classList.remove('is-hidden');
-			el.classList.add('is-visible');
-		} else {
-			el.classList.add('is-hidden');
-			el.classList.remove('is-visible');
-		}
-	}
 
 	function getElement(selector) {
 		return document.querySelector(selector);
@@ -236,28 +169,9 @@
 			submitBtn.disabled = !plan;
 		}
 
-		if (!plan) {
-			toggleElement(DOM_SELECTORS.plansContainer, true);
-			toggleElement(DOM_SELECTORS.calendarCard, false);
-			toggleElement(DOM_SELECTORS.formCard, false);
-		} else if (!state.selectedDay || !state.selectedTime) {
-			if (isMobile480()) {
-				toggleElement(DOM_SELECTORS.plansContainer, true);
-				toggleElement(DOM_SELECTORS.calendarCard, false);
-				toggleElement(DOM_SELECTORS.formCard, false);
-			} else {
-				toggleElement(DOM_SELECTORS.plansContainer, true);
-				toggleElement(DOM_SELECTORS.calendarCard, true);
-				toggleElement(DOM_SELECTORS.formCard, true);
-			}
-		} else {
-			toggleElement(DOM_SELECTORS.plansContainer, false);
-			toggleElement(DOM_SELECTORS.calendarCard, false);
-			toggleElement(DOM_SELECTORS.formCard, true);
-			const continueBtn = getElement(DOM_SELECTORS.continueBtn);
-			if (continueBtn && isMobile480()) {
-				continueBtn.style.display = 'none';
-			}
+		// Mobile flow: mostrar formulario solo si hay fecha Y hora seleccionadas
+		if (state.selectedDay && state.selectedTime) {
+			setFlowDisplay('form');
 		}
 	}
 
@@ -359,11 +273,17 @@
 		const nextBtn = getElement(DOM_SELECTORS.nextMonth);
 		const submitBtn = getElement(DOM_SELECTORS.submitBtn);
 		const whatsappBtn = getElement(DOM_SELECTORS.whatsappBtn);
+		const backBtn = document.getElementById('mentoriaBackBtn');
 
 		if (prevBtn) prevBtn.addEventListener('click', () => changeMonth(-1));
 		if (nextBtn) nextBtn.addEventListener('click', () => changeMonth(1));
 		if (submitBtn) submitBtn.addEventListener('click', handleSubmit);
 		if (whatsappBtn) whatsappBtn.addEventListener('click', handleWhatsAppButton);
+		if (backBtn) backBtn.addEventListener('click', () => {
+			state.selectedDay = null;
+			state.selectedTime = null;
+			renderCalendar();
+		});
 	}
 
 	function handleSubmit(e) {

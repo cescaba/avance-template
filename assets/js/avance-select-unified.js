@@ -39,6 +39,13 @@ class AvanceSelect {
 			}
 		});
 
+		// Close on scroll (importante para fixed positioning)
+		window.addEventListener('scroll', () => {
+			if (this.dropdown.classList.contains('is-open')) {
+				this.closeDropdown();
+			}
+		}, { passive: true });
+
 		// Keyboard navigation
 		this.trigger.addEventListener('keydown', (e) => this.handleKeyboard(e));
 
@@ -60,11 +67,43 @@ class AvanceSelect {
 	openDropdown() {
 		this.dropdown.classList.add('is-open');
 		this.trigger.classList.add('is-open');
+		this.positionDropdown();
+	}
+
+	positionDropdown() {
+		const triggerRect = this.trigger.getBoundingClientRect();
+		const viewportHeight = window.innerHeight;
+		const spaceBelow = viewportHeight - triggerRect.bottom;
+		const spaceAbove = triggerRect.top;
+		const dropdownHeight = 160;
+		const padding = 40; // Espacio mínimo para que no toque bordes
+
+		// Posicionar horizontalmente (alineado con el trigger)
+		this.dropdown.style.left = triggerRect.left + 'px';
+		this.dropdown.style.width = triggerRect.width + 'px';
+
+		// Posicionar verticalmente (abajo o arriba según espacio)
+		// Prioridad: abajo si hay espacio, si no, arriba
+		if (spaceBelow >= dropdownHeight + padding) {
+			// Abrir hacia abajo
+			this.dropdown.style.top = (triggerRect.bottom + 4) + 'px';
+		} else if (spaceAbove >= dropdownHeight + padding) {
+			// Abrir hacia arriba
+			this.dropdown.style.top = (triggerRect.top - dropdownHeight - 4) + 'px';
+		} else {
+			// Si no hay espacio arriba ni abajo, abrir hacia abajo de todas formas
+			// (el dropdown se superpone pero al menos se ve)
+			this.dropdown.style.top = (triggerRect.bottom + 4) + 'px';
+		}
 	}
 
 	closeDropdown() {
 		this.dropdown.classList.remove('is-open');
 		this.trigger.classList.remove('is-open');
+		// Limpiar estilos inline
+		this.dropdown.style.left = '';
+		this.dropdown.style.top = '';
+		this.dropdown.style.width = '';
 	}
 
 	selectOption(option) {

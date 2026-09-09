@@ -2168,58 +2168,39 @@
 	}
 
 	.mentoria-reserva__main {
-		gap: 0;
+		gap: 20px;
 	}
 
-	.mentoria-reserva__main:has(.mentoria-reserva__plans-container:not(.is-hidden)) {
+	.mentoria-reserva__plans-container {
+		display: flex;
+		flex-direction: column;
 		gap: 15px;
 	}
 
-	.mentoria-reserva__plans-container.is-hidden {
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
-		height: 0;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s, margin 0.5s ease 0s;
-	}
-
-	.mentoria-reserva__card.is-hidden {
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
-		height: 0;
-		margin: 0;
-		padding: 0;
-		overflow: hidden;
-		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s;
-	}
-
-	.mentoria-reserva__card.is-visible {
-		opacity: 1;
-		visibility: visible;
-		pointer-events: auto;
-		height: auto;
+	.mentoria-reserva__card {
 		padding: 20px;
-		transition: opacity 0.5s ease 0s, visibility 0.5s ease 0s, height 0.5s ease 0s;
+		background: #fff;
+		border-radius: 8px;
+		border: 1px solid #e0e0e0;
 	}
 
 	.mentoria-reserva__right {
-		gap: 0;
-	}
-
-	.mentoria-reserva__right:has(.mentoria-reserva__card:not(.is-hidden)) {
-		gap: 12px;
+		gap: 20px;
+		height: auto;
+		min-height: auto;
+		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.mentoria-reserva__sidebar {
-		gap: 0;
-	}
-
-	.mentoria-reserva__sidebar:has(.mentoria-reserva__card:not(.is-hidden)) {
-		gap: 12px;
+		gap: 20px;
+		position: relative;
+		width: 100%;
+		height: auto;
+		flex-direction: column;
+		display: flex;
+		padding: 0;
 	}
 
 	.mentoria-reserva__calendar-section {
@@ -2228,6 +2209,8 @@
 
 	.mentoria-reserva__form {
 		gap: 20px;
+		width: 100%;
+		height: auto;
 	}
 
 	.mentoria-reserva__back-btn {
@@ -2252,34 +2235,6 @@
 		animation: var(--button-animation);
 	}
 
-	.mentoria-reserva__continue-btn {
-		display: block;
-		width: 100%;
-		height: 49px;
-		flex: 0 0 auto;
-		background-color: #466060;
-		color: #FFFFFF;
-		border: none;
-		font-weight: 700;
-		font-size: 14px;
-		line-height: 1;
-		letter-spacing: 0px;
-		padding: 0;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-	}
-
-	.mentoria-reserva__continue-btn:hover {
-		background-color: #3d4f50;
-	}
-
-	.mentoria-reserva__continue-btn:disabled {
-		background-color: #99A1AF;
-		cursor: not-allowed;
-		opacity: 0.6;
-		margin-bottom: 0;
-	}
-
 	.mentoria-reserva__whatsapp-btn {
 		height: 49px;
 		flex: 0 0 auto;
@@ -2288,6 +2243,11 @@
 		line-height: 1;
 		letter-spacing: 0px;
 		padding: 0;
+	}
+
+	/* Ocultar botón "Continuar" del calendario en mentoria */
+	#mentoriaCalendarCard .contacto-agenda__form-btn {
+		display: none !important;
 	}
 
 	.mentoria-reserva__kicker {

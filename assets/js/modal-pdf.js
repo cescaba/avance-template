@@ -41,6 +41,28 @@
 		}
 	});
 
+	// Initialize custom selects
+	function initializeSelects() {
+		if (typeof AvanceSelect === 'undefined') {
+			console.warn('AvanceSelect not loaded yet, retrying...');
+			setTimeout(initializeSelects, 100);
+			return;
+		}
+
+		if (document.getElementById('pf-size-trigger')) {
+			new AvanceSelect('pf-size-trigger', 'pf-size-dropdown', 'empleados');
+		}
+		if (document.getElementById('pf-industry-trigger')) {
+			new AvanceSelect('pf-industry-trigger', 'pf-industry-dropdown', 'industria');
+		}
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initializeSelects);
+	} else {
+		initializeSelects();
+	}
+
 	modalForm.addEventListener('submit', (e) => {
 		e.preventDefault();
 

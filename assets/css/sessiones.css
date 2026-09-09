@@ -173,25 +173,23 @@
 }
 
 .avance-select-dropdown {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	margin-top: 4px;
+	position: fixed;
 	border: 1px solid #E5E7EB;
 	border-radius: 8px;
 	background: #FFFFFF;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-	z-index: 1000;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+	z-index: 99999;
 	max-height: 0;
 	overflow: hidden;
 	opacity: 0;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	pointer-events: none;
+	width: auto;
+	min-width: 220px;
 }
 
 .avance-select-dropdown.is-open {
-	max-height: 280px;
+	max-height: 200px;
 	opacity: 1;
 	pointer-events: auto;
 	overflow-y: auto;
@@ -443,17 +441,7 @@
 	transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.contacto-agenda__right.is-hidden {
-	opacity: 0;
-	visibility: hidden;
-	pointer-events: none;
-}
-
-.contacto-agenda__right.is-visible {
-	opacity: 1;
-	visibility: visible;
-	pointer-events: auto;
-}
+/* Las clases is-hidden e is-visible solo aplican en mobile */
 
 .contacto-agenda__form {
 	display: flex;
@@ -842,7 +830,7 @@ select.contacto-agenda__input:valid {
 	}
 
 	.avance-select-dropdown.is-open {
-		max-height: 260px;
+		max-height: 160px;
 	}
 
 	.avance-select-option {
@@ -1494,16 +1482,26 @@ select.contacto-agenda__input:valid {
 	.contacto-agenda__right {
 		display: none;
 		grid-column: 1;
+		min-height: auto;
 		height: auto;
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		gap: 24px;
+		flex-direction: column;
+	}
+
+	.contacto-agenda__right.is-hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
 	}
 
 	.contacto-agenda__right.is-visible {
 		display: flex;
+		min-height: 100%;
+		overflow: visible;
 	}
 
 	.contacto-agenda__header-content {
@@ -1516,10 +1514,13 @@ select.contacto-agenda__input:valid {
 
 	.home-form {
 		padding: 24px var(--lateral-spacing);
+		width: 100%;
+		height: auto;
 	}
 
 	.home-form__container {
 		gap: 20px;
+		height: auto;
 	}
 
 	.contacto-agenda__form-fields {
@@ -1810,4 +1811,9 @@ select.contacto-agenda__input:valid {
 		padding: 6px 8px;
 		font-size: 9px;
 	}
+}
+
+/* Dropdown reducido en contexto de agendamiento (scheduling-section) */
+.contacto-agenda .avance-select-dropdown.is-open {
+	max-height: 120px;
 }

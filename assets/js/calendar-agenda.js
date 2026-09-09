@@ -3,13 +3,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const WEEK_DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 	const TIME_SLOTS = ['15:00', '15:30', '16:00', '16:30', '17:00'];
 
-	const calGrid = document.querySelector('[id$="CalGrid"]');
-	const monthLabel = document.querySelector('[id$="MonthLabel"]');
-	const prevMonthBtn = document.querySelector('[id$="PrevMonth"]');
-	const nextMonthBtn = document.querySelector('[id$="NextMonth"]');
-	const timeContainer = document.querySelector('[id$="TimeSlots"]');
+	// Buscar elementos con selectores más específicos
+	const calGrid = document.querySelector('[id*="CalGrid"]') || document.querySelector('.contacto-agenda__cal-grid');
+	const monthLabel = document.querySelector('[id*="MonthLabel"]') || document.querySelector('.contacto-agenda__cal-month-label');
+	const prevMonthBtn = document.querySelector('[id*="PrevMonth"]');
+	const nextMonthBtn = document.querySelector('[id*="NextMonth"]');
+	const timeContainer = document.querySelector('[id*="TimeSlots"]') || document.querySelector('.contacto-agenda__time-slots');
 
 	if (!calGrid || !monthLabel) {
+		console.warn('Calendar elements not found:', { calGrid: !!calGrid, monthLabel: !!monthLabel });
 		return;
 	}
 
@@ -24,6 +26,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 		cacheTTL: {}, // {fecha: timestamp} - cuándo se cacheó
 		CACHE_DURATION: 5 * 60 * 1000 // 5 minutos
 	};
+
+	// Limpiar selecciones previas en variables globales
+	if (calendarType === 'contacto') {
+		window.contactoSelectedDate = null;
+		window.contactoSelectedTime = null;
+	} else {
+		window.mentoriaSelectedDate = null;
+		window.mentoriaSelectedTime = null;
+	}
 
 	function formatDateKey(year, month, day) {
 		return String(year).padStart(4, '0') + '-' +
@@ -244,6 +255,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 				});
 			}
 
+			// Botón para continuar al formulario (en móvil)
+			const continueBtn = tc.querySelector('.contacto-agenda__form-btn');
+			if (continueBtn) {
+				continueBtn.addEventListener('click', () => {
+					// Ocultar calendario, mostrar formulario
+					const calendarLeft = document.querySelector('.contacto-agenda__left');
+					const formRight = document.querySelector('.contacto-agenda__right');
+					const agendaGrid = document.querySelector('.contacto-agenda__grid');
+					const form = document.getElementById('contacto-agenda-form');
+
+					if (calendarLeft) calendarLeft.classList.add('is-hidden');
+					if (formRight) {
+						formRight.classList.add('is-visible');
+						formRight.classList.remove('is-hidden');
+					}
+
+					// Ajustar altura del grid al formulario
+					if (agendaGrid && formRight) {
+						setTimeout(() => {
+							const formHeight = formRight.offsetHeight;
+							agendaGrid.style.minHeight = formHeight + 'px';
+						}, 10);
+					}
+
+					// Scroll y focus al formulario
+					if (form) {
+						form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						setTimeout(() => form.focus(), 300);
+					}
+				});
+			}
+
 		}
 	}
 
@@ -278,6 +321,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 		backBtn.addEventListener('click', async () => {
 			state.selectedKey = null;
 			state.selectedTime = null;
+
+			// Mostrar calendario y ocultar formulario en móvil
+			const calendarLeft = document.querySelector('.contacto-agenda__left');
+			const formRight = document.querySelector('.contacto-agenda__right');
+			const agendaGrid = document.querySelector('.contacto-agenda__grid');
+
+			if (calendarLeft) calendarLeft.classList.remove('is-hidden');
+			if (formRight) {
+				formRight.classList.add('is-hidden');
+				formRight.classList.remove('is-visible');
+			}
+
+			// Reset altura del grid
+			if (agendaGrid) {
+				agendaGrid.style.minHeight = 'auto';
+			}
+
 			await renderCalendar();
 			renderTimeSlots();
 		});
@@ -354,5 +414,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	};
 
+	// Mostrar calendario inicialmente limpio
+	const calendarLeft = document.querySelector('.contacto-agenda__left');
+	const formRight = document.querySelector('.contacto-agenda__right');
+	const agendaGrid = document.querySelector('.contacto-agenda__grid');
+
+	if (calendarLeft) calendarLeft.classList.remove('is-hidden');
+	if (formRight) {
+		formRight.classList.add('is-hidden');
+		formRight.classList.remove('is-visible');
+	}
+	if (agendaGrid) {
+		agendaGrid.style.minHeight = 'auto';
+	}
+
 	await renderCalendar();
+	renderTimeSlots();
 });

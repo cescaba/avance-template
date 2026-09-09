@@ -43,16 +43,22 @@ class AnimationsSystem {
 	}
 
 	/**
-	 * Inicializa counter animations para .home-features__stat
+	 * Inicializa counter animations para .home-features__stat y .servicio-intro__stat-number
 	 */
 	initCounterAnimations() {
 		if (!('IntersectionObserver' in window)) {
 			return;
 		}
 
-		const statsElements = document.querySelectorAll('.home-features__stat');
+		// Para .home-features__stat, usar el elemento directo
+		const homeStatsElements = document.querySelectorAll('.home-features__stat');
 
-		if (!statsElements.length) return;
+		// Para .servicio-intro__stat, usar el span .servicio-intro__stat-number dentro
+		const servicioStatsNumbers = document.querySelectorAll('.servicio-intro__stat-number');
+
+		const allElements = [...homeStatsElements, ...servicioStatsNumbers];
+
+		if (!allElements.length) return;
 
 		const observer = new IntersectionObserver(
 			(entries) => this.handleCounterIntersection(entries),
@@ -62,7 +68,7 @@ class AnimationsSystem {
 			}
 		);
 
-		statsElements.forEach((element) => {
+		allElements.forEach((element) => {
 			// Primero intenta usar data-value si existe
 			let counter = null;
 			if (element.dataset.value) {

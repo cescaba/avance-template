@@ -446,6 +446,185 @@
 	}
 }
 
+/* Custom Select Component in Modal */
+.pf-field .avance-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.pf-field .avance-select-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 46px;
+	padding: 13px 17px;
+	font-family: Inter, sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 100%;
+	color: #99A1AF;
+	border: 1px solid #D0D5E0;
+	border-radius: 3px;
+	background: #ffffff;
+	cursor: pointer;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	box-sizing: border-box;
+	user-select: none;
+}
+
+.pf-field .avance-select-trigger:hover {
+	border-color: #c0c5d0;
+}
+
+.pf-field .avance-select-trigger.is-open {
+	border-color: #3f5c52;
+	box-shadow: 0 0 0 3px rgba(63, 92, 82, 0.12);
+}
+
+.pf-field .avance-select-trigger.has-value .avance-select-value {
+	color: #2C2629;
+}
+
+.pf-field .avance-select-value {
+	flex: 1;
+	text-align: left;
+	transition: color 0.2s;
+}
+
+.pf-field .avance-select-icon {
+	width: 14px;
+	height: 14px;
+	flex-shrink: 0;
+	margin-left: 10px;
+	color: #8a9099;
+	transition: transform 0.3s ease;
+}
+
+.pf-field .avance-select-trigger.is-open .avance-select-icon {
+	transform: scaleY(-1);
+}
+
+.pf-field .avance-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.pf-field .avance-select-dropdown {
+	position: fixed;
+	border: 1px solid #D0D5E0;
+	border-radius: 3px;
+	background: #FFFFFF;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	z-index: 99999;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease, max-height 0.3s ease;
+	pointer-events: none;
+	width: auto;
+	min-width: 200px;
+}
+
+.pf-field .avance-select-dropdown.is-open {
+	max-height: 160px;
+	opacity: 1;
+	pointer-events: auto;
+	overflow-y: auto;
+}
+
+.pf-field .avance-select-option {
+	padding: 11px 15px;
+	font-family: Inter, sans-serif;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 100%;
+	color: #2C2629;
+	cursor: pointer;
+	transition: all 0.2s;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.pf-field .avance-select-option:last-child {
+	border-bottom: none;
+}
+
+.pf-field .avance-select-option:first-child {
+	color: #99A1AF;
+}
+
+.pf-field .avance-select-option:hover {
+	background: #f9fafb;
+	color: #466060;
+}
+
+.pf-field .avance-select-option.is-selected {
+	background: #f0f4ef;
+	color: #466060;
+	font-weight: 500;
+}
+
+.pf-field .avance-select-option.is-selected::before {
+	content: "✓";
+	margin-right: 8px;
+	color: #466060;
+	font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1025px) and (max-width: 1440px) {
+	.pf-field .avance-select-trigger {
+		height: 42px;
+		padding: 11px 15px;
+		font-size: 13px;
+	}
+
+	.pf-field .avance-select-dropdown.is-open {
+		max-height: 160px;
+	}
+
+	.pf-field .avance-select-option {
+		padding: 10px 13px;
+		font-size: 12px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.pf-field .avance-select-trigger {
+		height: 40px;
+		padding: 10px 14px;
+		font-size: 12px;
+	}
+
+	.pf-field .avance-select-dropdown.is-open {
+		max-height: 150px;
+	}
+
+	.pf-field .avance-select-option {
+		padding: 9px 12px;
+		font-size: 11px;
+	}
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+	.pf-field .avance-select-trigger {
+		height: 38px;
+		padding: 9px 12px;
+		font-size: 11px;
+	}
+
+	.pf-field .avance-select-dropdown.is-open {
+		max-height: 180px;
+	}
+
+	.pf-field .avance-select-option {
+		padding: 8px 11px;
+		font-size: 10px;
+	}
+}
+
 /* Notifications container */
 #pf-notifications {
 	display: flex;

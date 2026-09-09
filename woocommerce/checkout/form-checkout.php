@@ -13,6 +13,32 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+/**
+ * Obtiene el costo de envío dinámicamente desde WooCommerce
+ * Lee las zonas de envío y obtiene el precio fijo configurado
+ */
+function get_checkout_shipping_cost() {
+	$shipping_zones = WC_Shipping_Zones::get_zones();
+
+	// Si hay zonas de envío configuradas
+	if (!empty($shipping_zones)) {
+		// Obtener la primera zona (normalmente "En todas partes")
+		$zone = reset($shipping_zones);
+		$zone_obj = new WC_Shipping_Zone($zone['id']);
+		$shipping_methods = $zone_obj->get_shipping_methods();
+
+		// Buscar el método de envío con precio fijo
+		foreach ($shipping_methods as $method) {
+			if ($method->is_enabled() && isset($method->cost)) {
+				return (float) $method->cost;
+			}
+		}
+	}
+
+	// Si no hay envío configurado, devolver 0
+	return 0;
+}
+
 // PROCESAR FORMULARIO POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['woocommerce_pay'])) {
 	// Validar nonce
@@ -179,18 +205,27 @@ do_action('woocommerce_before_checkout_form', $checkout);
 
 			<div class="checkout-totals">
 				<div class="checkout-totals-row"><span>Subtotal</span><strong><?php echo wp_kses_post(wc_price(WC()->cart->get_subtotal())); ?></strong></div>
+				<div class="checkout-totals-row"><span>Costo de envío</span><strong><?php echo wp_kses_post(wc_price(get_checkout_shipping_cost())); ?></strong></div>
 			</div>
 
 			<div class="checkout-total">
 				<span class="checkout-total-label">Total</span>
-				<span class="checkout-total-value"><?php echo wp_kses_post(WC()->cart->get_total()); ?></span>
+				<span class="checkout-total-value"><?php
+					$subtotal = WC()->cart->get_subtotal();
+					$total_with_shipping = $subtotal + get_checkout_shipping_cost();
+					echo wp_kses_post(wc_price($total_with_shipping));
+				?></span>
 			</div>
 
 			<div class="checkout-actions">
 				<?php wp_nonce_field('woocommerce-pay', 'woocommerce-pay-nonce'); ?>
 				<input type="hidden" name="woocommerce_pay" value="1" />
 				<button class="checkout-btn-pay" type="submit" id="place_order">
-					Pagar por el pedido · <?php echo wp_kses_post(WC()->cart->get_total()); ?>
+					Pagar por el pedido · <?php
+						$subtotal = WC()->cart->get_subtotal();
+						$total_with_shipping = $subtotal + get_checkout_shipping_cost();
+						echo wp_kses_post(wc_price($total_with_shipping));
+					?>
 				</button>
 
 				<p class="checkout-secure">

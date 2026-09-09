@@ -126,11 +126,6 @@ require_once get_template_directory() . '/includes/database/pdf-downloads/class-
 // Incluir clases de AGENDAMIENTO DE SESIONES
 require_once get_template_directory() . '/includes/database/agendamientos-sesiones/class-agendamiento-contacto-db.php';
 
-
-// Incluir clases de PROPUESTAS
-require_once get_template_directory() . '/includes/database/proposals/class-proposal-db.php';
-require_once get_template_directory() . '/includes/database/proposals/class-proposal-handler.php';
-
 // Incluir actualización de precios de mentoría
 require_once get_template_directory() . '/includes/mentoria/update-mentoria-prices.php';
 

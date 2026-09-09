@@ -54,7 +54,7 @@ get_header();
     </section>
 
     <!-- Section 2: Nuestros Servicios -->
-    <section class="servicio-offers" aria-label="Oferta de servicios">
+    <section id="servicio-offers" class="servicio-offers" aria-label="Oferta de servicios">
         <div class="servicio-offers__container">
             <header class="servicio-offers__header">
                 <p class="servicio-offers__label">SERVICIOS TOP CLASS</p>

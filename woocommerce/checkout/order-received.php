@@ -137,6 +137,9 @@ if ( empty( $bank_info ) && function_exists( 'get_field' ) ) {
         <div class="order-row"><dt>Fecha del pedido</dt><dd><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></dd></div>
         <div class="order-row"><dt>Método de pago</dt><dd><?php echo esc_html( $order->get_payment_method_title() ); ?></dd></div>
         <div class="order-row"><dt>Subtotal</dt><dd><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></dd></div>
+        <?php if ( $order->get_shipping_total() > 0 ) : ?>
+        <div class="order-row"><dt>Costo de envío</dt><dd><?php echo wp_kses_post( wc_price( $order->get_shipping_total() ) ); ?></dd></div>
+        <?php endif; ?>
       </dl>
 
       <!-- Total -->

@@ -63,7 +63,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Capacitación', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Programas ejecutivos y seminarios de alto impacto. In-company o formato abierto. Metodología experiencial.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('servicio-empresa')) . '#servicio-offers'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 				<div class="home-services__item">
@@ -71,7 +71,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Consultoría Comercial', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Diagnóstico y estrategia orientada a resultados. Acompañamiento en la implementación del proceso comercial.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('servicio-empresa')) . '#servicio-contact'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 				<div class="home-services__item">
@@ -79,7 +79,7 @@ get_header();
 					<h3 class="home-services__item-title"><?php esc_html_e('Mentoría 1:1', 'avance-template'); ?></h3>
 					<p class="home-services__item-text"><?php esc_html_e('Mentoría personalizada para ejecutivos y emprendedores en búsqueda de crecimiento.', 'avance-template'); ?></p>
 					<div class="home-services__actions">
-						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-booking'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
+						<a href="<?php echo esc_url(get_permalink(get_page_by_path('mentorias')) . '#mentoria-intro'); ?>" class="home-services__btn"><?php esc_html_e('Consultar programa', 'avance-template'); ?></a>
 					</div>
 				</div>
 			</div>

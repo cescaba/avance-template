@@ -372,8 +372,13 @@ class DiagnosticoSubmitHandler {
 		ajaxData.append('whatsapp', formData.whatsapp);
 
 		if (Array.isArray(formData.respuestas)) {
-			formData.respuestas.forEach((respuesta) => {
-				ajaxData.append('respuestas[]', respuesta);
+			formData.respuestas.forEach((item) => {
+				let valor = item;
+				// Compatible con ambos formatos: {pregunta, respuesta} o string
+				if (typeof item === 'object' && item !== null && item.respuesta) {
+					valor = item.respuesta;
+				}
+				ajaxData.append('respuestas[]', valor);
 			});
 		}
 

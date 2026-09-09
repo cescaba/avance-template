@@ -39,6 +39,10 @@ require_once get_template_directory() . '/includes/helpers/class-header-helpers.
 require_once get_template_directory() . '/includes/helpers/class-footer-helpers.php';
 require_once get_template_directory() . '/includes/helpers/class-menu-helpers.php';
 
+// Incluir handlers AJAX
+require_once get_template_directory() . '/includes/api/class-diagnostico-handler.php';
+require_once get_template_directory() . '/includes/api/class-servicio-empresa-handler.php';
+
 // Incluir servicios core
 require_once get_template_directory() . '/includes/core/class-logger.php';  // Logger con levels
 require_once get_template_directory() . '/includes/core/class-core-service.php';
@@ -237,4 +241,27 @@ if (!function_exists('avance_get_whatsapp_link')) {
 		return Avance_Footer_Helpers::get_whatsapp_link();
 	}
 }
+
+/**
+ * ===== AJAX HANDLERS =====
+ * Registro de acciones AJAX para formularios
+ */
+
+// Diagnóstico - Submit handler (público y autenticado)
+add_action('wp_ajax_nopriv_avance_submit_diagnostico', function() {
+	(new Avance_Diagnostico_Handler())->process();
+});
+
+add_action('wp_ajax_avance_submit_diagnostico', function() {
+	(new Avance_Diagnostico_Handler())->process();
+});
+
+// Servicio Empresa - Submit handler (público y autenticado)
+add_action('wp_ajax_nopriv_avance_submit_servicio_empresa', function() {
+	(new Avance_Servicio_Empresa_Handler())->process();
+});
+
+add_action('wp_ajax_avance_submit_servicio_empresa', function() {
+	(new Avance_Servicio_Empresa_Handler())->process();
+});
 

@@ -16,7 +16,7 @@ get_header();
 <main class="site-main">
 
 	<!-- SECTION 1: Mentoría 1:1 -->
-	<section class="mentoria-intro" aria-label="<?php esc_attr_e('Mentoría Personalizada', 'avance-template'); ?>">
+	<section id="mentoria-intro" class="mentoria-intro" aria-label="<?php esc_attr_e('Mentoría Personalizada', 'avance-template'); ?>">
 		<div class="mentoria-intro__container">
 			<div class="mentoria-intro__features">
 				<div class="mentoria-intro__mentoria">

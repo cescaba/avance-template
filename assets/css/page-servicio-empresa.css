@@ -687,25 +687,22 @@
 }
 
 .avance-select-dropdown {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	margin-top: 4px;
+	position: fixed;
 	border: 1px solid #E5E7EB;
 	border-radius: 8px;
 	background: #FFFFFF;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-	z-index: 1000;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+	z-index: 99999;
 	max-height: 0;
 	overflow: hidden;
 	opacity: 0;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	pointer-events: none;
+	min-width: 220px;
 }
 
 .avance-select-dropdown.is-open {
-	max-height: 280px;
+	max-height: 200px;
 	opacity: 1;
 	pointer-events: auto;
 	overflow-y: auto;
@@ -744,12 +741,6 @@
 	font-weight: 500;
 }
 
-.avance-select-option.is-selected::before {
-	content: "✓";
-	margin-right: 8px;
-	color: #466060;
-	font-weight: 600;
-}
 
 .avance-select-hidden {
 	position: absolute;

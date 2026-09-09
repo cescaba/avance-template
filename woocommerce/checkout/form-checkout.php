@@ -79,6 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['woocommerce_pay'])) {
 		$order->add_product($product, $cart_item['quantity']);
 	}
 
+	// Agregar costo de envío sincronizado con WooCommerce
+	$shipping_cost = get_checkout_shipping_cost();
+	if ($shipping_cost > 0) {
+		$shipping_item = new WC_Order_Item_Shipping();
+		$shipping_item->set_method_title('Envío');
+		$shipping_item->set_method_id('flat_rate');
+		$shipping_item->set_total($shipping_cost);
+		$order->add_item($shipping_item);
+	}
+
 	// Establecer datos de facturación
 	$order->set_billing_first_name($billing_first_name);
 	$order->set_billing_last_name($billing_last_name);
@@ -161,16 +171,14 @@ do_action('woocommerce_before_checkout_form', $checkout);
 					</div>
 					<div class="checkout-field checkout-field-wide">
 						<label class="checkout-form-label" for="billing_country">País <span class="checkout-req">*</span></label>
-						<select class="checkout-form-input" id="billing_country" name="billing_country" autocomplete="country-name" required>
-							<option value="">Selecciona un país</option>
-							<option value="PE" <?php selected($checkout->get_value('billing_country'), 'PE'); ?>>Perú</option>
-							<option value="CL" <?php selected($checkout->get_value('billing_country'), 'CL'); ?>>Chile</option>
-							<option value="CO" <?php selected($checkout->get_value('billing_country'), 'CO'); ?>>Colombia</option>
-							<option value="MX" <?php selected($checkout->get_value('billing_country'), 'MX'); ?>>México</option>
-							<option value="AR" <?php selected($checkout->get_value('billing_country'), 'AR'); ?>>Argentina</option>
-							<option value="ES" <?php selected($checkout->get_value('billing_country'), 'ES'); ?>>España</option>
-							<option value="US" <?php selected($checkout->get_value('billing_country'), 'US'); ?>>Estados Unidos</option>
-						</select>
+						<input
+							type="text"
+							class="checkout-form-input"
+							id="billing_country"
+							name="billing_country"
+							value="Perú"
+							readonly
+						>
 					</div>
 				</div>
 			</div>

@@ -157,6 +157,9 @@
 	flex: 1;
 	text-align: left;
 	transition: color 0.2s;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .avance-select-icon {
@@ -228,12 +231,6 @@
 	font-weight: 500;
 }
 
-.avance-select-option.is-selected::before {
-	content: "✓";
-	margin-right: 8px;
-	color: #466060;
-	font-weight: 600;
-}
 
 .avance-select-hidden {
 	position: absolute;
@@ -978,6 +975,10 @@ select.contacto-agenda__input:valid {
 	.contacto-agenda__btn--back {
 		display: none;
 	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 200px;
+	}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1213,6 +1214,10 @@ select.contacto-agenda__input:valid {
 	.contacto-agenda__btn--back {
 		display: none;
 	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 180px;
+	}
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
@@ -1389,9 +1394,6 @@ select.contacto-agenda__input:valid {
 		font-size: 10px;
 	}
 
-	.avance-select-option.is-selected::before {
-		margin-right: 6px;
-	}
 
 	.contacto-agenda__select-option {
 		padding: 7px 10px;
@@ -1459,6 +1461,10 @@ select.contacto-agenda__input:valid {
 
 	.contacto-agenda__btn--back {
 		display: none;
+	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 160px;
 	}
 }
 
@@ -1559,9 +1565,6 @@ select.contacto-agenda__input:valid {
 		font-size: 14px;
 	}
 
-	.avance-select-option.is-selected::before {
-		margin-right: 6px;
-	}
 
 	.contacto-agenda__select-menu {
 		max-height: 280px;
@@ -1811,9 +1814,9 @@ select.contacto-agenda__input:valid {
 		padding: 6px 8px;
 		font-size: 9px;
 	}
+
+	.avance-select-dropdown.is-open {
+		max-height: 140px;
+	}
 }
 
-/* Dropdown reducido en contexto de agendamiento (scheduling-section) */
-.contacto-agenda .avance-select-dropdown.is-open {
-	max-height: 120px;
-}

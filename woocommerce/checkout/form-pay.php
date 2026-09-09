@@ -105,6 +105,9 @@ if ( ! $order ) {
 
       <div class="checkout-totals">
         <div class="checkout-totals-row"><span>Subtotal</span><strong><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></strong></div>
+        <?php if ( $order->get_shipping_total() > 0 ) : ?>
+        <div class="checkout-totals-row"><span>Costo de envío</span><strong><?php echo wp_kses_post( wc_price( $order->get_shipping_total() ) ); ?></strong></div>
+        <?php endif; ?>
       </div>
 
       <div class="checkout-total">

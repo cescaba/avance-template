@@ -566,12 +566,6 @@
 	font-weight: 500;
 }
 
-.pf-field .avance-select-option.is-selected::before {
-	content: "✓";
-	margin-right: 8px;
-	color: #466060;
-	font-weight: 600;
-}
 
 /* Responsive adjustments */
 @media (min-width: 1025px) and (max-width: 1440px) {

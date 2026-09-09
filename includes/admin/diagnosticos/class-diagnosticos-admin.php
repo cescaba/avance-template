@@ -65,7 +65,7 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 	public function render_page() {
 		global $wpdb;
 
-		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha_creacion DESC LIMIT 50");
+		$this->records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC LIMIT 50");
 		$this->total = intval($wpdb->get_var("SELECT COUNT(*) FROM {$this->wpdb_table}"));
 
 		$this->render();
@@ -248,7 +248,7 @@ class Avance_Diagnosticos_Admin extends Avance_Admin_Template {
 		}
 
 		global $wpdb;
-		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY fecha_creacion DESC");
+		$records = $wpdb->get_results("SELECT * FROM {$this->wpdb_table} ORDER BY id ASC");
 
 		if (empty($records)) {
 			wp_send_json_error(['message' => 'No hay diagnósticos para descargar']);

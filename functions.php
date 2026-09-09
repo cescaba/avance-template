@@ -34,6 +34,11 @@ add_filter('script_loader_tag', function($tag, $handle) {
 require_once get_template_directory() . '/config/settings.php';
 require_once get_template_directory() . '/config/theme-config.php';
 
+// Incluir helpers
+require_once get_template_directory() . '/includes/helpers/class-header-helpers.php';
+require_once get_template_directory() . '/includes/helpers/class-footer-helpers.php';
+require_once get_template_directory() . '/includes/helpers/class-menu-helpers.php';
+
 // Incluir servicios core
 require_once get_template_directory() . '/includes/core/class-logger.php';  // Logger con levels
 require_once get_template_directory() . '/includes/core/class-core-service.php';
@@ -42,6 +47,7 @@ require_once get_template_directory() . '/includes/core/class-ajax-handler.php';
 // Instanciar servicios core
 new Avance_Core_Service();
 new Avance_Ajax_Handler();
+new Avance_Menu_Helpers();
 
 // Optimizaciones de rendimiento
 require_once get_template_directory() . '/includes/performance/class-performance-optimizer.php';
@@ -185,4 +191,50 @@ add_action('wp_ajax_comprar_libro', function() {
 	WC()->cart->add_to_cart($producto_id, 1);
 	wp_send_json_success(['message' => 'Producto añadido']);
 });
+
+/**
+ * ===== HEADER HELPERS =====
+ * Funciones auxiliares para el header - Production Safe
+ */
+
+/**
+ * ===== WRAPPER FUNCTIONS =====
+ * Wrappers para backward compatibility - Llaman a las clases helpers
+ */
+
+if (!function_exists('avance_is_page_active')) {
+	function avance_is_page_active($slug) {
+		return Avance_Header_Helpers::is_page_active($slug);
+	}
+}
+
+if (!function_exists('avance_get_whatsapp_url')) {
+	function avance_get_whatsapp_url() {
+		return Avance_Header_Helpers::get_whatsapp_url();
+	}
+}
+
+if (!function_exists('avance_get_contact_email')) {
+	function avance_get_contact_email() {
+		return Avance_Footer_Helpers::get_contact_email();
+	}
+}
+
+if (!function_exists('avance_get_contact_phone_primary')) {
+	function avance_get_contact_phone_primary() {
+		return Avance_Footer_Helpers::get_contact_phone_primary();
+	}
+}
+
+if (!function_exists('avance_get_page_link')) {
+	function avance_get_page_link($slug) {
+		return Avance_Footer_Helpers::get_page_link($slug);
+	}
+}
+
+if (!function_exists('avance_get_whatsapp_link')) {
+	function avance_get_whatsapp_link() {
+		return Avance_Footer_Helpers::get_whatsapp_link();
+	}
+}
 

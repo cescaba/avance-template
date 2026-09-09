@@ -92,17 +92,22 @@ class Avance_Servicio_Empresa_Handler {
 		$mensaje .= "Desafío Comercial:\n" . $data['desafio_comercial'] . "\n\n";
 		$mensaje .= "Quedo atento a sus comentarios.";
 
-		// Normalizar número de WhatsApp del usuario
-		$whatsapp_normalizado = preg_replace('/[^0-9]/', '', $data['whatsapp']);
+		// Normalizar número de WhatsApp del admin (AVANCE_WHATSAPP_OWNER)
+		$owner_phone = defined('AVANCE_WHATSAPP_OWNER') ? AVANCE_WHATSAPP_OWNER : '';
+		if (empty($owner_phone)) {
+			header('Content-Type: application/json');
+			echo json_encode(['success' => false, 'data' => ['message' => 'Configuración de WhatsApp no disponible']]);
+			wp_die();
+		}
+
+		$whatsapp_normalizado = preg_replace('/[^0-9]/', '', $owner_phone);
 		if (strlen($whatsapp_normalizado) === 9) {
-			// Si es 9 dígitos (sin código país), agregar 51
 			$whatsapp_normalizado = '51' . $whatsapp_normalizado;
 		} elseif (strlen($whatsapp_normalizado) === 10 && substr($whatsapp_normalizado, 0, 1) !== '5') {
-			// Si es 10 dígitos pero no empieza con 5, agregar 51
 			$whatsapp_normalizado = '51' . $whatsapp_normalizado;
 		}
 
-		// URL de WhatsApp dirigido al número del usuario
+		// URL de WhatsApp dirigido al número del admin
 		$url = 'https://wa.me/' . $whatsapp_normalizado . '?text=' . urlencode($mensaje);
 
 		// Respuesta exitosa

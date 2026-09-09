@@ -155,9 +155,6 @@ class Avance_Core_Service {
         if (class_exists('Avance_Contact_DB')) {
             Avance_Contact_DB::create_table();
         }
-        if (class_exists('Avance_Proposal_DB')) {
-            Avance_Proposal_DB::create_table();
-        }
         if (class_exists('Avance_Agendamiento_Contacto_DB')) {
             Avance_Agendamiento_Contacto_DB::create_table();
         }

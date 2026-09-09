@@ -13,69 +13,9 @@ if (!defined('ABSPATH')) {
 class Avance_Ajax_Handler {
 
     public function __construct() {
-        // Propuestas
-        add_action('wp_ajax_avance_proposal_submit', [$this, 'handle_proposal']);
-        add_action('wp_ajax_nopriv_avance_proposal_submit', [$this, 'handle_proposal']);
-
         // Mentoría Checkout
         add_action('wp_ajax_avance_save_mentoria_checkout_data', [$this, 'handle_mentoria_checkout']);
         add_action('wp_ajax_nopriv_avance_save_mentoria_checkout_data', [$this, 'handle_mentoria_checkout']);
-    }
-
-    /**
-     * Handle Propuestas
-     */
-    public function handle_proposal() {
-        check_ajax_referer('avance_proposal_form', 'nonce');
-
-        // SANITIZAR
-        $data = [
-            'nombre'            => sanitize_text_field($_POST['nombre'] ?? ''),
-            'cargo'             => sanitize_text_field($_POST['cargo'] ?? ''),
-            'empresa'           => sanitize_text_field($_POST['empresa'] ?? ''),
-            'tamaño_equipo'     => sanitize_text_field($_POST['tamaño_equipo'] ?? ''),
-            'email'             => sanitize_email($_POST['email'] ?? ''),
-            'whatsapp'          => sanitize_text_field($_POST['whatsapp'] ?? ''),
-            'servicio_interes'  => sanitize_text_field($_POST['servicio_interes'] ?? ''),
-            'desafio_comercial' => sanitize_textarea_field($_POST['desafio_comercial'] ?? ''),
-        ];
-
-        // Validar
-        $validation = Avance_Proposal_Handler::validate($data);
-        if (!$validation['success']) {
-            wp_send_json_error(['message' => implode(', ', $validation['errors'])]);
-        }
-
-        // Procesar
-        $result = Avance_Proposal_Handler::process($validation['data']);
-        if (!$result['success']) {
-            wp_send_json_error(['message' => $result['message']]);
-        }
-
-        // WhatsApp
-        $mensaje = sprintf(
-            "Hola, tengo interés en una propuesta:\n\nNombre: %s\nCargo: %s\nEmpresa: %s\nEquipo: %s\nEmail: %s\nWA: %s\nServicio: %s\nDesafío: %s",
-            $validation['data']['nombre'],
-            $validation['data']['cargo'] ?: 'No esp.',
-            $validation['data']['empresa'],
-            $validation['data']['tamaño_equipo'] ?: 'No esp.',
-            $validation['data']['email'],
-            $validation['data']['whatsapp'] ?: 'No esp.',
-            $validation['data']['servicio_interes'],
-            $validation['data']['desafio_comercial']
-        );
-
-        // Normalizar número para WhatsApp (agregar +51 si falta)
-        $phone = preg_replace('/[^0-9]/', '', AVANCE_WHATSAPP);
-        if (strlen($phone) === 9) {
-            $phone = '51' . $phone;
-        }
-        $wa_url = 'https://wa.me/' . $phone . '?text=' . urlencode($mensaje);
-
-        wp_send_json_success([
-            'id' => $result['id'],
-            'whatsapp_url' => $wa_url,
-        ]);
     }
 
     /**

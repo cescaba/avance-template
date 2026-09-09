@@ -1,7 +1,7 @@
 <?php
 /**
- * Proposals Admin - Gestor de propuestas
- * Tabla: wp_avance_proposals
+ * Proposals Admin - Gestor de solicitudes de servicios empresariales
+ * Tabla: wp_avance_servicios_empresas
  * Extiende Avance_Admin_Template para renderizado personalizado
  *
  * @package Avance_Template
@@ -17,15 +17,15 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 
 	public function __construct() {
 		global $wpdb;
-		$this->wpdb_table = $wpdb->prefix . 'avance_proposals';
+		$this->wpdb_table = $wpdb->prefix . 'avance_servicios_empresas';
 
 		$columns = [
 			['field' => 'id', 'label' => 'ID'],
 			['field' => 'nombre', 'label' => 'Nombre'],
+			['field' => 'email', 'label' => 'Email'],
 			['field' => 'empresa', 'label' => 'Empresa'],
 			['field' => 'servicio_interes', 'label' => 'Servicio'],
-			['field' => 'status', 'label' => 'Estado'],
-			['field' => 'created_at', 'label' => 'Fecha'],
+			['field' => 'fecha_creacion', 'label' => 'Fecha'],
 		];
 
 		$nonce = wp_create_nonce('proposals_admin');
@@ -76,11 +76,10 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 		switch ($field) {
 			case 'nombre':
 				return '<strong>' . esc_html($record->nombre ?? '—') . '</strong>';
-			case 'status':
-				$status_class = 'status-' . sanitize_html_class($record->status ?? 'unknown');
-				return '<span class="status-badge ' . esc_attr($status_class) . '">' . esc_html($record->status ?? '—') . '</span>';
-			case 'created_at':
-				return esc_html(wp_date('d/m/Y H:i', strtotime($record->created_at)));
+			case 'email':
+				return '<a href="mailto:' . esc_attr($record->email) . '">' . esc_html($record->email ?? '—') . '</a>';
+			case 'fecha_creacion':
+				return esc_html(wp_date('d/m/Y H:i', strtotime($record->fecha_creacion)));
 			default:
 				return esc_html($record->$field ?? '—');
 		}
@@ -100,7 +99,7 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
-			wp_send_json_error(['message' => 'Propuesta no encontrada']);
+			wp_send_json_error(['message' => 'Solicitud no encontrada']);
 		}
 
 		$html = $this->generate_modal_html($record);
@@ -128,7 +127,7 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 			wp_send_json_error(['message' => 'Error al eliminar']);
 		}
 
-		wp_send_json_success(['message' => 'Propuesta eliminada correctamente']);
+		wp_send_json_success(['message' => 'Solicitud eliminada correctamente']);
 	}
 
 	public function ajax_download_record() {
@@ -145,11 +144,11 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 		$record = $wpdb->get_row($wpdb->prepare($query, $id));
 
 		if (!$record) {
-			wp_send_json_error(['message' => 'Propuesta no encontrada']);
+			wp_send_json_error(['message' => 'Solicitud no encontrada']);
 		}
 
 		$csv = $this->generate_csv_record($record);
-		$this->send_csv_download($csv, 'propuesta_' . $id . '_' . date('Y-m-d_H-i-s') . '.csv');
+		$this->send_csv_download($csv, 'solicitud_' . $id . '_' . date('Y-m-d_H-i-s') . '.csv');
 	}
 
 	public function ajax_download_all() {
@@ -164,11 +163,11 @@ class Avance_Proposals_Admin extends Avance_Admin_Template {
 		$records = $wpdb->get_results($query);
 
 		if (empty($records)) {
-			wp_send_json_error(['message' => 'No hay propuestas para descargar']);
+			wp_send_json_error(['message' => 'No hay solicitudes para descargar']);
 		}
 
 		$csv = $this->generate_csv_all($records);
-		$this->send_csv_download($csv, 'propuestas_' . date('Y-m-d_H-i-s') . '.csv');
+		$this->send_csv_download($csv, 'solicitudes_' . date('Y-m-d_H-i-s') . '.csv');
 	}
 }
 

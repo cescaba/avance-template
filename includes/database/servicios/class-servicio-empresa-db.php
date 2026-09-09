@@ -62,7 +62,7 @@ class Avance_Servicio_Empresa_DB {
 		global $wpdb;
 		$table = self::table_name();
 
-		$result = $wpdb->insert($table, [
+		$insert_data = [
 			'nombre'              => sanitize_text_field($data['nombre']),
 			'cargo'               => sanitize_text_field($data['cargo'] ?? ''),
 			'empresa'             => sanitize_text_field($data['empresa']),
@@ -71,7 +71,14 @@ class Avance_Servicio_Empresa_DB {
 			'whatsapp'            => sanitize_text_field($data['whatsapp'] ?? ''),
 			'servicio_interes'    => sanitize_text_field($data['servicio_interes']),
 			'desafio_comercial'   => sanitize_textarea_field($data['desafio_comercial']),
-		], ['%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);
+		];
+
+		$result = $wpdb->insert($table, $insert_data, ['%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s']);
+
+		if (!$result) {
+			error_log('Avance_Servicio_Empresa_DB::insert failed - Error: ' . $wpdb->last_error);
+			error_log('Insert data - Email: ' . ($insert_data['email'] ?? 'N/A') . ', Empresa: ' . ($insert_data['empresa'] ?? 'N/A'));
+		}
 
 		return $result ? $wpdb->insert_id : false;
 	}

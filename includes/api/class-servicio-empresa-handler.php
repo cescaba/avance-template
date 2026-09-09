@@ -60,6 +60,18 @@ class Avance_Servicio_Empresa_Handler {
 			wp_die();
 		}
 
+		if (strlen($data['desafio_comercial']) < 10) {
+			header('Content-Type: application/json');
+			echo json_encode(['success' => false, 'data' => ['message' => 'Describe tu desafío comercial con más detalle (mínimo 10 caracteres)']]);
+			wp_die();
+		}
+
+		if (!empty($data['whatsapp']) && strlen(preg_replace('/[^0-9]/', '', $data['whatsapp'])) < 9) {
+			header('Content-Type: application/json');
+			echo json_encode(['success' => false, 'data' => ['message' => 'WhatsApp no tiene suficientes dígitos']]);
+			wp_die();
+		}
+
 		// Aplicar seguridad global (rate limiting, spam detection, duplicate check)
 		Global_Form_Handler::validate_security('servicio_empresa', $data);
 
@@ -68,8 +80,30 @@ class Avance_Servicio_Empresa_Handler {
 		$insert_id = Avance_Servicio_Empresa_DB::insert($data);
 
 		if (!$insert_id) {
+			global $wpdb;
+			$error_message = 'No se pudo guardar tu solicitud. Por favor intenta de nuevo.';
+
+			// Log del error para debugging en producción
+			$last_error = $wpdb->last_error ?: 'Unknown error';
+			error_log('Avance_Servicio_Empresa_Handler::insert error - ' . $last_error);
+
+			// Detectar errores específicos
+			if (!empty($last_error)) {
+				if (stripos($last_error, 'Duplicate') !== false || stripos($last_error, 'UNIQUE') !== false) {
+					if (stripos($last_error, 'email') !== false) {
+						$error_message = 'Este email ya fue registrado. Usa otro email o intenta con otro nombre de empresa.';
+					} else {
+						$error_message = 'Estos datos ya fueron registrados. Por favor usa información diferente.';
+					}
+				} elseif (stripos($last_error, 'Incorrect') !== false || stripos($last_error, 'column') !== false) {
+					$error_message = 'Error en los datos. Por favor verifica que todos los campos sean válidos.';
+				} elseif (stripos($last_error, 'connection') !== false || stripos($last_error, 'timeout') !== false) {
+					$error_message = 'Error de conexión con la base de datos. Intenta de nuevo en un momento.';
+				}
+			}
+
 			header('Content-Type: application/json');
-			echo json_encode(['success' => false, 'data' => ['message' => 'Error al guardar los datos']]);
+			echo json_encode(['success' => false, 'data' => ['message' => $error_message]]);
 			wp_die();
 		}
 

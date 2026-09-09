@@ -213,7 +213,8 @@ class ServicioEmpresaHandler extends FormHandler {
 				} else {
 					submitBtn.textContent = 'Error al enviar';
 					submitBtn.disabled = false;
-					this.showError('Error: ' + (result.data?.message || result.message || 'Error desconocido'));
+					const errorMsg = result.data?.message || result.message || 'Error desconocido';
+					this.showError(errorMsg);
 				}
 			})
 			.catch((error) => {
@@ -557,6 +558,19 @@ class AppointmentHandler extends FormHandler {
 				this.config.isSubmitting = false;
 				this.showError('Error de conexión. Intenta de nuevo.');
 			});
+	}
+
+	resetForm() {
+		const form = document.getElementById(this.config.formId);
+		if (form) form.reset();
+
+		const schedulingTrigger = document.getElementById('scheduling-select-trigger');
+		if (schedulingTrigger) {
+			const valueSpan = schedulingTrigger.querySelector('.avance-select-value');
+			if (valueSpan) {
+				valueSpan.textContent = 'Selecciona un servicio o tema';
+			}
+		}
 	}
 }
 

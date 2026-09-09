@@ -18,12 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		const message = result.message || result.data?.message;
 
 		if (!message) {
-			console.warn('Respuesta sin mensaje de error esperado:', result);
 			return 'Error al agendar. Intenta de nuevo.';
 		}
 
 		if (typeof message !== 'string') {
-			console.warn('Mensaje de error no es string:', message);
 			return 'Error al agendar. Intenta de nuevo.';
 		}
 
@@ -127,19 +125,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			try {
 				result = await response.json();
 			} catch (parseError) {
-				console.error('JSON parse error:', parseError);
 				throw new Error('Respuesta inválida del servidor');
 			}
 
 			if (!result || typeof result !== 'object') {
-				console.error('Invalid response structure:', result);
 				throw new Error('Respuesta inválida del servidor');
 			}
 
 			// Validar HTTP status DESPUÉS de parsear JSON (así capturamos el mensaje de error)
 			if (!response.ok) {
 				const errorMsg = extractErrorMessage(result);
-				console.error(`HTTP ${response.status}:`, errorMsg);
 				showNotification(errorMsg);
 				return;
 			}
@@ -165,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				window.resetContactoCalendar();
 			}
 		} catch (error) {
-			console.error('Agendamiento error:', error);
 			const userMsg = error.message.includes('HTTP')
 				? 'El servidor no pudo procesar tu solicitud. Intenta de nuevo.'
 				: error.message || 'Error de conexión. Verifica tu conexión e intenta de nuevo.';

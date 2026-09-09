@@ -142,6 +142,9 @@ require_once get_template_directory() . '/includes/admin/proposals/class-proposa
 // Admin de Diagnósticos
 require_once get_template_directory() . '/includes/admin/diagnosticos/class-diagnosticos-admin.php';
 
+// Admin de Agendamientos
+require_once get_template_directory() . '/includes/admin/agendamientos/class-agendamientos-admin.php';
+
 
 // ============================================================
 // COMPRA DE LIBRO - OBTENER POR CATEGORÍA "LIBRO" + NOMBRE "B2B"

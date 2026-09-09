@@ -168,11 +168,6 @@
 			submitBtn.textContent = plan ? `Confirmar reserva · ${plan.price}/${plan.unit} →` : 'Selecciona un plan primero';
 			submitBtn.disabled = !plan;
 		}
-
-		// Mobile flow: mostrar formulario solo si hay fecha Y hora seleccionadas
-		if (state.selectedDay && state.selectedTime) {
-			setFlowDisplay('form');
-		}
 	}
 
 	function renderCalendar() {
@@ -426,7 +421,7 @@
 	}
 
 	function resetForm() {
-		document.getElementById('mentoriaName').value = '';
+		document.getElementById('mentoriaFirstName').value = '';
 		document.getElementById('mentoriaWhatsapp').value = '';
 		document.getElementById('mentoriaEmail').value = '';
 		document.getElementById('mentoriaDesafio').value = '';

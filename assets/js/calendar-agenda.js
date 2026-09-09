@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const timeContainer = document.querySelector('[id*="TimeSlots"]') || document.querySelector('.contacto-agenda__time-slots');
 
 	if (!calGrid || !monthLabel) {
-		console.warn('Calendar elements not found:', { calGrid: !!calGrid, monthLabel: !!monthLabel });
 		return;
 	}
 
@@ -178,7 +177,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 				if (label) {
 					label.textContent = `Error al cargar disponibilidad: ${result.error}`;
 				}
-				console.error('Failed to load booked hours:', result.error);
 				return;
 			}
 

@@ -53,7 +53,7 @@ if (!defined('ABSPATH')) {
 						<span>WhatsApp</span>
 					</a>
 					<?php
-						$booking_url = is_page('inicio') ? '#scheduling-section' : esc_url(home_url('/#scheduling-section'));
+						$booking_url = is_front_page() ? '#scheduling-section' : esc_url(home_url('/#scheduling-section'));
 					?>
 					<a class="avance-btn avance-btn--outline" href="<?php echo $booking_url; ?>">Agendar sesión</a>
 				</div>
@@ -83,7 +83,7 @@ if (!defined('ABSPATH')) {
 
 			<div class="avance-menu-panel__actions">
 				<?php
-					$booking_url = is_page('inicio') ? '#scheduling-section' : esc_url(home_url('/#scheduling-section'));
+					$booking_url = is_front_page() ? '#scheduling-section' : esc_url(home_url('/#scheduling-section'));
 				?>
 				<a class="avance-btn avance-btn--primary" href="<?php echo $booking_url; ?>">Agendar sesión</a>
 				<a class="avance-btn avance-btn--secondary" href="<?php echo esc_url(AVANCE_WHATSAPP_URL); ?>" <?php echo AVANCE_WHATSAPP_ATTRS; ?>>

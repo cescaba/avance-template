@@ -138,6 +138,34 @@ class Avance_Plin_Payment {
 	}
 
 	/**
+	 * Obtener número Plin
+	 */
+	public function get_plin_number() {
+		return $this->plin_settings['numero'] ?? '';
+	}
+
+	/**
+	 * Obtener QR Plin
+	 */
+	public function get_plin_qr() {
+		return $this->plin_settings['qr'] ?? '';
+	}
+
+	/**
+	 * Obtener headline Plin
+	 */
+	public function get_plin_headline() {
+		return $this->plin_settings['headline'] ?? '';
+	}
+
+	/**
+	 * Obtener instrucciones Plin
+	 */
+	public function get_plin_instructions() {
+		return $this->plin_settings['instrucciones'] ?? '';
+	}
+
+	/**
 	 * Renderizar tarjeta Plin
 	 */
 	public function render() {

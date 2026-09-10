@@ -43,6 +43,33 @@ $plin_payment = new Avance_Plin_Payment( $order );
 
 $order_items = $order->get_items();
 
+// Detectar categorías de productos para mostrar/ocultar envío
+$has_libro = false;
+$has_reserva = false;
+foreach ($order_items as $item) {
+  $product_id = $item->get_data()['product_id'] ?? 0;
+  if ($product_id) {
+    $product = wc_get_product($product_id);
+    if ($product) {
+      $categories = $product->get_category_ids();
+      foreach ($categories as $cat_id) {
+        $category = get_term($cat_id, 'product_cat');
+        if ($category && !is_wp_error($category)) {
+          if (strtolower($category->name) === 'libro' || strtolower($category->slug) === 'libro') {
+            $has_libro = true;
+          }
+          if (strtolower($category->name) === 'reserva' || strtolower($category->slug) === 'reserva') {
+            $has_reserva = true;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mostrar envío solo si hay productos Libro (no para Reserva)
+$show_shipping = $has_libro && !$has_reserva && $order->get_shipping_total() > 0;
+
 // Obtener información bancaria desde WooCommerce
 $bank_info = array();
 $payment_method = $order->get_payment_method();
@@ -137,7 +164,7 @@ if ( empty( $bank_info ) && function_exists( 'get_field' ) ) {
         <div class="order-row"><dt>Fecha del pedido</dt><dd><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></dd></div>
         <div class="order-row"><dt>Método de pago</dt><dd><?php echo esc_html( $order->get_payment_method_title() ); ?></dd></div>
         <div class="order-row"><dt>Subtotal</dt><dd><?php echo wp_kses_post( wc_price( $order->get_subtotal() ) ); ?></dd></div>
-        <?php if ( $order->get_shipping_total() > 0 ) : ?>
+        <?php if ( $show_shipping ) : ?>
         <div class="order-row"><dt>Costo de envío</dt><dd><?php echo wp_kses_post( wc_price( $order->get_shipping_total() ) ); ?></dd></div>
         <?php endif; ?>
       </dl>

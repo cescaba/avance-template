@@ -138,6 +138,34 @@ class Avance_Yape_Payment {
 	}
 
 	/**
+	 * Obtener número Yape
+	 */
+	public function get_yape_number() {
+		return $this->yape_settings['numero'] ?? '';
+	}
+
+	/**
+	 * Obtener QR Yape
+	 */
+	public function get_yape_qr() {
+		return $this->yape_settings['qr'] ?? '';
+	}
+
+	/**
+	 * Obtener headline Yape
+	 */
+	public function get_yape_headline() {
+		return $this->yape_settings['headline'] ?? '';
+	}
+
+	/**
+	 * Obtener instrucciones Yape
+	 */
+	public function get_yape_instructions() {
+		return $this->yape_settings['instrucciones'] ?? '';
+	}
+
+	/**
 	 * Renderizar tarjeta Yape
 	 */
 	public function render() {

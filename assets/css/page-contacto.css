@@ -311,12 +311,14 @@
 
 	.contacto-hero__container {
 		background-color: #A6BEB8;
-		padding-top: 16px;
+		padding-top: 30px;
 		padding-right: var(--lateral-spacing);
-		padding-bottom: 40px;
+		padding-bottom: 30px;
 		padding-left: var(--lateral-spacing);
 		width: 100%;
-		display: block;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 
 	.contacto-hero__content {

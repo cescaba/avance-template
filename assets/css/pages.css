@@ -3457,7 +3457,7 @@
 
 	/* FOOTER - MOBILE 479px */
 	.site-footer {
-		padding: 32px var(--lateral-spacing) 20px var(--lateral-spacing);
+		padding: 40px var(--lateral-spacing);
 		background-color: #F0F4EF;
 	}
 
@@ -3550,7 +3550,7 @@
 
 	.site-footer__copyright-text {
 		font-weight: 300;
-		font-size: 12px;
+		font-size: 10px;
 		line-height: 100%;
 		letter-spacing: 0%;
 		color: #99A1AF;
@@ -3566,7 +3566,7 @@
 
 	.site-footer__legal-links a {
 		font-weight: 300;
-		font-size: 12px;
+		font-size: 10px;
 		line-height: 100%;
 		letter-spacing: 0%;
 		color: #99A1AF;

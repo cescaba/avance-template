@@ -73,6 +73,11 @@ foreach ($order_items as $item) {
 // Mostrar envío solo si hay productos Libro (no para Reserva)
 $show_shipping = $has_libro && !$has_reserva && $shipping_total > 0;
 
+// Filtro para ocultar imagen del producto en email
+add_filter('woocommerce_product_thumbnail_size', function() {
+  return array(0, 0);
+});
+
 // Preheader personalizado
 $preheader = sprintf(
 	'Pedido #%s recibido — en espera de pago. Paga %s y envíanos la confirmación.',
@@ -408,7 +413,7 @@ $preheader = sprintf(
                 <td align="right" width="110" style="width:110px;padding:14px 18px;border-bottom:1px solid #E7EEE4;font-family:Inter,'Helvetica Neue',Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:#6B8177;line-height:15px;mso-line-height-rule:exactly;">Precio</td>
               </tr>
 
-              <!-- Productos -->
+              <!-- Productos (sin imágenes) -->
               <?php foreach ($order_items as $item) : ?>
               <tr>
                 <td style="padding:16px 18px;border-bottom:1px solid #E7EEE4;font-family:Inter,'Helvetica Neue',Arial,Helvetica,sans-serif;">
